@@ -9,8 +9,7 @@ spec:
   releaseName: trident
   chart:
     spec:
-      chart: trident
-      version: 1.0.0
+      chart: /helm/trident-operator/
       sourceRef:
         kind: GitRepository
         name: trident
