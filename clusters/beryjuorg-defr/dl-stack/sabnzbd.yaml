@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: sabnzbd
+  name: sabnzbd
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd
+  serviceName: "sabnzbd"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sabnzbd
+    spec:
+      containers:
+      - name: sabnzbd
+        image: linuxserver/sabnzbd
+        resources:
+          requests:
+            memory: "150Mi"
+          limits:
+            memory: "250Mi"
+        env:
+          - name: PUID
+            value: '1000'
+          - name: PGID
+            value: '1000'
+          - name: TZ
+            value: Europe/Berlin
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9090
+          name: https
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: media
+          mountPath: /media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      resources:
+        requests:
+          storage: 1Gi
+      accessModes:
+        - ReadWriteOnce
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sabnzbd
+  namespace: dl-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sabnzbd
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: sabnzbd
+  namespace: dl-stack
+spec:
+  rules:
+  - host: sabnzbd.defr.k8s.beryju.org
+    http:
+      paths:
+      - backend:
+          serviceName: sabnzbd
+          servicePort: 8080
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - sabnzbd.defr.k8s.beryju.org
+    secretName: sabnzbd-acme

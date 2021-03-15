@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: radarr
+  name: radarr
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: radarr
+  serviceName: "radarr"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: radarr
+    spec:
+      containers:
+      - name: radarr
+        image: linuxserver/radarr:preview
+        resources:
+          requests:
+            memory: "250Mi"
+          limits:
+            memory: "350Mi"
+        env:
+          - name: PUID
+            value: '1000'
+          - name: PGID
+            value: '1000'
+          - name: TZ
+            value: Europe/Berlin
+          - name: UMASK_SET
+            value: '022'
+        ports:
+        - containerPort: 7878
+          name: http
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: media
+          mountPath: /media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      resources:
+        requests:
+          storage: 1Gi
+      accessModes:
+        - ReadWriteOnce
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr
+  namespace: dl-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: radarr
+  ports:
+  - port: 7878
+    targetPort: 7878
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: radarr
+  namespace: dl-stack
+spec:
+  rules:
+  - host: radarr.defr.k8s.beryju.org
+    http:
+      paths:
+      - backend:
+          serviceName: radarr
+          servicePort: 7878
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - radarr.defr.k8s.beryju.org
+    secretName: radarr-acme

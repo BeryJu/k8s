@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: sonarr
+  name: sonarr
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  serviceName: "sonarr"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr:preview
+        resources:
+          requests:
+            memory: "250Mi"
+          limits:
+            memory: "350Mi"
+        env:
+          - name: PUID
+            value: '1000'
+          - name: PGID
+            value: '1000'
+          - name: TZ
+            value: Europe/Berlin
+          - name: UMASK_SET
+            value: '022'
+        ports:
+        - containerPort: 8989
+          name: http
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: media
+          mountPath: /media
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      resources:
+        requests:
+          storage: 1Gi
+      accessModes:
+        - ReadWriteOnce
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+  namespace: dl-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sonarr
+  ports:
+  - port: 8989
+    targetPort: 8989
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: sonarr
+  namespace: dl-stack
+spec:
+  rules:
+  - host: sonarr.defr.k8s.beryju.org
+    http:
+      paths:
+      - backend:
+          serviceName: sonarr
+          servicePort: 8989
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - sonarr.defr.k8s.beryju.org
+    secretName: sonarr-acme
