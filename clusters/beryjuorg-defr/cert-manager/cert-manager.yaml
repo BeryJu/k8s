@@ -16,7 +16,7 @@ spec:
       kind: HelmRelease
       metadata:
         name: cert-manager
-        namespace: flux-system
+        namespace: cert-manager
       spec:
         releaseName: cert-manager
         targetNamespace: cert-manager

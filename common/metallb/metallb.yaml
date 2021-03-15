@@ -6,7 +6,6 @@ metadata:
 spec:
   maxHistory: 3
   interval: 10m0s
-  suspend: false
   releaseName: metallb
   chart:
     spec:
