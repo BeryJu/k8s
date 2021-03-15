@@ -9,7 +9,7 @@ spec:
   releaseName: ingress-nginx
   chart:
     spec:
-      chart: metallb
+      chart: ingress-nginx
       version: 3.24.x
       sourceRef:
         kind: HelmRepository
