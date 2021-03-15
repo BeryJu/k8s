@@ -12,6 +12,6 @@ spec:
       chart: trident
       version: 1.0.0
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: trident
         namespace: flux-system
