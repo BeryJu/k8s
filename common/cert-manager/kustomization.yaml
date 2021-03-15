@@ -2,6 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: cert-manager
 resources:
-  - cert-manager.yaml
-  - cluster-issuer.yaml
-  - secret.yaml
+  - ./cert-manager.yaml
+  - ./cluster-issuer.yaml
+  - ./secret.yaml
