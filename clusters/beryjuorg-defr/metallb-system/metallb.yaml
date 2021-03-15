@@ -16,3 +16,15 @@ spec:
         kind: HelmRepository
         name: bitnami-charts
         namespace: flux-system
+  values:
+    configInline:
+      peers:
+      - peer-address: "10.120.20.1"
+        peer-asn: 204662
+        my-asn: 65553
+      address-pools:
+      - name: default
+        protocol: bgp
+        avoid-buggy-ips: true
+        addresses:
+        - "10.120.21.0/28"
