@@ -1,0 +1,34 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: admin@beryju.org
+    preferredChain: ""
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        route53:
+          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          hostedZoneID: ZYNWRNUP3ZIYV
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            key: secret-access-key
+            name: cert-manager-secret
+      selector:
+        dnsZones:
+        - beryju.org
+    - dns01:
+        route53:
+          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          hostedZoneID: Z21H1D33A3ZJYB
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            key: secret-access-key
+            name: cert-manager-secret
+      selector:
+        dnsZones:
+        - jela.io
