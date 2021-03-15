@@ -15,7 +15,3 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-    values:
-      controller:
-        service:
-          enabled: true
