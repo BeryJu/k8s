@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  maxHistory: 3
+  interval: 10m0s
+  releaseName: ingress-nginx
+  chart:
+    spec:
+      chart: metallb
+      version: 3.24.x
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+        namespace: flux-system
+    values:
+      controller:
+        service:
+          enabled: true
