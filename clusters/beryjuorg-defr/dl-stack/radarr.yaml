@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: radarr
-        image: ghcr.io/linuxserver/sonarr
+        image: ghcr.io/linuxserver/radarr
         resources:
           requests:
             memory: "250Mi"
