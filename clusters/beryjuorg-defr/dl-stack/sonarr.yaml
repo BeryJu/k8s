@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:preview
+        image: ghcr.io/linuxserver/sonarr
         resources:
           requests:
             memory: "250Mi"
