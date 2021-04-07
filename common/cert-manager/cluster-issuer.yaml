@@ -32,3 +32,14 @@ spec:
       selector:
         dnsZones:
         - jela.io
+    - dns01:
+        route53:
+          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          hostedZoneID: Z01991371BCNAIWGVM83O
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            key: secret-access-key
+            name: cert-manager-secret
+      selector:
+        dnsZones:
+        - goauthentik.io
