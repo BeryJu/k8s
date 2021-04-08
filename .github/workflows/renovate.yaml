@@ -1,0 +1,22 @@
+---
+
+name: Schedule - Renovate Helm Releases
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 */12 * * *'
+
+jobs:
+  renovate-helm-releases:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 1
+
+    - name: Renovate Helm Releases
+      uses: k8s-at-home/renovate-helm-releases@v1
+      with:
+        cluster-path: "./cluster"

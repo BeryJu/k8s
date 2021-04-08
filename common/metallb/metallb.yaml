@@ -9,6 +9,7 @@ spec:
   releaseName: metallb
   chart:
     spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: metallb
       version: 2.3.2
       sourceRef:
