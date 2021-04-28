@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jela-io-ingress
@@ -19,5 +19,7 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: jela-io-http
-              servicePort: http
+              service:
+                name: jela-io-http
+                port:
+                  name: http

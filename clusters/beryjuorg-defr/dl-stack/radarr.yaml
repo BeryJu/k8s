@@ -67,7 +67,7 @@ spec:
   - port: 7878
     targetPort: 7878
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -80,8 +80,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: radarr
-          servicePort: 7878
+          service:
+            name: radarr
+            port:
+              number: 7878
         path: /
         pathType: ImplementationSpecific
   tls:

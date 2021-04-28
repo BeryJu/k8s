@@ -67,7 +67,7 @@ spec:
   - port: 8080
     targetPort: 8080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -80,8 +80,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: sabnzbd
-          servicePort: 8080
+          service:
+            name: sabnzbd
+            port:
+              number: 8080
         path: /
         pathType: ImplementationSpecific
   tls:

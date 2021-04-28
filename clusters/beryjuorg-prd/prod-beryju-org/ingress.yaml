@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,8 +12,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: beryju-org-grav
-          servicePort: 80
+          service:
+            name: beryju-org-grav
+            port:
+              number: 80
         path: /
       - backend:
           service:
@@ -25,8 +27,10 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: beryju-org-grav
-          servicePort: 80
+          service:
+            name: beryju-org-grav
+            port:
+              number: 80
         path: /
   tls:
   - hosts:

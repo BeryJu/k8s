@@ -5,7 +5,7 @@
 ## beryjuorg-prd
 
  - [ ] acme-for-appliances
- - [ ] awx
+ - [x] awx
  - [x] cert-manager
  - [ ] dev-ak-outpost-forward
  - [ ] dj-jela-io
