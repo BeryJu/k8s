@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/upstream-vhost: overseerr.defr.k8s.beryju.org
+  name: plex-requests
+  namespace: edge-proxy
+spec:
+  rules:
+  - host: requests.jela.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: plex-requests
+            port:
+              number: 443
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - requests.jela.io
+    secretName: plex-requests-acme
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-requests
+  namespace: edge-proxy
+spec:
+  externalName: overseerr.defr.k8s.beryju.org
+  type: ExternalName
