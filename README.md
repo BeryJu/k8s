@@ -20,5 +20,4 @@
  - [x] prod-jela-io
  - [x] trident
  - [x] vault-secrets-operator
- - [ ] wiki-js
  - [x] workstation
