@@ -1,0 +1,35 @@
+{
+  "enabled": true,
+  "timezone": "America/New_York",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "rebaseWhen": "conflicted",
+  "regexManagers": [
+    // regexManager to read and process HelmReleases and CRDs
+    {
+      "fileMatch": [
+        "cluster/.+\\.yaml$",
+      ],
+      "matchStrings": [
+        // helm releases
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        // kube-prometheus-stack crd
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
+        // rook-ceph crd
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: (?<currentValue>.*)\n",
+        // cert-manager crd
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/",
+      ],
+      "datasourceTemplate": "helm",
+    },
+  ],
+  "packageRules": [
+    // setup datasources
+    {
+      "matchDatasources": ["helm"],
+      "separateMinorPatch": true,
+    },
+  ]
+}
