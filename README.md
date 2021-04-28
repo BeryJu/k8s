@@ -22,4 +22,4 @@
  - [x] trident
  - [x] vault-secrets-operator
  - [ ] wiki-js
- - [ ] workstation
+ - [x] workstation
