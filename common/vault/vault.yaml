@@ -1,0 +1,53 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault-secrets-operator
+  namespace: vault-secrets-operator
+spec:
+  maxHistory: 3
+  interval: 10m0s
+  releaseName: vault-secrets-operator
+  chart:
+    spec:
+      # renovate: registryUrl=https://ricoberger.github.io/helm-charts
+      chart: vault-secrets-operator
+      version: 1.14.2
+      sourceRef:
+        kind: HelmRepository
+        name: vault-secrets-operator
+        namespace: flux-system
+  values:
+    vault:
+      address: https://vault1.lab.beryju.org:8200
+      authMethod: kubernetes
+      kubernetesPath: auth/kubernetes
+      kubernetesRole: vault-secrets-operator
+    environmentVars:
+      - name: VAULT_SKIP_VERIFY
+        value: "true"
+# #!/bin/bash
+# export CLUSTER_NAME="defr"
+# export VAULT_SECRETS_OPERATOR_NAMESPACE=$(kubectl get sa vault-secrets-operator -o jsonpath="{.metadata.namespace}")
+# export VAULT_SECRET_NAME=$(kubectl get sa vault-secrets-operator -o jsonpath="{.secrets[*]['name']}")
+# export SA_JWT_TOKEN=$(kubectl get secret $VAULT_SECRET_NAME -o jsonpath="{.data.token}" | base64 --decode; echo)
+# export SA_CA_CRT=$(kubectl get secret $VAULT_SECRET_NAME -o jsonpath="{.data['ca\.crt']}" | base64 --decode; echo)
+# export K8S_HOST=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+
+# # Verify the environment variables
+# env | grep -E 'VAULT_SECRETS_OPERATOR_NAMESPACE|VAULT_SECRET_NAME|SA_JWT_TOKEN|SA_CA_CRT|K8S_HOST'
+# # Enable the Kubernetes auth method at the default path (auth/kubernetes) and finish the configuration of Vault:
+
+# vault auth enable k8s-${CLUSTER_NAME}
+
+# # Tell Vault how to communicate with the Kubernetes cluster
+# vault write auth/k8s-${CLUSTER_NAME}/config \
+#   token_reviewer_jwt="$SA_JWT_TOKEN" \
+#   kubernetes_host="$K8S_HOST" \
+#   kubernetes_ca_cert="$SA_CA_CRT"
+
+# # Create a role named, 'vault-secrets-operator' to map Kubernetes Service Account to Vault policies and default token TTL
+# vault write auth/k8s-${CLUSTER_NAME}/role/vault-secrets-operator \
+#   bound_service_account_names="vault-secrets-operator" \
+#   bound_service_account_namespaces="$VAULT_SECRETS_OPERATOR_NAMESPACE" \
+#   policies=vault-secrets-operator \
+#   ttl=24h
