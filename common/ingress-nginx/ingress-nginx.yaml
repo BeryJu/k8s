@@ -20,3 +20,4 @@ spec:
     controller:
       service:
         externalTrafficPolicy: Local
+      replicaCount: 2
