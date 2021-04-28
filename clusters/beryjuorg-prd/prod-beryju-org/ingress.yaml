@@ -15,6 +15,12 @@ spec:
           serviceName: beryju-org-grav
           servicePort: 80
         path: /
+      - backend:
+          service:
+            name: docker
+            port:
+              number: 80
+        path: /v2
   - host: blog.beryju.org
     http:
       paths:
