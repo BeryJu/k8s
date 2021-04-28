@@ -1,16 +1,12 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
 metadata:
-  creationTimestamp: null
   name: discord-url
   namespace: flux-system
 spec:
-  encryptedData:
-    address: AgAR7IU3DlCXIo6LIpW4ERN8sSP+Zs55yyhyELCZFQFHPWEzBAmF0cAAROvxcri/FavMjJ0BK3WiKFGqNKao6Ukicu3aOayaup1nN2T0CBLfgP54RBvrfRUshpJohudVpcL3SLV6ye99+QdT66GUXfDUVl+RQYmbzUqygY+GlbF8ycvgBNLMYbNTenknxrC5uS1E+JY3nS4zcsMmkTueUBD4lILLaaACiNLIW3JXnVFatFFp5vCmGn41nbch1JHrUwxtyBqtie+J0dHvg3GwdvrUhYOo2McplpmYRCkwBs5Tnhe+f/4x2Zi1wHQrytl7uBgqgS0Bjv2q5mAUDFnbl/+js75sF6lF3E3RoEi+Cn2+sIE1A0WaCKGUAbg0TnfrX3UZICKnTn75fzsq3Nm1bWX3gn+KO1os/ng5uQDPbs9fXRrfy/GNakR0t+WwEDt8FWzeXfHpFNKp3SMt8aYMf6DEZ0m0vsWuJb+CdSvECD+e0WqyV23ISBX8BoQ5vbN7l18p8Flj11dP2PZTj/dV2y2dGURE88hhsPkfYYmepu/2ooz0ooEJY0EhyumgW/1VmiUvLjhytQemQPh92ghJKn72vSLOQiml78JlhxEwOUTVpuUaxIUByUVTDMZ061YXgu5hnBbFX6+nzp4LD602z/pymQxb/BiAoD6ZQmJFiGupdPUusKaLF2I2jKI11vnEmjKQIaYbAob0QiG6ax32IledNGy1HzbNmVz2HFHLm3d7qbd0CL8n+XuWS1g4HzzQ25c3NPzGNeXlO9xlK/HqbAqWAPEPn+gp7ZDGdyZ/VZ1XCM4nHu/WnfzEpq4lDj/eYesa964Xsx8BG76Iyx8YJbeR/JMzSUHmdKQ=
-  template:
-    metadata:
-      creationTimestamp: null
-      name: discord-url
-      namespace: flux-system
-    type: Opaque
-
+  keys:
+    - discord_webhook
+  path: kv/k8s-flux
+  type: Opaque
+  templates:
+    address: "{% .Secrets.discord_webhook %}"
