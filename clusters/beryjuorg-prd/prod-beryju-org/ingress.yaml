@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  name: beryju-org
+  namespace: prod-beryju-org
+spec:
+  rules:
+  - host: beryju.org
+    http:
+      paths:
+      - backend:
+          serviceName: beryju-org-grav
+          servicePort: 80
+        path: /
+  - host: blog.beryju.org
+    http:
+      paths:
+      - backend:
+          serviceName: beryju-org-grav
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - beryju.org
+    - blog.beryju.org
+    secretName: beryju-org

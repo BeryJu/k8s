@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beryju-org-grav
+  namespace: prod-beryju-org
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    io.kompose.service: beryju.org-grav
+  sessionAffinity: None
+  type: ClusterIP

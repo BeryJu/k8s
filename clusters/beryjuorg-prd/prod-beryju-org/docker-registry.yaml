@@ -1,0 +1,13 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: harbor
+  namespace: prod-beryju-org
+spec:
+  keys:
+    - harbor_password
+    - harbor_username
+  path: kv/k8s-global
+  type: kubernetes.io/dockerconfigjson
+  templates:
+    .dockerconfigjson: "{\"auths\": {\"docker.beryju.org\": {\"username\": \"{% .Secrets.harbor_username %}\", \"password\": \"{% .Secrets.harbor_password %}\"}}}"

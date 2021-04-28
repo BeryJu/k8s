@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beryju-org-grav
+  namespace: prod-beryju-org
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: beryju.org-grav
+  template:
+    metadata:
+      labels:
+        io.kompose.service: beryju.org-grav
+    spec:
+      containers:
+      - image: docker.beryju.org/k8s/beryju.org
+        imagePullPolicy: Always
+        name: beryju-org
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources: {}
+      imagePullSecrets:
+        - name: harbor
