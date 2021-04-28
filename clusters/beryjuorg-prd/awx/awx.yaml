@@ -1,0 +1,31 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  labels:
+    app.kubernetes.io/component: awx
+    app.kubernetes.io/managed-by: awx-operator
+    app.kubernetes.io/name: awx
+    app.kubernetes.io/part-of: awx
+  name: awx
+  namespace: awx
+spec:
+  tower_admin_user: admin
+  tower_create_preload_data: true
+  tower_garbage_collect_secrets: false
+  tower_hostname: awx.beryju.org
+  tower_image_pull_policy: IfNotPresent
+  tower_ingress_annotations: |
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tower_ingress_tls_secret: awx-acme
+  tower_ingress_type: Ingress
+  tower_loadbalancer_port: 80
+  tower_loadbalancer_protocol: http
+  tower_postgres_resource_requirements:
+    requests:
+      storage: 16Gi
+  tower_projects_persistence: false
+  tower_projects_storage_access_mode: ReadWriteMany
+  tower_projects_storage_size: 8Gi
+  tower_replicas: 1
+  tower_route_tls_termination_mechanism: Edge
+  tower_task_privileged: false
