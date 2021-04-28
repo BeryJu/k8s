@@ -7,9 +7,8 @@
  - [ ] acme-for-appliances
  - [x] awx
  - [x] cert-manager
- - [ ] dev-ak-outpost-forward
  - [ ] dj-jela-io
- - [ ] edge-proxy
+ - [x] edge-proxy
  - [x] flux-system
  - [ ] guac
  - [x] ingress-nginx
@@ -17,7 +16,7 @@
  - [x] metallb-system
  - [ ] passbook-v3
  - [x] prod-beryju-org
- - [ ] prod-harbor
+ - [x] prod-harbor
  - [x] prod-jela-io
  - [x] trident
  - [x] vault-secrets-operator
