@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: overseerr
+  namespace: overseerr
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: overseerr
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      version: "3.3.1"
+  interval: 1h0m0s
+  releaseName: overseerr
+  targetNamespace: overseerr
+  values:
+    persistence:
+      config:
+        enabled: true
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: overseerr.defr.k8s.beryju.org
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+          tls:
+            - hosts:
+              - overseerr.defr.k8s.beryju.org
+              secretName: overseerr-acme
