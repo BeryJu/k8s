@@ -18,13 +18,10 @@ spec:
         namespace: flux-system
   values:
     vault:
-      address: https://vault1.prod.beryju.org:8200
+      address: https://vault.beryju.org
       authMethod: kubernetes
       kubernetesPath: auth/kubernetes
       kubernetesRole: vault-secrets-operator
-    environmentVars:
-      - name: VAULT_SKIP_VERIFY
-        value: "true"
 # #!/bin/bash
 # export CLUSTER_NAME="defr"
 # export VAULT_SECRETS_OPERATOR_NAMESPACE=$(kubectl get sa vault-secrets-operator -o jsonpath="{.metadata.namespace}")
