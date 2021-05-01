@@ -22,3 +22,13 @@ spec:
         secretRef:
           name: discord-url
         username: flux-beryjuorg-prd
+    - apiVersion: ricoberger.de/v1alpha1
+      kind: VaultSecret
+      metadata:
+        name: discord-url
+        namespace: flux-system
+      spec:
+        path: kv/k8s-flux
+        type: Opaque
+        templates:
+          address: "{% .Secrets.discord_webhook_prd %}"
