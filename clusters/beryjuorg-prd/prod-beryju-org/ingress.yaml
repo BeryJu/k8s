@@ -17,12 +17,14 @@ spec:
             port:
               number: 80
         path: /
+        pathType: Prefix
       - backend:
           service:
             name: docker
             port:
               number: 80
         path: /v2
+        pathType: Prefix
   - host: blog.beryju.org
     http:
       paths:
@@ -32,6 +34,7 @@ spec:
             port:
               number: 80
         path: /
+        pathType: Prefix
   tls:
   - hosts:
     - beryju.org
