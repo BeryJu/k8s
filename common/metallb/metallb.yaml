@@ -4,8 +4,7 @@ metadata:
   name: metallb
   namespace: metallb-system
 spec:
-  maxHistory: 3
-  interval: 10m0s
+  interval: 6h
   releaseName: metallb
   chart:
     spec:
