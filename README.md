@@ -10,7 +10,7 @@
  - [ ] dj-jela-io
  - [x] edge-proxy
  - [x] flux-system
- - [ ] guac
+ - [x] guac
  - [x] ingress-nginx
  - [x] logging
  - [x] metallb-system
