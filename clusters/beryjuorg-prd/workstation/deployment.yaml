@@ -7,6 +7,7 @@ metadata:
   namespace: workstation
 spec:
   replicas: 1
+  strategy: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: beryju-workstation
@@ -16,7 +17,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-      - image: docker.beryju.org/jens/workstation:v26
+      - image: docker.beryju.org/jens/workstation:v27
         name: workstation
         ports:
         - containerPort: 22
