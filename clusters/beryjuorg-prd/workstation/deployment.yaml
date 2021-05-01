@@ -7,7 +7,8 @@ metadata:
   namespace: workstation
 spec:
   replicas: 1
-  strategy: Recreate
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: beryju-workstation
