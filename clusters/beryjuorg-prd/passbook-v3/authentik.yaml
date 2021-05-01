@@ -1,0 +1,61 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: passbook
+  namespace: passbook-v3
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://docker.beryju.org/chartrepo/authentik
+      chart: authentik
+      version: 2021.4.5
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  interval: 1h0m0s
+  releaseName: passbook
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+  values:
+    backup:
+      bucket: passbook-backup
+      host: https://backup-s3.beryju.org
+    pvc:
+      uploadsStorageClass: ontap-ssd
+      geoIpStorageClass: ontap-ssd
+    config:
+      email:
+        from: authentik@services.beryju.org
+        host: email-smtp.eu-central-1.amazonaws.com
+        port: 587
+        use_tls: true
+      errorReporting:
+        enabled: true
+        environment: beryjuorg-prod
+        sendPii: true
+      logLevel: debug
+    geoip:
+      enabled: true
+    image:
+      name: docker.beryju.org/authentik/server
+      name_outposts: "docker.beryju.org/authentik/outpost-%(type)s:gh-next"
+      name_static: docker.beryju.org/authentik/static
+      pullPolicy: Always
+      tag: gh-next
+    ingress:
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      enabled: true
+      hosts:
+      - id.beryju.org
+      tls:
+      - hosts:
+        - id.beryju.org
+        secretName: passbook-acme
+    monitoring:
+      enabled: false
+    postgresql:
+      postgresqlDatabase: passbook
+    serverReplicas: 3

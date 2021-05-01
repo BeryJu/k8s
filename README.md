@@ -7,14 +7,14 @@
  - [ ] acme-for-appliances
  - [x] awx
  - [x] cert-manager
- - [ ] dj-jela-io
+ - [x] dj-jela-io
  - [x] edge-proxy
  - [x] flux-system
  - [x] guac
  - [x] ingress-nginx
  - [x] logging
  - [x] metallb-system
- - [ ] passbook-v3
+ - [x] passbook-v3
  - [x] prod-beryju-org
  - [x] prod-harbor
  - [x] prod-jela-io
