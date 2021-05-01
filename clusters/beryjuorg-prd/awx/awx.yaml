@@ -20,7 +20,7 @@ spec:
   tower_ingress_type: Ingress
   tower_loadbalancer_port: 80
   tower_loadbalancer_protocol: http
-  tower_postgres_resource_requirements:
+  tower_postgres_storage_requirements:
     requests:
       storage: 16Gi
   tower_projects_persistence: false
