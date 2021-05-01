@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-      - image: docker.beryju.org/jens/workstation:v25
+      - image: docker.beryju.org/jens/workstation:v26
         name: workstation
         ports:
         - containerPort: 22
