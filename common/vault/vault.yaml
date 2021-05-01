@@ -4,8 +4,7 @@ metadata:
   name: vault-secrets-operator
   namespace: vault-secrets-operator
 spec:
-  maxHistory: 3
-  interval: 10m0s
+  interval: 6h
   releaseName: vault-secrets-operator
   chart:
     spec:

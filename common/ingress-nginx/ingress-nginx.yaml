@@ -4,8 +4,7 @@ metadata:
   name: ingress-nginx
   namespace: ingress-nginx
 spec:
-  maxHistory: 3
-  interval: 10m0s
+  interval: 6h
   releaseName: ingress-nginx
   chart:
     spec:

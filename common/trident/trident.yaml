@@ -4,8 +4,7 @@ metadata:
   name: trident
   namespace: trident
 spec:
-  maxHistory: 3
-  interval: 10m0s
+  interval: 6h
   releaseName: trident
   chart:
     spec:
