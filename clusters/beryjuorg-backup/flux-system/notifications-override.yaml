@@ -31,4 +31,4 @@ spec:
         path: kv/k8s-flux
         type: Opaque
         templates:
-          address: "{% .Secrets.discord_webhook_prd %}"
+          address: "{% .Secrets.discord_webhook_backup %}"
