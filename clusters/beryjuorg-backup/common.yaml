@@ -16,20 +16,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: infrastructure-flux-system
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./common/flux-system
-  prune: true
-  validation: client
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
   name: infrastructure-ingress-nginx
   namespace: flux-system
 spec:
