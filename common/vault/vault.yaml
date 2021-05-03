@@ -22,7 +22,8 @@ spec:
       kubernetesPath: auth/kubernetes
       kubernetesRole: vault-secrets-operator
 # #!/bin/bash
-# export CLUSTER_NAME="defr"
+# export CLUSTER_NAME="backup"
+# kubens vault-secrets-operator
 # export VAULT_SECRETS_OPERATOR_NAMESPACE=$(kubectl get sa vault-secrets-operator -o jsonpath="{.metadata.namespace}")
 # export VAULT_SECRET_NAME=$(kubectl get sa vault-secrets-operator -o jsonpath="{.secrets[*]['name']}")
 # export SA_JWT_TOKEN=$(kubectl get secret $VAULT_SECRET_NAME -o jsonpath="{.data.token}" | base64 --decode; echo)
@@ -33,7 +34,7 @@ spec:
 # env | grep -E 'VAULT_SECRETS_OPERATOR_NAMESPACE|VAULT_SECRET_NAME|SA_JWT_TOKEN|SA_CA_CRT|K8S_HOST'
 # # Enable the Kubernetes auth method at the default path (auth/kubernetes) and finish the configuration of Vault:
 
-# vault auth enable k8s-${CLUSTER_NAME}
+# vault auth enable -path=k8s-${CLUSTER_NAME} kubernetes
 
 # # Tell Vault how to communicate with the Kubernetes cluster
 # vault write auth/k8s-${CLUSTER_NAME}/config \
