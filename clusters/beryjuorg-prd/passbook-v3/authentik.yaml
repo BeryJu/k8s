@@ -6,11 +6,9 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://docker.beryju.org/chartrepo/authentik
-      chart: authentik
-      version: 2021.4.5
+      chart: /helm//
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: authentik
         namespace: flux-system
   interval: 1h0m0s
