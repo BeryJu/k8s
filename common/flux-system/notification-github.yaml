@@ -1,0 +1,39 @@
+---
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: gh-pat-token
+  namespace: flux-system
+spec:
+  keys:
+    - github_pat
+  path: kv/k8s-flux
+  type: Opaque
+  templates:
+    token: "{% .Secrets.github_pat %}"
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: github
+  namespace: flux-system
+spec:
+  type: github
+  address: https://github.com/beryju/k8s
+  secretRef:
+    name: gh-pat-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Alert
+metadata:
+  name: github
+  namespace: flux-system
+spec:
+  providerRef:
+    name: github
+  eventSeverity: info
+  eventSources:
+  - kind: Kustomization
+    name: '*'
+  - kind: HelmRelease
+    name: '*'

@@ -28,6 +28,8 @@ spec:
         name: discord-url
         namespace: flux-system
       spec:
+        keys:
+          - discord_webhook_defr
         path: kv/k8s-flux
         type: Opaque
         templates:
