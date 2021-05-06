@@ -16,6 +16,12 @@ spec:
   interval: 1h0m0s
   releaseName: guacamole
   values:
+    guacamole:
+      image:
+        tag: 1.3.0
+    guacd:
+      image:
+        tag: 1.3.0
     ingress:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
