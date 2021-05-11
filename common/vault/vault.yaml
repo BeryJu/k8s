@@ -19,7 +19,7 @@ spec:
     vault:
       address: https://vault.beryju.org
       authMethod: kubernetes
-      kubernetesPath: auth/kubernetes
+      kubernetesPath: "${VAULT_AUTH_PATH}"
       kubernetesRole: vault-secrets-operator
 # #!/bin/bash
 # export CLUSTER_NAME="backup"

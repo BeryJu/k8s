@@ -5,7 +5,10 @@ metadata:
   namespace: flux-system
   name: cluster-settings
 data:
+  # MetalLB
   METALLB_PEER: "10.120.20.1"
   METALLB_PEER_ASN: "204662"
   METALLB_ASN: "65553"
   METALLB_RANGE: "10.120.21.0/28"
+  # Vault
+  VAULT_AUTH_PATH: "auth/k8s-defr"
