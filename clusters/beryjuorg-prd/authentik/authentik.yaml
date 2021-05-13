@@ -37,6 +37,10 @@ spec:
       enabled: true
       architecture: standalone
     fullnameOverride: authentik
+    image:
+      name: docker.beryju.org/authentik/server
+      tag: gh-next
+      pullPolicy: Always
     authentik:
       postgresql:
         host: "authentik-postgresql"
@@ -47,10 +51,6 @@ spec:
           host: "https://backup-s3.beryju.org"
       redis:
         host: "authentik-redis-master"
-      image:
-        name: docker.beryju.org/authentik/server
-        tag: gh-next
-        pullPolicy: Always
       log_level: debug
       email:
         from: authentik@services.beryju.org
