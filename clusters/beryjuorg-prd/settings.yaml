@@ -12,3 +12,6 @@ data:
   METALLB_RANGE: "194.56.224.176/28"
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-prd"
+  # Flux Notifications
+  FLUX_NOTIFICATION_USER: "flux-beryjuorg-prd"
+  FLUX_NOTIFICATION_URL_SECRET: "discord_webhook_prd"

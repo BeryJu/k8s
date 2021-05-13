@@ -7,8 +7,10 @@ metadata:
 spec:
   path: kv/k8s-flux
   type: Opaque
+  keys:
+    - ${FLUX_NOTIFICATION_URL_SECRET}
   templates:
-    address: ""
+    address: "{% .Secrets.${FLUX_NOTIFICATION_URL_SECRET} %}"
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
@@ -37,3 +39,4 @@ spec:
   channel: general
   secretRef:
     name: discord-url
+  username: "${FLUX_NOTIFICATION_USER}"

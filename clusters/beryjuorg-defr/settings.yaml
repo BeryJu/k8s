@@ -12,3 +12,6 @@ data:
   METALLB_RANGE: "10.120.21.0/28"
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-defr"
+  # Flux Notifications
+  FLUX_NOTIFICATION_USER: "flux-beryjuorg-defr"
+  FLUX_NOTIFICATION_URL_SECRET: "discord_webhook_defr"
