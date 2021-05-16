@@ -20,9 +20,10 @@ spec:
         image: ghcr.io/linuxserver/sabnzbd
         resources:
           requests:
-            memory: "150Mi"
+            memory: "300Mi"
+            cpu: "0.5"
           limits:
-            memory: "250Mi"
+            memory: "750Mi"
         env:
           - name: PUID
             value: '1000'
