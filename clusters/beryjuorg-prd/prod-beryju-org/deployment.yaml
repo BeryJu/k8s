@@ -14,7 +14,7 @@ spec:
         io.kompose.service: beryju.org-grav
     spec:
       containers:
-      - image: docker.beryju.org/k8s/beryju.org
+      - image: beryju.org/k8s/beryju.org
         imagePullPolicy: Always
         name: beryju-org
         ports:

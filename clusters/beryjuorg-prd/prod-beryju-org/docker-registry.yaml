@@ -10,4 +10,4 @@ spec:
   path: kv/k8s-global
   type: kubernetes.io/dockerconfigjson
   templates:
-    .dockerconfigjson: "{\"auths\": {\"docker.beryju.org\": {\"username\": \"{% .Secrets.harbor_username %}\", \"password\": \"{% .Secrets.harbor_password %}\"}}}"
+    .dockerconfigjson: "{\"auths\": {\"beryju.org\": {\"username\": \"{% .Secrets.harbor_username %}\", \"password\": \"{% .Secrets.harbor_password %}\"}}}"

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: jela-io
-          image: "docker.beryju.org/jens/jela.io:latest"
+          image: "beryju.org/jens/jela.io:latest"
           imagePullPolicy: Always
           ports:
             - name: http

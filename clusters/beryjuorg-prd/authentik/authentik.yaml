@@ -38,7 +38,7 @@ spec:
       architecture: standalone
     fullnameOverride: authentik
     image:
-      name: docker.beryju.org/authentik/server
+      name: beryju.org/authentik/server
       tag: gh-next
       pullPolicy: Always
     authentik:
@@ -58,7 +58,7 @@ spec:
         port: 587
         use_tls: true
       outposts:
-        docker_image_base: docker.beryju.org/authentik/outpost-%(type)s:gh-%(build_hash)s
+        docker_image_base: beryju.org/authentik/outpost-%(type)s:gh-%(build_hash)s
       error_reporting:
         enabled: true
         environment: beryjuorg-prod
