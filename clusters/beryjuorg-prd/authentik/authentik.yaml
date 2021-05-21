@@ -12,13 +12,14 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: flux-system
-      version: "1.0.0-RC6"
+      version: "1.0.0"
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
   values:
+    replicas: 3
     ingress:
       enabled: true
       annotations:
@@ -43,14 +44,11 @@ spec:
       pullPolicy: Always
     authentik:
       postgresql:
-        host: "authentik-postgresql"
         name: "authentik"
         user: "authentik"
         s3_backup:
           bucket: "authentik-backup"
           host: "https://backup-s3.beryju.org"
-      redis:
-        host: "authentik-redis-master"
       log_level: debug
       email:
         from: authentik@services.beryju.org
