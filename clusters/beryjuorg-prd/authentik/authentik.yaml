@@ -16,8 +16,8 @@ spec:
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
-    - kind: Secret
-      name: authentik-secrets
+  - kind: Secret
+    name: authentik-secrets
   values:
     replicas: 3
     ingress:
@@ -25,13 +25,13 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - host: id.beryju.org
-          paths:
-            - path: "/"
-              pathType: Prefix
+      - host: id.beryju.org
+        paths:
+        - path: "/"
+          pathType: Prefix
       tls:
-        - hosts: [id.beryju.org]
-          secretName: authentik-acme
+      - hosts: [id.beryju.org]
+        secretName: authentik-acme
     postgresql:
       enabled: true
     redis:
@@ -40,7 +40,7 @@ spec:
     fullnameOverride: authentik
     image:
       name: beryju.org/authentik/server
-      tag: gh-next # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1622020206 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     authentik:
       postgresql:
