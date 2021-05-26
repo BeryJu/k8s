@@ -39,7 +39,7 @@ spec:
       architecture: standalone
     fullnameOverride: authentik
     image:
-      name: beryju.org/authentik/server # {"$imagepolicy": "flux-system:authentik-gh-next:name"}
+      name: beryju.org/authentik/server
       tag: gh-next # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     authentik:

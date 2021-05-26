@@ -22,5 +22,3 @@ spec:
       messageTemplate: |
         An automated update from FluxBot
         [ci skip]
-    push:
-      branch: auto
