@@ -17,8 +17,7 @@ spec:
         branch: main
     commit:
       author:
-        name: fluxbot
+        name: fluxbot[cluster/beryjuorg-prd/authentik]
         email: fluxbot@beryju.org
       messageTemplate: |
-        An automated update from FluxBot
-        [ci skip]
+        Bump authentik gh-next
