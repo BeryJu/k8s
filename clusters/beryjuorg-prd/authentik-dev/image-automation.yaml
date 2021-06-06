@@ -18,6 +18,6 @@ spec:
     commit:
       author:
         name: fluxbot[cluster/beryjuorg-prd/authentik-dev]
-        email: fluxbot@beryju.org
+        email: admin@beryju.org
       messageTemplate: |
         Bump authentik gh-master
