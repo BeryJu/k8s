@@ -8,11 +8,11 @@ spec:
     spec:
       # renovate: registryUrl=https://helm.goharbor.io
       chart: harbor
+      version: "1.6.1"
       sourceRef:
         kind: HelmRepository
         name: goharbor
         namespace: flux-system
-      version: "1.6.1"
   interval: 1h0m0s
   releaseName: harbor
   targetNamespace: prod-harbor

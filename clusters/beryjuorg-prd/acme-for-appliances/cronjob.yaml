@@ -1,0 +1,34 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: acme-for-appliances
+  namespace: acme-for-appliances
+spec:
+  schedule: "5 3 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          volumes:
+            - configMap:
+                name: acme-for-appliances-config
+              name: acme-for-appliances-config
+            - name: acme-for-appliances-keys
+              persistentVolumeClaim:
+                claimName: acme-for-appliances-keys
+          containers:
+          - name: acme-for-appliances
+            image: ghcr.io/beryju/acme-for-appliances:latest
+            imagePullPolicy: Always
+            command:
+              - /acme-for-appliances
+            volumeMounts:
+              - mountPath: /config
+                name: acme-for-appliances-config
+              - mountPath: /storage/
+                name: acme-for-appliances-keys
+            envFrom:
+              - secretRef:
+                  name: acme-for-appliances-dns-settings
