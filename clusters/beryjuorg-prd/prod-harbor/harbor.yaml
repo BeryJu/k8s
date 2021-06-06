@@ -32,8 +32,9 @@ spec:
         hosts:
           core: docker.beryju.org
       tls:
+        certSource: secret
         secret:
-          secretName: prod-harbor-acme
+          secretName: harbor-acme
     externalURL: https://docker.beryju.org
     persistence:
       persistentVolumeClaim:
