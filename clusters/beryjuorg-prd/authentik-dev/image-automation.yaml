@@ -1,0 +1,23 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: authentik-dev-update
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    path: ./clusters/beryjuorg-prd/authentik-dev
+    strategy: Setters
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxbot[cluster/beryjuorg-prd/authentik-dev]
+        email: fluxbot@beryju.org
+      messageTemplate: |
+        Bump authentik gh-master

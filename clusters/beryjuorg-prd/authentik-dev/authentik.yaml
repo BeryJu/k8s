@@ -1,0 +1,61 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: goauthentik-my-beryjuorg-dev
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.goauthentik.io/
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+      version: "1.0.0"
+  interval: 1h0m0s
+  releaseName: authentik
+  valuesFrom:
+  - kind: Secret
+    name: authentik-secrets
+  values:
+    serviceAccount:
+      create: false
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+      - host: beryjuorg-dev.my.goauthentik.io
+        paths:
+        - path: "/"
+          pathType: Prefix
+      tls:
+      - hosts: [beryjuorg-dev.my.goauthentik.io]
+        secretName: authentik-acme
+    postgresql:
+      enabled: true
+    redis:
+      enabled: true
+      architecture: standalone
+    fullnameOverride: authentik
+    image:
+      name: beryju.org/authentik/server
+      tag: gh-master # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
+      pullPolicy: Always
+    authentik:
+      postgresql:
+        name: "authentik"
+        user: "authentik"
+      log_level: debug
+      email:
+        from: authentik@services.beryju.org
+        host: email-smtp.eu-central-1.amazonaws.com
+        port: 587
+        use_tls: true
+      outposts:
+        docker_image_base: beryju.org/authentik/outpost-%(type)s:gh-%(build_hash)s
+      error_reporting:
+        enabled: true
+        environment: beryjuorg-dev
+        send_pii: true
