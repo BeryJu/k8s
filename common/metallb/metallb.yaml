@@ -8,12 +8,12 @@ spec:
   releaseName: metallb
   chart:
     spec:
-      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
-      version: 2.4.1
+      version: 0.10.0
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: metallb
         namespace: flux-system
   values:
     configInline:
