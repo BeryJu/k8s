@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io/
-      chart: authentik
+      chart: /charts/authentik/
       sourceRef:
         kind: GitRepository
         name: authentik
