@@ -20,10 +20,13 @@ spec:
                 claimName: acme-for-appliances-keys
           containers:
           - name: acme-for-appliances
-            image: ghcr.io/beryju/acme-for-appliances:latest
+            image: ghcr.io/beryju/acme-for-appliances:test
             imagePullPolicy: Always
             command:
               - /acme-for-appliances
+            args:
+              - -c
+              - /config/config.toml
             volumeMounts:
               - mountPath: /config
                 name: acme-for-appliances-config
