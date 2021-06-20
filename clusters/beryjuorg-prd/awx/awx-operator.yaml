@@ -28,15 +28,12 @@ spec:
                 deployment_type:
                   description: Name of the deployment type
                   type: string
-                  default: awx
                 kind:
                   description: Kind of the deployment type
                   type: string
-                  default: AWX
                 api_version:
                   description: apiVersion of the deployment type
                   type: string
-                  default: awx.ansible.com/v1beta1
                 task_privileged:
                   description: If a privileged security context should be enabled
                   type: boolean
@@ -151,6 +148,12 @@ spec:
                         type: string
                       image:
                         type: string
+                control_plane_ee_image:
+                  description: Registry path to the Execution Environment container image to use on control plane pods
+                  type: string
+                ee_pull_credentials_secret:
+                  description: Secret where pull credentials for registered ees can be found
+                  type: string
                 image_pull_policy:
                   description: The image pull policy
                   type: string
@@ -209,6 +212,28 @@ spec:
                           type: string
                       type: object
                   type: object
+                ee_resource_requirements:
+                  description: Resource requirements for the ee container
+                  properties:
+                    requests:
+                      properties:
+                        cpu:
+                          type: string
+                        memory:
+                          type: string
+                        storage:
+                          type: string
+                      type: object
+                    limits:
+                      properties:
+                        cpu:
+                          type: string
+                        memory:
+                          type: string
+                        storage:
+                          type: string
+                      type: object
+                  type: object
                 service_account_annotations:
                   description: ServiceAccount annotations
                   type: string
@@ -244,6 +269,8 @@ spec:
                 task_extra_env:
                   type: string
                 web_extra_env:
+                  type: string
+                ee_extra_env:
                   type: string
                 ee_extra_volume_mounts:
                   description: Specify volume mounts to be added to Execution container
@@ -437,7 +464,7 @@ spec:
                   description: Name of the PVC to be used for storing the backup
                   type: string
                 backup_pvc_namespace:
-                  description: Namespace PVC is in
+                  description: Namespace the PVC is in
                   type: string
                 backup_storage_requirements:
                   description: Storage requirements for the PostgreSQL container
@@ -447,6 +474,36 @@ spec:
                   type: string
                 postgres_label_selector:
                   description: Label selector used to identify postgres pod for backing up data
+                  type: string
+                postgres_image:
+                  description: Registry path to the PostgreSQL container to use
+                  type: string
+                postgres_image_version:
+                  description: PostgreSQL container image version to use
+                  type: string
+            status:
+              type: object
+              properties:
+                conditions:
+                  description: The resulting conditions when a Service Telemetry is
+                    instantiated
+                  items:
+                    properties:
+                      lastTransitionTime:
+                        type: string
+                      reason:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                    type: object
+                  type: array
+                backupDirectory:
+                  description: Backup directory name on the specified pvc
+                  type: string
+                backupClaim:
+                  description: Backup persistent volume claim
                   type: string
 
 ---
@@ -501,6 +558,33 @@ spec:
                 postgres_label_selector:
                   description: Label selector used to identify postgres pod for backing up data
                   type: string
+                postgres_image:
+                  description: Registry path to the PostgreSQL container to use
+                  type: string
+                postgres_image_version:
+                  description: PostgreSQL container image version to use
+                  type: string
+            status:
+              type: object
+              properties:
+                conditions:
+                  description: The resulting conditions when a Service Telemetry is
+                    instantiated
+                  items:
+                    properties:
+                      lastTransitionTime:
+                        type: string
+                      reason:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                    type: object
+                  type: array
+                restoreComplete:
+                  description: Restore process complete
+                  type: boolean
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -628,7 +712,7 @@ spec:
       serviceAccountName: awx-operator
       containers:
         - name: awx-operator
-          image: "quay.io/ansible/awx-operator:0.10.0"
+          image: "quay.io/ansible/awx-operator:0.11.0"
           imagePullPolicy: "Always"
           volumeMounts:
             - mountPath: /tmp/ansible-operator/runner
@@ -646,7 +730,7 @@ spec:
             - name: ANSIBLE_GATHERING
               value: explicit
             - name: OPERATOR_VERSION
-              value: "0.10.0"
+              value: "0.11.0"
             - name: ANSIBLE_DEBUG_LOGS
               value: "false"
           livenessProbe:
