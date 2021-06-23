@@ -17,6 +17,7 @@ spec:
   releaseName: harbor
   targetNamespace: prod-harbor
   values:
+    fullnameOverride: harbor-harbor
     chartmuseum:
       enabled: true
     trivy:
