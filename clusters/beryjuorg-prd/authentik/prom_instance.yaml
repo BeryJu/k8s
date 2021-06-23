@@ -4,7 +4,9 @@ metadata:
   name: ak-prometheus
   namespace: authentik
 spec:
-  serviceAccountName: prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      app.kubernetes.io/instance: authentik
   storage:
     volumeClaimTemplate:
       metadata:
