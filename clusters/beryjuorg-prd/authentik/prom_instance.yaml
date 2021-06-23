@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: ak-prometheus
+  namespace: authentik
+spec:
+  serviceAccountName: prometheus
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        name: prometheus-storage
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 3Gi

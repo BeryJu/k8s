@@ -37,6 +37,11 @@ spec:
     redis:
       enabled: true
       architecture: standalone
+    prometheus:
+      serviceMonitor:
+        create: true
+        secret:
+          name: ak-monitoring
     fullnameOverride: authentik
     image:
       name: beryju.org/authentik/server
