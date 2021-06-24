@@ -45,7 +45,7 @@ spec:
     fullnameOverride: authentik
     image:
       name: beryju.org/authentik/server
-      tag: gh-next-1624474849 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1624534300 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     authentik:
       postgresql:
