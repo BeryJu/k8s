@@ -3,8 +3,13 @@ kind: ClusterRole
 metadata:
   name: fluent-bit-read
 rules:
-- apiGroups: [""]
-  resources:
-  - namespaces
-  - pods
-  verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources:
+      - namespaces
+      - pods
+      - nodes
+      - nodes/proxy
+    verbs:
+      - get
+      - list
+      - watch

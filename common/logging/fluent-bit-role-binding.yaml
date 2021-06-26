@@ -7,6 +7,6 @@ roleRef:
   kind: ClusterRole
   name: fluent-bit-read
 subjects:
-- kind: ServiceAccount
-  name: fluent-bit
-  namespace: logging
+  - kind: ServiceAccount
+    name: fluent-bit
+    namespace: logging
