@@ -287,6 +287,12 @@ spec:
                 redis_image_version:
                   description: Redis container image version to use
                   type: string
+                init_container_image:
+                  description: Registry path to the init container to use
+                  type: string
+                init_container_image_version:
+                  description: Init container image version to use
+                  type: string
                 postgres_image:
                   description: Registry path to the PostgreSQL container to use
                   type: string
@@ -346,6 +352,9 @@ spec:
                 ldap_cacert_secret:
                   description: Secret where can be found the LDAP trusted Certificate Authority Bundle
                   type: string
+                bundle_cacert_secret:
+                  description: Secret where can be found the trusted Certificate Authority Bundle
+                  type: string
                 projects_persistence:
                   description: Whether or not the /var/lib/projects directory will be persistent
                   default: false
@@ -377,7 +386,7 @@ spec:
                       setting:
                         type: string
                       value:
-                        type: string
+                        x-kubernetes-preserve-unknown-fields: true
                     type: object
                   type: array
               type: object
@@ -712,7 +721,7 @@ spec:
       serviceAccountName: awx-operator
       containers:
         - name: awx-operator
-          image: "quay.io/ansible/awx-operator:0.11.0"
+          image: "quay.io/ansible/awx-operator:0.12.0"
           imagePullPolicy: "Always"
           volumeMounts:
             - mountPath: /tmp/ansible-operator/runner
@@ -730,7 +739,7 @@ spec:
             - name: ANSIBLE_GATHERING
               value: explicit
             - name: OPERATOR_VERSION
-              value: "0.11.0"
+              value: "0.12.0"
             - name: ANSIBLE_DEBUG_LOGS
               value: "false"
           livenessProbe:
