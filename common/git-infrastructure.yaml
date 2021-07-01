@@ -1,15 +1,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  name: trident
+  name: infrastructure-helm
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://github.com/NetApp/trident
-  ref:
-    tag: v21.01.1
+  url: https://github.com/BeryJu/infrastructure
   ignore: |
     # exclude all
     /*
     # include charts directory
-    !/helm/trident-operator/
+    !/charts/
