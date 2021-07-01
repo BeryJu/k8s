@@ -9,6 +9,8 @@ guacamole:
     repository: guacamole/guacamole
     tag: "{{ .Chart.AppVersion }}"
     pullPolicy: IfNotPresent
+  # Key-value settings directly passed as environment variables
+  settings: {}
 
 guacd:
   image:

@@ -16,6 +16,8 @@ Current chart version is `0.2.1`
 
 ## Changelog
 
+0.2.3 - Add support for custom envs
+
 0.2.2 - Update liveness and readiness probe path
 
 0.2.1 - helm-docs doesn't add a tl;dr section, so add it manually
