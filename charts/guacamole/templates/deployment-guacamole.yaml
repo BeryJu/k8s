@@ -81,11 +81,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /guacamole/
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /guacamole/
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
