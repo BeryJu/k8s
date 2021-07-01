@@ -4,7 +4,7 @@ metadata:
   name: acme-for-appliances
   namespace: acme-for-appliances
 spec:
-  schedule: "5 3 * * *"
+  schedule: "0 */3 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -20,7 +20,7 @@ spec:
                 claimName: acme-for-appliances-keys
           containers:
           - name: acme-for-appliances
-            image: ghcr.io/beryju/acme-for-appliances:test
+            image: ghcr.io/beryju/acme-for-appliances:latest
             imagePullPolicy: Always
             command:
               - /acme-for-appliances
