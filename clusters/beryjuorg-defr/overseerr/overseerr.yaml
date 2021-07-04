@@ -21,23 +21,24 @@ spec:
       config:
         enabled: true
     ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: overseerr.defr.k8s.beryju.org
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-          tls:
-            - hosts:
-              - overseerr.defr.k8s.beryju.org
-              secretName: overseerr-acme
-        - host: requests.jela.io
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-          tls:
-            - hosts:
-              - requests.jela.io
-              secretName: overseerr-pub-acme
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: overseerr.defr.k8s.beryju.org
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+            tls:
+              - hosts:
+                - overseerr.defr.k8s.beryju.org
+                secretName: overseerr-acme
+          - host: requests.jela.io
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+            tls:
+              - hosts:
+                - requests.jela.io
+                secretName: overseerr-pub-acme
