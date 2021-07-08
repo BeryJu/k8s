@@ -12,7 +12,7 @@ spec:
     solvers:
     - dns01:
         route53:
-          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          accessKeyID: AKIAW3Q4O6RYP5G6YEWA
           hostedZoneID: ZYNWRNUP3ZIYV
           region: eu-central-1
           secretAccessKeySecretRef:
@@ -23,7 +23,7 @@ spec:
         - beryju.org
     - dns01:
         route53:
-          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          accessKeyID: AKIAW3Q4O6RYP5G6YEWA
           hostedZoneID: Z21H1D33A3ZJYB
           region: eu-central-1
           secretAccessKeySecretRef:
@@ -34,7 +34,7 @@ spec:
         - jela.io
     - dns01:
         route53:
-          accessKeyID: AKIAW3Q4O6RYI3PETLEO
+          accessKeyID: AKIAW3Q4O6RYP5G6YEWA
           hostedZoneID: Z01991371BCNAIWGVM83O
           region: eu-central-1
           secretAccessKeySecretRef:
