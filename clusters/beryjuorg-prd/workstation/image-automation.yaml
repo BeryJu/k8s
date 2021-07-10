@@ -1,0 +1,23 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: workstation-update
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    path: ./clusters/beryjuorg-prd/workstation
+    strategy: Setters
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxbot[cluster/beryjuorg-prd/workstation]
+        email: admin@beryju.org
+      messageTemplate: |
+        Bump workstaiton
