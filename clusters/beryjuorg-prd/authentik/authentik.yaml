@@ -44,7 +44,7 @@ spec:
           name: ak-monitoring
     fullnameOverride: authentik
     image:
-      name: beryju.org/authentik/server
+      repository: beryju.org/authentik/server
       tag: gh-next-1625866471 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     authentik:
