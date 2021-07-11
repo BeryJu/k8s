@@ -8,7 +8,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io/
       chart: authentik
-      version: 1.1.0
+      version: 2.0.0
       sourceRef:
         kind: HelmRepository
         name: authentik
@@ -40,7 +40,7 @@ spec:
       architecture: standalone
     fullnameOverride: authentik
     image:
-      name: beryju.org/authentik/server
+      repository: beryju.org/authentik/server
       tag: gh-master-1625866888 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     authentik:
