@@ -8,7 +8,7 @@ spec:
   path: kv/k8s-flux
   type: Opaque
   keys:
-    - ${FLUX_NOTIFICATION_URL_SECRET}
+    - "${FLUX_NOTIFICATION_URL_SECRET}"
   templates:
     address: "{% .Secrets.${FLUX_NOTIFICATION_URL_SECRET} %}"
 ---
