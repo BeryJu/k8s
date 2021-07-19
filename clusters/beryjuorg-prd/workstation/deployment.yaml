@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-      - image: beryju.org/jens/workstation:auto-1626546226 # {"$imagepolicy": "flux-system:workstation"}
+      - image: beryju.org/jens/workstation:auto-1626682346 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation
         ports:
         - containerPort: 22
