@@ -16,8 +16,8 @@ spec:
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
-  - kind: Secret
-    name: authentik-secrets
+    - kind: Secret
+      name: authentik-secrets
   values:
     serviceAccount:
       create: false
@@ -26,13 +26,13 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-      - host: beryjuorg-dev.my.goauthentik.io
-        paths:
-        - path: "/"
-          pathType: Prefix
+        - host: beryjuorg-dev.my.goauthentik.io
+          paths:
+            - path: "/"
+              pathType: Prefix
       tls:
-      - hosts: [beryjuorg-dev.my.goauthentik.io]
-        secretName: authentik-acme
+        - hosts: [beryjuorg-dev.my.goauthentik.io]
+          secretName: authentik-acme
     postgresql:
       enabled: true
     redis:
@@ -41,7 +41,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: beryju.org/authentik/server
-      tag: gh-master-1626764234 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
+      tag: gh-master-1626766436 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     authentik:
       postgresql:
