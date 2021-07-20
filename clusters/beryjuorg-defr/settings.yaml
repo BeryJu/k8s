@@ -13,5 +13,4 @@ data:
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-defr"
   # Flux Notifications
-  FLUX_NOTIFICATION_USER: "flux-beryjuorg-defr"
-  FLUX_NOTIFICATION_URL_SECRET: "discord_webhook_defr"
+  FLUX_SENTRY_ENV: "beryjuorg-defr"
