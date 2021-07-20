@@ -18,43 +18,41 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-      - image: beryju.org/jens/workstation:auto-1626682346 # {"$imagepolicy": "flux-system:workstation"}
-        name: workstation
-        ports:
-        - containerPort: 22
-          name: ssh
-          protocol: TCP
-        - containerPort: 443
-          name: https
-          protocol: TCP
-        - containerPort: 8000
-          name: http-alt
-          protocol: TCP
-        readinessProbe:
-          exec:
-            command:
-            - bash
-            - -c
-            - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep
-              -i -c  refused'
-        livenessProbe:
-          exec:
-            command:
-            - bash
-            - -c
-            - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep
-              -i -c  refused'
-        volumeMounts:
-        - mountPath: /home
-          name: workstation-data
-        - mountPath: /var/run/docker.sock
-          name: dockersock
+        - image: beryju.org/jens/workstation:auto-1626803878 # {"$imagepolicy": "flux-system:workstation"}
+          name: workstation
+          ports:
+            - containerPort: 22
+              name: ssh
+              protocol: TCP
+            - containerPort: 443
+              name: https
+              protocol: TCP
+            - containerPort: 8000
+              name: http-alt
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused'
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - -c
+                - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused'
+          volumeMounts:
+            - mountPath: /home
+              name: workstation-data
+            - mountPath: /var/run/docker.sock
+              name: dockersock
       hostname: workstation
       volumes:
-      - name: workstation-data
-        persistentVolumeClaim:
-          claimName: workstation-data
-      - hostPath:
-          path: /var/run/docker.sock
-          type: ""
-        name: dockersock
+        - name: workstation-data
+          persistentVolumeClaim:
+            claimName: workstation-data
+        - hostPath:
+            path: /var/run/docker.sock
+            type: ""
+          name: dockersock
