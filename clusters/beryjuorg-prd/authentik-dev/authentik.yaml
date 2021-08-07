@@ -19,6 +19,7 @@ spec:
     - kind: Secret
       name: authentik-secrets
   values:
+    replicas: 2
     serviceAccount:
       create: false
     ingress:
