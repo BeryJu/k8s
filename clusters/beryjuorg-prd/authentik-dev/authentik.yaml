@@ -44,6 +44,8 @@ spec:
       repository: beryju.org/authentik/server
       tag: gh-master-1628455623 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
+    geoip:
+      enabled: true
     authentik:
       postgresql:
         name: "authentik"
