@@ -3,6 +3,7 @@ apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
   name: nappclprd2-san
+  namespace: trident
 spec:
   version: 1
   storageDriverName: ontap-san
