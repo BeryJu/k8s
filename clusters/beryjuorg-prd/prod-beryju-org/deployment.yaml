@@ -1,26 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: beryju-org-grav
+  name: beryju-org
   namespace: prod-beryju-org
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      io.kompose.service: beryju.org-grav
+      app.kubernetes.io/name: beryju.org
   template:
     metadata:
       labels:
-        io.kompose.service: beryju.org-grav
+        app.kubernetes.io/name: beryju.org
     spec:
       containers:
-      - image: beryju.org/k8s/beryju.org
+      - image: ghcr.io/beryju/beryju.org:auto-1628684389 # {"$imagepolicy": "flux-system:beryjuorg"}
         imagePullPolicy: Always
-        name: beryju-org
+        name: web
         ports:
         - containerPort: 80
           name: http
           protocol: TCP
         resources: {}
-      imagePullSecrets:
-        - name: harbor

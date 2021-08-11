@@ -13,7 +13,7 @@ spec:
       paths:
       - backend:
           service:
-            name: beryju-org-grav
+            name: beryju-org
             port:
               number: 80
         path: /
@@ -30,7 +30,7 @@ spec:
       paths:
       - backend:
           service:
-            name: beryju-org-grav
+            name: beryju-org
             port:
               number: 80
         path: /

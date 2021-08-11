@@ -1,0 +1,23 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: beryjuorg-update
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    path: ./clusters/beryjuorg-prd/prod-beryju-org
+    strategy: Setters
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxbot[cluster/beryjuorg-prd/prod-beryju-org]
+        email: admin@beryju.org
+      messageTemplate: |
+        Bump beryju.org

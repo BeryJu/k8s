@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: beryju-org-grav
+  name: beryju-org
   namespace: prod-beryju-org
 spec:
   ports:
@@ -10,6 +10,6 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    io.kompose.service: beryju.org-grav
+    app.kubernetes.io/name: beryju.org
   sessionAffinity: None
   type: ClusterIP
