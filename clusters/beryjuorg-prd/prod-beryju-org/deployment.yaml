@@ -14,11 +14,11 @@ spec:
         app.kubernetes.io/name: beryju.org
     spec:
       containers:
-      - image: ghcr.io/beryju/beryju.org:auto-1628684389 # {"$imagepolicy": "flux-system:beryjuorg"}
-        imagePullPolicy: Always
-        name: web
-        ports:
-        - containerPort: 80
-          name: http
-          protocol: TCP
-        resources: {}
+        - image: ghcr.io/beryju/beryju.org:auto-1628685125 # {"$imagepolicy": "flux-system:beryjuorg"}
+          imagePullPolicy: Always
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          resources: {}
