@@ -7,7 +7,7 @@ spec:
   interval: 1h
   url: https://github.com/NetApp/trident
   ref:
-    tag: v21.04.1
+    tag: v21.07.1
   ignore: |
     # exclude all
     /*
