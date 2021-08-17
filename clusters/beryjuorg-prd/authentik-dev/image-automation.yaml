@@ -17,7 +17,7 @@ spec:
         branch: main
     commit:
       author:
-        name: fluxbot[cluster/beryjuorg-prd/authentik-dev]
+        name: fluxbot[clusters/beryjuorg-prd/authentik-dev]
         email: admin@beryju.org
       messageTemplate: |
-        Bump authentik gh-master
+        clusters/beryjuorg-prd/authentik-dev: bump authentik dev
