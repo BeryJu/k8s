@@ -17,7 +17,7 @@ spec:
         branch: main
     commit:
       author:
-        name: fluxbot[clusters/beryjuorg-prd/prod-beryju-org]
+        name: fluxbot
         email: admin@beryju.org
       messageTemplate: |
         clusters/beryjuorg-prd/prod-beryju-org: bump beryju.org
