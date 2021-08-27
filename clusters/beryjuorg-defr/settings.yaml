@@ -14,3 +14,5 @@ data:
   VAULT_AUTH_PATH: "auth/k8s-defr"
   # Flux Notifications
   FLUX_SENTRY_ENV: "beryjuorg-defr"
+  # Ingress public IP
+  INGRESS_IP: "10.120.21.1"
