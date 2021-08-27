@@ -17,7 +17,7 @@ spec:
         branch: main
     commit:
       author:
-        name: fluxbot
+        name: flux[bot]
         email: admin@beryju.org
       messageTemplate: |
         clusters/beryjuorg-prd/workstation: bump workstaiton
