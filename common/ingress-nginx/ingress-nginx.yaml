@@ -19,6 +19,8 @@ spec:
     controller:
       metrics:
         enabled: true
+        serviceMonitor:
+          enabled: true
         service:
           annotations:
             prometheus.io/port: "10254"
