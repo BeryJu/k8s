@@ -7,7 +7,7 @@ metadata:
 data:
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-backup"
-  # Flux Notifications
-  FLUX_SENTRY_ENV: "beryjuorg-backup"
+  # Cluster name
+  CLUSTER_NAME: "beryjuorg-backup"
   # Ingress public IP
   INGRESS_IP: "51.15.187.81"

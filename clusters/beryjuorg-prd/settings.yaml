@@ -12,7 +12,7 @@ data:
   METALLB_RANGE: "194.56.224.176/28"
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-prd"
-  # Flux Notifications
-  FLUX_SENTRY_ENV: "beryjuorg-prd"
+  # Cluster name
+  CLUSTER_NAME: "beryjuorg-prd"
   # Ingress public IP
   INGRESS_IP: "194.56.224.176"
