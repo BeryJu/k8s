@@ -1,0 +1,11 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: prom-credentials
+  namespace: awx
+spec:
+  path: kv/services/awx
+  type: Opaque
+  templates:
+    username: "{% .Secrets.username %}"
+    password: "{% .Secrets.password %}"
