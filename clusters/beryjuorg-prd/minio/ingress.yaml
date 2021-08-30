@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 50000m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: minio
+  namespace: minio
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: s3.beryju.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio-service
+            port:
+              number: 9000
+        path: /
+        pathType: ImplementationSpecific
+  - host: console.s3.beryju.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio-service
+            port:
+              number: 9001
+        path: /
+        pathType: ImplementationSpecific
+  - host: '*.s3.beryju.org'
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio-service
+            port:
+              number: 9000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - s3.beryju.org
+    - '*.s3.beryju.org'
+    secretName: minio-acme

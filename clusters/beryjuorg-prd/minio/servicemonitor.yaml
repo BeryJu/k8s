@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  endpoints:
+  - bearerTokenSecret:
+      name: minio
+      key: prom_bearer
+    interval: 30s
+    path: /minio/v2/metrics/cluster
+    port: http
+    scrapeTimeout: 3s
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minio
