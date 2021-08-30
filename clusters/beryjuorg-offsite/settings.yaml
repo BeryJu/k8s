@@ -6,8 +6,8 @@ metadata:
   name: cluster-settings
 data:
   # Vault
-  VAULT_AUTH_PATH: "auth/k8s-backup"
+  VAULT_AUTH_PATH: "auth/k8s-offsite"
   # Cluster name
-  CLUSTER_NAME: "beryjuorg-backup"
+  CLUSTER_NAME: "beryjuorg-offsite"
   # Ingress public IP
-  INGRESS_IP: "51.15.187.81"
+  INGRESS_IP: "202.61.244.145"

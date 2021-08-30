@@ -19,7 +19,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/beryjuorg-backup
+  path: ./clusters/beryjuorg-offsite
   prune: true
   sourceRef:
     kind: GitRepository
