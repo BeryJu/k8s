@@ -41,7 +41,7 @@ spec:
             secretKeyRef:
               name: minio
               key: root_password
-        image: minio/minio
+        image: beryju.org/proxy/minio/minio
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
