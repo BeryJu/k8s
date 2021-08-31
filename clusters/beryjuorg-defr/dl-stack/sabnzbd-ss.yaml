@@ -16,6 +16,19 @@ spec:
         app.kubernetes.io/name: sabnzbd
     spec:
       containers:
+      - name: exporter
+        image: msroest/sabnzbd_exporter
+        env:
+          - name: SABNZBD_BASEURL
+            value: http://localhost:8080
+          - name: SABNZBD_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: sabnzbd-api-key
+                key: api-key
+        ports:
+          - containerPort: 9387
+            name: metrics
       - name: sabnzbd
         image: ghcr.io/linuxserver/sabnzbd
         resources:
@@ -54,40 +67,3 @@ spec:
           storage: 1Gi
       accessModes:
         - ReadWriteOnce
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sabnzbd
-  namespace: dl-stack
-spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: sabnzbd
-  ports:
-  - port: 8080
-    targetPort: 8080
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  name: sabnzbd
-  namespace: dl-stack
-spec:
-  rules:
-  - host: sabnzbd.defr.k8s.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: sabnzbd
-            port:
-              number: 8080
-        path: /
-        pathType: ImplementationSpecific
-  tls:
-  - hosts:
-    - sabnzbd.defr.k8s.beryju.org
-    secretName: sabnzbd-acme
