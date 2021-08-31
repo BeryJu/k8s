@@ -16,16 +16,6 @@ spec:
         app.kubernetes.io/name: radarr
         io.jela.stack: dl
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: io.jela.stack
-                operator: In
-                values:
-                - dl
-            topologyKey: kubernetes.io/hostname
       containers:
       - name: radarr
         image: ghcr.io/linuxserver/radarr
