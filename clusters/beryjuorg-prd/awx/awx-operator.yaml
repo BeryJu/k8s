@@ -716,6 +716,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: awx-operator
+  namespace: awx
 spec:
   replicas: 1
   selector:
