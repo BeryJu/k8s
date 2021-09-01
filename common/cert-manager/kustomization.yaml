@@ -5,4 +5,4 @@ resources:
   - ./namespace.yaml
   - ./cert-manager.yaml
   - ./cluster-issuer.yaml
-  - ./secret.yaml
+  - ./route53.yaml
