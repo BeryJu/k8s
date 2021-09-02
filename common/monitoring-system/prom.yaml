@@ -20,6 +20,7 @@ spec:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
         remoteWrite:
           - url: https://monitoring.beryju.org/api/v1/write
             basicAuth:

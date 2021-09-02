@@ -17,6 +17,9 @@ spec:
   releaseName: harbor
   targetNamespace: prod-harbor
   values:
+    metrics:
+      serviceMonitor:
+        enabled: true
     fullnameOverride: harbor-harbor
     chartmuseum:
       enabled: true

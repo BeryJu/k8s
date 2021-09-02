@@ -18,3 +18,9 @@ spec:
   targetNamespace: cert-manager
   values:
     installCRDs: true
+    prometheus:
+      servicemonitor:
+        enabled: true
+  valuesFrom:
+    - kind: Secret
+      name: cert-manager-secret
