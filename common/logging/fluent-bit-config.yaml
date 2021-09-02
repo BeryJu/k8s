@@ -45,7 +45,7 @@ data:
         Name            gelf
         Match           *
         Host            log1.prod.beryju.org
-        Port            10002
+        Port            ${GELF_PORT}
         Mode            tcp
   parsers.conf: |
     [PARSER]
