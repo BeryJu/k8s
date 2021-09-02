@@ -16,6 +16,9 @@ spec:
         name: metallb
         namespace: flux-system
   values:
+    prometheus:
+      podMonitor:
+        enabled: true
     configInline:
       peers:
       - peer-address: "${METALLB_PEER}"
