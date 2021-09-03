@@ -16,3 +16,5 @@ data:
   CLUSTER_NAME: "beryjuorg-prd"
   # Ingress public IP
   INGRESS_IP: "194.56.224.176"
+  # Logging
+  GELF_PORT: "10002"

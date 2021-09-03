@@ -8,7 +8,7 @@ spec:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io/
       chart: authentik
-      version: 2.1.0
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: authentik
@@ -45,7 +45,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: beryju.org/authentik/server
-      tag: gh-next-1630531078 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1630660602 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     geoip:
       enabled: true

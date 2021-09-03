@@ -16,3 +16,5 @@ data:
   CLUSTER_NAME: "beryjuorg-defr"
   # Ingress public IP
   INGRESS_IP: "10.120.21.1"
+  # Logging
+  GELF_PORT: "10006"
