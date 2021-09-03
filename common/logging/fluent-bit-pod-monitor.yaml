@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: fluent-bit
+  namespace: logging
+  labels:
+    component: logging
+spec:
+  namespaceSelector:
+    matchNames:
+      - logging
+  selector:
+    matchExpressions:
+      - key: k8s-app
+        operator: In
+        values:
+          - fluent-bit-logging
+  podMetricsEndpoints:
+    - port: http
+      path: /api/v1/metrics/prometheus

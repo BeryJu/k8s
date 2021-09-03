@@ -28,6 +28,7 @@ spec:
         imagePullPolicy: Always
         ports:
           - containerPort: 2020
+            name: http
         volumeMounts:
         - name: varlog
           mountPath: /var/log
