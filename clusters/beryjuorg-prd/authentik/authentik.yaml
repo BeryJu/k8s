@@ -34,9 +34,17 @@ spec:
           secretName: authentik-acme
     postgresql:
       enabled: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     redis:
       enabled: true
       architecture: standalone
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     prometheus:
       serviceMonitor:
         create: true
