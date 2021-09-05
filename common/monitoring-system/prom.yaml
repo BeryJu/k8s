@@ -16,6 +16,8 @@ spec:
         name: prometheus-community
         namespace: flux-system
   values:
+    defaultRules:
+      create: false
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
