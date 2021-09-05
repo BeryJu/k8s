@@ -23,6 +23,10 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
+        retention: 2h
+        storageSpec:
+          emptyDir:
+            medium: Memory
         remoteWrite:
           - url: https://monitoring.beryju.org/api/v1/write
             basicAuth:
