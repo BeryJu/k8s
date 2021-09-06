@@ -4,6 +4,7 @@ metadata:
   name: prom
   namespace: monitoring-system
 spec:
+  timeout: 30m
   interval: 6h
   releaseName: prom
   chart:
