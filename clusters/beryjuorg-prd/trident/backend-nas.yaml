@@ -2,7 +2,7 @@
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
-  name: nappclprd2-nas
+  name: nappclprd1-nas
   namespace: trident
 spec:
   version: 1
@@ -11,7 +11,7 @@ spec:
   dataLIF: 10.120.0.151
   svm: vs_k8s_cov_prd
   credentials:
-    name: tbe-ad3748d1-7e62-45b0-baa4-567571ed5e4d
+    name: vsadmin
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
