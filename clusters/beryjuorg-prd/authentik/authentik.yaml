@@ -53,7 +53,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: beryju.org/authentik/server
-      tag: gh-next-1631199119-5cf3a13ca8f49a3c337b9116663a87b3b86ae495 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1631199270-13d17dc7295c6acc21128db40a9f9094390a318b # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     geoip:
       enabled: true
