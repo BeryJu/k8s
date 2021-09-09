@@ -13,3 +13,6 @@ spec:
         kind: GitRepository
         name: trident
         namespace: flux-system
+  values:
+    operatorImage: beryju.org/k8s-pub/trident-operator
+    operatorImageTag: latest
