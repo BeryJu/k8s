@@ -6,6 +6,7 @@ metadata:
   namespace: trident
 spec:
   version: 1
+  backendName: tbe-677h6
   storageDriverName: ontap-nas
   managementLIF: 10.120.0.152
   dataLIF: 10.120.0.151
