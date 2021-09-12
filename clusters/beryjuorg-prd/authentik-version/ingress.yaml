@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  name: authentik-version
+  namespace: authentik-version
+spec:
+  rules:
+  - host: version.goauthentik.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: authentik-version
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - version.goauthentik.io
+    secretName: authentik-version
