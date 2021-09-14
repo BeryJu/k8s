@@ -50,7 +50,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: beryju.org/authentik/server
-      tag: gh-master-1631623922-d96c96006f768e00ea1c12f3165703578b5358b0 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
+      tag: gh-master-1631624287-5f28c7ace79199b1ef8337df39c170fb70bf70a3 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     geoip:
       enabled: true
