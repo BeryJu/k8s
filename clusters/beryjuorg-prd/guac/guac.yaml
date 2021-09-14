@@ -31,13 +31,13 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       enabled: true
       hosts:
-      - host: guac.beryju.org
-        paths:
-        - /
+        - host: guac.beryju.org
+          paths:
+            - /
       tls:
-      - hosts:
-        - guac.beryju.org
-        secretName: guac-acme
+        - hosts:
+            - guac.beryju.org
+          secretName: guac-acme
   valuesFrom:
     - kind: Secret
       name: guac-values

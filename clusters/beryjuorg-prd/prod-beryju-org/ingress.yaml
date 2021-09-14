@@ -8,35 +8,35 @@ metadata:
   namespace: prod-beryju-org
 spec:
   rules:
-  - host: beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: beryju-org
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
-      - backend:
-          service:
-            name: docker
-            port:
-              number: 80
-        path: /v2
-        pathType: Prefix
-  - host: blog.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: beryju-org
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
+    - host: beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: beryju-org
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          - backend:
+              service:
+                name: docker
+                port:
+                  number: 80
+            path: /v2
+            pathType: Prefix
+    - host: blog.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: beryju-org
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
   tls:
-  - hosts:
-    - beryju.org
-    - blog.beryju.org
-    secretName: beryju-org
+    - hosts:
+        - beryju.org
+        - blog.beryju.org
+      secretName: beryju-org

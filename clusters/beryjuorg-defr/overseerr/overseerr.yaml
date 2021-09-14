@@ -32,7 +32,7 @@ spec:
                 pathType: ImplementationSpecific
             tls:
               - hosts:
-                - overseerr.defr.k8s.beryju.org
+                  - overseerr.defr.k8s.beryju.org
                 secretName: overseerr-acme
           - host: requests.jela.io
             paths:
@@ -40,5 +40,5 @@ spec:
                 pathType: ImplementationSpecific
             tls:
               - hosts:
-                - requests.jela.io
+                  - requests.jela.io
                 secretName: overseerr-pub-acme

@@ -503,7 +503,8 @@ spec:
               type: object
               properties:
                 conditions:
-                  description: The resulting conditions when a Service Telemetry is
+                  description:
+                    The resulting conditions when a Service Telemetry is
                     instantiated
                   items:
                     properties:
@@ -586,7 +587,8 @@ spec:
               type: object
               properties:
                 conditions:
-                  description: The resulting conditions when a Service Telemetry is
+                  description:
+                    The resulting conditions when a Service Telemetry is
                     instantiated
                   items:
                     properties:
@@ -617,7 +619,7 @@ rules:
       - routes
       - routes/custom-host
     verbs:
-      - '*'
+      - "*"
   - apiGroups:
       - ""
       - "rbac.authorization.k8s.io"
@@ -634,7 +636,7 @@ rules:
       - roles
       - rolebindings
     verbs:
-      - '*'
+      - "*"
   - apiGroups:
       - apps
       - networking.k8s.io
@@ -645,7 +647,7 @@ rules:
       - statefulsets
       - ingresses
     verbs:
-      - '*'
+      - "*"
   - apiGroups:
       - monitoring.coreos.com
     resources:
@@ -684,11 +686,11 @@ rules:
   - apiGroups:
       - awx.ansible.com
     resources:
-      - '*'
+      - "*"
       - awxbackups
       - awxrestores
     verbs:
-      - '*'
+      - "*"
 
 ---
 kind: ClusterRoleBinding

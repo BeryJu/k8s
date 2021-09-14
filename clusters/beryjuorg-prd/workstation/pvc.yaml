@@ -5,7 +5,7 @@ metadata:
   namespace: workstation
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi

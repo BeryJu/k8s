@@ -10,9 +10,9 @@ spec:
   selector:
     app.kubernetes.io/name: sabnzbd
   ports:
-  - port: 8080
-    name: http
-    targetPort: 8080
-  - port: 9387
-    name: metrics
-    targetPort: 9387
+    - port: 8080
+      name: http
+      targetPort: 8080
+    - port: 9387
+      name: metrics
+      targetPort: 9387

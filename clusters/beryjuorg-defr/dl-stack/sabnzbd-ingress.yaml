@@ -7,17 +7,17 @@ metadata:
   namespace: dl-stack
 spec:
   rules:
-  - host: sabnzbd.defr.k8s.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: sabnzbd
-            port:
-              name: http
-        path: /
-        pathType: ImplementationSpecific
+    - host: sabnzbd.defr.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: sabnzbd
+                port:
+                  name: http
+            path: /
+            pathType: ImplementationSpecific
   tls:
-  - hosts:
-    - sabnzbd.defr.k8s.beryju.org
-    secretName: sabnzbd-acme
+    - hosts:
+        - sabnzbd.defr.k8s.beryju.org
+      secretName: sabnzbd-acme

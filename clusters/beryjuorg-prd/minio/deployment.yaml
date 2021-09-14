@@ -15,65 +15,65 @@ spec:
         app.kubernetes.io/name: minio
     spec:
       containers:
-      - args:
-        - server
-        - --console-address
-        - :9001
-        - /storage
-        env:
-        - name: MINIO_DOMAIN
-          value: s3.beryju.org
-        - name: MINIO_IDENTITY_OPENID_CLIENT_ID
-          value: AxPVXlbHsGeud4XFw3HdN6RnnX5awvC6d7N5mjsl
-        - name: MINIO_IDENTITY_OPENID_CONFIG_URL
-          value: https://id.beryju.org/application/o/minio-s3/.well-known/openid-configuration
-        - name: MINIO_IDENTITY_OPENID_SCOPES
-          value: openid,profile,email,minio
-        - name: MINIO_BROWSER_REDIRECT_URL
-          value: https://console.s3.beryju.org/
-        - name: MINIO_ROOT_USER
-          valueFrom:
-            secretKeyRef:
-              name: minio
-              key: root_user
-        - name: MINIO_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: minio
-              key: root_password
-        image: beryju.org/proxy/minio/minio
-        imagePullPolicy: Always
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /minio/health/live
-            port: 9000
-            scheme: HTTP
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 1
-        name: minio
-        ports:
-        - containerPort: 9000
-          name: http
-          protocol: TCP
-        - containerPort: 9001
-          name: http-console
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /minio/health/ready
-            port: 9000
-            scheme: HTTP
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources: {}
-        volumeMounts:
-        - mountPath: /storage
-          name: storage
+        - args:
+            - server
+            - --console-address
+            - :9001
+            - /storage
+          env:
+            - name: MINIO_DOMAIN
+              value: s3.beryju.org
+            - name: MINIO_IDENTITY_OPENID_CLIENT_ID
+              value: AxPVXlbHsGeud4XFw3HdN6RnnX5awvC6d7N5mjsl
+            - name: MINIO_IDENTITY_OPENID_CONFIG_URL
+              value: https://id.beryju.org/application/o/minio-s3/.well-known/openid-configuration
+            - name: MINIO_IDENTITY_OPENID_SCOPES
+              value: openid,profile,email,minio
+            - name: MINIO_BROWSER_REDIRECT_URL
+              value: https://console.s3.beryju.org/
+            - name: MINIO_ROOT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root_user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root_password
+          image: beryju.org/proxy/minio/minio
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /minio/health/live
+              port: 9000
+              scheme: HTTP
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: minio
+          ports:
+            - containerPort: 9000
+              name: http
+              protocol: TCP
+            - containerPort: 9001
+              name: http-console
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /minio/health/ready
+              port: 9000
+              scheme: HTTP
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          volumeMounts:
+            - mountPath: /storage
+              name: storage
       volumes:
-      - name: storage
-        persistentVolumeClaim:
-          claimName: minio-pv-claim
+        - name: storage
+          persistentVolumeClaim:
+            claimName: minio-pv-claim

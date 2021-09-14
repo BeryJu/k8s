@@ -10,38 +10,38 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: backup-s3.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: minio-service
-            port:
-              number: 9000
-        path: /
-        pathType: ImplementationSpecific
-  - host: console.backup-s3.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: minio-service
-            port:
-              number: 9001
-        path: /
-        pathType: ImplementationSpecific
-  - host: '*.backup-s3.beryju.org'
-    http:
-      paths:
-      - backend:
-          service:
-            name: minio-service
-            port:
-              number: 9000
-        path: /
-        pathType: ImplementationSpecific
+    - host: backup-s3.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio-service
+                port:
+                  number: 9000
+            path: /
+            pathType: ImplementationSpecific
+    - host: console.backup-s3.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio-service
+                port:
+                  number: 9001
+            path: /
+            pathType: ImplementationSpecific
+    - host: "*.backup-s3.beryju.org"
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio-service
+                port:
+                  number: 9000
+            path: /
+            pathType: ImplementationSpecific
   tls:
-  - hosts:
-    - backup-s3.beryju.org
-    - '*.backup-s3.beryju.org'
-    secretName: minio-acme
+    - hosts:
+        - backup-s3.beryju.org
+        - "*.backup-s3.beryju.org"
+      secretName: minio-acme

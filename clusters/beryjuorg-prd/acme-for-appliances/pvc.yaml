@@ -4,7 +4,7 @@ metadata:
   name: acme-for-appliances-keys
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100M

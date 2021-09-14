@@ -5,17 +5,17 @@ metadata:
   namespace: awx
 spec:
   endpoints:
-  - basicAuth:
-      password:
-        key: password
-        name: prom-credentials
-      username:
-        key: username
-        name: prom-credentials
-    interval: 30s
-    path: /api/v2/metrics/
-    port: http
-    scrapeTimeout: 3s
+    - basicAuth:
+        password:
+          key: password
+          name: prom-credentials
+        username:
+          key: username
+          name: prom-credentials
+      interval: 30s
+      path: /api/v2/metrics/
+      port: http
+      scrapeTimeout: 3s
   selector:
     matchLabels:
       app.kubernetes.io/component: awx

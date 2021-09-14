@@ -43,8 +43,8 @@ spec:
   postBuild:
     substitute: {}
     substituteFrom:
-    - kind: ConfigMap
-      name: cluster-settings
+      - kind: ConfigMap
+        name: cluster-settings
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -62,8 +62,8 @@ spec:
   postBuild:
     substitute: {}
     substituteFrom:
-    - kind: ConfigMap
-      name: cluster-settings
+      - kind: ConfigMap
+        name: cluster-settings
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -81,5 +81,5 @@ spec:
   postBuild:
     substitute: {}
     substituteFrom:
-    - kind: ConfigMap
-      name: cluster-settings
+      - kind: ConfigMap
+        name: cluster-settings

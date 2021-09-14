@@ -5,10 +5,10 @@ metadata:
   namespace: prod-beryju-org
 spec:
   ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
   selector:
     app.kubernetes.io/name: beryju.org
   sessionAffinity: None

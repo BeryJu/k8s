@@ -7,8 +7,8 @@ spec:
   imageRepositoryRef:
     name: authentik-version-update-ghcr
   filterTags:
-    pattern: '^auto-(?P<ts>.*)'
-    extract: '$ts'
+    pattern: "^auto-(?P<ts>.*)"
+    extract: "$ts"
   policy:
     numerical:
       order: asc

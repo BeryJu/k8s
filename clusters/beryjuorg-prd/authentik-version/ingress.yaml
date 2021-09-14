@@ -8,17 +8,17 @@ metadata:
   namespace: authentik-version
 spec:
   rules:
-  - host: version.goauthentik.io
-    http:
-      paths:
-      - backend:
-          service:
-            name: authentik-version
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
+    - host: version.goauthentik.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: authentik-version
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
   tls:
-  - hosts:
-    - version.goauthentik.io
-    secretName: authentik-version
+    - hosts:
+        - version.goauthentik.io
+      secretName: authentik-version

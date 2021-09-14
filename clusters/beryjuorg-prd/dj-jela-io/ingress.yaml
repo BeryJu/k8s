@@ -11,17 +11,17 @@ metadata:
   namespace: dj-jela-io
 spec:
   rules:
-  - host: dj.jela.io
-    http:
-      paths:
-      - backend:
-          service:
-            name: wordpress
-            port:
-              name: http
-        path: /
-        pathType: ImplementationSpecific
+    - host: dj.jela.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: wordpress
+                port:
+                  name: http
+            path: /
+            pathType: ImplementationSpecific
   tls:
-  - hosts:
-    - dj.jela.io
-    secretName: wordpress-acme
+    - hosts:
+        - dj.jela.io
+      secretName: wordpress-acme

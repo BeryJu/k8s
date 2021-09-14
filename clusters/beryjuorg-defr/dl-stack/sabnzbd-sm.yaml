@@ -8,4 +8,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: sabnzbd
   endpoints:
-  - port: metrics
+    - port: metrics

@@ -35,13 +35,13 @@ spec:
               command:
                 - bash
                 - -c
-                - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused'
+                - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
           livenessProbe:
             exec:
               command:
                 - bash
                 - -c
-                - '! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused'
+                - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
           volumeMounts:
             - mountPath: /home
               name: workstation-data

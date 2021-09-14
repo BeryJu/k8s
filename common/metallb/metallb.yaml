@@ -21,12 +21,12 @@ spec:
         enabled: true
     configInline:
       peers:
-      - peer-address: "${METALLB_PEER}"
-        peer-asn: "${METALLB_PEER_ASN}"
-        my-asn: "${METALLB_ASN}"
+        - peer-address: "${METALLB_PEER}"
+          peer-asn: "${METALLB_PEER_ASN}"
+          my-asn: "${METALLB_ASN}"
       address-pools:
-      - name: default
-        protocol: bgp
-        avoid-buggy-ips: true
-        addresses:
-        - "${METALLB_RANGE}"
+        - name: default
+          protocol: bgp
+          avoid-buggy-ips: true
+          addresses:
+            - "${METALLB_RANGE}"
