@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: authentik-version-update-ghcr
+    name: authentik-version-update
   filterTags:
     pattern: "^auto-(?P<ts>.*)"
     extract: "$ts"
