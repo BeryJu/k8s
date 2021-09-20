@@ -16,6 +16,11 @@ spec:
         app.kubernetes.io/name: radarr
         io.jela.stack: dl
     spec:
+      podSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
       containers:
         - name: radarr
           image: ghcr.io/k8s-at-home/radarr:v3.2.2.5080
@@ -25,10 +30,6 @@ spec:
             limits:
               memory: "350Mi"
           env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
             - name: TZ
               value: Europe/Berlin
             - name: UMASK_SET
