@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: exporter
-          image: msroest/sabnzbd_exporter
+          image: msroest/sabnzbd_exporter:0.1.36
           env:
             - name: SABNZBD_BASEURL
               value: http://localhost:8080
