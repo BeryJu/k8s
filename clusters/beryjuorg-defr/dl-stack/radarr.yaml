@@ -11,16 +11,16 @@ spec:
       app.kubernetes.io/name: radarr
   serviceName: "radarr"
   template:
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: Always
     metadata:
       labels:
         app.kubernetes.io/name: radarr
         io.jela.stack: dl
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
       containers:
         - name: radarr
           image: ghcr.io/k8s-at-home/radarr:v3.2.2.5080

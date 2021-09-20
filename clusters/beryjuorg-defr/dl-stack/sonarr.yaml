@@ -11,16 +11,16 @@ spec:
       app.kubernetes.io/name: sonarr
   serviceName: "sonarr"
   template:
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: Always
     metadata:
       labels:
         app.kubernetes.io/name: sonarr
         io.jela.stack: dl
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
       containers:
         - name: sonarr
           image: ghcr.io/k8s-at-home/sonarr:v3.0.6.1265
