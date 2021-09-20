@@ -17,6 +17,9 @@ spec:
   releaseName: overseerr
   targetNamespace: overseerr
   values:
+    image:
+      repository: ghcr.io/sct/overseerr
+      tag: 1.25
     persistence:
       config:
         enabled: true
