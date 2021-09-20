@@ -15,6 +15,11 @@ spec:
       labels:
         app.kubernetes.io/name: sabnzbd
     spec:
+      podSecurityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
       containers:
         - name: exporter
           image: msroest/sabnzbd_exporter:0.1.36
@@ -38,10 +43,6 @@ spec:
             limits:
               memory: "750Mi"
           env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
             - name: TZ
               value: Europe/Berlin
           ports:
