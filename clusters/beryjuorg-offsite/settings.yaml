@@ -11,3 +11,6 @@ data:
   CLUSTER_NAME: "beryjuorg-offsite"
   # Ingress public IP
   INGRESS_IP: "202.61.244.145"
+  # MetalLB
+  METALLB_RANGE: "202.61.244.145/32"
+  METALLB_PROTOCOL: layer2

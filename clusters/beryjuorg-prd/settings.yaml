@@ -10,6 +10,7 @@ data:
   METALLB_PEER_ASN: "65554"
   METALLB_ASN: "65552"
   METALLB_RANGE: "194.56.224.176/28"
+  METALLB_PROTOCOL: bgp
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-prd"
   # Cluster name

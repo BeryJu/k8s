@@ -26,7 +26,7 @@ spec:
           my-asn: "${METALLB_ASN}"
       address-pools:
         - name: default
-          protocol: bgp
+          protocol: "${METALLB_PROTOCOL}"
           avoid-buggy-ips: true
           addresses:
             - "${METALLB_RANGE}"
