@@ -1,5 +1,5 @@
-#!/bin/bash
-export CLUSTER_NAME="$1"
+#!/bin/bash -xe
+export CLUSTER_NAME="backup"
 kubens vault-secrets-operator
 export VAULT_SECRETS_OPERATOR_NAMESPACE=$(kubectl get sa vault-secrets-operator -o jsonpath="{.metadata.namespace}")
 export VAULT_SECRET_NAME=$(kubectl get sa vault-secrets-operator -o jsonpath="{.secrets[*]['name']}")
