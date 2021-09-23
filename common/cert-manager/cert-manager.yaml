@@ -18,6 +18,9 @@ spec:
   releaseName: cert-manager
   targetNamespace: cert-manager
   values:
+    extraArgs:
+      - --dns01-recursive-nameservers-only
+      - --dns01-recursive-nameservers="8.8.8.8:53"
     installCRDs: true
     prometheus:
       servicemonitor:

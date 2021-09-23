@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: cert-manager
-resources:
-  - ./namespace.yaml
-  - ./cert-manager.yaml
-  - ./cluster-issuer.yaml
-  - ./route53.yaml
