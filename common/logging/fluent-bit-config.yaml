@@ -20,7 +20,7 @@ data:
   fluent-bit.conf: |
     [SERVICE]
         Flush         1
-        Log_Level     info
+        Log_Level     warning
         Daemon        off
         Parsers_File  parsers.conf
         HTTP_Server   On
@@ -40,13 +40,7 @@ data:
         Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
         Refresh_Interval  10
-  output-graylog.conf: |
-    [OUTPUT]
-        Name            gelf
-        Match           *
-        Host            log1.prod.beryju.org
-        Port            ${GELF_PORT}
-        Mode            tcp
+  output-graylog.conf: "${FLUENT_BIT_OUTPUT}"
   parsers.conf: |
     [PARSER]
         Name   apache

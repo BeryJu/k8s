@@ -29,6 +29,9 @@ spec:
           ports:
             - containerPort: 2020
               name: http
+          envFrom:
+            - secretRef:
+                name: graylog-http-username
           volumeMounts:
             - name: varlog
               mountPath: /var/log
