@@ -24,5 +24,5 @@ data:
         tls             true
         URI             /gelf/offsite
         Format          gelf
-        http_User       ${GRAYLOG_HTTP_USERNAME}
-        http_Passwd     ${GRAYLOG_HTTP_PASSWORD}
+        http_User       \\${GRAYLOG_HTTP_USERNAME}
+        http_Passwd     \\${GRAYLOG_HTTP_PASSWORD}
