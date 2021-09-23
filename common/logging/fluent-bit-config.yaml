@@ -97,6 +97,8 @@ data:
         Time_Format %b %d %H:%M:%S
 kind: ConfigMap
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
   labels:
     k8s-app: fluent-bit
   name: fluent-bit-config
