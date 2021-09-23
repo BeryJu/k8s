@@ -6,10 +6,20 @@ metadata:
 spec:
   interval: 6h
   releaseName: trident
+  # The upstream chart always creates a TridentOrchestrator resource
+  # chart:
+  #   spec:
+  #     chart: /helm/trident-operator/
+  #     sourceRef:
+  #       kind: GitRepository
+  #       name: trident
+  #       namespace: flux-system
   chart:
     spec:
-      chart: /helm/trident-operator/
+      chart: /charts/guacamole/
       sourceRef:
         kind: GitRepository
-        name: trident
+        name: flux-system
         namespace: flux-system
+  values:
+    tridentOrchestratorCreate: false
