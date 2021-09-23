@@ -2,6 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
   namespace: flux-system
   name: cluster-settings
 data:
@@ -24,5 +26,5 @@ data:
         tls             true
         URI             /gelf/offsite
         Format          gelf
-        http_User       \\${GRAYLOG_HTTP_USERNAME}
-        http_Passwd     \\${GRAYLOG_HTTP_PASSWORD}
+        http_User       ${GRAYLOG_HTTP_USERNAME}
+        http_Passwd     ${GRAYLOG_HTTP_PASSWORD}

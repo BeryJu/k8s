@@ -2,6 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
   namespace: flux-system
   name: cluster-settings
 data:
