@@ -16,7 +16,7 @@ spec:
   #       namespace: flux-system
   chart:
     spec:
-      chart: /charts/guacamole/
+      chart: /charts/trident-operator/
       sourceRef:
         kind: GitRepository
         name: flux-system
