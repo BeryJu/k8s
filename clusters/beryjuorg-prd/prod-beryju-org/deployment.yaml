@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: beryju.org
     spec:
       containers:
-        - image: ghcr.io/beryju/beryju.org:auto-1632574264 # {"$imagepolicy": "flux-system:beryjuorg"}
+        - image: ghcr.io/beryju/beryju.org:auto-1632575459 # {"$imagepolicy": "flux-system:beryjuorg"}
           imagePullPolicy: Always
           name: web
           ports:
