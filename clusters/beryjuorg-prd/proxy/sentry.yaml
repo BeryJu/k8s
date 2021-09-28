@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentry
+  namespace: proxy
+spec:
+  type: ExternalName
+  externalName: sentry1.prod.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: sentry
+  namespace: proxy
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: sentry.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: sentry
+                port:
+                  number: 9000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sentry.beryju.org
+      secretName: sentry-acme

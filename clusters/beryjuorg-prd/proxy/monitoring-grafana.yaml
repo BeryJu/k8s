@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: monitoring-grafana
+  namespace: proxy
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: grafana.infra.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: monitoring
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - grafana.infra.beryju.org
+      secretName: monitoring-grafana-acme
