@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: authentik-version
     spec:
       containers:
-        - image: ghcr.io/goauthentik/version:auto-1632481979 # {"$imagepolicy": "flux-system:authentik-version-update"}
+        - image: ghcr.io/goauthentik/version:auto-1632819697 # {"$imagepolicy": "flux-system:authentik-version-update"}
           imagePullPolicy: Always
           name: web
           ports:
