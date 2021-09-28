@@ -50,7 +50,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: beryju.org/authentik/server
-      tag: gh-master-1632815519-f9ad102915d6c9e6d85ccdd512ed9a344fffeaa6 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
+      tag: gh-master-1632815640-1f2f48a7bccb2c0c9109fc997d3852c7f33bf1b1 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     prometheus:
       serviceMonitor:
