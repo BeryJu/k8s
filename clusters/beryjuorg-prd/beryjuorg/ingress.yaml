@@ -4,7 +4,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   name: beryju-org
-  namespace: prod-beryju-org
+  namespace: beryjuorg
 spec:
   rules:
     - host: beryju.org

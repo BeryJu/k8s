@@ -4,7 +4,7 @@ metadata:
   labels:
     app: docker
   name: docker
-  namespace: prod-beryju-org
+  namespace: beryjuorg
 spec:
   externalName: harbor-harbor-core.prod-harbor.svc.cluster.local
   sessionAffinity: None

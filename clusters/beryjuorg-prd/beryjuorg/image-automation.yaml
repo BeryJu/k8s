@@ -9,7 +9,7 @@ spec:
     name: flux-system
   interval: 5m
   update:
-    path: ./clusters/beryjuorg-prd/prod-beryju-org
+    path: ./clusters/beryjuorg-prd/beryjuorg
     strategy: Setters
   git:
     checkout:
@@ -20,4 +20,4 @@ spec:
         name: flux[bot]
         email: admin@beryju.org
       messageTemplate: |
-        clusters/beryjuorg-prd/prod-beryju-org: bump beryju.org
+        clusters/beryjuorg-prd/beryjuorg: bump beryju.org

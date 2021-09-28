@@ -2,7 +2,7 @@ apiVersion: ricoberger.de/v1alpha1
 kind: VaultSecret
 metadata:
   name: harbor
-  namespace: prod-beryju-org
+  namespace: beryjuorg
 spec:
   keys:
     - harbor_password
