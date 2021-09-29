@@ -35,3 +35,7 @@ spec:
               envFrom:
                 - secretRef:
                     name: acme-for-appliances-dns-settings
+                - secretRef:
+                    name: acme-for-appliances-netapp
+                - secretRef:
+                    name: acme-for-appliances-vsphere
