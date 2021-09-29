@@ -20,7 +20,7 @@ spec:
                 claimName: acme-for-appliances-keys
           containers:
             - name: acme-for-appliances
-              image: ghcr.io/beryju/acme-for-appliances:latest
+              image: ghcr.io/beryju/acme-for-appliances:1.0.2
               imagePullPolicy: Always
               command:
                 - /acme-for-appliances
