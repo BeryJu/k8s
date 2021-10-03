@@ -16,9 +16,6 @@ data:
   METALLB_PROTOCOL: layer2
   # Logging
   FLUENT_BIT_OUTPUT: |
-    [OUTPUT]
-        Name            http
-        Match           *
         Host            log.beryju.org
         Port            443
         tls             true

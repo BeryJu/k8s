@@ -40,7 +40,11 @@ data:
         Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
         Refresh_Interval  10
-  output-graylog.conf: "${FLUENT_BIT_OUTPUT}"
+  output-graylog.conf: |
+    [OUTPUT]
+        Name    gelf
+        Match   *
+        ${FLUENT_BIT_OUTPUT}
   parsers.conf: |
     [PARSER]
         Name   apache

@@ -19,9 +19,6 @@ data:
   INGRESS_IP: "10.120.21.1"
   # Logging
   FLUENT_BIT_OUTPUT: |
-    [OUTPUT]
-        Name    gelf
-        Match   *
         Host    log1.prod.beryju.org
         Port    10006
         Mode    tcp
