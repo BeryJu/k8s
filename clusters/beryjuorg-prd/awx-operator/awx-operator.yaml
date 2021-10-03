@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   labels:
     control-plane: controller-manager
-  name: awx-oeprator
+  name: awx-operator
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -642,13 +642,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: awx-operator-controller-manager
-  namespace: awx-oeprator
+  namespace: awx-operator
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: awx-operator-leader-election-role
-  namespace: awx-oeprator
+  namespace: awx-operator
 rules:
   - apiGroups:
       - ""
@@ -687,7 +687,7 @@ kind: Role
 metadata:
   creationTimestamp: null
   name: awx-operator-manager-role
-  namespace: awx-oeprator
+  namespace: awx-operator
 rules:
   - apiGroups:
       - route.openshift.io
@@ -821,7 +821,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: awx-operator-leader-election-rolebinding
-  namespace: awx-oeprator
+  namespace: awx-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -829,13 +829,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: awx-operator-controller-manager
-    namespace: awx-oeprator
+    namespace: awx-operator
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: awx-operator-manager-rolebinding
-  namespace: awx-oeprator
+  namespace: awx-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -843,7 +843,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: awx-operator-controller-manager
-    namespace: awx-oeprator
+    namespace: awx-operator
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -856,7 +856,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: awx-operator-controller-manager
-    namespace: awx-oeprator
+    namespace: awx-operator
 ---
 apiVersion: v1
 data:
@@ -874,7 +874,7 @@ data:
 kind: ConfigMap
 metadata:
   name: awx-operator-manager-config
-  namespace: awx-oeprator
+  namespace: awx-operator
 ---
 apiVersion: v1
 kind: Service
@@ -882,7 +882,7 @@ metadata:
   labels:
     control-plane: controller-manager
   name: awx-operator-controller-manager-metrics-service
-  namespace: awx-oeprator
+  namespace: awx-operator
 spec:
   ports:
     - name: https
@@ -898,7 +898,7 @@ metadata:
   labels:
     control-plane: controller-manager
   name: awx-operator-controller-manager
-  namespace: awx-oeprator
+  namespace: awx-operator
 spec:
   replicas: 1
   selector:
