@@ -46,11 +46,36 @@ spec:
                 - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
             initialDelaySeconds: 3
             periodSeconds: 30
+          resources:
+            requests:
+              cpu: 200m
+              memory: 50m
           volumeMounts:
             - mountPath: /home
               name: workstation-data
             - mountPath: /var/run/docker.sock
               name: dockersock
+            - mountPath: /etc/shared/vault
+              name: shared-vault
+        - args:
+            - agent
+            - -config=/etc/vault/vault-agent-config.hcl
+            - -log-level=debug
+          env:
+            - name: VAULT_ADDR
+              value: https://vault.beryju.org
+          image: beryju.org/proxy/library/vault
+          name: vault-agent
+          resources:
+            requests:
+              cpu: 200m
+              memory: 50m
+          volumeMounts:
+            - mountPath: /etc/vault
+              name: config-vault
+            - mountPath: /etc/shared/vault
+              name: shared-vault
+
       hostname: workstation
       volumes:
         - name: workstation-data
@@ -60,5 +85,13 @@ spec:
             path: /var/run/docker.sock
             type: ""
           name: dockersock
+        - configMap:
+            items:
+              - key: vault-agent-config.hcl
+                path: vault-agent-config.hcl
+            name: workstation-vault
+          name: config-vault
+        - emptyDir: {}
+          name: shared-vault
       serviceAccount: workstation
       serviceAccountName: workstation
