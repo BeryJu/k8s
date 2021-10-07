@@ -60,3 +60,5 @@ spec:
             path: /var/run/docker.sock
             type: ""
           name: dockersock
+      serviceAccount: workstation
+      serviceAccountName: workstation
