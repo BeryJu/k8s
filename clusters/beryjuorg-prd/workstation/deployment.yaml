@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-        - image: beryju.org/jens/workstation:auto-1633642233 # {"$imagepolicy": "flux-system:workstation"}
+        - image: beryju.org/jens/workstation:auto-1633670212 # {"$imagepolicy": "flux-system:workstation"}
           name: workstation
           ports:
             - containerPort: 22
@@ -75,7 +75,6 @@ spec:
               name: config-vault
             - mountPath: /etc/shared/vault
               name: shared-vault
-
       hostname: workstation
       volumes:
         - name: workstation-data
