@@ -68,8 +68,11 @@ spec:
           name: vault-agent
           resources:
             requests:
-              cpu: 200m
-              memory: 50m
+              cpu: 1m
+              memory: 40m
+            limits:
+              cpu: 20m
+              memory: 80m
           volumeMounts:
             - mountPath: /etc/vault
               name: config-vault
