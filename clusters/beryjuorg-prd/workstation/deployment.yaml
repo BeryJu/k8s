@@ -46,10 +46,6 @@ spec:
                 - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
             initialDelaySeconds: 3
             periodSeconds: 30
-          resources:
-            requests:
-              cpu: 200m
-              memory: 50m
           volumeMounts:
             - mountPath: /home
               name: workstation-data
@@ -66,13 +62,6 @@ spec:
               value: https://vault.beryju.org
           image: beryju.org/proxy/library/vault
           name: vault-agent
-          resources:
-            requests:
-              cpu: 1m
-              memory: 40m
-            limits:
-              cpu: 20m
-              memory: 80m
           volumeMounts:
             - mountPath: /etc/vault
               name: config-vault
