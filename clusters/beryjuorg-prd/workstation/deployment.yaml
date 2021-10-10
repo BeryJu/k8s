@@ -60,7 +60,7 @@ spec:
           env:
             - name: VAULT_ADDR
               value: https://vault.beryju.org
-          image: beryju.org/proxy/library/vault
+          image: proxy.registry.beryju.org/library/vault
           name: vault-agent
           volumeMounts:
             - mountPath: /etc/vault
