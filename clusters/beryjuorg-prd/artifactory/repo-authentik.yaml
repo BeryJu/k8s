@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^/(v1|v2)/(.*) /artifactory/api/docker/docker-authentik/$1/$2;
+    nginx.ingress.kubernetes.io/proxy-body-size: 50000m
+  name: artifactory-goauthentik-io
+  namespace: artifactory
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: registry.goauthentik.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: artifactory
+            port:
+              number: 8082
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - registry.goauthentik.io
+    secretName: registry-authentik-acme
