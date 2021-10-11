@@ -42,12 +42,12 @@ spec:
         size: 200Gi
       resources:
         requests:
-          memory: "2Gi"
-          cpu: "1"
-        limits:
           memory: "4Gi"
-          cpu: "1"
+          cpu: "2"
+        limits:
+          memory: "6Gi"
+          cpu: "4"
       javaOpts:
-        xms: "2g"
-        xmx: "2g"
+        xms: "4g"
+        xmx: "4g"
     databaseUpgradeReady: true
