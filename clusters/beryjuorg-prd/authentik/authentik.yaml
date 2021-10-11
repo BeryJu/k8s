@@ -50,7 +50,7 @@ spec:
         create: true
     fullnameOverride: authentik
     image:
-      repository: beryju.org/authentik/server
+      repository: goauthentik.io/dev-server
       tag: gh-next-1633885729-b80ecd4668e42cc226b846587dfd51042435f1cd # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     geoip:
@@ -69,7 +69,7 @@ spec:
         port: 587
         use_tls: true
       outposts:
-        docker_image_base: beryju.org/authentik/outpost-%(type)s:gh-%(build_hash)s
+        docker_image_base: goauthentik.io/dev-%(type)s:gh-%(build_hash)s
       error_reporting:
         enabled: true
         environment: beryjuorg-prod
