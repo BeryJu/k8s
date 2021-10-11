@@ -40,4 +40,14 @@ spec:
         type: ClusterIP
       persistence:
         size: 200Gi
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "1"
+        limits:
+          memory: "4Gi"
+          cpu: "1"
+      javaOpts:
+        xms: "2g"
+        xmx: "2g"
     databaseUpgradeReady: true
