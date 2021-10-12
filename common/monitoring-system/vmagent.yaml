@@ -25,3 +25,10 @@ spec:
       envflag.prefix: VM_
       loggerFormat: json
       remoteWrite.label: cluster=${CLUSTER_NAME}
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 300m
+        memory: 600M
