@@ -22,17 +22,17 @@ spec:
     resources:
       server:
         requests:
-          memory: "400m"
+          memory: "400M"
           cpu: "0.5"
         limits:
-          memory: "500m"
+          memory: "500M"
           cpu: "1"
       worker:
         requests:
-          memory: "250m"
+          memory: "250M"
           cpu: "300m"
         limits:
-          memory: "500m"
+          memory: "500M"
           cpu: "1"
     replicas: 3
     ingress:

@@ -66,10 +66,10 @@ spec:
             - -log-level=debug
           resources:
             requests:
-              memory: "30m"
+              memory: "30M"
               cpu: "10m"
             limits:
-              memory: "30m"
+              memory: "30M"
               cpu: "30m"
           env:
             - name: VAULT_ADDR
