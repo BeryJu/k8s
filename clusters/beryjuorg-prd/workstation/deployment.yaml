@@ -20,6 +20,13 @@ spec:
       containers:
         - image: beryju.org/workstation:auto-1634032482 # {"$imagepolicy": "flux-system:workstation"}
           name: workstation
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
           ports:
             - containerPort: 22
               name: ssh
@@ -57,6 +64,13 @@ spec:
             - agent
             - -config=/etc/vault/vault-agent-config.hcl
             - -log-level=debug
+          resources:
+            requests:
+              memory: "30m"
+              cpu: "10m"
+            limits:
+              memory: "30m"
+              cpu: "30m"
           env:
             - name: VAULT_ADDR
               value: https://vault.beryju.org
