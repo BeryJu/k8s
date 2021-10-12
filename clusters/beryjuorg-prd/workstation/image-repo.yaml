@@ -4,5 +4,5 @@ metadata:
   name: workstation-beryju-org
   namespace: flux-system
 spec:
-  image: beryju.org/jens/workstation
+  image: beryju.org/workstation
   interval: 1m0s

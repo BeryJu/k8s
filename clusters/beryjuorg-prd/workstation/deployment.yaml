@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-        - image: beryju.org/jens/workstation:auto-1634015813 # {"$imagepolicy": "flux-system:workstation"}
+        - image: beryju.org/workstation:auto-1634015813 # {"$imagepolicy": "flux-system:workstation"}
           name: workstation
           ports:
             - containerPort: 22
@@ -60,7 +60,7 @@ spec:
           env:
             - name: VAULT_ADDR
               value: https://vault.beryju.org
-          image: proxy.registry.beryju.org/library/vault
+          image: vault
           name: vault-agent
           volumeMounts:
             - mountPath: /etc/vault
