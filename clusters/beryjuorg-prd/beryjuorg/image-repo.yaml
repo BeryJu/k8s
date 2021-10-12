@@ -1,8 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1alpha2
-kind: ImageRepository
-metadata:
-  name: beryjuorg-ghcr
-  namespace: flux-system
-spec:
-  image: ghcr.io/beryju/beryju.org
-  interval: 10m0s
