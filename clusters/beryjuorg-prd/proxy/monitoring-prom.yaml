@@ -7,7 +7,6 @@ metadata:
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
     nginx.ingress.kubernetes.io/client-body-buffer-size: 20M
-    nginx.ingress.kubernetes.io/rewrite-target: /api/v1/receive
   name: monitoring-prom
   namespace: proxy
 spec:
@@ -20,7 +19,7 @@ spec:
                 name: monitoring
                 port:
                   number: 10908
-            path: /api/v1/write
+            path: /api/v1/receive
             pathType: Prefix
   tls:
     - hosts:
