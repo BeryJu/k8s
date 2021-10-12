@@ -1,0 +1,12 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: remote-write-url
+  namespace: monitoring-system
+spec:
+  path: kv/services/prometheus-pub
+  type: Opaque
+  templates:
+    values.yaml: |
+      remoteWriteUrls:
+        - "https://{% .Secrets.user %}:{% .Secrets.password %}@monitoring.beryju.org/api/v1/write"

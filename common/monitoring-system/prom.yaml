@@ -20,28 +20,7 @@ spec:
     defaultRules:
       create: false
     prometheus:
-      prometheusSpec:
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
-        retention: 2h
-        storageSpec:
-          emptyDir:
-            medium: Memory
-        remoteWrite:
-          - url: https://monitoring.beryju.org/api/v1/write
-            basicAuth:
-              username:
-                name: remote-write
-                key: username
-              password:
-                name: remote-write
-                key: password
-            writeRelabelConfigs:
-              - sourceLabels: [__address__]
-                # target label is the one you want to create
-                targetLabel: cluster
-                replacement: ${CLUSTER_NAME}
+      enabled: false
     alertmanager:
       enabled: false
     grafana:
