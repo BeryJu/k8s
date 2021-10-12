@@ -20,4 +20,4 @@ spec:
         name: flux[bot]
         email: admin@beryju.org
       messageTemplate: |
-        clusters/beryjuorg-prd/workstation: bump workstaiton
+        clusters/beryjuorg-prd/workstation: bump workstation
