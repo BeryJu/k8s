@@ -21,6 +21,8 @@ spec:
       create: false
     prometheus:
       prometheusSpec:
+        externalLabels:
+          cluster: ${CLUSTER_NAME}
         thanos:
           baseImage: quay.io/thanos/thanos
           version: v0.23.1
