@@ -7,7 +7,7 @@ spec:
   path: kv/services/minio/offsite
   type: Opaque
   templates:
-    thanos.yaml: |
+    thanos.yml: |
       type: s3
       config:
         bucket: thanos
