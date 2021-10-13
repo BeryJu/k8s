@@ -21,12 +21,6 @@ spec:
       create: false
     prometheus:
       prometheusSpec:
-        thanos:
-          baseImage: quay.io/thanos/thanos
-          version: v0.23.1
-          objectStorageConfig:
-            key: thanos.yaml
-            name: thanos-objstore-config
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
@@ -34,6 +28,20 @@ spec:
         storageSpec:
           emptyDir:
             medium: Memory
+        remoteWrite:
+          - url: https://monitoring.beryju.org/api/v1/write
+            basicAuth:
+              username:
+                name: remote-write
+                key: username
+              password:
+                name: remote-write
+                key: password
+            writeRelabelConfigs:
+              - sourceLabels: [__address__]
+                # target label is the one you want to create
+                targetLabel: cluster
+                replacement: ${CLUSTER_NAME}
     alertmanager:
       enabled: false
     grafana:

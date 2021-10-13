@@ -18,8 +18,8 @@ spec:
               service:
                 name: monitoring
                 port:
-                  number: 10908
-            path: /api/v1/receive
+                  number: 9090
+            path: /api/v1/write
             pathType: Prefix
   tls:
     - hosts:
