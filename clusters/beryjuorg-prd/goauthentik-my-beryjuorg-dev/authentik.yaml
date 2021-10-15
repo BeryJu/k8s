@@ -13,6 +13,7 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: flux-system
+  timeout: 10m0s
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
