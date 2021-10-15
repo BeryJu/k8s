@@ -28,9 +28,38 @@
       "matchDatasources": [
         "docker"
       ],
+      "enabled": true,
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "semanticCommitScope": "images",
+      "separateMinorPatch": true
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
       "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
       "matchPackageNames": [
         "quay.io/minio/minio"
+      ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "versioning": "loose",
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/radarr",
+        "ghcr.io/k8s-at-home/sabnzbd",
+        "ghcr.io/k8s-at-home/sonarr"
       ]
     }
   ]
