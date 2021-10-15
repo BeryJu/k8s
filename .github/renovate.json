@@ -21,7 +21,8 @@
   },
   "kubernetes": {
     "fileMatch": [
-      ".*yaml$"
+      "\\.yaml$",
+      "\\.yml$"
     ]
   },
   "dependencyDashboard": true,
