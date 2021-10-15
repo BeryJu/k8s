@@ -14,6 +14,16 @@
       "datasourceTemplate": "helm"
     }
   ],
+  "helmv3": {
+    "fileMatch": [
+      "charts/.+/Chart\\.yaml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "*\\.yaml$"
+    ]
+  },
   "dependencyDashboard": true,
   "packageRules": [
     {
@@ -49,17 +59,6 @@
       "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
       "matchPackageNames": [
         "quay.io/minio/minio"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "versioning": "loose",
-      "matchPackageNames": [
-        "ghcr.io/k8s-at-home/radarr",
-        "ghcr.io/k8s-at-home/sabnzbd",
-        "ghcr.io/k8s-at-home/sonarr"
       ]
     }
   ]
