@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: flux-system
   name: cluster-settings
+  namespace: flux-system
 data:
   # MetalLB
   METALLB_PEER: "10.120.0.1"
@@ -17,8 +17,17 @@ data:
   CLUSTER_NAME: "beryjuorg-prd"
   # Ingress public IP
   INGRESS_IP: "194.56.224.176"
-  # Logging
-  FLUENT_BIT_OUTPUT: |
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: logging
+data:
+  output-graylog.conf: |
+    [OUTPUT]
+        Name    gelf
+        Match   *
         Host    log1.prod.beryju.org
         Port    10002
         Mode    tcp

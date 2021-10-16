@@ -14,8 +14,17 @@ data:
   # MetalLB
   METALLB_RANGE: "202.61.244.145/32"
   METALLB_PROTOCOL: layer2
-  # Logging
-  FLUENT_BIT_OUTPUT: |
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: logging
+data:
+  output-graylog.conf: |
+    [OUTPUT]
+        Name    gelf
+        Match   *
         Host            log.beryju.org
         Port            443
         tls             true
