@@ -15,6 +15,9 @@ spec:
         kind: HelmRepository
         name: fluent
         namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: cluster-settings
   values:
     serviceMonitor:
       enabled: true
