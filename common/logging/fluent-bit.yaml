@@ -1,0 +1,89 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fluent-bit
+  namespace: logging
+spec:
+  interval: 6h
+  releaseName: fluent-bit
+  chart:
+    spec:
+      # renovate: registryUrl=https://fluent.github.io/helm-charts
+      chart: fluent-bit
+      version: 0.19.1
+      sourceRef:
+        kind: HelmRepository
+        name: fluent
+        namespace: flux-system
+  values:
+    serviceMonitor:
+      enabled: true
+    envFrom:
+      - secretRef:
+          name: graylog-http-username
+    config:
+      inputs: |
+        [INPUT]
+            Name              tail
+            Tag               kube.*
+            Path              /var/log/containers/*.log
+            Parser            docker
+            DB                /var/log/flb_kube.db
+            Mem_Buf_Limit     5MB
+            Skip_Long_Lines   On
+            Refresh_Interval  10
+      filters: |
+        [FILTER]
+            Name                kubernetes
+            Match               kube.*
+            Kube_Tag_Prefix     kube.var.log.containers.
+            Merge_Log           On
+            Merge_Log_Key       log_processed
+            K8S-Logging.Parser  On
+            K8S-Logging.Exclude Off
+        [FILTER]
+            Name                modify
+            Match               *
+            Copy     kubernetes_pod_name host
+        [FILTER]
+            Name                modify
+            Match               *
+            Rename     log short_message
+      customParsers: |
+        [PARSER]
+            Name   nginx
+            Format regex
+            Regex ^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*?)(?: +\S*)?)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$
+            Time_Key time
+            Time_Format %d/%b/%Y:%H:%M:%S %z
+
+        [PARSER]
+            Name   json
+            Format json
+            Time_Key time
+            Time_Format %d/%b/%Y:%H:%M:%S %z
+
+        [PARSER]
+            Name        docker
+            Format      json
+            Time_Key    time
+            Time_Format %Y-%m-%dT%H:%M:%S.%L
+            Time_Keep   On
+
+        [PARSER]
+            # http://rubular.com/r/tjUt3Awgg4
+            Name cri
+            Format regex
+            Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
+            Time_Key    time
+            Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+
+        [PARSER]
+            Name        syslog
+            Format      regex
+            Regex       ^\<(?<pri>[0-9]+)\>(?<time>[^ ]* {1,2}[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$
+            Time_Key    time
+            Time_Format %b %d %H:%M:%S
+      extraFiles:
+        foo.yml: |
+          bar

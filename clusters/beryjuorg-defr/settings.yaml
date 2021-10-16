@@ -24,10 +24,13 @@ metadata:
   name: cluster-settings
   namespace: logging
 data:
-  output-graylog.conf: |
-    [OUTPUT]
-        Name    gelf
-        Match   *
-        Host    log1.prod.beryju.org
-        Port    10006
-        Mode    tcp
+  values.yaml: |
+    config:
+      extraFiles:
+        output-graylog.conf: |
+          [OUTPUT]
+              Name    gelf
+              Match   *
+              Host    log1.prod.beryju.org
+              Port    10006
+              Mode    tcp
