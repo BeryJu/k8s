@@ -26,11 +26,10 @@ metadata:
 data:
   values.yaml: |
     config:
-      extraFiles:
-        output-graylog.conf: |
-          [OUTPUT]
-              Name    gelf
-              Match   *
-              Host    log1.prod.beryju.org
-              Port    10006
-              Mode    tcp
+      outputs: |
+        [OUTPUT]
+            Name    gelf
+            Match   *
+            Host    log1.prod.beryju.org
+            Port    10006
+            Mode    tcp

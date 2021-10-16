@@ -23,15 +23,14 @@ metadata:
 data:
   values.yaml: |
     config:
-      extraFiles:
-        output-graylog.conf: |
-          [OUTPUT]
-              Name    gelf
-              Match   *
-              Host            log.beryju.org
-              Port            443
-              tls             true
-              URI             /gelf/offsite
-              Format          gelf
-              http_User       $GRAYLOG_HTTP_USERNAME
-              http_Passwd     $GRAYLOG_HTTP_PASSWORD
+      outputs: |
+        [OUTPUT]
+            Name    gelf
+            Match   *
+            Host            log.beryju.org
+            Port            443
+            tls             true
+            URI             /gelf/offsite
+            Format          gelf
+            http_User       $GRAYLOG_HTTP_USERNAME
+            http_Passwd     $GRAYLOG_HTTP_PASSWORD
