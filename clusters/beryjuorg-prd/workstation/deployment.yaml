@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-        - image: beryju.org/workstation:auto-1634879800 # {"$imagepolicy": "flux-system:workstation"}
+        - image: beryju.org/workstation:auto-1634966193 # {"$imagepolicy": "flux-system:workstation"}
           name: workstation
           resources:
             requests:
