@@ -16,8 +16,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: log-auth
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
-    nginx.ingress.kubernetes.io/rewrite-target: /gelf
-  name: log-offsite
+  name: log-loki
   namespace: proxy
 spec:
   rules:
@@ -28,8 +27,8 @@ spec:
               service:
                 name: log
                 port:
-                  number: 10008
-            path: /gelf/offsite
+                  number: 3100
+            path: /loki
             pathType: Prefix
   tls:
     - hosts:
