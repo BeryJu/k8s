@@ -28,8 +28,10 @@ data:
     config:
       outputs: |
         [OUTPUT]
-            Name    gelf
-            Match   *
-            Host    log1.prod.beryju.org
-            Port    10002
-            Mode    tcp
+            Name loki
+            Match *
+            Host log1.prod.beryju.org
+            Port 3100
+            auto_kubernetes_labels on
+            labels job=k8s-beryjuorg-prd
+            label_keys $sub['stream']
