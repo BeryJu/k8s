@@ -31,7 +31,7 @@ spec:
         effect: "NoSchedule"
     envFrom:
       - secretRef:
-          name: graylog-http-username
+          name: loki-http-username
     config:
       inputs: |
         [INPUT]
