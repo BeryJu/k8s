@@ -20,6 +20,8 @@ kind: ConfigMap
 metadata:
   name: cluster-settings
   namespace: logging
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 data:
   values.yaml: |
     config:
@@ -33,5 +35,5 @@ data:
             labels job=k8s-beryjuorg-offsite
             label_keys $sub['stream']
             tls             true
-            http_User       $LOKI_HTTP_USERNAME
-            http_Passwd     $LOKI_HTTP_PASSWORD
+            http_user       ${LOKI_HTTP_USERNAME}
+            http_passwd     ${LOKI_HTTP_PASSWORD}
