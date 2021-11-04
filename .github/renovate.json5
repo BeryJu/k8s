@@ -1,5 +1,14 @@
 {
   "enabled": true,
+  "ignoreDeps": [
+    // Ignore flux images as they are updated by github actions
+    "ghcr.io/fluxcd/helm-controller",
+    "ghcr.io/fluxcd/image-automation-controller",
+    "ghcr.io/fluxcd/image-reflector-controller",
+    "ghcr.io/fluxcd/kustomize-controller",
+    "ghcr.io/fluxcd/notification-controller",
+    "ghcr.io/fluxcd/source-controller"
+  ],
   "regexManagers": [
     {
       "fileMatch": [
