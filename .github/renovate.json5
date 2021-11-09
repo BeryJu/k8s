@@ -23,6 +23,12 @@
       "datasourceTemplate": "helm"
     }
   ],
+  "helm-values": {
+    "fileMatch": [
+      "\\.yaml$",
+      "\\.yml$"
+    ]
+  },
   "helmv3": {
     "fileMatch": [
       "charts/.+/Chart\\.yaml$"
