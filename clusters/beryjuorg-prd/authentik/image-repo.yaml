@@ -4,5 +4,5 @@ metadata:
   name: authentik-beryju-org
   namespace: flux-system
 spec:
-  image: goauthentik.io/dev-server
+  image: ghcr.io/goauthentik/dev-server
   interval: 1m0s

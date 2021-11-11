@@ -50,7 +50,7 @@ spec:
           enabled: true
     fullnameOverride: authentik
     image:
-      repository: goauthentik.io/dev-server
+      repository: ghcr.io/goauthentik/dev-server
       tag: gh-master-1636647077-0f85fe3c2981d150c8d84ca5e6b3038ccf76f2a5 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     prometheus:
@@ -69,7 +69,7 @@ spec:
         port: 587
         use_tls: true
       outposts:
-        docker_image_base: goauthentik.io/dev-%(type)s:gh-%(build_hash)s
+        docker_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
       error_reporting:
         enabled: true
         environment: beryjuorg-dev
