@@ -6,7 +6,7 @@ metadata:
   namespace: proxy
 spec:
   type: ExternalName
-  externalName: sentry1.prod.beryju.org
+  externalName: v220211129430168219.megasrv.de
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
