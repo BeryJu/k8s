@@ -14,8 +14,6 @@ jobs:
           - beryjuorg-offsite
           - beryjuorg-defr
           - beryjuorg-prd
-          - mgmt1
-          - infra1
     steps:
       - name: Check out code
         uses: actions/checkout@v2
