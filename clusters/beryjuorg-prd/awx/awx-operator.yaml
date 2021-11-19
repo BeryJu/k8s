@@ -47,7 +47,8 @@ spec:
                 description: PostgreSQL container image version to use
                 type: string
               postgres_label_selector:
-                description: Label selector used to identify postgres pod for backing up data
+                description: Label selector used to identify postgres pod for backing
+                  up data
                 type: string
             required:
             - deployment_name
@@ -61,7 +62,8 @@ spec:
                 description: Backup directory name on the specified pvc
                 type: string
               conditions:
-                description: The resulting conditions when a Service Telemetry is instantiated
+                description: The resulting conditions when a Service Telemetry is
+                  instantiated
                 items:
                   properties:
                     lastTransitionTime:
@@ -103,13 +105,15 @@ spec:
           spec:
             properties:
               backup_dir:
-                description: Backup directory name, set as a status found on the awxbackup object (backupDirectory)
+                description: Backup directory name, set as a status found on the awxbackup
+                  object (backupDirectory)
                 type: string
               backup_name:
                 description: AWXBackup object name
                 type: string
               backup_pvc:
-                description: Name of the PVC to be restored from, set as a status found on the awxbackup object (backupClaim)
+                description: Name of the PVC to be restored from, set as a status
+                  found on the awxbackup object (backupClaim)
                 type: string
               backup_pvc_namespace:
                 description: Namespace the PVC is in
@@ -130,13 +134,15 @@ spec:
                 description: PostgreSQL container image version to use
                 type: string
               postgres_label_selector:
-                description: Label selector used to identify postgres pod for backing up data
+                description: Label selector used to identify postgres pod for backing
+                  up data
                 type: string
             type: object
           status:
             properties:
               conditions:
-                description: The resulting conditions when a Service Telemetry is instantiated
+                description: The resulting conditions when a Service Telemetry is
+                  instantiated
                 items:
                   properties:
                     lastTransitionTime:
@@ -197,13 +203,15 @@ spec:
                 description: Secret where the broadcast websocket secret can be found
                 type: string
               bundle_cacert_secret:
-                description: Secret where can be found the trusted Certificate Authority Bundle
+                description: Secret where can be found the trusted Certificate Authority
+                  Bundle
                 type: string
               ca_trust_bundle:
                 description: Path where the trusted CA bundle is available
                 type: string
               control_plane_ee_image:
-                description: Registry path to the Execution Environment container image to use on control plane pods
+                description: Registry path to the Execution Environment container
+                  image to use on control plane pods
                 type: string
               create_preload_data:
                 default: true
@@ -221,7 +229,8 @@ spec:
                 description: Specify volume mounts to be added to Execution container
                 type: string
               ee_images:
-                description: Registry path to the Execution Environment container to use
+                description: Registry path to the Execution Environment container
+                  to use
                 items:
                   properties:
                     image:
@@ -231,7 +240,8 @@ spec:
                   type: object
                 type: array
               ee_pull_credentials_secret:
-                description: Secret where pull credentials for registered ees can be found
+                description: Secret where pull credentials for registered ees can
+                  be found
                 type: string
               ee_resource_requirements:
                 description: Resource requirements for the ee container
@@ -301,6 +311,9 @@ spec:
               ingress_path:
                 description: The ingress path used to reach the deployed service
                 type: string
+              ingress_path_type:
+                description: The ingress path type for the deployed service
+                type: string
               ingress_tls_secret:
                 description: Secret where the Ingress TLS secret can be found
                 type: string
@@ -329,7 +342,8 @@ spec:
                 description: Kind of the deployment type
                 type: string
               ldap_cacert_secret:
-                description: Secret where can be found the LDAP trusted Certificate Authority Bundle
+                description: Secret where can be found the LDAP trusted Certificate
+                  Authority Bundle
                 type: string
               loadbalancer_annotations:
                 description: Annotations to add to the loadbalancer
@@ -353,7 +367,8 @@ spec:
                 description: Port to use for the nodeport
                 type: integer
               old_postgres_configuration_secret:
-                description: Secret where the old database configuration can be found for data migration
+                description: Secret where the old database configuration can be found
+                  for data migration
                 type: string
               postgres_configuration_secret:
                 description: Secret where the database configuration can be found
@@ -368,7 +383,8 @@ spec:
                 description: PostgreSQL container image version to use
                 type: string
               postgres_label_selector:
-                description: Label selector used to identify postgres pod for data migration
+                description: Label selector used to identify postgres pod for data
+                  migration
                 type: string
               postgres_resource_requirements:
                 description: Resource requirements for the PostgreSQL container
@@ -416,7 +432,8 @@ spec:
                 type: string
               projects_persistence:
                 default: false
-                description: Whether or not the /var/lib/projects directory will be persistent
+                description: Whether or not the /var/lib/projects directory will be
+                  persistent
                 type: boolean
               projects_storage_access_mode:
                 default: ReadWriteMany
@@ -435,6 +452,11 @@ spec:
                 - _Yes_
                 - _No_
                 type: string
+              redis_capabilities:
+                description: Redis container capabilities
+                items:
+                  type: string
+                type: array
               redis_image:
                 description: Registry path to the redis container to use
                 type: string
@@ -464,6 +486,11 @@ spec:
               secret_key_secret:
                 description: Secret where the secret key can be found
                 type: string
+              security_context_settings:
+                description: Key/values that will be set under the pod-level securityContext
+                  field
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
               service_account_annotations:
                 description: ServiceAccount annotations
                 type: string
@@ -573,7 +600,8 @@ spec:
                 description: Broadcast websocket secret name of the deployed instance
                 type: string
               conditions:
-                description: The resulting conditions when a Service Telemetry is instantiated
+                description: The resulting conditions when a Service Telemetry is
+                  instantiated
                 items:
                   properties:
                     lastTransitionTime:
@@ -617,46 +645,8 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: awx-operator-leader-election-role
-  namespace: awx
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - coordination.k8s.io
-  resources:
-  - leases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
   creationTimestamp: null
-  name: awx-operator-manager-role
+  name: awx-operator-awx-manager-role
   namespace: awx
 rules:
 - apiGroups:
@@ -760,6 +750,44 @@ rules:
   - '*'
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: awx-operator-leader-election-role
+  namespace: awx
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: awx-operator-metrics-reader
@@ -790,12 +818,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: awx-operator-leader-election-rolebinding
+  name: awx-operator-awx-manager-rolebinding
   namespace: awx
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: awx-operator-leader-election-role
+  name: awx-operator-awx-manager-role
 subjects:
 - kind: ServiceAccount
   name: awx-operator-controller-manager
@@ -804,12 +832,12 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: awx-operator-manager-rolebinding
+  name: awx-operator-leader-election-rolebinding
   namespace: awx
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: awx-operator-manager-role
+  name: awx-operator-leader-election-role
 subjects:
 - kind: ServiceAccount
   name: awx-operator-controller-manager
@@ -843,7 +871,7 @@ data:
       resourceName: 811c9dc5.ansible.com
 kind: ConfigMap
 metadata:
-  name: awx-operator-manager-config
+  name: awx-operator-awx-manager-config
   namespace: awx
 ---
 apiVersion: v1
@@ -903,14 +931,14 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: quay.io/ansible/awx-operator:0.14.0
+        image: quay.io/ansible/awx-operator:0.15.0
         livenessProbe:
           httpGet:
             path: /healthz
             port: 6789
           initialDelaySeconds: 15
           periodSeconds: 20
-        name: manager
+        name: awx-manager
         readinessProbe:
           httpGet:
             path: /readyz
