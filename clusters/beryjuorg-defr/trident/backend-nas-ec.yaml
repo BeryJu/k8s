@@ -2,7 +2,7 @@
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
 metadata:
-  name: nappclprd2-nas
+  name: nappclprd2-ontap-nas-economy
   namespace: trident
 spec:
   version: 1
