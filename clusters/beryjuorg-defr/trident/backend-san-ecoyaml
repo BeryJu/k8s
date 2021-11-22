@@ -6,7 +6,7 @@ metadata:
   namespace: trident
 spec:
   version: 1
-  storageDriverName: ontap-san
+  storageDriverName: ontap-san-economy
   managementLIF: 10.120.20.152
   dataLIF: 10.120.20.154
   svm: vs_k8s_defr_prd
@@ -17,10 +17,10 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
-  name: ontap-ssd-iscsi
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: ontap-iscsi-economy
 parameters:
-  backendType: ontap-san
+  backendType: ontap-san-economy
 allowVolumeExpansion: true
 provisioner: csi.trident.netapp.io
 reclaimPolicy: Delete
