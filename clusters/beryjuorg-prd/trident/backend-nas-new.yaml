@@ -7,7 +7,7 @@ metadata:
 spec:
   version: 1
   storageDriverName: ontap-nas-economy
-  managementLIF: 10.120.0.170
+  managementLIF: 10.120.0.171
   dataLIF: 10.120.0.170
   svm: vs_k8s_beryjuorg_prd
   credentials:
