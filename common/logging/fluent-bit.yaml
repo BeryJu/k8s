@@ -56,10 +56,6 @@ spec:
             Name                modify
             Match               *
             Copy     kubernetes_pod_name host
-        [FILTER]
-            Name                modify
-            Match               *
-            Rename     log short_message
       customParsers: |
         [PARSER]
             Name   nginx
