@@ -33,3 +33,4 @@ spec:
   tls:
     - hosts:
         - log.beryju.org
+      secretName: log-acme
