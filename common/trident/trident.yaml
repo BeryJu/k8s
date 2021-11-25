@@ -16,10 +16,12 @@ spec:
   #       namespace: flux-system
   chart:
     spec:
-      chart: /charts/trident-operator/
+      # renovate: registryUrl=https://charts.beryju.org
+      chart: trident
+      version: 1.0.0
       sourceRef:
-        kind: GitRepository
-        name: flux-system
+        kind: HelmRepository
+        name: beryju
         namespace: flux-system
   values:
     tridentOrchestratorCreate: false

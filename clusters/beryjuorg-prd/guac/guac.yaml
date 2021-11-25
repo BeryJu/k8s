@@ -5,11 +5,12 @@ metadata:
   namespace: guac
 spec:
   chart:
-    spec:
-      chart: /charts/guacamole/
+      # renovate: registryUrl=https://charts.beryju.org
+      chart: guacamole
+      version: 1.2.3
       sourceRef:
-        kind: GitRepository
-        name: flux-system
+        kind: HelmRepository
+        name: beryju
         namespace: flux-system
   interval: 1h0m0s
   releaseName: guacamole
