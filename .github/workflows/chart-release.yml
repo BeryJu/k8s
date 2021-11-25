@@ -5,9 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'charts/**'
-      - '!charts/**/README.md'
-      - '!charts/**/README.md.gotmpl'
+      - 'charts/**/Chart.yaml'
 
 jobs:
   release:
