@@ -22,7 +22,7 @@ spec:
         OPENID_CLIENT_ID: eOpL1ne4AnLZKvrC8r5SJey2a4W0D9QN8VX3CC4T
         OPENID_ISSUER: https://id.beryju.org/application/o/apache-guacamole/
         OPENID_JWKS_ENDPOINT: https://id.beryju.org/application/o/apache-guacamole/jwks/
-        OPENID_REDIRECT_URI: https://guac.beryju.org/guacamole/
+        OPENID_REDIRECT_URI: https://guac.beryju.org/
     guacd:
       image:
         tag: 1.3.0
