@@ -4,17 +4,17 @@ guacamole
 ## TL;DR;
 
 ```console
-$ helm repo add halkeye https://halkeye.github.io/helm-charts
-$ helm install guacamole halkeye/guacamole
+$ helm repo add beryju https://charts.beryju.org
+$ helm install guacamole beryju/guacamole
 ```
 
 Apache Guacamole is a clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH.
 
-Current chart version is `0.2.1`
-
-
+This is a fork of https://artifacthub.io/packages/helm/halkeye/guacamole, but updated to support newer versions and more settings.
 
 ## Changelog
+
+1.2.3 - Make guacamole run in ROOT context
 
 0.2.3 - Add support for custom envs
 
