@@ -17,8 +17,8 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://charts.beryju.org
-      chart: trident
-      version: 1.0.0
+      chart: trident-operator
+      version: 21.10.0
       sourceRef:
         kind: HelmRepository
         name: beryju
