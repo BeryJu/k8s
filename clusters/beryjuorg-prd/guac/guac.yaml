@@ -5,6 +5,7 @@ metadata:
   namespace: guac
 spec:
   chart:
+    spec:
       # renovate: registryUrl=https://charts.beryju.org
       chart: guacamole
       version: 1.2.4
