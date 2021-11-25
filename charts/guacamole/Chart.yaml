@@ -7,7 +7,9 @@ icon: http://guacamole.apache.org/images/guac-logo.png
 maintainers:
   - email: helm@gavinmogan.com
     name: Gavin Mogan
+  - email: jens@beryju.org
+    name: Jens Langhammer
 name: guacamole
 sources:
   - http://guacamole.apache.org/
-version: 0.2.3
+version: 1.2.3
