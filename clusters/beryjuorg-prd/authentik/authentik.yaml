@@ -35,7 +35,7 @@ spec:
         limits:
           memory: "500M"
           cpu: "1"
-    replicas: 3
+    replicas: 2
     ingress:
       enabled: true
       annotations:
