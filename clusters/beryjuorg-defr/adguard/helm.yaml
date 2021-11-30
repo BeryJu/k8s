@@ -1,0 +1,101 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: adguard
+  namespace: adguard
+spec:
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: adguard-home
+      version: 5.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+  interval: 1h0m0s
+  releaseName: adguard
+  targetNamespace: adguard
+  valuesFrom:
+    - kind: Secret
+      name: adguard-secrets
+  values:
+    image:
+      repository: adguard/adguardhome
+      tag: v0.106.3
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+      data:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 1Gi
+    additionalContainers:
+      exporter:
+        name: exporter
+        image: ebrianne/adguard-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9617
+            protocol: TCP
+        env:
+          - name: adguard_protocol
+            value: http
+          - name: adguard_hostname
+            value: adguard-adguard-home
+          - name: adguard_port
+            value: "3000"
+          - name: interval
+            value: 10s
+          - name: log_limit
+            value: "10000"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+          - host: adguard.defr.k8s.beryju.org
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - adguard.defr.k8s.beryju.org
+            secretName: adguard-acme
+    service:
+      # Disable default services
+      dns-tcp:
+        enabled: false
+      dns-udp:
+        enabled: false
+      # Since we need two loadbalancers for metallb
+      dns-tcp-lb:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: dns
+        externalIPs:
+          - "10.120.21.2"
+        externalTrafficPolicy: Local
+        ports:
+          tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
+      dns-udp-lb:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: dns
+        externalIPs:
+          - "10.120.21.2"
+        externalTrafficPolicy: Local
+        ports:
+          udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
