@@ -15,8 +15,11 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
+  # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
   values:
     controller:
+      ingressClassResource:
+        default: true
       metrics:
         enabled: true
         serviceMonitor:
