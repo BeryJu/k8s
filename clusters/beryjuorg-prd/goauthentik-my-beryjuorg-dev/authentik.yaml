@@ -51,7 +51,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-master-1638346185-a05da8cdbfe48be20a589bab5244dd32a34db6b7 # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
+      tag: gh-master-1638346286-b8425867c8425f29d43ded0a5abcbd41016b243c # {"$imagepolicy": "flux-system:authentik-gh-master:tag"}
       pullPolicy: Always
     prometheus:
       serviceMonitor:
