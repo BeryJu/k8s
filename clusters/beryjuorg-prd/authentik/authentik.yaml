@@ -85,8 +85,9 @@ spec:
         port: 587
         use_tls: true
       outposts:
-        docker_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
+        container_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
       error_reporting:
         enabled: true
         environment: beryjuorg-prod
         send_pii: true
+        sample_rate: 1
