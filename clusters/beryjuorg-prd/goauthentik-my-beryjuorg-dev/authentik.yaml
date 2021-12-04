@@ -20,6 +20,21 @@ spec:
     - kind: Secret
       name: authentik-secrets
   values:
+    resources:
+      server:
+        requests:
+          memory: "400M"
+          cpu: "0.5"
+        limits:
+          memory: "500M"
+          cpu: "1"
+      worker:
+        requests:
+          memory: "250M"
+          cpu: "300m"
+        limits:
+          memory: "500M"
+          cpu: "1"
     replicas: 2
     serviceAccount:
       create: false
