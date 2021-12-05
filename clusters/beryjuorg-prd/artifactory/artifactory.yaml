@@ -59,7 +59,7 @@ spec:
             - '-c'
             - >
               mkdir -p {{ .Values.artifactory.persistence.mountPath }}/etc/fluentd/;
-              wget https://raw.githubusercontent.com/jfrog/log-analytics-prometheus/master/fluent.conf.rt -O {{ .Values.artifactory.persistence.mountPath }}/etc/fluentd/fluentd.conf
+              curl -L  -o {{ .Values.artifactory.persistence.mountPath }}/etc/fluentd/fluentd.conf https://raw.githubusercontent.com/jfrog/log-analytics-prometheus/master/fluent.conf.rt
           volumeMounts:
             - mountPath: "{{ .Values.artifactory.persistence.mountPath }}"
               name: artifactory-volume
