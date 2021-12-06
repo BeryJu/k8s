@@ -30,3 +30,8 @@ spec:
           avoid-buggy-ips: true
           addresses:
             - "${METALLB_RANGE}"
+        - name: anycast
+          protocol: bgp
+          auto-assign: false
+          addresses:
+            - "10.120.253.0/24"
