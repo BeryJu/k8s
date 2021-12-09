@@ -9,8 +9,8 @@ metadata:
   name: awx
   namespace: awx
 spec:
+  admin_password_secret: awx-secret
   admin_user: admin
-  api_version: awx.ansible.com/v1beta1
   create_preload_data: true
   deployment_type: awx
   garbage_collect_secrets: false
@@ -24,3 +24,8 @@ spec:
   replicas: 1
   route_tls_termination_mechanism: Edge
   task_privileged: false
+  ingress_type: ingress
+  hostname: awx.beryju.org
+  ingress_annotations: |
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  ingress_tls_secret: beryjuorg-awx-tls
