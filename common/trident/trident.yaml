@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://netapp.github.io/trident-helm-chart
       chart: trident-operator
-      version: 21.10.0
+      version: 21.10.1
       sourceRef:
         kind: HelmRepository
         name: netapp-trident
