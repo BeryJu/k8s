@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: adguard/adguardhome
-      tag: v0.106.3
+      tag: v0.107.0
     persistence:
       config:
         enabled: true
