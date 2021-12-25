@@ -25,7 +25,7 @@ spec:
               service:
                 name: monitoring
                 port:
-                  number: 4180
+                  number: 9000
             path: /
             pathType: Prefix
   tls:
