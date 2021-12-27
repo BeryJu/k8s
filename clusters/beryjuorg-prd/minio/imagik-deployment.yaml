@@ -17,51 +17,51 @@ spec:
       affinity:
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                - minio
-            topologyKey: kubernetes.io/hostname
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - minio
+              topologyKey: kubernetes.io/hostname
       containers:
-      - command:
-        - /imagik
-        - -c=/config.yml
-        envFrom:
-        - configMapRef:
-            name: imagik-config
-        image: ghcr.io/beryju/imagik:latest # {"$imagepolicy": "flux-system:imagik"}
-        imagePullPolicy: Always
-        livenessProbe:
-          httpGet:
-            path: /api/pub/health/liveness
-            port: http
-            scheme: HTTP
-        name: imagik
-        ports:
-        - containerPort: 8000
-          name: http
-          protocol: TCP
-        - containerPort: 9300
-          name: http-metrics
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /api/pub/health/readiness
-            port: http
-            scheme: HTTP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 250M
-          requests:
-            cpu: 10m
-            memory: 10M
-        volumeMounts:
-        - mountPath: /data
-          name: storage
+        - command:
+            - /imagik
+            - -c=/config.yml
+          envFrom:
+            - configMapRef:
+                name: imagik-config
+          image: ghcr.io/beryju/imagik:latest-1640595945-8b1be3a942a8f5a824b37431fd1654a379b7310e # {"$imagepolicy": "flux-system:imagik"}
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /api/pub/health/liveness
+              port: http
+              scheme: HTTP
+          name: imagik
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
+            - containerPort: 9300
+              name: http-metrics
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /api/pub/health/readiness
+              port: http
+              scheme: HTTP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 250M
+            requests:
+              cpu: 10m
+              memory: 10M
+          volumeMounts:
+            - mountPath: /data
+              name: storage
       volumes:
-      - name: storage
-        persistentVolumeClaim:
-          claimName: minio-pv-claim
+        - name: storage
+          persistentVolumeClaim:
+            claimName: minio-pv-claim
