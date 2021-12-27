@@ -7,7 +7,7 @@ spec:
   imageRepositoryRef:
     name: imagik-beryju-org
   filterTags:
-    pattern: "^latest-(?P<ts>.*)"
+    pattern: "^latest-(?P<ts>.*)-"
     extract: "$ts"
   policy:
     numerical:
