@@ -31,7 +31,7 @@ spec:
         enabled: true
         accessMode: ReadWriteOnce
         storageClass: ontap-nas-economy
-        size: 1Gi
+        size: 10Gi
     additionalContainers:
       exporter:
         name: exporter
