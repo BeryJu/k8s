@@ -1,17 +1,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: awx
+  name: beryjuorg-awx
   namespace: awx
 spec:
   endpoints:
     - basicAuth:
         password:
           key: password
-          name: prom-credentials
+          name: beryjuorg-prom-credentials
         username:
           key: username
-          name: prom-credentials
+          name: beryjuorg-prom-credentials
       interval: 30s
       path: /api/v2/metrics/
       port: http

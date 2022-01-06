@@ -9,7 +9,7 @@ metadata:
   name: awx
   namespace: awx
 spec:
-  admin_password_secret: awx-secret
+  admin_password_secret: beryjuorg-awx-secret
   admin_user: admin
   create_preload_data: true
   deployment_type: awx
