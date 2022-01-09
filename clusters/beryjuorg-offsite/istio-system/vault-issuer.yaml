@@ -10,7 +10,7 @@ spec:
     auth:
       kubernetes:
         mountPath: /v1/auth/k8s-offsite
-        role: istio
+        role: beryjuorg-istio
         secretRef:
           name: vault-issuer-token-9hwns
           key: token

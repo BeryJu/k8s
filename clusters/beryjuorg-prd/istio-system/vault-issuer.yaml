@@ -10,7 +10,7 @@ spec:
     auth:
       kubernetes:
         mountPath: /v1/auth/k8s-prd
-        role: istio
+        role: beryjuorg-istio
         secretRef:
           name: vault-issuer-token-ghhxl
           key: token

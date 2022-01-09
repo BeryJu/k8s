@@ -10,7 +10,7 @@ spec:
     auth:
       kubernetes:
         mountPath: /v1/auth/k8s-defr
-        role: istio
+        role: beryjuorg-istio
         secretRef:
           name: vault-issuer-token-rvxn9
           key: token
