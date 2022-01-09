@@ -23,24 +23,9 @@ spec:
       disable_rbac: true
       issuer_uri: "https://id.beryju.org/application/o/kiali/"
       username_claim: "preferred_username"
-  server:
-    web_fqdn: kiali.defr.k8s.beryju.org
-    web_root: /
   deployment:
     accessible_namespaces:
     - '**'
-    ingress:
-      class_name: "nginx"
-      enabled: true
-      override_yaml:
-        metadata:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-        spec:
-          tls:
-            - hosts:
-                - kiali.defr.k8s.beryju.org
-              secretName: kiali-acme
   external_services:
     custom_dashboards:
       discovery_enabled: "false"
