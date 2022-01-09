@@ -6,11 +6,11 @@ metadata:
 spec:
   vault:
     server: https://vault.beryju.org
-    path: pki-istio/sign/istio
+    path: pki-istio/sign/beryjuorg-istio
     auth:
       kubernetes:
         mountPath: /v1/auth/k8s-defr
-        role: beryjuorg-istio
+        role: istio
         secretRef:
           name: vault-issuer-token-rvxn9
           key: token
