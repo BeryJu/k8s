@@ -9,7 +9,7 @@ spec:
     path: pki-istio/sign/istio
     auth:
       kubernetes:
-        mountPath: /v1/${VAULT_AUTH_PATH}
+        mountPath: "/v1/${VAULT_AUTH_PATH}"
         role: istio
         secretRef:
           name: vault-issuer-token-9hwns
