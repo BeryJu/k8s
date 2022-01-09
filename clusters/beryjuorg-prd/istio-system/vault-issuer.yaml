@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-istio-issuer
+  namespace: istio-system
+spec:
+  vault:
+    server: https://vault.beryju.org
+    path: pki-istio/sign/istio
+    auth:
+      kubernetes:
+        mountPath: /v1/${VAULT_AUTH_PATH}
+        role: istio
+        secretRef:
+          name: vault-issuer-token-ghhxl
+          key: token
