@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sentry
+  name: sentry-public-proxy
   namespace: proxy
 spec:
   type: ExternalName
@@ -24,7 +24,7 @@ spec:
         paths:
           - backend:
               service:
-                name: sentry
+                name: sentry-public-proxy
                 port:
                   number: 9000
             path: /
