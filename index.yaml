@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   guacamole:
   - apiVersion: v1
+    appVersion: 1.4.0
+    created: "2022-01-11T12:43:37.379229414Z"
+    description: Apache Guacamole is a clientless remote desktop gateway. It supports
+      standard protocols like VNC, RDP, and SSH.
+    digest: 4fb727fe32a7df8e4798018426855a00999b34e6b9ee6d5a8d186c749698bf87
+    icon: http://guacamole.apache.org/images/guacamole-logo-64.png
+    maintainers:
+    - email: helm@gavinmogan.com
+      name: Gavin Mogan
+    - email: jens@beryju.org
+      name: Jens Langhammer
+    name: guacamole
+    sources:
+    - http://guacamole.apache.org/
+    urls:
+    - https://github.com/BeryJu/k8s/releases/download/guacamole-1.3.0/guacamole-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v1
     appVersion: 1.3.0
     created: "2021-11-25T12:20:24.096969748Z"
     description: Apache Guacamole is a clientless remote desktop gateway. It supports
@@ -76,4 +94,4 @@ entries:
     urls:
     - https://github.com/BeryJu/k8s/releases/download/trident-operator-1.0.0/trident-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2021-11-25T12:20:24.27438532Z"
+generated: "2022-01-11T12:43:37.379243514Z"
