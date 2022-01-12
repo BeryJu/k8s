@@ -5,14 +5,6 @@ metadata:
   namespace: istio-system
 spec:
   istio_namespace: istio-system
-  kiali_feature_flags:
-    certificates_information_indicators:
-      enabled: true
-      secrets:
-      - cacerts
-      - istio-ca-secret
-    clustering:
-      enabled: true
   istio_labels:
     app_label_name: "app.kubernetes.io/name"
     version_label_name: "app.kubernetes.io/version"
@@ -48,3 +40,5 @@ spec:
       url: "http://prometheus-operated.monitoring-system:9090/"
     grafana:
       enabled: false
+    tracing:
+      in_cluster_url: 'http://tracing.istio-system:16685/jaeger'
