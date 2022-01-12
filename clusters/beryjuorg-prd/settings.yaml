@@ -17,6 +17,7 @@ data:
   CLUSTER_NAME: "beryjuorg-prd"
   # Ingress public IP
   INGRESS_IP: "194.56.224.176"
+  INGRESS_TRAFFIC_POLICY: "Local"
 ---
 apiVersion: v1
 kind: ConfigMap

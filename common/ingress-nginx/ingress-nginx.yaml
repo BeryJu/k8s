@@ -25,7 +25,7 @@ spec:
         serviceMonitor:
           enabled: true
       service:
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: "${INGRESS_TRAFFIC_POLICY}"
       replicaCount: 2
       config:
         log-format-escape-json: "true"
