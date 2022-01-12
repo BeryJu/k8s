@@ -6,13 +6,14 @@ metadata:
   namespace: proxy
 spec:
   type: ExternalName
-  externalName: overseerr.overseerr.svc.cluster.local
+  externalName: overseerr.defr.k8s.beryju.org
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
   name: overseerr
   namespace: proxy
 spec:
@@ -25,7 +26,7 @@ spec:
               service:
                 name: overseerr
                 port:
-                  number: 5055
+                  number: 443
             path: /
             pathType: Prefix
   tls:
