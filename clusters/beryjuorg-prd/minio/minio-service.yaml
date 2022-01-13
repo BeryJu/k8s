@@ -27,8 +27,6 @@ metadata:
 spec:
   hosts:
     - minio.prd.beryju
-  gateways:
-    - beryjuorg-gw-overseerr
   http:
   - route:
     - destination:

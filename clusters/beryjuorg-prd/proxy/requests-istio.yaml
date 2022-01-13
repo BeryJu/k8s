@@ -46,8 +46,6 @@ metadata:
 spec:
   hosts:
     - requests.jela.io
-  gateways:
-    - beryjuorg-gw-overseerr
   http:
   - route:
     - destination:
