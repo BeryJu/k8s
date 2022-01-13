@@ -26,10 +26,25 @@ metadata:
   namespace: minio
 spec:
   hosts:
-    - minio.prd.beryju
+    - minio.prd.beryjuorg
   http:
   - route:
     - destination:
         port:
           number: 9000
         host: minio-service.minio.svc.cluster.local
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: beryjuorg-global-minio-prd
+  namespace: minio
+spec:
+  hosts:
+  - minio.prd.beryjuorg
+  ports:
+  - number: 9000
+    name: http
+    protocol: HTTP
+  location: MESH_INTERNAL
+  resolution: DNS
