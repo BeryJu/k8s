@@ -27,6 +27,7 @@ metadata:
 spec:
   hosts:
     - minio.prd.beryjuorg
+    - "*.minio.prd.beryjuorg"
   http:
   - route:
     - destination:
@@ -42,6 +43,7 @@ metadata:
 spec:
   hosts:
   - minio.prd.beryjuorg
+  - "*.minio.prd.beryjuorg"
   ports:
   - number: 9000
     name: http
