@@ -18,3 +18,20 @@ spec:
   selector:
     app.kubernetes.io/name: minio
   type: ClusterIP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-global-minio-offsite
+  namespace: minio
+spec:
+  hosts:
+    - minio.offsite.beryju
+  gateways:
+    - beryjuorg-gw-overseerr
+  http:
+  - route:
+    - destination:
+        port:
+          number: 9000
+        host: minio-service.minio.svc.cluster.local
