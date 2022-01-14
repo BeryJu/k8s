@@ -47,7 +47,6 @@ spec:
                   name: minio
                   key: root_password
           image: quay.io/minio/minio:RELEASE.2022-01-08T03-11-54Z
-          imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
             httpGet:

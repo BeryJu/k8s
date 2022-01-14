@@ -21,7 +21,6 @@ spec:
           containers:
             - name: acme-for-appliances
               image: ghcr.io/beryju/acme-for-appliances:1.1.4
-              imagePullPolicy: Always
               command:
                 - /acme-for-appliances
               args:
