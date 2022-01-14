@@ -25,6 +25,11 @@ spec:
               value: backup-s3.beryju.org,minio.offsite.beryjuorg
             - name: MINIO_IDENTITY_OPENID_CLIENT_ID
               value: AxPVXlbHsGeud4XFw3HdN6RnnX5awvC6d7N5mjsl
+            - name: MINIO_IDENTITY_OPENID_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: oidc_secret
             - name: MINIO_IDENTITY_OPENID_CONFIG_URL
               value: https://id.beryju.org/application/o/minio-s3/.well-known/openid-configuration
             - name: MINIO_IDENTITY_OPENID_SCOPES
