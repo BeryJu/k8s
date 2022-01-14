@@ -26,7 +26,6 @@ spec:
           enabled: true
       service:
         externalTrafficPolicy: "${INGRESS_TRAFFIC_POLICY}"
+        annotations:
+          metallb.universe.tf/allow-shared-ip: main
       replicaCount: 2
-    service:
-      annotations:
-        metallb.universe.tf/allow-shared-ip: main
