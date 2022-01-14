@@ -29,3 +29,5 @@ spec:
         annotations:
           metallb.universe.tf/allow-shared-ip: main
       replicaCount: 2
+      podLabels:
+        sidecar.istio.io/inject: "true"
