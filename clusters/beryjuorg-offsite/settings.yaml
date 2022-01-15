@@ -15,26 +15,3 @@ data:
   # MetalLB
   METALLB_RANGE: "202.61.244.145/32"
   METALLB_PROTOCOL: layer2
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cluster-settings
-  namespace: logging
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
-data:
-  values.yaml: |
-    config:
-      outputs: |
-        [OUTPUT]
-            Name loki
-            Match *
-            Host log.beryju.org
-            Port 443
-            auto_kubernetes_labels on
-            labels job=k8s-beryjuorg-offsite
-            label_keys $sub['stream']
-            tls             true
-            http_user       ${LOKI_HTTP_USERNAME}
-            http_passwd     ${LOKI_HTTP_PASSWORD}

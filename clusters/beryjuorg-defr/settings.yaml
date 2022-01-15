@@ -18,21 +18,3 @@ data:
   # Ingress public IP
   INGRESS_IP: "10.120.21.1"
   INGRESS_TRAFFIC_POLICY: "Local"
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cluster-settings
-  namespace: logging
-data:
-  values.yaml: |
-    config:
-      outputs: |
-        [OUTPUT]
-            Name loki
-            Match *
-            Host log1.prod.beryju.org
-            Port 3100
-            auto_kubernetes_labels on
-            labels job=k8s-beryjuorg-defr
-            label_keys $sub['stream']
