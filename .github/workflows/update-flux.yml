@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 * * * *"
 
+env:
+  ARGS: ""
+
 jobs:
   components:
     runs-on: ubuntu-latest
@@ -14,6 +17,11 @@ jobs:
           - beryjuorg-offsite
           - beryjuorg-defr
           - beryjuorg-prd
+          - beryjuorg-mon
+        include:
+          - cluster: beryjuorg-prd
+            env:
+              ARGS: "--components-extra=image-reflector-controller,image-automation-controller"
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -22,8 +30,7 @@ jobs:
       - name: Check for updates
         id: update
         run: |
-          flux install \
-            --components-extra=image-reflector-controller,image-automation-controller \
+          flux install $ARGS \
             --network-policy=false \
             --export > ./clusters/${{ matrix.cluster }}/flux-system/gotk-components.yaml
 
