@@ -21,6 +21,36 @@ spec:
       create: false
     prometheus:
       prometheusSpec:
+        # containers:
+        #   - name: vmware-filesd
+        #     image: gopaytech/vmware-filesd:latest
+        #     env:
+        #       - name: HOSTNAME
+        #         value: "10.0.0.1"
+        #       - name: USERNAME
+        #         value: "vmware-user"
+        #       - name: PASSWORD
+        #         value: "vmware-password"
+        #       - name: OUTPUT
+        #         value: "/opt/config/vmware-filesd.json"
+        #       - name: FILTER
+        #         value: '{"environment": "staging"}'
+        #     volumeMounts:
+        #       - name: config-out
+        #         mountPath: /opt/config
+        #         readOnly: false
+        # securityContext:
+        #   fsGroup: 2000
+        #   runAsNonRoot: true
+        #   runAsUser: 1000
+        # serviceAccountName: po-prometheus-operator-prometheus
+        # serviceMonitorNamespaceSelector: {}
+        # serviceMonitorSelector:
+        #   matchLabels:
+        #     release: vmware-filesd
+        additionalScrapeConfigs:
+          name: additional-scrape-configs
+          key: prometheus-additional.yaml
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
