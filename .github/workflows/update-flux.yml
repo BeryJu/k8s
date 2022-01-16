@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 * * * *"
-
-env:
-  ARGS: ""
+  push:
+    branches:
+      - 'main'
 
 jobs:
   components:
@@ -20,8 +20,7 @@ jobs:
           - beryjuorg-mon
         include:
           - cluster: beryjuorg-prd
-            env:
-              ARGS: "--components-extra=image-reflector-controller,image-automation-controller"
+            args: "--components-extra=image-reflector-controller,image-automation-controller"
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -30,7 +29,7 @@ jobs:
       - name: Check for updates
         id: update
         run: |
-          flux install $ARGS \
+          flux install ${{ matrix.args }} \
             --network-policy=false \
             --export > ./clusters/${{ matrix.cluster }}/flux-system/gotk-components.yaml
 
