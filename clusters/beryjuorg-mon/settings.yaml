@@ -10,3 +10,5 @@ data:
   # Ingress public IP
   INGRESS_IP: "10.120.0.74"
   INGRESS_TRAFFIC_POLICY: "Local"
+  # Vault
+  VAULT_AUTH_PATH: "auth/k8s-mon"
