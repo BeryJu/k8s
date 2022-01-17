@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: beryjuorg-netapp-harvest
+  namespace: netapp-harvest
+spec:
+  namespaceSelector:
+    matchNames:
+      - netapp-harvest
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values: [netapp-harvest]
+  podMetricsEndpoints:
+    - port: http-exporter1
+    - port: http-exporter2
+    - port: http-exporter3
+    - port: http-exporter4
