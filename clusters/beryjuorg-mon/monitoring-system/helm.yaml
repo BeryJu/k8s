@@ -51,6 +51,9 @@ spec:
         additionalScrapeConfigs:
           name: additional-scrape-configs
           key: prometheus-additional.yaml
+        podMetadata:
+          labels:
+            sidecar.istio.io/inject: "true"
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
