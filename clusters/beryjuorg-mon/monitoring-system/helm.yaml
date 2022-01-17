@@ -49,8 +49,8 @@ spec:
         #   matchLabels:
         #     release: vmware-filesd
         additionalScrapeConfigs:
-          name: additional-scrape-configs
-          key: prometheus-additional.yaml
+          name: prom-kube-prometheus-stack-prometheus-scrape-confg
+          key: additional-scrape-configs.yaml
         podMetadata:
           labels:
             sidecar.istio.io/inject: "true"
