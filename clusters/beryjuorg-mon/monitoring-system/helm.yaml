@@ -49,7 +49,7 @@ spec:
         #   matchLabels:
         #     release: vmware-filesd
         additionalScrapeConfigs:
-          name: prom-kube-prometheus-stack-prometheus-scrape-confg
+          name: prom-kube-prometheus-stack-prometheus-scrape-config
           key: additional-scrape-configs.yaml
         podMetadata:
           labels:
