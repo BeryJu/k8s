@@ -60,7 +60,8 @@ spec:
               name: dockersock
             - mountPath: /etc/shared/vault
               name: shared-vault
-        - args:
+        - command: [/bin/vault]
+          args:
             - agent
             - -config=/etc/vault/vault-agent-config.hcl
             - -log-level=debug
@@ -74,7 +75,7 @@ spec:
           env:
             - name: VAULT_ADDR
               value: https://vault.beryju.org
-          image: vault
+          image: vault:1.9.2
           name: vault-agent
           volumeMounts:
             - mountPath: /etc/vault
