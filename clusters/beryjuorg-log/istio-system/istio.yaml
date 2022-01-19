@@ -53,7 +53,7 @@ spec:
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-log
-      network: uk-london
+      network: uk-london-log
       remotePilotAddress: 194.56.224.181
   meshConfig:
     defaultConfig:
