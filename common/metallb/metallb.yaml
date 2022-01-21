@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: metallb
   namespace: metallb-system
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 6h
   releaseName: metallb
