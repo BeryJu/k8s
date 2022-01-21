@@ -19,6 +19,9 @@ spec:
   values:
     defaultRules:
       create: false
+    prometheusOperator:
+      admissionWebhooks:
+        enabled: false
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
