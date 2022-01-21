@@ -3,7 +3,7 @@ kind: HelmRepository
 metadata:
   name: netapp-trident
   namespace: flux-system
-  label:
+  labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 1h0m0s

@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   name: trident
   namespace: trident
-  label:
+  labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 6h
