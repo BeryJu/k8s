@@ -37,6 +37,8 @@ spec:
         protocol: HTTP
       hosts:
         - grafana.infra.beryju.org
+      tls:
+        httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
