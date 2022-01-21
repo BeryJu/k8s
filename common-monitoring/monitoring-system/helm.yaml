@@ -34,14 +34,7 @@ spec:
           emptyDir:
             medium: Memory
         remoteWrite:
-          - url: https://monitoring.beryju.org/api/v1/write
-            basicAuth:
-              username:
-                name: remote-write
-                key: username
-              password:
-                name: remote-write
-                key: password
+          - url: http://beryjuorg-prometheus-main.monitoring-system.svc.cluster.local/api/v1/write
             writeRelabelConfigs:
               - sourceLabels: [__address__]
                 # target label is the one you want to create
