@@ -7,5 +7,4 @@ lint:
 		--list-different \
 		--ignore-unknown \
 		--parser=yaml \
-		--write '*.y*ml' \
-		'**/*.y*ml'
+		--write '**/*.yml' '**/*.yaml'

@@ -11,7 +11,7 @@ spec:
   secretName: beryjuorg-gw-overseerr
   commonName: requests.jela.io
   dnsNames:
-  - requests.jela.io
+    - requests.jela.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -22,21 +22,21 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: beryjuorg-gw-overseerr
-    hosts:
-    - requests.jela.io
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - requests.jela.io
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-gw-overseerr
+      hosts:
+        - requests.jela.io
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - requests.jela.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -47,8 +47,8 @@ spec:
   hosts:
     - requests.jela.io
   http:
-  - route:
-    - destination:
-        port:
-          number: 5055
-        host: overseerr.overseerr.svc.cluster.local
+    - route:
+        - destination:
+            port:
+              number: 5055
+            host: overseerr.overseerr.svc.cluster.local

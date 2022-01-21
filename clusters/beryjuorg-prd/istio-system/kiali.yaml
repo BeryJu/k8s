@@ -20,7 +20,7 @@ spec:
     web_root: /
   deployment:
     accessible_namespaces:
-    - '**'
+      - "**"
     ingress:
       class_name: "nginx"
       enabled: true
@@ -41,4 +41,4 @@ spec:
     grafana:
       enabled: false
     tracing:
-      in_cluster_url: 'http://tracing.istio-system:16685/jaeger'
+      in_cluster_url: "http://tracing.istio-system:16685/jaeger"

@@ -11,17 +11,17 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: proxy.registry.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: artifactory
-            port:
-              number: 8082
-        path: /
-        pathType: ImplementationSpecific
+    - host: proxy.registry.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: artifactory
+                port:
+                  number: 8082
+            path: /
+            pathType: ImplementationSpecific
   tls:
-  - hosts:
-    - proxy.registry.beryju.org
-    secretName: proxy-registry-acme
+    - hosts:
+        - proxy.registry.beryju.org
+      secretName: proxy-registry-acme

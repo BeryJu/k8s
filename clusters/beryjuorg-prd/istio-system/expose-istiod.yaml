@@ -31,26 +31,25 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+    - "*"
   gateways:
-  - istiod-gateway
+    - istiod-gateway
   tls:
-  - match:
-    - port: 15012
-      sniHosts:
-      - "*"
-    route:
-    - destination:
-        host: istiod.istio-system.svc.cluster.local
-        port:
-          number: 15012
-  - match:
-    - port: 15017
-      sniHosts:
-      - "*"
-    route:
-    - destination:
-        host: istiod.istio-system.svc.cluster.local
-        port:
-          number: 443
-
+    - match:
+        - port: 15012
+          sniHosts:
+            - "*"
+      route:
+        - destination:
+            host: istiod.istio-system.svc.cluster.local
+            port:
+              number: 15012
+    - match:
+        - port: 15017
+          sniHosts:
+            - "*"
+      route:
+        - destination:
+            host: istiod.istio-system.svc.cluster.local
+            port:
+              number: 443

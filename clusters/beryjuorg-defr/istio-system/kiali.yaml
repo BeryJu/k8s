@@ -17,7 +17,7 @@ spec:
       username_claim: "preferred_username"
   deployment:
     accessible_namespaces:
-    - '**'
+      - "**"
   external_services:
     custom_dashboards:
       discovery_enabled: "false"

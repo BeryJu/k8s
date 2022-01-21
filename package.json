@@ -1,0 +1,22 @@
+{
+  "name": "k8s",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeryJu/k8s.git"
+  },
+  "author": "Jens Langhammer <jens.langhammer@beryju.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeryJu/k8s/issues"
+  },
+  "homepage": "https://github.com/BeryJu/k8s#readme",
+  "dependencies": {
+    "prettier": "^2.5.1"
+  }
+}
