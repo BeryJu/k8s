@@ -1,0 +1,42 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  timeout: 30m
+  interval: 6h
+  releaseName: grafana
+  chart:
+    spec:
+      # renovate: registryUrl=https://grafana.github.io/helm-charts
+      chart: grafana
+      version: 6.20.6
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: grafana-secrets
+  values:
+    serviceMonitor:
+      enabled: true
+    persistence:
+      enabled: true
+    env:
+      GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
+      GF_SERVER_ROOT_URL: "https://grafana.infra.beryju.org/"
+      GF_INSTALL_PLUGINS: "vonage-status-panel,grafana-polystat-panel,jdbranham-diagram-panel,grafana-sentry-datasource"
+      GF_PLUGINS_ENABLE_ALPHA: "true"
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "e1jpB3HStyiqOWVZHrs6XUvGbo8K0Xti2XME3nDv"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "P92T6gnoLxjS8R8WsakvZRYym4BqlA6Den96SwmaXK7Djn8zN4JkkrxnJe80ieq6y4hJOqqAI2ABsSzgiDcyqcTAkRCLswEpVY39i7AkhQSbFWWJ36P20NJwWCxxQRDb"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://id.beryju.org/application/o/authorize/"
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.beryju.org/application/o/token/"
+      GF_AUTH_GENERIC_OAUTH_API_URL: "https://id.beryju.org/application/o/userinfo/"
+      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://id.beryju.org/application/o/grafana/end-session/"
+      # Optionally enable auto-login
+      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
