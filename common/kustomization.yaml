@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - vault
   - flux-system
-  - rook-ceph
-  - system-upgrade
