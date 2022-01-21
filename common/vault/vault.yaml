@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: vault-secrets-operator
   namespace: vault-secrets-operator
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 6h
   releaseName: vault-secrets-operator
