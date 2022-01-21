@@ -22,6 +22,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@main
       - name: Check for updates
@@ -33,6 +38,10 @@ jobs:
 
           VERSION="$(flux -v)"
           echo "::set-output name=flux_version::$VERSION"
+      - name: Format
+        run: |
+          npm i
+          make
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
