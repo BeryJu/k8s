@@ -1,3 +1,4 @@
+# This was moved here to prevent a dependency in common
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
