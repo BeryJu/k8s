@@ -41,9 +41,11 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-gw-overseerr
+  name: beryjuorg-vs-overseerr
   namespace: istio-system
 spec:
+  gateways:
+    - beryjuorg-gw-overseerr
   hosts:
     - requests.jela.io
   http:

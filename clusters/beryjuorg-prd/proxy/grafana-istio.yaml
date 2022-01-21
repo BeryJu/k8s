@@ -41,9 +41,11 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-gw-grafana
+  name: beryjuorg-vs-grafana
   namespace: istio-system
 spec:
+  gateways:
+    - beryjuorg-gw-grafana
   hosts:
     - grafana.infra.beryju.org
   http:
