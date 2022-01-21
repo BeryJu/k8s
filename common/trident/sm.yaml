@@ -5,6 +5,7 @@ metadata:
   namespace: trident
   labels:
     release: prom-operator
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   jobLabel: trident
   selector:
