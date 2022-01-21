@@ -11,7 +11,7 @@ export K8S_HOST=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluste
 env | grep -E 'VAULT_SECRETS_OPERATOR_NAMESPACE|VAULT_SECRET_NAME|SA_JWT_TOKEN|SA_CA_CRT|K8S_HOST'
 # Enable the Kubernetes auth method at the default path (auth/kubernetes) and finish the configuration of Vault:
 
-vault auth enable -path=k8s-${CLUSTER_NAME} kubernetes
+vault auth enable -path=k8s-${CLUSTER_NAME} kubernetes || true
 
 # Tell Vault how to communicate with the Kubernetes cluster
 vault write auth/k8s-${CLUSTER_NAME}/config \
