@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: beryjuorg-prometheus-flux
+  namespace: monitoring-system
+spec:
+  groups:
+    - name: beryjuorg-prometheus-flux
+      rules:
+        - alert: FluxSuspendedResources
+          expr: sum (gotk_suspend_status) > 0
+          annotations:
+            message: |
+              authentik instance {{ $labels.instance }}'s worker are either not running or not connected.
+            summary: No workers connected
+          for: 10m
+          labels:
+            severity: critical
+        - alert: ReconciliationFailure
+          expr: max(gotk_reconcile_condition{status="False",type="Ready"}) by (namespace, name, kind) + on(namespace, name, kind) (max(gotk_reconcile_condition{status="Deleted"}) by (namespace, name, kind)) * 2 == 1
+          for: 10m
+          labels:
+            severity: page
+          annotations:
+            summary: "{{ $labels.kind }} {{ $labels.namespace }}/{{ $labels.name }} reconciliation has been failing for more than ten minutes."
