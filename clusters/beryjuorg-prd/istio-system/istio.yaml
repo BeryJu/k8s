@@ -57,7 +57,6 @@ spec:
   profile: default
   values:
     global:
-      logAsJson: true
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-prd

@@ -47,7 +47,6 @@ spec:
   profile: default
   values:
     global:
-      logAsJson: true
       logging:
         level: default:info
       meshID: beryjuorg
