@@ -45,7 +45,6 @@ spec:
     pilot:
       enabled: true
   profile: default
-  tag: 1.12.1
   values:
     global:
       logAsJson: true
@@ -60,7 +59,7 @@ spec:
     defaultConfig:
       tracing: {}
       proxyMetadata:
-        ISTIO_META_DNS_CAPTURE: "true"
+        ISTIO_META_DNS_CAPTURE: "false"
         ISTIO_META_DNS_AUTO_ALLOCATE: "true"
         # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
     enablePrometheusMerge: true
