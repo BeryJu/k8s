@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: beryjuorg-global-minio-offsite
-  namespace: minio
+  namespace: istio-systems
 spec:
   hosts:
     - minio.offsite.beryjuorg
@@ -12,13 +12,13 @@ spec:
         - destination:
             port:
               number: 9000
-            host: minio-service.minio.svc.cluster.local
+            host: minio-offsite.minio.svc.cluster.local
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: beryjuorg-global-minio-offsite
-  namespace: minio
+  namespace: istio-systems
 spec:
   hosts:
     - minio.offsite.beryjuorg
