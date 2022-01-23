@@ -52,24 +52,6 @@ spec:
             summary: Istio high 5xx error rate (instance {{ $labels.instance }})
             description: "High percentage of HTTP 5xx responses in Istio (> 5%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-        - alert: IstioHighRequestLatency
-          expr: rate(istio_request_duration_milliseconds_sum[1m]) / rate(istio_request_duration_milliseconds_count[1m]) > 10
-          for: 1m
-          labels:
-            severity: warning
-          annotations:
-            summary: Istio high request latency (instance {{ $labels.instance }})
-            description: "Istio average requests execution is longer than 100ms.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: IstioLatency99Percentile
-          expr: histogram_quantile(0.99, rate(istio_request_duration_milliseconds_bucket[1m])) > 10
-          for: 1m
-          labels:
-            severity: warning
-          annotations:
-            summary: Istio latency 99 percentile (instance {{ $labels.instance }})
-            description: "Istio 1% slowest requests are longer than 1s.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
         - alert: IstioPilotDuplicateEntry
           expr: sum(rate(pilot_duplicate_envoy_clusters{}[5m])) > 0
           for: 0m
