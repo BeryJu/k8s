@@ -24,8 +24,6 @@ spec:
       enabled: true
       service:
         type: LoadBalancer
-        ports:
-          http: 9091
     receive:
       enabled: true
       service:

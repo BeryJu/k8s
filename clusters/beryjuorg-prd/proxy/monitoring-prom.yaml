@@ -18,13 +18,6 @@ spec:
               service:
                 name: monitoring
                 port:
-                  number: 9090
-            path: /api/v1/write
-            pathType: Prefix
-          - backend:
-              service:
-                name: monitoring
-                port:
                   number: 19291
             path: /api/v1/receive
             pathType: Prefix
