@@ -34,7 +34,7 @@ spec:
           emptyDir:
             medium: Memory
         remoteWrite:
-          - url: https://monitoring.beryju.org/api/v1/write
+          - url: https://monitoring.beryju.org/api/v1/receive
             basicAuth:
               username:
                 name: remote-write
