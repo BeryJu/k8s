@@ -35,4 +35,4 @@ spec:
       persistence:
         size: 80Gi
     ruler:
-      enabled: true
+      enabled: false
