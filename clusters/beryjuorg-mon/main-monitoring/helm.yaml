@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: main-monitoring
+spec:
+  timeout: 30m
+  interval: 6h
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: thanos
+      version: 9.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    objstoreConfig: |
+      type: FILESYSTEM
+      config:
+        directory: "/var/thanos/receive"
+    query:
+      enabled: true
+      service:
+        type: LoadBalancer
+        ports:
+          http: 9091
+    receive:
+      enabled: true
+      service:
+        type: LoadBalancer
+        ports:
+          http: 10902
+          grpc: 10903
+          remote: 19291
+      persistence:
+        size: 80Gi
