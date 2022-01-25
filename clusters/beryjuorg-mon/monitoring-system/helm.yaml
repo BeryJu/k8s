@@ -44,7 +44,7 @@ spec:
                 targetLabel: cluster
                 replacement: ${CLUSTER_NAME}
     alertmanager:
-      enabled: false
+      enabled: true
     grafana:
       enabled: false
     nodeExporter:
