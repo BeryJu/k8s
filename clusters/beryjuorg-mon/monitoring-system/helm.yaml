@@ -37,14 +37,7 @@ spec:
           emptyDir:
             medium: Memory
         remoteWrite:
-          - url: https://monitoring.beryju.org/api/v1/receive
-            basicAuth:
-              username:
-                name: remote-write
-                key: username
-              password:
-                name: remote-write
-                key: password
+          - url: http://thanos-receive.main-monitoring:19291/api/v1/receive
             writeRelabelConfigs:
               - sourceLabels: [__address__]
                 # target label is the one you want to create
