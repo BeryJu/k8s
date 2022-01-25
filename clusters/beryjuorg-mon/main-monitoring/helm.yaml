@@ -34,3 +34,5 @@ spec:
           remote: 19291
       persistence:
         size: 80Gi
+    ruler:
+      enabled: true
