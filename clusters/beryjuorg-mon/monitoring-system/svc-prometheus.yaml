@@ -10,6 +10,7 @@ spec:
     - name: http
       port: 9091
       protocol: TCP
+      targetPort: 9090
   selector:
     app.kubernetes.io/name: prometheus
     prometheus: prom-kube-prometheus-stack-prometheus
