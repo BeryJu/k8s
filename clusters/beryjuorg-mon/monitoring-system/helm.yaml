@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: prom
   namespace: monitoring-system
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   timeout: 30m
   interval: 6h
@@ -19,59 +21,37 @@ spec:
   values:
     defaultRules:
       create: false
+    prometheusOperator:
+      admissionWebhooks:
+        enabled: false
     prometheus:
       prometheusSpec:
-        # containers:
-        #   - name: vmware-filesd
-        #     image: gopaytech/vmware-filesd:latest
-        #     env:
-        #       - name: HOSTNAME
-        #         value: "10.0.0.1"
-        #       - name: USERNAME
-        #         value: "vmware-user"
-        #       - name: PASSWORD
-        #         value: "vmware-password"
-        #       - name: OUTPUT
-        #         value: "/opt/config/vmware-filesd.json"
-        #       - name: FILTER
-        #         value: '{"environment": "staging"}'
-        #     volumeMounts:
-        #       - name: config-out
-        #         mountPath: /opt/config
-        #         readOnly: false
-        # securityContext:
-        #   fsGroup: 2000
-        #   runAsNonRoot: true
-        #   runAsUser: 1000
-        # serviceAccountName: po-prometheus-operator-prometheus
-        # serviceMonitorNamespaceSelector: {}
-        # serviceMonitorSelector:
-        #   matchLabels:
-        #     release: vmware-filesd
         additionalScrapeConfigs:
           name: prom-kube-prometheus-stack-prometheus-scrape-config
           key: additional-scrape-configs.yaml
-        podMetadata:
-          labels:
-            sidecar.istio.io/inject: "true"
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
-        retentionSize: 80GB
-        enableFeatures:
-          - remote-write-receiver
+        # ruleSelectorNilUsesHelmValues: false
+        retention: 2h
         storageSpec:
-          volumeClaimTemplate:
-            spec:
-              selector:
-                matchLabels:
-                  app.kubernetes.io/name: prom-local
-              resources:
-                requests:
-                  storage: 100Gi
-              storageClassName: manual
+          emptyDir:
+            medium: Memory
+        remoteWrite:
+          - url: https://monitoring.beryju.org/api/v1/receive
+            basicAuth:
+              username:
+                name: remote-write
+                key: username
+              password:
+                name: remote-write
+                key: password
+            writeRelabelConfigs:
+              - sourceLabels: [__address__]
+                # target label is the one you want to create
+                targetLabel: cluster
+                replacement: ${CLUSTER_NAME}
     alertmanager:
-      enabled: true
+      enabled: false
     grafana:
       enabled: false
     nodeExporter:
