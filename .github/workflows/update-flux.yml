@@ -15,7 +15,6 @@ jobs:
           - beryjuorg-defr
           - beryjuorg-prd
           - beryjuorg-mon
-          - beryjuorg-log
         include:
           - cluster: beryjuorg-prd
             args: "--components-extra=image-reflector-controller,image-automation-controller"
