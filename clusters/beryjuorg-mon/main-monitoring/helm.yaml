@@ -15,11 +15,10 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: beryjuorg-thanos
   values:
-    objstoreConfig: |
-      type: FILESYSTEM
-      config:
-        directory: "/var/thanos/receive"
     query:
       enabled: true
       service:
