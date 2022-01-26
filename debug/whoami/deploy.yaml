@@ -14,15 +14,15 @@ spec:
         app.kubernetes.io/name: whoami
     spec:
       containers:
-      - image: containous/whoami
-        name: whoami
-        ports:
-        - containerPort: 80
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 10m
-            memory: 20Mi
-          requests:
-            cpu: 10m
-            memory: 20Mi
+        - image: containous/whoami
+          name: whoami
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 10m
+              memory: 20Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi

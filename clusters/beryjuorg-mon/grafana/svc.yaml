@@ -5,10 +5,10 @@ metadata:
   namespace: grafana
 spec:
   ports:
-  - name: service
-    port: 80
-    protocol: TCP
-    targetPort: 3000
+    - name: service
+      port: 80
+      protocol: TCP
+      targetPort: 3000
   selector:
     app.kubernetes.io/component: grafana
     app.kubernetes.io/instance: grafana

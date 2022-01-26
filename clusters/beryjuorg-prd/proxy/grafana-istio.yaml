@@ -51,12 +51,12 @@ spec:
   hosts:
     - grafana.infra.beryju.org
   http:
-  - route:
-    - destination:
-        host: grafana.grafana.svc.cluster.local
-        port:
-          number: 80
-      weight: 100
+    - route:
+        - destination:
+            host: grafana.grafana.svc.cluster.local
+            port:
+              number: 80
+          weight: 100
 #    - destination:
 #        host: mon1.prod.beryju.org
 #        port:

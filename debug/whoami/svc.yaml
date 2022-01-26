@@ -5,9 +5,9 @@ metadata:
   namespace: whoami
 spec:
   ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
+    - port: 80
+      protocol: TCP
+      targetPort: 80
   selector:
     app.kubernetes.io/name: whoami
   type: ClusterIP
