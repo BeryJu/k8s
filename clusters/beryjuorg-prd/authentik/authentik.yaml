@@ -24,9 +24,9 @@ spec:
       server:
         requests:
           memory: "400M"
-          cpu: "0.5"
+          cpu: "0.3"
         limits:
-          memory: "500M"
+          memory: "600M"
           cpu: "1"
       worker:
         requests:
@@ -34,7 +34,7 @@ spec:
           cpu: "300m"
         limits:
           memory: "500M"
-          cpu: "1"
+          cpu: "700m"
     replicas: 2
     ingress:
       enabled: true
