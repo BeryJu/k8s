@@ -42,7 +42,7 @@ spec:
               - sourceLabels: [__address__]
                 # target label is the one you want to create
                 targetLabel: cluster
-                replacement: ${CLUSTER_NAME}
+                replacement: beryjuorg-mon
     alertmanager:
       enabled: true
     grafana:
