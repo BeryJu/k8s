@@ -75,9 +75,6 @@ spec:
       postgresql:
         name: "authentik"
         user: "authentik"
-        s3_backup:
-          bucket: "authentik-backup"
-          host: "https://backup-s3.beryju.org"
       log_level: debug
       email:
         from: authentik@services.beryju.org
