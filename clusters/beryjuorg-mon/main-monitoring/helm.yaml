@@ -17,6 +17,10 @@ spec:
         namespace: flux-system
   values:
     existingObjstoreSecret: beryjuorg-thanos-objectstore
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     query:
       enabled: true
       service:
