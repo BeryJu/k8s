@@ -4,11 +4,12 @@ metadata:
   name: beryjuorg-thanos-ruler
   namespace: main-monitoring
 spec:
+  ruleSelector: {}
   ruleNamespaceSelector:
     matchLabels:
       beryju.org/role: main-monitoring
   queryEndpoints:
-    - dnssrv+_http._tcp.thanos-query-frontend.main-monitoring.svc.cluster.local
+    - thanos-query-frontend.main-monitoring.svc.cluster.local:9090
   objectStorageConfig:
     name: beryjuorg-thanos-objectstore
     key: objstore.yml

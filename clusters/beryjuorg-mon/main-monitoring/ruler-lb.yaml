@@ -5,10 +5,10 @@ metadata:
   namespace: main-monitoring
 spec:
   ports:
-  - name: web
-    port: 9092
-    protocol: TCP
-    targetPort: web
+    - name: web
+      port: 9092
+      protocol: TCP
+      targetPort: web
   selector:
     app.kubernetes.io/name: thanos-ruler
   type: LoadBalancer
