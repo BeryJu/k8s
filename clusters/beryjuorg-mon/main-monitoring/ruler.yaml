@@ -13,3 +13,5 @@ spec:
   objectStorageConfig:
     name: beryjuorg-thanos-objectstore
     key: objstore.yml
+  alertmanagersUrl:
+    - http://beryjuorg-alertmanager-main.monitoring-system:9093
