@@ -67,6 +67,10 @@ spec:
             host: minio-offsite.minio.svc.cluster.local
             port:
               number: 9000
+          headers:
+            response:
+              set:
+                server: "NetApp CSS/9.8P4"
           weight: 100
     - match:
         - headers:
