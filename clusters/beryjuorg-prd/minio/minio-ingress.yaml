@@ -17,7 +17,7 @@ spec:
         paths:
           - backend:
               service:
-                name: minio-service
+                name: minio-prd
                 port:
                   number: 9000
             path: /
@@ -27,7 +27,7 @@ spec:
         paths:
           - backend:
               service:
-                name: minio-service
+                name: minio-prd
                 port:
                   number: 9001
             path: /
@@ -37,7 +37,7 @@ spec:
         paths:
           - backend:
               service:
-                name: minio-service
+                name: minio-prd
                 port:
                   number: 9000
             path: /
