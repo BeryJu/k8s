@@ -1,7 +1,5 @@
 kind: ConfigMap
 metadata:
-  labels:
-    app: vmware-exporter
   name: vmware-exporter-config
   namespace: vmware-exporter
 apiVersion: v1
