@@ -54,8 +54,6 @@ spec:
     ingress:
       main:
         enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-prod
         hosts:
           - host: adguard.defr.k8s.beryju.org
             paths:

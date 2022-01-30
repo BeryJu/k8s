@@ -69,14 +69,27 @@ spec:
     - port: 7878
       targetPort: 7878
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-radarr-acme
+  namespace: istio-system
+spec:
+  dnsNames:
+    - radarr.defr.k8s.beryju.org
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: radarr-acme
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   name: radarr
   namespace: dl-stack
 spec:
+  ingressClassName: istio
   rules:
     - host: radarr.defr.k8s.beryju.org
       http:
