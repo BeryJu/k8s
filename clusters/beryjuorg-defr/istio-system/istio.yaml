@@ -13,8 +13,11 @@ spec:
       - enabled: false
         name: istio-egressgateway
     ingressGateways:
-      - enabled: false
+      - enabled: true
         name: istio-ingressgateway
+        k8s:
+          hpaSpec:
+            minReplicas: 2
       - name: istio-eastwestgateway
         label:
           istio: eastwestgateway
@@ -53,6 +56,9 @@ spec:
         clusterName: beryjuorg-defr
       network: de-freiburg
       remotePilotAddress: 194.56.224.181
+    gateways:
+      istio-ingressgateway:
+        injectionTemplate: gateway
   meshConfig:
     defaultConfig:
       tracing: {}
