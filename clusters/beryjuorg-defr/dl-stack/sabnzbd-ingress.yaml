@@ -19,7 +19,7 @@ metadata:
   name: sabnzbd
   namespace: dl-stack
 spec:
-  ingressClassName: istio
+  ingressClassName: nginx
   rules:
     - host: sabnzbd.defr.k8s.beryju.org
       http:

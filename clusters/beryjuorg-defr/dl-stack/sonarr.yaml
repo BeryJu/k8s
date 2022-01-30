@@ -89,7 +89,7 @@ metadata:
   name: sonarr
   namespace: dl-stack
 spec:
-  ingressClassName: istio
+  ingressClassName: nginx
   rules:
     - host: sonarr.defr.k8s.beryju.org
       http:

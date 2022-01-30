@@ -89,7 +89,7 @@ metadata:
   name: radarr
   namespace: dl-stack
 spec:
-  ingressClassName: istio
+  ingressClassName: nginx
   rules:
     - host: radarr.defr.k8s.beryju.org
       http:
