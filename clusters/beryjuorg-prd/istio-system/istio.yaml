@@ -16,7 +16,8 @@ spec:
       - enabled: true
         name: istio-ingressgateway
         k8s:
-          replicaCount: 2
+          hpaSpec:
+            minReplicas: 2
       - name: istio-eastwestgateway
         label:
           istio: eastwestgateway
