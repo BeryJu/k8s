@@ -9,7 +9,7 @@ spec:
       rules:
         - alert: HostOutOfMemory
           expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
-          for: 2m
+          for: 10m
           labels:
             severity: warning
           annotations:
@@ -18,7 +18,7 @@ spec:
 
         - alert: HostMemoryUnderMemoryPressure
           expr: rate(node_vmstat_pgmajfault[1m]) > 1000
-          for: 2m
+          for: 10m
           labels:
             severity: warning
           annotations:
