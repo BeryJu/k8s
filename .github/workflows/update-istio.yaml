@@ -40,10 +40,6 @@ jobs:
           if [[ $(git diff --stat) != '' ]]; then
             echo ::set-output name=version::${ISTIO_VER}
           fi
-      - name: Format
-        run: |
-          npm i
-          make
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         if: steps.check.outputs.version
