@@ -6,7 +6,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://kiali.org/helm-charts
       chart: kiali-operator
       version: 1.45.0
       sourceRef:

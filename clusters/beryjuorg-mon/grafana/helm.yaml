@@ -9,7 +9,6 @@ spec:
   releaseName: grafana
   chart:
     spec:
-      # renovate: registryUrl=https://grafana.github.io/helm-charts
       chart: grafana
       version: 6.21.2
       sourceRef:

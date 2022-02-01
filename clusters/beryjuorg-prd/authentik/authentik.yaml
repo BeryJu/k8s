@@ -6,7 +6,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://charts.goauthentik.io/
       chart: authentik
       version: 5.2.1
       sourceRef:

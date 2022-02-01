@@ -6,7 +6,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://charts.beryju.org
       chart: guacamole
       version: 1.3.0
       sourceRef:

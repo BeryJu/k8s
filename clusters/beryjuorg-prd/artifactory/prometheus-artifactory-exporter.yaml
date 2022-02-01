@@ -6,7 +6,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://peimanja.github.io/helm-charts
       chart: prometheus-artifactory-exporter
       version: 0.1.4
       sourceRef:

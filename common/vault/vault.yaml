@@ -14,7 +14,6 @@ spec:
     crds: CreateReplace
   chart:
     spec:
-      # renovate: registryUrl=https://ricoberger.github.io/helm-charts
       chart: vault-secrets-operator
       version: 1.16.5
       sourceRef:

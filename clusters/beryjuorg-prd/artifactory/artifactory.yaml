@@ -6,7 +6,6 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: registryUrl=https://charts.jfrog.io
       chart: artifactory
       version: 107.31.13
       sourceRef:

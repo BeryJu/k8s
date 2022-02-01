@@ -10,7 +10,6 @@ spec:
   releaseName: trident
   chart:
     spec:
-      # renovate: registryUrl=https://netapp.github.io/trident-helm-chart
       chart: trident-operator
       version: 21.10.1
       sourceRef:
