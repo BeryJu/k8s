@@ -18,86 +18,86 @@ spec:
         app.kubernetes.io/name: beryju-workstation
     spec:
       containers:
-        - image: ghcr.io/beryju/workstation:auto-1643692611 # {"$imagepolicy": "flux-system:workstation"}
-          name: workstation
-          resources:
-            requests:
-              memory: "1Gi"
-              cpu: "1"
-            limits:
-              memory: "2Gi"
-              cpu: "2"
-          ports:
-            - containerPort: 22
-              name: ssh
-              protocol: TCP
-            - containerPort: 443
-              name: https
-              protocol: TCP
-            - containerPort: 8000
-              name: http-alt
-              protocol: TCP
-          readinessProbe:
-            exec:
-              command:
-                - bash
-                - -c
-                - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
-            initialDelaySeconds: 3
-            periodSeconds: 30
-          livenessProbe:
-            exec:
-              command:
-                - bash
-                - -c
-                - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
-            initialDelaySeconds: 3
-            periodSeconds: 30
-          volumeMounts:
-            - mountPath: /home
-              name: workstation-data
-            - mountPath: /var/run/docker.sock
-              name: dockersock
-            - mountPath: /etc/shared/vault
-              name: shared-vault
-        - command: [/bin/vault]
-          args:
-            - agent
-            - -config=/etc/vault/vault-agent-config.hcl
-            - -log-level=debug
-          resources:
-            requests:
-              memory: "30M"
-              cpu: "10m"
-            limits:
-              memory: "30M"
-              cpu: "30m"
-          env:
-            - name: VAULT_ADDR
-              value: https://vault.beryju.org
-          image: vault:1.9.3
-          name: vault-agent
-          volumeMounts:
-            - mountPath: /etc/vault
-              name: config-vault
-            - mountPath: /etc/shared/vault
-              name: shared-vault
+      - image: ghcr.io/beryju/workstation:auto-1643779019 # {"$imagepolicy": "flux-system:workstation"}
+        name: workstation
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
+          limits:
+            memory: "2Gi"
+            cpu: "2"
+        ports:
+        - containerPort: 22
+          name: ssh
+          protocol: TCP
+        - containerPort: 443
+          name: https
+          protocol: TCP
+        - containerPort: 8000
+          name: http-alt
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        livenessProbe:
+          exec:
+            command:
+            - bash
+            - -c
+            - "! ssh -o PasswordAuthentication=No root@localhost true 2>&1 | grep -i -c  refused"
+          initialDelaySeconds: 3
+          periodSeconds: 30
+        volumeMounts:
+        - mountPath: /home
+          name: workstation-data
+        - mountPath: /var/run/docker.sock
+          name: dockersock
+        - mountPath: /etc/shared/vault
+          name: shared-vault
+      - command: [/bin/vault]
+        args:
+        - agent
+        - -config=/etc/vault/vault-agent-config.hcl
+        - -log-level=debug
+        resources:
+          requests:
+            memory: "30M"
+            cpu: "10m"
+          limits:
+            memory: "30M"
+            cpu: "30m"
+        env:
+        - name: VAULT_ADDR
+          value: https://vault.beryju.org
+        image: vault:1.9.3
+        name: vault-agent
+        volumeMounts:
+        - mountPath: /etc/vault
+          name: config-vault
+        - mountPath: /etc/shared/vault
+          name: shared-vault
       hostname: workstation
       volumes:
-        - name: workstation-data
-          persistentVolumeClaim:
-            claimName: workstation-data
-        - hostPath:
-            path: /var/run/docker.sock
-            type: ""
-          name: dockersock
-        - configMap:
-            items:
-              - key: vault-agent-config.hcl
-                path: vault-agent-config.hcl
-            name: workstation-vault
-          name: config-vault
-        - emptyDir: {}
-          name: shared-vault
+      - name: workstation-data
+        persistentVolumeClaim:
+          claimName: workstation-data
+      - hostPath:
+          path: /var/run/docker.sock
+          type: ""
+        name: dockersock
+      - configMap:
+          items:
+          - key: vault-agent-config.hcl
+            path: vault-agent-config.hcl
+          name: workstation-vault
+        name: config-vault
+      - emptyDir: {}
+        name: shared-vault
       serviceAccount: workstation
       serviceAccountName: workstation
