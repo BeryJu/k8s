@@ -24,3 +24,5 @@ spec:
         existingSecret: postgresql
         postgresqlDatabase: guacamole
         postgresqlUsername: guacamole
+        auth:
+          database: guacamole
