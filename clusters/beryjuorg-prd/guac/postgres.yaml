@@ -21,8 +21,7 @@ spec:
         enabled: true
     global:
       postgresql:
-        existingSecret: postgresql
-        postgresqlDatabase: guacamole
-        postgresqlUsername: guacamole
         auth:
           database: guacamole
+          username: guacamole
+          existingSecret: beryjuorg-postgresql-chart
