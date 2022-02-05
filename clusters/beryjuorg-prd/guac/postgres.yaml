@@ -25,3 +25,5 @@ spec:
           database: guacamole
           username: guacamole
           existingSecret: beryjuorg-postgresql-chart
+    image:
+      tag: 11.14.0-debian-10-r49
