@@ -55,7 +55,6 @@ spec:
       multiCluster:
         clusterName: beryjuorg-defr
       network: de-freiburg
-      remotePilotAddress: 194.56.224.181
     gateways:
       istio-ingressgateway:
         injectionTemplate: gateway
