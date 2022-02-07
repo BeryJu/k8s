@@ -47,14 +47,14 @@ spec:
   profile: default
   values:
     global:
-      logging:
-        level: default:info
+      logAsJson: false
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-offsite
       network: de-netcup
       remotePilotAddress: 194.56.224.181
   meshConfig:
+    accessLogFile: ""
     defaultConfig:
       tracing: {}
       proxyMetadata:

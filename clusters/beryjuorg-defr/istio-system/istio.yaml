@@ -51,6 +51,7 @@ spec:
   profile: default
   values:
     global:
+      logAsJson: false
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-defr
@@ -59,6 +60,7 @@ spec:
       istio-ingressgateway:
         injectionTemplate: gateway
   meshConfig:
+    accessLogFile: ""
     defaultConfig:
       tracing: {}
       proxyMetadata:

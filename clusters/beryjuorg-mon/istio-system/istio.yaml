@@ -48,12 +48,14 @@ spec:
   profile: default
   values:
     global:
+      logAsJson: false
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-mon
       network: uk-london-mon
       remotePilotAddress: 194.56.224.181
   meshConfig:
+    accessLogFile: ""
     defaultConfig:
       tracing: {}
       proxyMetadata:
