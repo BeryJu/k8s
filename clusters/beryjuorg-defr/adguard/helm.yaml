@@ -53,11 +53,12 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: istio
         hosts:
           - host: adguard.defr.k8s.beryju.org
             paths:
               - path: /
-                pathType: ImplementationSpecific
+                pathType: Prefix
         tls:
           - hosts:
               - adguard.defr.k8s.beryju.org

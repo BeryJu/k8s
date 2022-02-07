@@ -25,11 +25,12 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: istio
         hosts:
           - host: overseerr.defr.k8s.beryju.org
             paths:
               - path: /
-                pathType: ImplementationSpecific
+                pathType: Prefix
             tls:
               - hosts:
                   - overseerr.defr.k8s.beryju.org

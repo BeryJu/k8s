@@ -6,7 +6,7 @@ metadata:
   name: kiali
   namespace: istio-system
 spec:
-  ingressClassName: nginx
+  ingressClassName: istio
   rules:
   - host: kiali.defr.k8s.beryju.org
     http:
