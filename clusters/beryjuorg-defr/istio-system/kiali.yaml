@@ -25,3 +25,6 @@ spec:
       url: "http://prometheus-operated.monitoring-system:9090/"
     grafana:
       enabled: false
+  server:
+    web_fqdn: kiali.defr.k8s.beryju.org
+    web_root: /
