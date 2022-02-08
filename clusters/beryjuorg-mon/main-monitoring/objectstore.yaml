@@ -11,7 +11,8 @@ spec:
       type: S3
       config:
         bucket: "thanos"
-        endpoint: "backup-s3.beryju.org"
+        endpoint: "minio-offsite.minio.svc.cluster.local:9000"
         region: "eu-central-1"
         access_key: "{% .Secrets.access_key %}"
         secret_key: "{% .Secrets.secret_key %}"
+        insecure: true
