@@ -27,6 +27,8 @@ spec:
       admissionWebhooks:
         enabled: false
     prometheus:
+      # While this isn't the public URL for *this* prometheus, it is used by the chart to configure alertmanager's links
+      externalUrl: https://thanos.infra.beryju.org
       prometheusSpec:
         additionalScrapeConfigs:
           name: prom-kube-prometheus-stack-prometheus-scrape-config
