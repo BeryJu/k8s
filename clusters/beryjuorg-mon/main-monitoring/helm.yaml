@@ -22,16 +22,8 @@ spec:
         enabled: true
     query:
       enabled: true
-      service:
-        type: LoadBalancer
     receive:
       enabled: true
-      service:
-        type: LoadBalancer
-        ports:
-          http: 10902
-          grpc: 10903
-          remote: 19291
       persistence:
         size: 80Gi
     ruler:
