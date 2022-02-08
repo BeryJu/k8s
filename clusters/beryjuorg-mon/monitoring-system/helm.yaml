@@ -47,6 +47,7 @@ spec:
                 replacement: beryjuorg-mon
     alertmanager:
       enabled: true
+      externalUrl: https://alertmanager.infra.beryju.org
       config:
         global:
           resolve_timeout: 5m
@@ -55,7 +56,7 @@ spec:
           - name: "discord"
             slack_configs:
               - channel: "#prometheus"
-                icon_url: https://avatars3.githubusercontent.com/u/3380462
+                icon_url: https://images.s3.beryju.org/prometheus.png
                 username: "Prometheus"
                 send_resolved: true
                 title: |-
