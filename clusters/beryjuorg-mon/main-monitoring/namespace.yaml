@@ -4,3 +4,4 @@ metadata:
   name: main-monitoring
   labels:
     beryju.org/role: main-monitoring
+    istio-injection: enabled
