@@ -30,8 +30,6 @@ spec:
       GF_PLUGINS_ENABLE_ALPHA: "true"
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
-      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "e1jpB3HStyiqOWVZHrs6XUvGbo8K0Xti2XME3nDv"
-      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "P92T6gnoLxjS8R8WsakvZRYym4BqlA6Den96SwmaXK7Djn8zN4JkkrxnJe80ieq6y4hJOqqAI2ABsSzgiDcyqcTAkRCLswEpVY39i7AkhQSbFWWJ36P20NJwWCxxQRDb"
       GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://id.beryju.org/application/o/authorize/"
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.beryju.org/application/o/token/"
