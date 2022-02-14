@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: registry-pullthrough
   namespace: registry
+  labels:
+    app.kubernetes.io/name: registry-pullthrough
 spec:
   ports:
   - name: http
