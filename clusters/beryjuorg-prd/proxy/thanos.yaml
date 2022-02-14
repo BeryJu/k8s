@@ -1,0 +1,28 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: beryjuorg-se-thanos
+spec:
+  hosts:
+    - thanos.infra.beryju.org
+  ports:
+  - number: 9090
+    name: http
+    protocol: http
+  location: MESH_INTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-thanos
+  namespace: istio-system
+spec:
+  hosts:
+    - thanos.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 9090
+            host: thanos-query.main-monitoring.svc.cluster.local

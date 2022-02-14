@@ -1,0 +1,28 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: beryjuorg-se-alertmanager
+spec:
+  hosts:
+    - alertmanager.infra.beryju.org
+  ports:
+  - number: 9093
+    name: http
+    protocol: http
+  location: MESH_INTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-alertmanager
+  namespace: istio-system
+spec:
+  hosts:
+    - alertmanager.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 9093
+            host: prom-kube-prometheus-stack-alertmanager.monitoring-system.svc.cluster.local
