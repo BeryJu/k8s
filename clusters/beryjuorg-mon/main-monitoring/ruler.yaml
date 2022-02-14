@@ -14,4 +14,4 @@ spec:
     name: beryjuorg-thanos-objectstore
     key: objstore.yml
   alertmanagersUrl:
-    - http://beryjuorg-alertmanager-main.monitoring-system:9093
+    - http://prom-kube-prometheus-stack-alertmanager.monitoring-system:9093
