@@ -18,7 +18,13 @@ spec:
       containers:
       - image: registry:2.8
         name: registry
-        resources: {}
+        resources:
+          requests:
+            memory: 100M
+            cpu: 50m
+          limits:
+            memory: 300M
+            cpu: 4
         ports:
         - containerPort: 5000
           name: http
