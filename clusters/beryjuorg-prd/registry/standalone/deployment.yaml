@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: registry-standalone
+  name: registry-standalone
+  namespace: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: registry-standalone
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: registry-standalone
+    spec:
+      containers:
+      - image: registry:2.8
+        name: registry
+        resources: {}
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        - containerPort: 5001
+          name: http-metrics
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 5001
+          initialDelaySeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 5001
+          initialDelaySeconds: 5
+        envFrom:
+        - secretRef:
+            name: registry-general
+        - secretRef:
+            name: registry-standalone
+        volumeMounts:
+        - name: credentials
+          readOnly: true
+          mountPath: "/srv/docker/credentials"
+      volumes:
+      - name: credentials
+        secret:
+          secretName: registry-standalone-credentials

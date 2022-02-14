@@ -28,7 +28,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - registry.beryju.org
+        - registry.infra.beryju.org
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/configuration-snippet: |

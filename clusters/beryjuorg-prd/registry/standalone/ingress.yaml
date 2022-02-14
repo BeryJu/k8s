@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 50000m
+  name: registry-standalone
+  namespace: registry
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: registry.beryju.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: registry-standalone
+            port:
+              number: 5000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - registry.beryju.org
+    secretName: registry-standalone-acme
