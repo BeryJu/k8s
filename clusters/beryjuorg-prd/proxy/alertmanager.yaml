@@ -3,6 +3,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: beryjuorg-se-alertmanager
+  namespace: istio-system
 spec:
   hosts:
     - alertmanager.infra.beryju.org

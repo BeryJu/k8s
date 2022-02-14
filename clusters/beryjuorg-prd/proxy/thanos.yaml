@@ -3,6 +3,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: beryjuorg-se-thanos
+  namespace: istio-system
 spec:
   hosts:
     - thanos.infra.beryju.org
