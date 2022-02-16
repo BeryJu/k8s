@@ -33,7 +33,7 @@ jobs:
           echo "Build manifests for ${ISTIO_VER} in dir ${ISTIO_DIR}"
           helm template --include-crds \
           --namespace istio-operator \
-          ${ISTIO_DIR}/manifests/charts/istio-operator/ > ./common-net/istio-system/operator.yaml
+          ${ISTIO_DIR}/manifests/charts/istio-operator/ > ./common-net/istio-operator/operator.yaml
 
           rm -rf ${ISTIO_DIR}
 
