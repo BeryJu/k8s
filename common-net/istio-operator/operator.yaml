@@ -7,7 +7,6 @@ metadata:
   name: istiooperators.install.istio.io
   labels:
     release: istio
-    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   conversion:
     strategy: None
