@@ -47,7 +47,7 @@ spec:
   profile: default
   values:
     global:
-      logAsJson: false
+      logAsJson: true
       meshID: beryjuorg
       multiCluster:
         clusterName: beryjuorg-offsite
