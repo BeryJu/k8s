@@ -16,6 +16,8 @@ spec:
       - enabled: true
         name: istio-ingressgateway
         k8s:
+          service:
+            externalTrafficPolicy: Local
           hpaSpec:
             minReplicas: 2
       - name: istio-eastwestgateway
