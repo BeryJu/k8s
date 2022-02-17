@@ -54,7 +54,8 @@ spec:
       network: de-netcup
       remotePilotAddress: 194.56.224.181
   meshConfig:
-    accessLogFile: ""
+    accessLogFile: "/dev/stdout"
+    accessLogEncoding: "JSON"
     defaultConfig:
       tracing: {}
       proxyMetadata:

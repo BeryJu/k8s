@@ -49,7 +49,8 @@ spec:
       enabled: true
   hub: docker.io/istio
   meshConfig:
-    accessLogFile: ""
+    accessLogFile: "/dev/stdout"
+    accessLogEncoding: "JSON"
     defaultConfig:
       proxyMetadata:
         ISTIO_META_DNS_CAPTURE: "true"
