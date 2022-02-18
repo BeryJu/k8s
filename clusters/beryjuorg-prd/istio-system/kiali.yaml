@@ -22,12 +22,9 @@ spec:
     accessible_namespaces:
       - "**"
     ingress:
-      class_name: "nginx"
+      class_name: "istio"
       enabled: true
       override_yaml:
-        metadata:
-          annotations:
-            cert-manager.io/cluster-issuer: letsencrypt-prod
         spec:
           tls:
             - hosts:

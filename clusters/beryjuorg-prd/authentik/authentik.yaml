@@ -37,8 +37,7 @@ spec:
     replicas: 2
     ingress:
       enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
+      ingressClassName: istio
       hosts:
       - host: id.beryju.org
         paths:
