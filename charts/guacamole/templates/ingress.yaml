@@ -35,6 +35,7 @@ spec:
             backend:
               serviceName: {{ $fullName }}-guacamole
               servicePort: {{ $svcPort }}
+            pathType: Prefix
         {{- end }}
   {{- end }}
 {{- end }}
