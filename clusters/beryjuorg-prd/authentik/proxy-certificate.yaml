@@ -8,7 +8,7 @@ spec:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-authentiko
+  secretName: beryjuorg-authentik-proxy-infra
   commonName: infra.beryju.org
   dnsNames:
     - infra.beryju.org

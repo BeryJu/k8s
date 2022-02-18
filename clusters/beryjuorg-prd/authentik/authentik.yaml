@@ -45,7 +45,7 @@ spec:
           pathType: Prefix
       tls:
       - hosts: [id.beryju.org]
-        secretName: beryjuorg-authentiko
+        secretName: beryjuorg-authentik
     postgresql:
       enabled: true
       metrics:
