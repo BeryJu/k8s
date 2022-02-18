@@ -1,49 +1,69 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-body-size: 50000m
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_headers "Server: NetApp CSS/9.8P4";
-  name: minio
-  namespace: minio
+  name: beryjuorg-gw-minio
+  namespace: istio-system
 spec:
-  ingressClassName: nginx
-  rules:
-    - host: s3.beryju.org
-      http:
-        paths:
-          - backend:
-              service:
-                name: minio-prd
-                port:
-                  number: 9000
-            path: /
-            pathType: ImplementationSpecific
-    - host: console.s3.beryju.org
-      http:
-        paths:
-          - backend:
-              service:
-                name: minio-prd
-                port:
-                  number: 9001
-            path: /
-            pathType: ImplementationSpecific
-    - host: "*.s3.beryju.org"
-      http:
-        paths:
-          - backend:
-              service:
-                name: minio-prd
-                port:
-                  number: 9000
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-minio
+      hosts:
         - s3.beryju.org
         - "*.s3.beryju.org"
-      secretName: minio-acme
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - s3.beryju.org
+        - "*.s3.beryju.org"
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-minio
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-minio
+  hosts:
+    - s3.beryju.org
+    - "*.s3.beryju.org"
+  http:
+    - match:
+        - headers:
+            host:
+              exact: s3.beryju.org
+        - headers:
+            host:
+              exact: "*.s3.beryju.org"
+      route:
+        - destination:
+            host: minio-prd.minio.svc.cluster.local
+            port:
+              number: 9000
+          headers:
+            response:
+              set:
+                server: "NetApp CSS/9.8P4"
+          weight: 100
+    - match:
+        - headers:
+            host:
+              exact: console.s3.beryju.org
+      route:
+        - destination:
+            host: minio-prd.minio.svc.cluster.local
+            port:
+              number: 9001
+          weight: 100
