@@ -19,6 +19,10 @@ spec:
     - kind: Secret
       name: adguard-secrets
   values:
+    probes:
+      liveness:
+        spec:
+          initialDelaySeconds: 15
     image:
       repository: adguard/adguardhome
       tag: v0.107.3
