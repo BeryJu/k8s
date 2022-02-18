@@ -1,3 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-analytics
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuorg-analytics
+  commonName: analytics.beryju.org
+  dnsNames:
+    - analytics.beryju.org
 ---
 apiVersion: v1
 kind: Service
@@ -15,12 +29,10 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   name: analytics
   namespace: proxy
 spec:
-  ingressClassName: nginx
+  ingressClassName: istio
   rules:
     - host: analytics.beryju.org
       http:
@@ -35,4 +47,4 @@ spec:
   tls:
     - hosts:
         - analytics.beryju.org
-      secretName: analytics-acme
+      secretName: beryjuorg-analytics
