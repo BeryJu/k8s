@@ -26,5 +26,14 @@ spec:
       enabled: true
       persistence:
         size: 80Gi
+      extraVolumes:
+       - name: http-config
+         configMap:
+           name: beryjuorg-thanos-http-config
+      extraVolumeMounts:
+        - name: http-config
+          mountPath: /beryjuorg/http_config/
+      extraFlags:
+        - --http.config=/beryjuorg/http_config.yaml
     ruler:
       enabled: false
