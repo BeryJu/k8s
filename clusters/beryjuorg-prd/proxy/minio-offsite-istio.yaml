@@ -58,10 +58,17 @@ spec:
     - match:
         - headers:
             host:
-              exact: backup-s3.beryju.org
-        - headers:
-            host:
-              exact: "*.backup-s3.beryju.org"
+              exact: console.backup-s3.beryju.org
+      route:
+        - destination:
+            host: minio-offsite.minio.svc.cluster.local
+            port:
+              number: 9001
+          weight: 100
+    - match:
+      - headers:
+          host:
+            regex: '.*\.?s3\.beryju\.org'
       route:
         - destination:
             host: minio-offsite.minio.svc.cluster.local
@@ -71,14 +78,4 @@ spec:
             response:
               set:
                 server: "NetApp CSS/9.8P4"
-          weight: 100
-    - match:
-        - headers:
-            host:
-              exact: console.backup-s3.beryju.org
-      route:
-        - destination:
-            host: minio-offsite.minio.svc.cluster.local
-            port:
-              number: 9001
           weight: 100
