@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: guacamole
-      version: 1.3.0
+      version: 1.3.1
       sourceRef:
         kind: HelmRepository
         name: beryju
@@ -23,8 +23,7 @@ spec:
         OPENID_JWKS_ENDPOINT: https://id.beryju.org/application/o/apache-guacamole/jwks/
         OPENID_REDIRECT_URI: https://guac.beryju.org/
     ingress:
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
+      className: istio
       enabled: true
       hosts:
         - host: guac.beryju.org
@@ -33,7 +32,7 @@ spec:
       tls:
         - hosts:
             - guac.beryju.org
-          secretName: guac-acme
+          secretName: beryjuorg-guac
   valuesFrom:
     - kind: Secret
       name: guac-values
