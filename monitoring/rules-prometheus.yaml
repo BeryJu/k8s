@@ -106,15 +106,6 @@ spec:
             summary: Prometheus notifications backlog (instance {{ $labels.instance }})
             description: "The Prometheus notification queue has not been empty for 10 minutes\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-        - alert: PrometheusAlertmanagerNotificationFailing
-          expr: rate(alertmanager_notifications_failed_total[1m]) > 0
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: Prometheus AlertManager notification failing (instance {{ $labels.instance }})
-            description: "Alertmanager is failing sending notifications\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
         - alert: PrometheusLargeScrape
           expr: increase(prometheus_target_scrapes_exceeded_sample_limit_total[10m]) > 10
           for: 5m
