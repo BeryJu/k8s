@@ -21,6 +21,8 @@ spec:
     defaultRules:
       create: false
     prometheusOperator:
+      admissionWebhooks:
+        enabled: false
       podLabels:
         sidecar.istio.io/inject: "false"
     prometheus:
