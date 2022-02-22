@@ -21,6 +21,8 @@ spec:
             - :9001
             - /storage
           env:
+            - name: MINIO_PROMETHEUS_URL
+              value: http://prometheus-operated.monitoring-system.svc.cluster.local:9090
             - name: MINIO_DOMAIN
               value: backup-s3.beryju.org,minio.offsite.beryjuorg
             - name: MINIO_IDENTITY_OPENID_CLIENT_ID
