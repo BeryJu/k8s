@@ -62,9 +62,10 @@ spec:
       - image: ghcr.io/beryju/workstation:auto-1645625832 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-code
         args:
-          - /usr/bin/code-server
-          - --bind-addr
-          - 0.0.0.0:8000
+          - su
+          - -c
+          - "/usr/bin/code-server --bind-addr 0.0.0.0:8000 --auth none"
+          - jens
         resources: {}
         ports:
         - containerPort: 8000
