@@ -56,8 +56,6 @@ spec:
         volumeMounts:
         - mountPath: /home
           name: workstation-data
-        - mountPath: /var/run/docker.sock
-          name: dockersock
         - mountPath: /etc/shared/vault
           name: shared-vault
       - command: [/bin/vault]
@@ -87,10 +85,6 @@ spec:
       - name: workstation-data
         persistentVolumeClaim:
           claimName: workstation-data
-      - hostPath:
-          path: /var/run/docker.sock
-          type: ""
-        name: dockersock
       - configMap:
           items:
           - key: vault-agent-config.hcl
