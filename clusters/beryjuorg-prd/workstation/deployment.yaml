@@ -35,7 +35,7 @@ spec:
         - containerPort: 443
           name: https
           protocol: TCP
-        - containerPort: 8000
+        - containerPort: 8080
           name: http-alt
           protocol: TCP
         readinessProbe:
@@ -68,7 +68,7 @@ spec:
         resources: {}
         ports:
         - containerPort: 8000
-          name: http-alt
+          name: http-code
           protocol: TCP
         volumeMounts:
         - mountPath: /home

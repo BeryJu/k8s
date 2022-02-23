@@ -13,14 +13,14 @@ spec:
       port: 22
       protocol: TCP
       targetPort: ssh
+    - name: http-alt
+      port: 8080
+      protocol: TCP
+      targetPort: http-alt
     - name: https
       port: 443
       protocol: TCP
       targetPort: https
-    - name: http-alt
-      port: 8000
-      protocol: TCP
-      targetPort: http-alt
     - name: ssh-alt
       port: 53
       protocol: TCP
