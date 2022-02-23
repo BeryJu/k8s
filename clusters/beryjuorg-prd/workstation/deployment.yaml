@@ -64,7 +64,7 @@ spec:
         args:
           - /usr/bin/code-server
           - --bind-addr
-          - 0.0.0.0
+          - 0.0.0.0:8000
         resources: {}
         ports:
         - containerPort: 8000
