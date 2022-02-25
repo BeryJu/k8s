@@ -22,7 +22,7 @@ spec:
         fsGroupChangePolicy: Always
       containers:
         - name: exporter
-          image: msroest/sabnzbd_exporter:0.1.36
+          image: msroest/sabnzbd_exporter:0.1.53
           env:
             - name: SABNZBD_BASEURL
               value: http://localhost:8080
