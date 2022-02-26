@@ -2,38 +2,34 @@
 apiVersion: ricoberger.de/v1alpha1
 kind: VaultSecret
 metadata:
-  name: beryjuorg-gh-pat
+  name: beryjuorg-discord
   namespace: flux-system
 spec:
-  keys:
-    - github_pat
-  path: kv/k8s-flux
+  path: kv/services/discord
   type: Opaque
   templates:
-    token: "{% .Secrets.github_pat %}"
+    address: "{% .Secrets.flux_webhook %}"
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Provider
 metadata:
-  name: github
+  name: discord
   namespace: flux-system
 spec:
-  type: github
-  address: https://github.com/beryju/k8s
+  type: discord
+  channel: notifications
   secretRef:
-    name: beryjuorg-gh-pat
+    name: beryjuorg-discord
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
-  name: github
+  name: discord
   namespace: flux-system
 spec:
   providerRef:
-    name: github
+    name: discord
   eventSeverity: info
   eventSources:
-    - kind: Kustomization
-      name: "*"
-    - kind: HelmRelease
+    - kind: ImageUpdateAutomation
       name: "*"
