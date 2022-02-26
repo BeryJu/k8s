@@ -5,4 +5,4 @@ resources:
   - helm-stable.yaml
   - helm-beryju.yaml
   - notification-github.yaml
-  - notification-sentry.yaml
+  - notification-discord.yaml
