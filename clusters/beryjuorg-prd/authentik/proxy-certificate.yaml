@@ -13,3 +13,4 @@ spec:
   dnsNames:
     - infra.beryju.org
     - "*.infra.beryju.org"
+    - hass-ext.beryju.org
