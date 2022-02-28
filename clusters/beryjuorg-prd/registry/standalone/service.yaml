@@ -6,6 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: registry-standalone
 spec:
+  clusterIP: None
   ports:
   - name: http
     port: 5000
