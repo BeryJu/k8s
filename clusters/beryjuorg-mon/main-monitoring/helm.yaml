@@ -28,3 +28,6 @@ spec:
         size: 80Gi
     ruler:
       enabled: false
+    compactor:
+      enabled: true
+      retentionResolutionRaw: 30d
