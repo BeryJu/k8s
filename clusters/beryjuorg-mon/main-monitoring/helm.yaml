@@ -30,4 +30,3 @@ spec:
       enabled: false
     compactor:
       enabled: true
-      retentionResolutionRaw: 30d
