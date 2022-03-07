@@ -282,3 +282,11 @@ spec:
           annotations:
             summary: Host clock not synchronising (instance {{ $labels.instance }})
             description: "Clock not synchronising. Ensure NTP is configured on this host.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+        - alert: AptUpgradesPending
+          expr: apt_upgrades_pending
+          for: 3h
+          labels:
+            severity: warning
+          annotations:
+            summary: Hosts have pending upgrades (instance {{ $labels.instance }})
