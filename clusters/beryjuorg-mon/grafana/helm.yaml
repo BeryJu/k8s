@@ -23,6 +23,8 @@ spec:
       enabled: true
     persistence:
       enabled: true
+    deploymentStrategy:
+      type: Recreate
     env:
       GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
       GF_SERVER_ROOT_URL: "https://grafana.infra.beryju.org/"
