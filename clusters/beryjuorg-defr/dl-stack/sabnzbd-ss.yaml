@@ -35,7 +35,7 @@ spec:
             - containerPort: 9387
               name: metrics
         - name: sabnzbd
-          image: ghcr.io/k8s-at-home/sabnzbd:v3.5.1
+          image: ghcr.io/k8s-at-home/sabnzbd:v3.5.2
           resources:
             requests:
               memory: "300Mi"
