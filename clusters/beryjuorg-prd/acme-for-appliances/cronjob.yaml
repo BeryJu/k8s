@@ -5,7 +5,9 @@ metadata:
   namespace: acme-for-appliances
 spec:
   schedule: "0 */3 * * *"
-  concurrencyPolicy: Forbid
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
   jobTemplate:
     spec:
       template:
