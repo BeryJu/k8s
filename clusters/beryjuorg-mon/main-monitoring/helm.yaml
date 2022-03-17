@@ -23,6 +23,7 @@ spec:
     query:
       enabled: true
     receive:
+      tsdbRetention: 3d
       enabled: true
       persistence:
         size: 80Gi
