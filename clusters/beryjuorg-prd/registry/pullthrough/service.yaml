@@ -8,12 +8,12 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - name: http
-    port: 5000
-    targetPort: http
-  - name: http-metrics
-    port: 5001
-    targetPort: http-metrics
+    - name: http
+      port: 5000
+      targetPort: http
+    - name: http-metrics
+      port: 5001
+      targetPort: http-metrics
   selector:
     app.kubernetes.io/name: registry-pullthrough
   type: ClusterIP

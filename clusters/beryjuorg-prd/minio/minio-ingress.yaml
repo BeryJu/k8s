@@ -41,9 +41,9 @@ spec:
     - "*.s3.beryju.org"
   http:
     - match:
-      - headers:
-          host:
-            exact: console.s3.beryju.org
+        - headers:
+            host:
+              exact: console.s3.beryju.org
       route:
         - destination:
             host: minio-prd.minio.svc.cluster.local
@@ -51,9 +51,9 @@ spec:
               number: 9001
           weight: 100
     - match:
-      - headers:
-          host:
-            regex: '.*\.?s3\.beryju\.org'
+        - headers:
+            host:
+              regex: '.*\.?s3\.beryju\.org'
       route:
         - destination:
             host: minio-prd.minio.svc.cluster.local

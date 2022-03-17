@@ -8,17 +8,17 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
-  - host: kiali.defr.k8s.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: kiali
-            port:
-              number: 20001
-        path: /
-        pathType: Prefix
+    - host: kiali.defr.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: kiali
+                port:
+                  number: 20001
+            path: /
+            pathType: Prefix
   tls:
-  - hosts:
-    - kiali.defr.k8s.beryju.org
-    secretName: kiali-acme
+    - hosts:
+        - kiali.defr.k8s.beryju.org
+      secretName: kiali-acme

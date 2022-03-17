@@ -16,8 +16,8 @@ spec:
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
-  - kind: Secret
-    name: authentik-secrets
+    - kind: Secret
+      name: authentik-secrets
   values:
     resources:
       server:
@@ -39,13 +39,13 @@ spec:
       enabled: true
       ingressClassName: istio
       hosts:
-      - host: id.beryju.org
-        paths:
-        - path: "/"
-          pathType: Prefix
+        - host: id.beryju.org
+          paths:
+            - path: "/"
+              pathType: Prefix
       tls:
-      - hosts: [id.beryju.org]
-        secretName: beryjuorg-authentik
+        - hosts: [id.beryju.org]
+          secretName: beryjuorg-authentik
     postgresql:
       enabled: true
       metrics:

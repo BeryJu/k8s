@@ -8,9 +8,9 @@ spec:
   hosts:
     - alertmanager.infra.beryju.org
   ports:
-  - number: 9093
-    name: http
-    protocol: http
+    - number: 9093
+      name: http
+      protocol: http
   location: MESH_INTERNAL
 ---
 apiVersion: networking.istio.io/v1alpha3

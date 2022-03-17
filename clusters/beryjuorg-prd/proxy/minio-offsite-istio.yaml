@@ -66,9 +66,9 @@ spec:
               number: 9001
           weight: 100
     - match:
-      - headers:
-          host:
-            regex: '.*\.?s3\.beryju\.org'
+        - headers:
+            host:
+              regex: '.*\.?s3\.beryju\.org'
       route:
         - destination:
             host: minio-offsite.minio.svc.cluster.local

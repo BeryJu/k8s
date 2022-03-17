@@ -16,42 +16,42 @@ spec:
         app.kubernetes.io/name: registry-standalone
     spec:
       containers:
-      - image: registry:2.8
-        name: registry
-        resources:
-          requests:
-            memory: 100M
-            cpu: 50m
-          limits:
-            memory: 300M
-            cpu: 4
-        ports:
-        - containerPort: 5000
-          name: http
-          protocol: TCP
-        - containerPort: 5001
-          name: http-metrics
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /metrics
-            port: 5001
-          initialDelaySeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /metrics
-            port: 5001
-          initialDelaySeconds: 5
-        envFrom:
-        - secretRef:
-            name: registry-general
-        - secretRef:
-            name: registry-standalone
-        volumeMounts:
-        - name: credentials
-          readOnly: true
-          mountPath: "/srv/docker/credentials"
+        - image: registry:2.8
+          name: registry
+          resources:
+            requests:
+              memory: 100M
+              cpu: 50m
+            limits:
+              memory: 300M
+              cpu: 4
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+            - containerPort: 5001
+              name: http-metrics
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 5001
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 5001
+            initialDelaySeconds: 5
+          envFrom:
+            - secretRef:
+                name: registry-general
+            - secretRef:
+                name: registry-standalone
+          volumeMounts:
+            - name: credentials
+              readOnly: true
+              mountPath: "/srv/docker/credentials"
       volumes:
-      - name: credentials
-        secret:
-          secretName: registry-standalone-credentials
+        - name: credentials
+          secret:
+            secretName: registry-standalone-credentials

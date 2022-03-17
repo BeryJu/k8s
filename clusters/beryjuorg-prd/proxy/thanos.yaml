@@ -8,9 +8,9 @@ spec:
   hosts:
     - thanos.infra.beryju.org
   ports:
-  - number: 9090
-    name: http
-    protocol: http
+    - number: 9090
+      name: http
+      protocol: http
   location: MESH_INTERNAL
 ---
 apiVersion: networking.istio.io/v1alpha3

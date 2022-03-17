@@ -6,17 +6,17 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
-  - host: registry.beryju.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: registry-standalone
-            port:
-              number: 5000
-        path: /
-        pathType: Prefix
+    - host: registry.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: registry-standalone
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
   tls:
-  - hosts:
-    - registry.beryju.org
-    secretName: beryjuorg-gw-registries
+    - hosts:
+        - registry.beryju.org
+      secretName: beryjuorg-gw-registries
