@@ -16,8 +16,8 @@ spec:
   interval: 1h0m0s
   releaseName: authentik
   valuesFrom:
-    - kind: Secret
-      name: authentik-secrets
+  - kind: Secret
+    name: authentik-secrets
   values:
     resources:
       server:
@@ -39,13 +39,13 @@ spec:
       enabled: true
       ingressClassName: istio
       hosts:
-        - host: id.beryju.org
-          paths:
-            - path: "/"
-              pathType: Prefix
+      - host: id.beryju.org
+        paths:
+        - path: "/"
+          pathType: Prefix
       tls:
-        - hosts: [id.beryju.org]
-          secretName: beryjuorg-authentik
+      - hosts: [id.beryju.org]
+        secretName: beryjuorg-authentik
     postgresql:
       enabled: true
       metrics:
@@ -65,7 +65,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1647509613-4ed60fe36b7748d02f4d776944456a27da9b9d04 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1647597157-bb1f79347b983aaf5c5edd815371673ae027d265 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     geoip:
       enabled: true
