@@ -14,4 +14,4 @@ spec:
   namespace: trident
   probePort: 17546
   silenceAutosupport: true
-  tridentImage: netapp/trident:22.01.0
+  tridentImage: netapp/trident:22.01.1
