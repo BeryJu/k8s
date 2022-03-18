@@ -88,24 +88,6 @@ spec:
             summary: Kubernetes PersistentVolumeClaim pending (instance {{ $labels.instance }})
             description: "PersistentVolumeClaim {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is pending\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-        - alert: KubernetesVolumeOutOfDiskSpace
-          expr: kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes * 100 < 10
-          for: 2m
-          labels:
-            severity: warning
-          annotations:
-            summary: Kubernetes Volume out of disk space (instance {{ $labels.instance }})
-            description: "Volume is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: KubernetesVolumeFullInFourDays
-          expr: predict_linear(kubelet_volume_stats_available_bytes[6h], 4 * 24 * 3600) < 0
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: Kubernetes Volume full in four days (instance {{ $labels.instance }})
-            description: "{{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is expected to fill up within four days. Currently {{ $value | humanize }}% is available.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
         - alert: KubernetesPersistentvolumeError
           expr: kube_persistentvolume_status_phase{phase=~"Failed|Pending", job="kube-state-metrics"} > 0
           for: 0m
@@ -141,15 +123,6 @@ spec:
           annotations:
             summary: Kubernetes HPA metric availability (instance {{ $labels.instance }})
             description: "HPA is not able to collect metrics\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: KubernetesHpaScaleCapability
-          expr: kube_horizontalpodautoscaler_status_desired_replicas >= kube_horizontalpodautoscaler_spec_max_replicas
-          for: 2m
-          labels:
-            severity: info
-          annotations:
-            summary: Kubernetes HPA scale capability (instance {{ $labels.instance }})
-            description: "The maximum number of desired Pods has been hit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
         - alert: KubernetesPodNotHealthy
           expr: min_over_time(sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed"})[15m:1m]) > 0
