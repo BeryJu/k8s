@@ -30,8 +30,25 @@ spec:
       accessible_namespaces:
         - "**"
       ingress:
-        class_name: "istio"
         enabled: true
+        override_yaml:
+          spec:
+            ingressClassName: istio
+            rules:
+              - host: kiali-${CLUSTER_NAME}.infra.beryju.org
+                http:
+                  paths:
+                    - path: /
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: kiali
+                          port:
+                            number: 20001
+            tls:
+              - hosts:
+                  - kiali-${CLUSTER_NAME}.infra.beryju.org
+                secretName: beryjuorg-authentik-proxy-infra
     external_services:
       custom_dashboards:
         discovery_enabled: "false"
