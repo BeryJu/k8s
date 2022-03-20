@@ -29,6 +29,9 @@ spec:
     deployment:
       accessible_namespaces:
         - "**"
+      ingress:
+        class_name: "istio"
+        enabled: true
     external_services:
       custom_dashboards:
         discovery_enabled: "false"
