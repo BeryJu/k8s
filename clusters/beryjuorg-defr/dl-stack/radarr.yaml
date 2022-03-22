@@ -34,6 +34,15 @@ spec:
               value: Europe/Berlin
             - name: UMASK_SET
               value: "022"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 7878
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
           ports:
             - containerPort: 7878
               name: http

@@ -21,19 +21,6 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: Always
       containers:
-        - name: exporter
-          image: msroest/sabnzbd_exporter:0.1.53
-          env:
-            - name: SABNZBD_BASEURL
-              value: http://localhost:8080
-            - name: SABNZBD_APIKEY
-              valueFrom:
-                secretKeyRef:
-                  name: sabnzbd-api-key
-                  key: api-key
-          ports:
-            - containerPort: 9387
-              name: metrics
         - name: sabnzbd
           image: ghcr.io/k8s-at-home/sabnzbd:v3.5.3
           resources:
@@ -50,11 +37,33 @@ spec:
               name: http
             - containerPort: 9090
               name: https
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
           volumeMounts:
             - name: config
               mountPath: /config
             - name: media
               mountPath: /media
+        - name: exporter
+          image: msroest/sabnzbd_exporter:0.1.53
+          env:
+            - name: SABNZBD_BASEURL
+              value: http://localhost:8080
+            - name: SABNZBD_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: sabnzbd-api-key
+                  key: api-key
+          ports:
+            - containerPort: 9387
+              name: metrics
       volumes:
         - name: media
           persistentVolumeClaim:

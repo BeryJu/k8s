@@ -34,6 +34,15 @@ spec:
               value: Europe/Berlin
             - name: UMASK_SET
               value: "022"
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8989
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
           ports:
             - containerPort: 8989
               name: http
