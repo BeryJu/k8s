@@ -22,10 +22,10 @@ spec:
         value:
           name: envoy.lua
           typed_config:
-              "@type": "type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua"
-              inlineCode: |
-                function envoy_on_response(response_handle)
-                    if response_handle:headers():get(":status") == "404" and response_handle:headers():get("x-envoy-upstream-service-time") == nil then
-                        response_handle:headers():replace(":status", "421")
-                    end
-                end
+            "@type": "type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua"
+            inlineCode: |
+              function envoy_on_response(response_handle)
+                  if response_handle:headers():get(":status") == "404" and response_handle:headers():get("x-envoy-upstream-service-time") == nil then
+                      response_handle:headers():replace(":status", "421")
+                  end
+              end
