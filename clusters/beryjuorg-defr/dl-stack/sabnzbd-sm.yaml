@@ -6,6 +6,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: sabnzbd
+      app.kubernetes.io/name: sabnzbd-exporter
   endpoints:
     - port: metrics
