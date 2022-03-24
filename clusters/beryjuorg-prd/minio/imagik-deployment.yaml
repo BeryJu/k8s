@@ -14,16 +14,6 @@ spec:
       labels:
         app.kubernetes.io/name: imagik
     spec:
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                - minio
-            topologyKey: kubernetes.io/hostname
       containers:
       - command:
         - /imagik
@@ -58,10 +48,3 @@ spec:
           requests:
             cpu: 10m
             memory: 10M
-        volumeMounts:
-        - mountPath: /data
-          name: storage
-      volumes:
-      - name: storage
-        persistentVolumeClaim:
-          claimName: minio-pv-claim
