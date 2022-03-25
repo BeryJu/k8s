@@ -1,0 +1,29 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: beryjuorg-se-sabnzbd
+  namespace: istio-system
+spec:
+  hosts:
+    - sabnzbd-dl-stack.infra.beryju.org
+  ports:
+    - number: 8080
+      name: http
+      protocol: http
+  location: MESH_INTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-sabnzbd
+  namespace: istio-system
+spec:
+  hosts:
+    - sabnzbd-dl-stack.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8080
+            host: sabnzbd.dl-stack.svc.cluster.local
