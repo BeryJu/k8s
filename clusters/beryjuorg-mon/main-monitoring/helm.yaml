@@ -31,3 +31,6 @@ spec:
       enabled: false
     compactor:
       enabled: true
+    storegateway:
+      enabled: true
+
