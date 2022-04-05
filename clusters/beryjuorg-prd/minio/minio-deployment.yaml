@@ -4,6 +4,8 @@ metadata:
   name: minio-deployment
   namespace: minio
 spec:
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: minio
