@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: registry-standalone
     spec:
       containers:
-        - image: registry:2.8
+        - image: ghcr.io/beryju/registry:jwt
           name: registry
           resources:
             requests:
@@ -24,7 +24,7 @@ spec:
               cpu: 50m
             limits:
               memory: 300M
-              cpu: 4
+              cpu: "4"
           ports:
             - containerPort: 5000
               name: http
@@ -48,10 +48,10 @@ spec:
             - secretRef:
                 name: registry-standalone
           volumeMounts:
-            - name: credentials
+            - name: jwt-cert
               readOnly: true
-              mountPath: "/srv/docker/credentials"
+              mountPath: "/srv/docker/cert"
       volumes:
-        - name: credentials
+        - name: jwt-cert
           secret:
-            secretName: registry-standalone-credentials
+            secretName: registry-standalone-jwt-cert
