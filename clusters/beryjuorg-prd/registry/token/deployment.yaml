@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: registry-token-service
     spec:
       containers:
-        - image: ghcr.io/beryju/distribution-oauth:latest
+        - image: ghcr.io/beryju/distribution-oauth:latest # {"$imagepolicy": "flux-system:registry-token"}
           name: token-svc
           resources:
             requests:
