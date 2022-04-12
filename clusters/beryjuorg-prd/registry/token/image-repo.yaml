@@ -4,5 +4,5 @@ metadata:
   name: registry-token-beryju-org
   namespace: flux-system
 spec:
-  image: ghcr.io/beryju/docker-to-oauth
+  image: ghcr.io/beryju/distribution-oauth
   interval: 1m0s

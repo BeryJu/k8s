@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: registry-token-service
     spec:
       containers:
-        - image: ghcr.io/beryju/docker-to-oauth:latest
+        - image: ghcr.io/beryju/distribution-oauth:latest
           name: token-svc
           resources:
             requests:
