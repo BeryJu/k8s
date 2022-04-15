@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: registry-token-service
-  name: registry-token-service
+    app.kubernetes.io/name: standalone-registry-token
+  name: standalone-registry-token
   namespace: registry
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: registry-token-service
+      app.kubernetes.io/name: standalone-registry-token
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: registry-token-service
+        app.kubernetes.io/name: standalone-registry-token
     spec:
       containers:
       - image: ghcr.io/beryju/distribution-oauth:latest-1650030057-800916960a03ba71960a857ededaa4ce563ed76c # {"$imagepolicy": "flux-system:registry-token"}

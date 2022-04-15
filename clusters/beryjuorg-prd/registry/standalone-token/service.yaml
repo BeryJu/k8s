@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: standalone-registry-token
+  namespace: registry
+  labels:
+    app.kubernetes.io/name: standalone-registry-token
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 9001
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: standalone-registry-token
+  type: ClusterIP
