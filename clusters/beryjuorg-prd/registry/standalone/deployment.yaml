@@ -54,4 +54,4 @@ spec:
       volumes:
         - name: jwt-cert
           secret:
-            secretName: registry-standalone-jwt-cert
+            secretName: registry-jwt-cert

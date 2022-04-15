@@ -22,6 +22,6 @@ stringData:
     -----END CERTIFICATE-----
 kind: Secret
 metadata:
-  name: registry-standalone-jwt-cert
+  name: registry-jwt-cert
   namespace: registry
 type: Opaque

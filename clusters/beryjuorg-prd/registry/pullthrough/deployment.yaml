@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: registry-pullthrough
     spec:
       containers:
-        - image: registry:2.8
+        - image: ghcr.io/beryju/registry:jwt
           name: registry
           resources:
             requests:
@@ -47,3 +47,11 @@ spec:
                 name: registry-general
             - secretRef:
                 name: registry-pullthrough
+          volumeMounts:
+            - name: jwt-cert
+              readOnly: true
+              mountPath: "/srv/docker/cert"
+      volumes:
+        - name: jwt-cert
+          secret:
+            secretName: registry-jwt-cert
