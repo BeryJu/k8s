@@ -12,4 +12,4 @@ maintainers:
 name: guacamole
 sources:
   - http://guacamole.apache.org/
-version: 1.3.2
+version: 1.3.3
