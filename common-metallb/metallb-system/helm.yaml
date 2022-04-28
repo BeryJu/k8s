@@ -20,6 +20,8 @@ spec:
     prometheus:
       podMonitor:
         enabled: true
+      serviceAccount: beryjuorg-metallb-prometheus-sa
+      namespace: monitoring-system
     configInline:
       peers:
         - peer-address: "${METALLB_PEER}"
