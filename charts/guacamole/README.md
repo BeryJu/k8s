@@ -12,7 +12,22 @@ Apache Guacamole is a clientless remote desktop gateway. It supports standard pr
 
 This is a fork of https://artifacthub.io/packages/helm/halkeye/guacamole, but updated to support newer versions and more settings.
 
+### Dependencies
+
+This chart has a dependency on ``postgresql`` to be up and running _before_ this chart is deployed. The init-container will not fail if the ``postgresql`` service is not found. 
+
+Sample ``postgresql`` install which works with the defaults of this chart:
+```console
+helm install postgresql bitnami/postgresql \
+ --set auth.username=guacamole \
+ --set auth.password=password \
+ --set auth.postgresPassword=password \
+ --set auth.database=guacamole --wait
+```
+
 ## Changelog
+
+1.3.3 - Fixed ingress api and documented postgresql dependency
 
 1.2.3 - Make guacamole run in ROOT context
 
