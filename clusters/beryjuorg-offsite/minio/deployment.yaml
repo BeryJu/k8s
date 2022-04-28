@@ -39,7 +39,7 @@ spec:
             - name: MINIO_IDENTITY_OPENID_SCOPES
               value: openid,profile,email,minio
             - name: MINIO_BROWSER_REDIRECT_URL
-              value: https://console.backup-s3.beryju.org/
+              value: https://console.backup-s3.beryju.org
             - name: MINIO_ROOT_USER
               valueFrom:
                 secretKeyRef:
