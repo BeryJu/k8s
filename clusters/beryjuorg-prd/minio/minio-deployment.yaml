@@ -22,7 +22,7 @@ spec:
             - "sleep 30 && minio server --console-address :9001 /storage"
           env:
             - name: MINIO_PROMETHEUS_URL
-              value: http://prometheus-operated.monitoring-system.svc.cluster.local:9090
+              value: http://thanos-query-frontend.main-monitoring.svc.cluster.local:9090
             - name: MINIO_PROMETHEUS_JOB_ID
               value: minio-prd
             - name: MINIO_DOMAIN
