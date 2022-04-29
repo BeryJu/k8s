@@ -57,6 +57,18 @@ spec:
         storageSpec:
           emptyDir:
             medium: Memory
+        volumes:
+          - name: beryjuorg-prom-additional-scrape-creds-node-exporter
+            secret:
+              secretName: beryjuorg-prom-additional-scrape-creds-node-exporter
+          - name: beryjuorg-prom-additional-scrape-creds-hass
+            secret:
+              secretName: beryjuorg-prom-additional-scrape-creds-hass
+        volumeMounts:
+          - mountPath: /var/run/secrets/beryjuorg/node-exporter
+            name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          - mountPath: /var/run/secrets/beryjuorg/hass
+            name: beryjuorg-prom-additional-scrape-creds-hass
         remoteWrite:
           - url: http://thanos-receive.main-monitoring:19291/api/v1/receive
             oauth2:
