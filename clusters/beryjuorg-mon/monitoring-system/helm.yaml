@@ -48,7 +48,7 @@ spec:
         # While this isn't the public URL for *this* prometheus, it is used by the chart to configure alertmanager's links
         externalUrl: https://thanos.infra.beryju.org
         additionalScrapeConfigs:
-          name: prom-kube-prometheus-stack-prometheus-scrape-config
+          name: beryjuorg-prom-additional-scrape
           key: additional-scrape-configs.yaml
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
