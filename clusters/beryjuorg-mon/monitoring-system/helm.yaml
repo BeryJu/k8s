@@ -39,7 +39,7 @@ spec:
       name: beryjuorg-prometheus-alertmanager
   values:
     defaultRules:
-      create: false
+      create: true
     prometheusOperator:
       admissionWebhooks:
         enabled: false
