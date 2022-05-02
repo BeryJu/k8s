@@ -47,14 +47,6 @@ stringData:
       static_configs:
         - targets:
             - "10.51.110.26:9300"
-    - job_name: minecraft
-      static_configs:
-        - targets:
-            - "mc1.prod.beryju.org:9150"
-    - job_name: unifi
-      static_configs:
-        - targets:
-            - "unifi1.prod.beryju.org:9130"
     - job_name: "hass"
       metrics_path: "/api/prometheus"
       authorization:
