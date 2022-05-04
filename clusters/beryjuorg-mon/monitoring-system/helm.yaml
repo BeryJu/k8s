@@ -43,16 +43,16 @@ spec:
     prometheusOperator:
       admissionWebhooks:
         enabled: false
+      podLabels:
+        sidecar.istio.io/inject: "false"
     prometheus:
       prometheusSpec:
-        # While this isn't the public URL for *this* prometheus, it is used by the chart to configure alertmanager's links
-        externalUrl: https://thanos.infra.beryju.org
+        externalUrl: https://prometheus.infra.beryju.org
         additionalScrapeConfigs:
           name: beryjuorg-prom-additional-scrape
           key: additional-scrape-configs.yaml
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
-        # ruleSelectorNilUsesHelmValues: false
         retention: 2h
         storageSpec:
           emptyDir:
@@ -64,11 +64,16 @@ spec:
           - name: beryjuorg-prom-additional-scrape-creds-hass
             secret:
               secretName: beryjuorg-prom-additional-scrape-creds-hass
+          - name: beryjuorg-puppet-certs
+            hostPath:
+              path: /etc/puppetlabs/puppet/ssl/
         volumeMounts:
           - mountPath: /var/run/secrets/beryjuorg/node-exporter
             name: beryjuorg-prom-additional-scrape-creds-node-exporter
           - mountPath: /var/run/secrets/beryjuorg/hass
             name: beryjuorg-prom-additional-scrape-creds-hass
+          - mountPath: /var/run/secrets/beryjuorg/puppet
+            name: beryjuorg-puppet-certs
         remoteWrite:
           - url: http://thanos-receive.main-monitoring:19291/api/v1/receive
             oauth2:
