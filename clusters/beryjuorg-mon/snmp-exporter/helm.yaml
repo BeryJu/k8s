@@ -22,11 +22,11 @@ spec:
         - name: esxi3.prod.beryju.org
           module:
             - if_mib
-          target: 10.120.20.61
+          target: esxi3ipmi.prod.beryju.org
         - name: esxi4.prod.beryju.org
           module:
             - if_mib
-          target: 172.31.189.114
+          target: esxi4ipmi.prod.beryju.org
         - name: switch-tv.net.beryju.org
           module:
             - if_mib
