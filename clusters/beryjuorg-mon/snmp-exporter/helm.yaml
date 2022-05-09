@@ -27,11 +27,11 @@ spec:
           module:
             - if_mib
           target: 172.31.189.114
-        - name: switch-tv.lab.beryju.org
+        - name: switch-tv.net.beryju.org
           module:
             - if_mib
-          target: switch-tv.lab.beryju.org
-        - name: switch-kitchen.lab.beryju.org
+          target: switch-tv.net.beryju.org
+        - name: switch-kitchen.net.beryju.org
           module:
             - if_mib
-          target: switch-kitchen.lab.beryju.org
+          target: switch-kitchen.net.beryju.org
