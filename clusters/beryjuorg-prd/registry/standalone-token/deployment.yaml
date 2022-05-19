@@ -36,6 +36,8 @@ spec:
           value: 693e60deada0b71e8ecb3d078e4ebaaf08624e55
         - name: SCOPE
           value: docker-registry
+        - name: PASS_JWT_USERNAME
+          value: JWT
         readinessProbe:
           httpGet:
             path: /live
