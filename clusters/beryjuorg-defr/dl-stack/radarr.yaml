@@ -28,7 +28,7 @@ spec:
             requests:
               memory: "250Mi"
             limits:
-              memory: "350Mi"
+              memory: "500Mi"
           env:
             - name: TZ
               value: Europe/Berlin
