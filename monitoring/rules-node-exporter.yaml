@@ -25,42 +25,6 @@ spec:
             summary: Host memory under memory pressure (instance {{ $labels.instance }})
             description: "The node is under heavy memory pressure. High rate of major page faults\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-        - alert: HostUnusualNetworkThroughputIn
-          expr: sum by (instance) (rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host unusual network throughput in (instance {{ $labels.instance }})
-            description: "Host network interfaces are probably receiving too much data (> 100 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: HostUnusualNetworkThroughputOut
-          expr: sum by (instance) (rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 100
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host unusual network throughput out (instance {{ $labels.instance }})
-            description: "Host network interfaces are probably sending too much data (> 100 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: HostUnusualDiskReadRate
-          expr: sum by (instance) (rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50
-          for: 5m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host unusual disk read rate (instance {{ $labels.instance }})
-            description: "Disk is probably reading too much data (> 50 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
-        - alert: HostUnusualDiskWriteRate
-          expr: sum by (instance) (rate(node_disk_written_bytes_total{instance!="sentry1.prod.beryju.org:9100"}[2m])) / 1024 / 1024 > 50
-          for: 2m
-          labels:
-            severity: warning
-          annotations:
-            summary: Host unusual disk write rate (instance {{ $labels.instance }})
-            description: "Disk is probably writing too much data (> 50 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
         # Please add ignored mountpoints in node_exporter parameters like
         # "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run)($|/)".
         # Same rule using "node_filesystem_free_bytes" will fire when disk fills for non-root users.
