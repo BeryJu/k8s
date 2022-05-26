@@ -52,7 +52,7 @@ spec:
           emptyDir:
             medium: Memory
         remoteWrite:
-          - url: http://thanos-receive.main-monitoring:19291/api/v1/receive
+          - url: http://mimir.mimir.svc.cluster.local/api/v1/push
             oauth2:
               clientId:
                 configMap:
