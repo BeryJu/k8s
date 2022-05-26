@@ -36,7 +36,7 @@ spec:
         namespace: flux-system
   values:
     defaultRules:
-      create: true
+      create: false
     prometheusOperator:
       admissionWebhooks:
         enabled: false
