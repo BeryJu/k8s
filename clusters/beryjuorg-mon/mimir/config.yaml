@@ -8,10 +8,8 @@ spec:
   type: Opaque
   templates:
     config.yaml: |
-      # Do not use this configuration in production.
-      # It is for demonstration purposes only.
       multitenancy_enabled: false
-      target: all,alertmanager,overrides-exporter
+      target: all
 
       blocks_storage:
         backend: s3
@@ -43,6 +41,14 @@ spec:
             store: memberlist
           replication_factor: 1
 
+      ruler:
+        rule_path: /data/ruler
+        alertmanager_url: http://127.0.0.1:8080/alertmanager
+        ring:
+          # Quickly detect unhealthy rulers to speed up the tutorial.
+          heartbeat_period: 2s
+          heartbeat_timeout: 10s
+
       ruler_storage:
         backend: s3
         s3:
@@ -51,14 +57,6 @@ spec:
           bucket_name: mimir-ruler
           access_key_id: "{% .Secrets.access_key %}"
           secret_access_key: "{% .Secrets.secret_key %}"
-
-      ruler:
-        rule_path: /data/ruler
-        alertmanager_url: http://127.0.0.1:8080/alertmanager
-        ring:
-          # Quickly detect unhealthy rulers to speed up the tutorial.
-          heartbeat_period: 2s
-          heartbeat_timeout: 10s
 
       server:
         log_level: info
