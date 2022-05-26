@@ -25,5 +25,5 @@ spec:
     - route:
         - destination:
             port:
-              number: 9090
-            host: thanos-query.main-monitoring.svc.cluster.local
+              number: 80
+            host: mimir.mimir.svc.cluster.local

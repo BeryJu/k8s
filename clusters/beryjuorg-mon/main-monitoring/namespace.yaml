@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: main-monitoring
-  labels:
-    beryju.org/role: main-monitoring
-    istio-injection: enabled

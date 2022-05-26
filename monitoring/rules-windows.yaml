@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: beryjuorg-prometheus-windows
-  namespace: main-monitoring
+  namespace: monitoring-system
 spec:
   groups:
     - name: beryjuorg-prometheus-windows
