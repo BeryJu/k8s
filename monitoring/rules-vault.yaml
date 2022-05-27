@@ -1,17 +1,12 @@
-apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
-metadata:
-  name: beryjuorg-prometheus-vault
-  namespace: monitoring-system
-spec:
-  groups:
-    - name: beryjuorg-prometheus-vault
-      rules:
-        - alert: VaultSealed
-          expr: vault_core_unsealed == 0
-          for: 0m
-          labels:
-            severity: critical
-          annotations:
-            summary: Vault sealed (instance {{ $labels.instance }})
-            description: "Vault instance is sealed on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+namespace: vault
+groups:
+  - name: beryjuorg-prometheus-vault
+    rules:
+      - alert: VaultSealed
+        expr: vault_core_unsealed == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Vault sealed (instance {{ $labels.instance }})
+          description: "Vault instance is sealed on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
