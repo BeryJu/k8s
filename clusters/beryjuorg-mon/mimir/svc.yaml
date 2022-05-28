@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: mimir
   namespace: mimir
+  labels:
+    app.kubernetes.io/name: mimir
 spec:
   ports:
     - port: 80
