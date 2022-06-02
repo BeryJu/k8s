@@ -6,8 +6,8 @@ metadata:
 spec:
   schedule: "0 */3 * * *"
   concurrencyPolicy: Replace
-  successfulJobsHistoryLimit: 0
-  failedJobsHistoryLimit: 0
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
   jobTemplate:
     spec:
       template:
