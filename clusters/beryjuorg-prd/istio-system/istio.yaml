@@ -59,6 +59,18 @@ spec:
         ISTIO_META_DNS_CAPTURE: "true"
         ISTIO_META_DNS_AUTO_ALLOCATE: "true"
         # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
+    extensionProviders:
+    - name: "authentik"
+      envoyExtAuthzHttp:
+        service: "ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local"
+        port: "9000"
+        headersToDownstreamOnAllow:
+          - cookie
+        headersToUpstreamOnAllow:
+          - set-cookie
+          - x-authentik-*
+        includeRequestHeadersInCheck:
+          - cookie
     enablePrometheusMerge: true
   profile: default
   values:
