@@ -213,6 +213,7 @@ metadata:
   name: istio-operator
 spec:
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       name: istio-operator
@@ -224,7 +225,7 @@ spec:
       serviceAccountName: istio-operator
       containers:
         - name: istio-operator
-          image: docker.io/istio/operator:1.13.4
+          image: docker.io/istio/operator:1.14.0
           command:
           - operator
           - server
