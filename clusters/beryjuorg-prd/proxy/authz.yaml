@@ -15,3 +15,5 @@ spec:
         - operation:
             hosts:
               - "*.infra.beryju.org"
+            notHosts:
+              - tautulli-dl-stack.infra.beryju.org
