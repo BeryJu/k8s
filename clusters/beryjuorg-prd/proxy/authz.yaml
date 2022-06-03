@@ -17,3 +17,4 @@ spec:
               - "*.infra.beryju.org"
             notHosts:
               - tautulli-dl-stack.infra.beryju.org
+              - grafana.infra.beryju.org
