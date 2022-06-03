@@ -1,29 +1,51 @@
----
 apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
+kind: Gateway
 metadata:
-  name: beryjuorg-se-radarr
+  name: beryjuorg-gw-dl-stack-radarr
   namespace: istio-system
 spec:
-  hosts:
-    - radarr-dl-stack.infra.beryju.org
-  ports:
-    - number: 8080
-      name: http
-      protocol: http
-  location: MESH_INTERNAL
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - radarr-dl-stack.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - radarr-dl-stack.infra.beryju.org
+      tls:
+        httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-radarr
+  name: beryjuorg-vs-dl-stack-radarr
   namespace: istio-system
 spec:
+  gateways:
+    - beryjuorg-gw-dl-stack-radarr
   hosts:
     - radarr-dl-stack.infra.beryju.org
   http:
+    - match:
+        - uri:
+            prefix: "/outpost.goauthentik.io"
+      route:
+        - destination:
+            host: ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local
+            port:
+              number: 9000
     - route:
         - destination:
             port:
-              number: 7878
+              number: 78787
             host: radarr.dl-stack.svc.cluster.local

@@ -14,5 +14,4 @@ spec:
     - to:
         - operation:
             hosts:
-              # You can create a single resource and list all Domain names here, or create multiple resources
-              - "alertmanager.infra.beryju.org"
+              - "*.infra.beryju.org"

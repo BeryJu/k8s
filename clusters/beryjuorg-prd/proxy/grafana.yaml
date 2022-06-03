@@ -1,18 +1,3 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: beryjuorg-gw-grafana
-  namespace: istio-system
-spec:
-  issuerRef:
-    name: letsencrypt-prod
-    group: cert-manager.io
-    kind: ClusterIssuer
-  secretName: beryjuorg-gw-grafana
-  commonName: grafana.infra.beryju.org
-  dnsNames:
-    - grafana.infra.beryju.org
----
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -28,7 +13,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-gw-grafana
+        credentialName: beryjuorg-authentik-proxy-infra
       hosts:
         - grafana.infra.beryju.org
     - port:
