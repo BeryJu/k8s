@@ -22,3 +22,4 @@ spec:
               - unifi.infra.beryju.org
               - netbox.infra.beryju.org
               - netapp-aiq.infra.beryju.org
+              - infra.infra.beryju.org
