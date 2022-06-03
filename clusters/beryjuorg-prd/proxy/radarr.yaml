@@ -47,5 +47,5 @@ spec:
     - route:
         - destination:
             port:
-              number: 78787
+              number: 7878
             host: radarr.dl-stack.svc.cluster.local
