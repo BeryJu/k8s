@@ -1,0 +1,18 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: authentik-policy
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: CUSTOM
+  provider:
+    name: "authentik"
+  rules:
+    - to:
+        - operation:
+            hosts:
+              # You can create a single resource and list all Domain names here, or create multiple resources
+              - "alertmanager.infra.beryju.org"

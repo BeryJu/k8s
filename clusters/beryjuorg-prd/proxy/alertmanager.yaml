@@ -1,17 +1,29 @@
----
 apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
+kind: Gateway
 metadata:
-  name: beryjuorg-se-alertmanager
+  name: beryjuorg-gw-alertmanager
   namespace: istio-system
 spec:
-  hosts:
-    - alertmanager.infra.beryju.org
-  ports:
-    - number: 9093
-      name: http
-      protocol: http
-  location: MESH_INTERNAL
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - alertmanager.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - alertmanager.infra.beryju.org
+      tls:
+        httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -19,9 +31,19 @@ metadata:
   name: beryjuorg-vs-alertmanager
   namespace: istio-system
 spec:
+  gateways:
+    - beryjuorg-gw-alertmanager
   hosts:
     - alertmanager.infra.beryju.org
   http:
+    - match:
+        - uri:
+            prefix: "/outpost.goauthentik.io"
+      route:
+        - destination:
+            host: ak-outpost-k8s.authentik.svc.cluster.local
+            port:
+              number: 9000
     - route:
         - destination:
             port:
