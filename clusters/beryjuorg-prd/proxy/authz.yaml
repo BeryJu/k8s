@@ -18,3 +18,7 @@ spec:
             notHosts:
               - tautulli-dl-stack.infra.beryju.org
               - grafana.infra.beryju.org
+              - puppet-dashboard.infra.beryju.org
+              - unifi.infra.beryju.org
+              - netbox.infra.beryju.org
+              - netapp-aiq.infra.beryju.org
