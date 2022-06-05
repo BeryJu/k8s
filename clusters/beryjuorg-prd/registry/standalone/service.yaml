@@ -4,7 +4,8 @@ metadata:
   name: registry-standalone
   namespace: registry
   labels:
-    app.kubernetes.io/name: registry-standalone
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: standalone
 spec:
   clusterIP: None
   ports:
@@ -15,5 +16,6 @@ spec:
       port: 5001
       targetPort: http-metrics
   selector:
-    app.kubernetes.io/name: registry-standalone
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: standalone
   type: ClusterIP

@@ -4,7 +4,8 @@ metadata:
   name: registry-pullthrough
   namespace: registry
   labels:
-    app.kubernetes.io/name: registry-pullthrough
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: pullthrough
 spec:
   clusterIP: None
   ports:
@@ -15,5 +16,6 @@ spec:
       port: 5001
       targetPort: http-metrics
   selector:
-    app.kubernetes.io/name: registry-pullthrough
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: pullthrough
   type: ClusterIP

@@ -2,18 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: registry-standalone
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: standalone
   name: registry-standalone
   namespace: registry
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: registry-standalone
+      app.kubernetes.io/name: registry
+      app.kubernetes.io/instance: standalone
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: registry-standalone
+        app.kubernetes.io/name: registry
+        app.kubernetes.io/instance: standalone
     spec:
       containers:
         - image: ghcr.io/beryju/registry:jwt
