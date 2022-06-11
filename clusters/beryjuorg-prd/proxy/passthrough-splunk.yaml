@@ -5,7 +5,7 @@ metadata:
    namespace: proxy
 spec:
    type: ExternalName
-   externalName: dev1.lab.beryju.org
+   externalName: splunk1.prod.beryju.org
    ports:
     - name: http
       protocol: TCP
@@ -55,8 +55,3 @@ spec:
             port:
               number: 8000
           weight: 100
-#    - destination:
-#        host: mon1.prod.beryju.org
-#        port:
-#          number: 80
-#      weight: 40
