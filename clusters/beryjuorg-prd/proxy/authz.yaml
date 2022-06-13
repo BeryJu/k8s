@@ -24,3 +24,4 @@ spec:
               - netapp-aiq.infra.beryju.org
               - infra.infra.beryju.org
               - splunk.infra.beryju.org
+              - splunk-collector.infra.beryju.org
