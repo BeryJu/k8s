@@ -23,10 +23,20 @@ stringData:
       static_configs:
         - targets:
             - "veeam1.mso.beryju.org:9700"
+    - job_name: static_misc_tls
+      static_configs:
+        - targets:
+            - "veeam1.mso.beryju.org:9700"
             - "london1.net.beryju.org:9100"
             - "freiburg1.net.beryju.org:9100"
             - "london1.net.beryju.org:9342"
             - "freiburg1.net.beryju.org:9342"
+      basic_auth:
+        username: "prometheus"
+        password_file: /var/run/secrets/beryjuorg/node-exporter/PW_NODE_EXPORTER
+      scheme: https
+      tls_config:
+        insecure_skip_verify: true
 
     - job_name: imagik_tig
       static_configs:
