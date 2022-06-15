@@ -7,14 +7,6 @@ stringData:
         - url: http://puppet1.prod.beryju.org:8080
           query: 'resources { type = "Class" and title = "Beryjuorg_monitoring" }'
           port: 9100
-        # vyos
-        - url: http://puppet1.prod.beryju.org:8080
-          query: 'inventory { facts.os.name = "VyOS" }'
-          port: 9100
-        # vyos frr
-        - url: http://puppet1.prod.beryju.org:8080
-          query: 'inventory { facts.os.name = "VyOS" }'
-          port: 9342
       basic_auth:
         username: "prometheus"
         password_file: /var/run/secrets/beryjuorg/node-exporter/PW_NODE_EXPORTER
@@ -31,6 +23,10 @@ stringData:
       static_configs:
         - targets:
             - "veeam1.mso.beryju.org:9700"
+            - "london1.net.beryju.org:9100"
+            - "freiburg1.net.beryju.org:9100"
+            - "london1.net.beryju.org:9342"
+            - "freiburg1.net.beryju.org:9342"
 
     - job_name: imagik_tig
       static_configs:
