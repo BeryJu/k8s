@@ -26,7 +26,6 @@ stringData:
     - job_name: static_misc_tls
       static_configs:
         - targets:
-            - "veeam1.mso.beryju.org:9700"
             - "london1.net.beryju.org:9100"
             - "freiburg1.net.beryju.org:9100"
             - "london1.net.beryju.org:9342"
