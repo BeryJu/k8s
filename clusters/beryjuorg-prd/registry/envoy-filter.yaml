@@ -1,12 +1,12 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
-  name: registry-request-size
-  namespace: registry
+  name: beryjuorg-request-size
+  namespace: istio-system
 spec:
   workloadSelector:
     labels:
-      app.kubernetes.io/name: registry
+      app: istio-ingressgateway
   configPatches:
   - applyTo: HTTP_FILTER
     match:
@@ -14,7 +14,7 @@ spec:
       listener:
         filterChain:
           filter:
-            name: envoy.http_connection_manager
+            name: envoy.filters.network.http_connection_manager
     patch:
       operation: INSERT_BEFORE
       value:
