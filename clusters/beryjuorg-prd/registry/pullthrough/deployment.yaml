@@ -7,7 +7,7 @@ metadata:
   name: registry-pullthrough
   namespace: registry
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: registry
@@ -27,7 +27,7 @@ spec:
               cpu: 50m
             limits:
               memory: 1Gi
-              cpu: 4
+              cpu: "4"
           ports:
             - containerPort: 5000
               name: http
