@@ -25,3 +25,4 @@ spec:
               - infra.infra.beryju.org
               - splunk.infra.beryju.org
               - splunk-collector.infra.beryju.org
+              - kiali-beryjuorg-prd.infra.beryju.org
