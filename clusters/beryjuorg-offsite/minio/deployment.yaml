@@ -22,7 +22,7 @@ spec:
             - "sleep 30 && minio server --console-address :9001 /storage"
           env:
             - name: MINIO_PROMETHEUS_URL
-              value: http://mimir.mimir.svc.cluster.local/prometheus:9090
+              value: http://mimir.mimir.svc.cluster.local:9090/prometheus
             - name: MINIO_PROMETHEUS_JOB_ID
               value: minio-offsite
             - name: MINIO_DOMAIN
