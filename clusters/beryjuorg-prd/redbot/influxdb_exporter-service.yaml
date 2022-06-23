@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb-exporter
+  namespace: redbot
+  labels:
+    app.kubernetes.io/name: redbot-influxdb-exporter
+spec:
+  ports:
+    - name: http
+      port: 9122
+      protocol: TCP
+      targetPort: 9122
+    - name: influx
+      port: 9122
+      protocol: UDP
+      targetPort: 9122
+  selector:
+    app.kubernetes.io/name: redbot-influxdb-exporter
+  type: ClusterIP

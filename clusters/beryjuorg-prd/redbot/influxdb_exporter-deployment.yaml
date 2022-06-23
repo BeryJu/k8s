@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redbot-influxdb-exporter
+  namespace: redbot
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redbot-influxdb-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redbot-influxdb-exporter
+    spec:
+      containers:
+        - image: ghcr.io/beryju/influxdb_exporter
+          name: influxdb-exporter
