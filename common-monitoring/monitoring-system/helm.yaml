@@ -47,13 +47,6 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
-        resources:
-          requests:
-            memory: 400Mi
-            cpu: 200m
-          limits:
-            memory: 800Mi
-            cpu: 400m
         retention: 2h
         storageSpec:
           emptyDir:
