@@ -8,4 +8,5 @@ spec:
     - port: http-metrics
   selector:
     matchLabels:
-      app.kubernetes.io/name: registry-pullthrough
+      app.kubernetes.io/name: registry
+      app.kubernetes.io/instance: pullthrough
