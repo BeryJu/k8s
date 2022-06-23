@@ -47,6 +47,13 @@ spec:
         sidecar.istio.io/inject: "false"
     prometheus:
       prometheusSpec:
+        resources:
+          requests:
+            memory: 500Mi
+            cpu: 300m
+          limits:
+            memory: 1000Mi
+            cpu: 600m
         externalUrl: https://prometheus.infra.beryju.org
         additionalScrapeConfigs:
           name: beryjuorg-prom-additional-scrape
