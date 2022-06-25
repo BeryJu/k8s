@@ -212,7 +212,7 @@ metadata:
   namespace: istio-operator
   name: istio-operator
 spec:
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 10
   selector:
     matchLabels:
