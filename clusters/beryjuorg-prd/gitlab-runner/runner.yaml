@@ -14,10 +14,14 @@ spec:
         kind: HelmRepository
         name: gitlab
         namespace: flux-system
-  valuesFrom:
-    - kind: Secret
-      name: overlay-gitlab-runner-secrets
   values:
     gitlabUrl: https://code.beryju.org
+    logFormat: json
     rbac:
       create: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    service:
+      enabled: true
