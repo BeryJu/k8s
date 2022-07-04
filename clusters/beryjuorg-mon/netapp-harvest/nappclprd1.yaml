@@ -1,0 +1,88 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-netapp-harvest-nappclprd1
+  namespace: netapp-harvest
+spec:
+  path: kv/netapp/admin
+  type: Opaque
+  templates:
+    harvest.yml: |
+      Exporters:
+        prometheus_local:
+          exporter: Prometheus
+          addr: 0.0.0.0
+          port: 12990
+        prometheus:
+          exporter: Prometheus
+          addr: 0.0.0.0
+          port: 12991
+
+      Defaults:
+        collectors:
+          - Zapi
+          - ZapiPerf
+        use_insecure_tls: false
+
+      Pollers:
+        unix:
+          datacenter: local
+          addr: localhost
+          collectors:
+            - Unix
+          exporters:
+            - prometheus_local
+        nappclprd1:
+          datacenter: global
+          addr: nappclprd1.prod.beryju.org
+          auth_style: basic_auth
+          username: {% .Secrets.username %}
+          password: {% .Secrets.password %}
+          use_insecure_tls: true
+          exporters:
+            - prometheus
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harvest-nappclprd1
+  namespace: netapp-harvest
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: netapp-harvest
+      app.kubernetes.io/instance: nappclprd1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: netapp-harvest
+        app.kubernetes.io/instance: nappclprd1
+    spec:
+      containers:
+        - command:
+            - /bin/bash
+          args:
+            - -c
+            - |
+              echo "waiting for network" && \
+              sleep 30 && \
+              /opt/harvest/bin/harvest --config /config/harvest.yml start && \
+              sleep 20 && \
+              tail -f /var/log/harvest/poller_*
+          image: cr.netapp.io/harvest:22.05.0-1
+          name: netapp-harvest
+          ports:
+            - containerPort: 12990
+              name: http-exporter
+              protocol: TCP
+            - containerPort: 12991
+              name: http-netapp
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: config
+      volumes:
+        - secret:
+            secretName: beryjuorg-netapp-harvest-nappclprd1
+          name: config

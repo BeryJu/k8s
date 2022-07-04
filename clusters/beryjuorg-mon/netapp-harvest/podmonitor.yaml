@@ -13,7 +13,5 @@ spec:
         operator: In
         values: [netapp-harvest]
   podMetricsEndpoints:
-    - port: http-exporter1
-    - port: http-exporter2
-    - port: http-exporter3
-    - port: http-exporter4
+    - port: http-exporter
+    - port: http-netapp
