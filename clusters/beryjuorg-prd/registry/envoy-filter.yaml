@@ -6,7 +6,7 @@ metadata:
 spec:
   workloadSelector:
     labels:
-      app: istio-ingressgateway
+      istio: inressgateway
   configPatches:
   - applyTo: HTTP_FILTER
     match:
@@ -18,8 +18,21 @@ spec:
     patch:
       operation: INSERT_BEFORE
       value:
-        name: envoy.buffer
+        name: envoy.filters.http.buffer
         typed_config:
-          '@type': type.googleapis.com/udpa.type.v1.TypedStruct
-          value:
-            maxRequestBytes: 1073741824
+          '@type': type.googleapis.com/envoy.extensions.filters.http.buffer.v3.Buffer
+          maxRequestBytes: 4294967295
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: envoy.filters.network.http_connection_manager
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.buffer
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.http.buffer.v3.Buffer
+          maxRequestBytes: 4294967295
