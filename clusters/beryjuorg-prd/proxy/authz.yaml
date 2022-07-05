@@ -26,3 +26,4 @@ spec:
               - splunk.infra.beryju.org
               - splunk-collector.infra.beryju.org
               - kiali-beryjuorg-prd.infra.beryju.org
+              - maas.infra.beryju.org
