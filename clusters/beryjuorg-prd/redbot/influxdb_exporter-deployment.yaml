@@ -13,5 +13,5 @@ spec:
         app.kubernetes.io/name: redbot-influxdb-exporter
     spec:
       containers:
-        - image: ghcr.io/beryju/influxdb_exporter
+        - image: quay.io/prometheus/influxdb-exporter@sha256:d45fd398da4c33b62673aad812e5fb662a5a86031a7ddbde77fb979db371d1b2
           name: influxdb-exporter
