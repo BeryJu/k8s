@@ -32,6 +32,8 @@ spec:
           env:
             - name: BOOTSTRAP_ROLES
               value: api;etcd;backup
+            - name: LISTEN_ONLY
+              value: "true"
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -64,8 +66,9 @@ metadata:
   namespace: gravity
 spec:
   type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: gravity
+  externalTrafficPolicy: Local
   ports:
     - port: 8008
       targetPort: 8008
+  selector:
+    app.kubernetes.io/name: gravity
