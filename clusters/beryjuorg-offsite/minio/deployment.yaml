@@ -50,7 +50,7 @@ spec:
                 secretKeyRef:
                   name: minio
                   key: root_password
-          image: quay.io/minio/minio:RELEASE.2022-07-08T00-05-23Z
+          image: quay.io/minio/minio:RELEASE.2022-07-13T23-29-44Z
           livenessProbe:
             failureThreshold: 3
             httpGet:
