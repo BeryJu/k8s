@@ -19,7 +19,7 @@ spec:
     spec:
       shareProcessNamespace: true
       containers:
-      - image: ghcr.io/beryju/workstation:auto-1658122383 # {"$imagepolicy": "flux-system:workstation"}
+      - image: ghcr.io/beryju/workstation:auto-1658156669 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-ssh
         resources:
           requests:
@@ -59,7 +59,7 @@ spec:
           name: workstation-data
         - mountPath: /etc/shared/vault
           name: shared-vault
-      - image: ghcr.io/beryju/workstation:auto-1658122383 # {"$imagepolicy": "flux-system:workstation"}
+      - image: ghcr.io/beryju/workstation:auto-1658156669 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-code
         args:
         - su
