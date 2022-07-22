@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  # Vault
+  VAULT_AUTH_PATH: "auth/k8s-prd"
+  # Cluster name
+  CLUSTER_NAME: "beryjuorg-new"
+  # Ingress public IP
+  INGRESS_IP: "65.21.142.146"
+  INGRESS_TRAFFIC_POLICY: "Local"
