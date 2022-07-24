@@ -7,9 +7,5 @@ spec:
   path: aws/creds/route53
   type: Opaque
   templates:
-    values.yaml: |
-      extraEnv:
-        - name: AWS_ACCESS_KEY_ID
-          value: {% .Secrets.access_key %}
-        - name: AWS_SECRET_ACCESS_KEY
-          value: {% .Secrets.secret_key %}
+    access_key: "{% .Secrets.access_key %}"
+    secret_key: "{% .Secrets.secret_key %}"

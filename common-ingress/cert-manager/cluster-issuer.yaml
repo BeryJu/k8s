@@ -16,6 +16,12 @@ spec:
           route53:
             hostedZoneID: ZYNWRNUP3ZIYV
             region: eu-central-1
+            accessKeyIDSecretRef:
+              name: cert-manager-secret
+              key: access_key
+            secretAccessKeySecretRef:
+              name: cert-manager-secret
+              key: secret_key
         selector:
           dnsZones:
             - beryju.org
@@ -23,6 +29,12 @@ spec:
           route53:
             hostedZoneID: Z05800451CB52FAM1B1ZQ
             region: eu-central-1
+            accessKeyIDSecretRef:
+              name: cert-manager-secret
+              key: access_key
+            secretAccessKeySecretRef:
+              name: cert-manager-secret
+              key: secret_key
         selector:
           dnsZones:
             - beryju.io
@@ -30,6 +42,12 @@ spec:
           route53:
             hostedZoneID: Z21H1D33A3ZJYB
             region: eu-central-1
+            accessKeyIDSecretRef:
+              name: cert-manager-secret
+              key: access_key
+            secretAccessKeySecretRef:
+              name: cert-manager-secret
+              key: secret_key
         selector:
           dnsZones:
             - jela.io
@@ -37,6 +55,12 @@ spec:
           route53:
             hostedZoneID: Z01991371BCNAIWGVM83O
             region: eu-central-1
+            accessKeyIDSecretRef:
+              name: cert-manager-secret
+              key: access_key
+            secretAccessKeySecretRef:
+              name: cert-manager-secret
+              key: secret_key
         selector:
           dnsZones:
             - goauthentik.io

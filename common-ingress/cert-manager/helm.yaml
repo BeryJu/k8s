@@ -26,6 +26,3 @@ spec:
     prometheus:
       servicemonitor:
         enabled: true
-  valuesFrom:
-    - kind: Secret
-      name: cert-manager-secret
