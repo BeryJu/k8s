@@ -12,6 +12,3 @@ data:
   # Ingress public IP
   INGRESS_IP: "202.61.244.145"
   INGRESS_TRAFFIC_POLICY: "Cluster"
-  # MetalLB
-  METALLB_PROTOCOL: layer2
-  METALLB_RANGE: "202.61.244.145/32"

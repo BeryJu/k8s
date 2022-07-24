@@ -9,9 +9,3 @@ data:
   CLUSTER_NAME: "beryjuorg-mon"
   # Vault
   VAULT_AUTH_PATH: "auth/k8s-mon"
-  # MetalLB
-  METALLB_PEER: "10.120.0.1"
-  METALLB_PEER_ASN: "204662"
-  METALLB_ASN: "65551"
-  METALLB_RANGE: "194.56.224.172/32"
-  METALLB_PROTOCOL: bgp

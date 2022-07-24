@@ -16,3 +16,18 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 202.61.244.145/32
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: default
+  namespace: metallb-system

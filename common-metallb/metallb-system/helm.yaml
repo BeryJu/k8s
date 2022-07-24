@@ -22,19 +22,3 @@ spec:
         enabled: true
       serviceAccount: beryjuorg-metallb-prometheus-sa
       namespace: monitoring-system
-    configInline:
-      peers:
-        - peer-address: "${METALLB_PEER}"
-          peer-asn: "${METALLB_PEER_ASN}"
-          my-asn: "${METALLB_ASN}"
-      address-pools:
-        - name: default
-          protocol: "${METALLB_PROTOCOL}"
-          avoid-buggy-ips: true
-          addresses:
-            - "${METALLB_RANGE}"
-        - name: anycast
-          protocol: bgp
-          auto-assign: false
-          addresses:
-            - "10.120.253.0/24"
