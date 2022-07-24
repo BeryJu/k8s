@@ -21,6 +21,13 @@ spec:
             - beryju.org
       - dns01:
           route53:
+            hostedZoneID: Z05800451CB52FAM1B1ZQ
+            region: eu-central-1
+        selector:
+          dnsZones:
+            - beryju.io
+      - dns01:
+          route53:
             hostedZoneID: Z21H1D33A3ZJYB
             region: eu-central-1
         selector:
