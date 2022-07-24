@@ -1,7 +1,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-zfs
+  name: openebs-zfs-sda
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
 parameters:
@@ -9,5 +9,7 @@ parameters:
   compression: "off"
   dedup: "off"
   fstype: "zfs"
-  poolname: "sda"
+  poolname: "sda/k8s"
 provisioner: zfs.csi.openebs.io
+allowVolumeExpansion: true
+reclaimPolicy: Retain
