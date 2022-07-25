@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: infrahq
+  namespace: infrahq
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: infra
+      version: 0.14.0
+      sourceRef:
+        kind: HelmRepository
+        name: infrahq
+        namespace: flux-system
+  values:
+    server:
+      ingress:
+        enabled: true
+        hosts:
+          - infrahq.infra.beryju.org
+        servicePort: 80
+        className: istio
+        tls:
+          - hosts:
+              - infrahq.infra.beryju.org
+            secretName: beryjuorg-infra
+      service:
+        type: ClusterIP
