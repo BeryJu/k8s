@@ -15,6 +15,10 @@ spec:
         namespace: flux-system
   values:
     server:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
       ingress:
         enabled: true
         hosts:

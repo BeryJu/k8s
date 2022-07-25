@@ -23,3 +23,7 @@ spec:
         server: infrahq.infra.beryju.org
       service:
         type: ClusterIP
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
