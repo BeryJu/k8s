@@ -14,7 +14,6 @@ jobs:
           - beryjuorg-offsite
           - beryjuorg-defr
           - beryjuorg-prd
-          - beryjuorg-mon
         include:
           - cluster: beryjuorg-prd
             args: "--components-extra=image-reflector-controller,image-automation-controller"
