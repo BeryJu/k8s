@@ -38,6 +38,8 @@ spec:
     defaultRules:
       create: false
     prometheusOperator:
+      tls:
+        enabled: false
       admissionWebhooks:
         enabled: false
       podLabels:
