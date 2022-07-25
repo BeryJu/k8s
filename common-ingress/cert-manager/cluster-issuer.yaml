@@ -17,10 +17,10 @@ spec:
             hostedZoneID: ZYNWRNUP3ZIYV
             region: eu-central-1
             accessKeyIDSecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: access_key
             secretAccessKeySecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: secret_key
         selector:
           dnsZones:
@@ -30,10 +30,10 @@ spec:
             hostedZoneID: Z05800451CB52FAM1B1ZQ
             region: eu-central-1
             accessKeyIDSecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: access_key
             secretAccessKeySecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: secret_key
         selector:
           dnsZones:
@@ -43,10 +43,10 @@ spec:
             hostedZoneID: Z21H1D33A3ZJYB
             region: eu-central-1
             accessKeyIDSecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: access_key
             secretAccessKeySecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: secret_key
         selector:
           dnsZones:
@@ -56,10 +56,10 @@ spec:
             hostedZoneID: Z01991371BCNAIWGVM83O
             region: eu-central-1
             accessKeyIDSecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: access_key
             secretAccessKeySecretRef:
-              name: cert-manager-secret
+              name: aws-route53-creds
               key: secret_key
         selector:
           dnsZones:

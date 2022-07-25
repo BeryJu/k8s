@@ -1,7 +1,7 @@
 apiVersion: ricoberger.de/v1alpha1
 kind: VaultSecret
 metadata:
-  name: cert-manager-secret
+  name: aws-route53-creds
   namespace: cert-manager
 spec:
   path: aws/creds/route53
