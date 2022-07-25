@@ -2,10 +2,9 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: gitlab-runner
-  namespace: gitlab-runner
+  namespace: gitlab
 spec:
   interval: 6h
-  releaseName: gitlab-runner
   chart:
     spec:
       chart: gitlab-runner
