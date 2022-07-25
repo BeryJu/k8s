@@ -1,0 +1,13 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuio-infrahq-connector
+  namespace: infrahq
+spec:
+  path: kv/services/infrahq
+  type: Opaque
+  templates:
+    values.yaml: |
+      connector:
+        config:
+          accessKey: "{% .Secrets.access %}"
