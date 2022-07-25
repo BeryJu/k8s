@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: infrahq
   labels:
-    istio-injection: enabled
+    istio-injection: disabled
