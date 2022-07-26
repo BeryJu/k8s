@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: prom-kube-prometheus-stack-alertmanager
+  namespace: monitoring-system
+spec:
+  externalUrl: https://alertmanager.infra.beryju.org
+  logFormat: json
+  serviceAccountName: prom-kube-prometheus-stack-alertmanager
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+  version: v0.24.0
