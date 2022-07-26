@@ -61,4 +61,4 @@ spec:
     grafana:
       enabled: false
     nodeExporter:
-      enabled: true
+      enabled: false
