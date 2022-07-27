@@ -48,4 +48,4 @@ spec:
         - destination:
             port:
               number: 9093
-            host: prom-kube-prometheus-stack-alertmanager.monitoring-system.svc.cluster.local
+            host: alertmanager-operated.monitoring-system.svc.cluster.local
