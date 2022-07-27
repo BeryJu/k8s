@@ -46,7 +46,7 @@ spec:
     - interval: 30s
       port: metrics
       authorization:
-        type: Basic
+        type: basic_auth
         credentials:
           name: beryjuorg-prom-additional-scrape-creds-node-exporter
           key: PW_NODE_EXPORTER
