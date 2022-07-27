@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: splunk
+  namespace: splunk
+  labels:
+    app.kubernetes.io/name: splunk
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: splunk
+  ports:
+    - port: 8000
+      name: http
+      targetPort: 8000
+    - port: 8088
+      name: http-collector
+      targetPort: 8088

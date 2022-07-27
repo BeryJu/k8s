@@ -1,0 +1,54 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: splunk-connect
+  namespace: splunk
+spec:
+  interval: 6h
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  chart:
+    spec:
+      chart: splunk-connect-for-kubernetes
+      version: 1.4.15
+      sourceRef:
+        kind: HelmRepository
+        name: splunk-connect
+        namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: beryjuorg-splunk-hec
+  values:
+    global:
+      logLevel: info
+      splunk:
+        hec:
+          host: splunk-collector.infra.beryju.org
+          port: 443
+          protocol: https
+          indexName: kubernetes
+      kubernetes:
+        clusterName: "${CLUSTER_NAME}"
+      metrics:
+        service:
+          enabled: true
+      serviceMonitor:
+        enabled: true
+    splunk-kubernetes-logging:
+      enabled: true
+      k8sMetadata:
+        podLabels:
+          - app
+          - k8s-app
+          - release
+          - app.kubernetes.io/component
+          - app.kubernetes.io/name
+          - app.kubernetes.io/version
+          - app.kubernetes.io/instance
+        watch: true
+    splunk-kubernetes-objects:
+      enabled: false
+    splunk-kubernetes-metrics:
+      enabled: false
