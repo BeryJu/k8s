@@ -45,6 +45,9 @@ spec:
   endpoints:
     - interval: 30s
       port: metrics
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
       authorization:
         type: basic_auth
         credentials:
