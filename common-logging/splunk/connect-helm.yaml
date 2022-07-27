@@ -31,11 +31,6 @@ spec:
           indexName: kubernetes
       kubernetes:
         clusterName: "${CLUSTER_NAME}"
-      metrics:
-        service:
-          enabled: true
-      serviceMonitor:
-        enabled: true
     splunk-kubernetes-logging:
       enabled: true
       k8sMetadata:
