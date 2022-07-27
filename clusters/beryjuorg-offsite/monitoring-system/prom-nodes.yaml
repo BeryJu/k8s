@@ -8,6 +8,7 @@ spec:
   type: Opaque
   templates:
     PW_NODE_EXPORTER: "{% .Secrets.prometheus %}"
+    username: prometheus
 ---
 kind: Service
 apiVersion: v1
@@ -49,9 +50,11 @@ spec:
       scheme: https
       tlsConfig:
         insecureSkipVerify: true
-      authorization:
-        type: basic_auth
-        credentials:
+      basicAuth:
+        username:
+          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          key: username
+        password:
           name: beryjuorg-prom-additional-scrape-creds-node-exporter
           key: PW_NODE_EXPORTER
   selector:
