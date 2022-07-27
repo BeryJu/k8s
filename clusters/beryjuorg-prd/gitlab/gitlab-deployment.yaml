@@ -39,7 +39,10 @@ spec:
               port: 80
               scheme: HTTP
             initialDelaySeconds: 120
-          resources: {}
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 8192m
           volumeMounts:
             - mountPath: /etc/gitlab
               name: config
