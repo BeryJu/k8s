@@ -22,13 +22,6 @@ spec:
           envFrom:
             - secretRef:
                 name: gitlab-config
-          livenessProbe:
-            httpGet:
-              path: /-/liveness
-              port: 80
-              scheme: HTTP
-            periodSeconds: 20
-            initialDelaySeconds: 360
           name: gitlab
           ports:
             - containerPort: 22
