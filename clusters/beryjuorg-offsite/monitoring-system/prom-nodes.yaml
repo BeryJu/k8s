@@ -32,6 +32,7 @@ subsets:
   - addresses:
       - ip: 65.21.142.146
       - ip: 202.61.244.145
+      - ip: 202.61.239.168
     ports:
       - name: metrics
         port: 9100
