@@ -6,7 +6,6 @@ metadata:
 spec:
   timeout: 30m
   interval: 6h
-  releaseName: grafana
   chart:
     spec:
       chart: grafana

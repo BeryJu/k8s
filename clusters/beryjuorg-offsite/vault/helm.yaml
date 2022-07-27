@@ -7,7 +7,6 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 6h
-  releaseName: vault
   chart:
     spec:
       chart: vault

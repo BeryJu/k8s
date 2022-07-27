@@ -7,7 +7,6 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   interval: 6h
-  releaseName: trident
   chart:
     spec:
       chart: trident-operator

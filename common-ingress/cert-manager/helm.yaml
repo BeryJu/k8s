@@ -16,8 +16,6 @@ spec:
         name: jetstack
         namespace: flux-system
   interval: 6h
-  releaseName: cert-manager
-  targetNamespace: cert-manager
   values:
     extraArgs:
       - --dns01-recursive-nameservers-only
