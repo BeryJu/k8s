@@ -25,6 +25,7 @@ metadata:
 spec:
   addresses:
     - 65.21.142.146/32
+    - 65.21.142.145/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
