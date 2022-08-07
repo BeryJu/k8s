@@ -64,7 +64,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1659878312-d1a02cbc0c56c752bb002867c32394f692f5482a # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1659880505-7e3c21d77bb767836a7c4b4eb0c2e2010cce0391 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     geoip:
       enabled: true
