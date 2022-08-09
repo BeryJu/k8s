@@ -36,14 +36,6 @@ spec:
   hosts:
     - mimir.infra.beryju.org
   http:
-    - match:
-        - uri:
-            prefix: "/outpost.goauthentik.io"
-      route:
-        - destination:
-            host: ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local
-            port:
-              number: 9000
     - route:
         - destination:
             port:
