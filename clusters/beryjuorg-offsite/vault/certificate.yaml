@@ -9,7 +9,7 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-vault
-  commonName: vault.beryju.io
+  commonName: vault.beryju.org
   dnsNames:
-    - vault.beryju.io
     - vault.beryju.org
+    - vault.beryju.io
