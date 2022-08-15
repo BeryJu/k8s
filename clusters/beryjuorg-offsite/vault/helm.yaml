@@ -21,10 +21,12 @@ spec:
     server:
       enabled: true
       logFormat: "json"
+      readinessProbe:
+        enabled: true
+        path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
       ingress:
         enabled: true
         ingressClassName: istio
-        activeService: false
         hosts:
           - host: vault.beryju.org
             paths:
