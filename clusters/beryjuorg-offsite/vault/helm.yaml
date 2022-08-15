@@ -24,6 +24,7 @@ spec:
       ingress:
         enabled: true
         ingressClassName: istio
+        activeService: false
         hosts:
           - host: vault.beryju.org
             paths:
