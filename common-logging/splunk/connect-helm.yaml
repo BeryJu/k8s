@@ -43,6 +43,8 @@ spec:
           - app.kubernetes.io/version
           - app.kubernetes.io/instance
         watch: true
+      containers:
+        logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
     splunk-kubernetes-objects:
       enabled: false
     splunk-kubernetes-metrics:

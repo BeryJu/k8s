@@ -12,3 +12,4 @@ data:
   # Ingress public IP
   INGRESS_IP: "65.21.142.146"
   INGRESS_TRAFFIC_POLICY: "Local"
+  CLUSTER_CONTAINER_LOG_TYPE: cri
