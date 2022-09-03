@@ -44,7 +44,7 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
-      - image: openebs/velero-plugin:2.12.2
+      - image: openebs/velero-plugin:3.3.0
         name: openebs-plugin-for-velero
         volumeMounts:
           - mountPath: /target
