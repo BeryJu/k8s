@@ -16,6 +16,8 @@ spec:
   interval: 30m
   values:
     configuration:
+      features: EnableCSI
+      provider: aws
       logFormat: json
       backupStorageLocation:
         bucket: beryjuio-k8s-backups
@@ -23,11 +25,12 @@ spec:
         config:
           region: fra1
           s3Url: https://fra1.digitaloceanspaces.com
-      features: EnableCSI
-      provider: aws
       volumeSnapshotLocation:
+        provider: openebs.io/zfspv-blockstore
         config:
+          namespace: openebs
           region: fra1
+          s3Url: https://fra1.digitaloceanspaces.com
     credentials:
       existingSecret: beryjuorg-s3-secret
     initContainers:
@@ -38,6 +41,11 @@ spec:
             name: plugins
       - image: velero/velero-plugin-for-csi:v0.3.0
         name: velero-plugin-for-csi
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+      - image: openebs/velero-plugin:2.2.0
+        name: openebs-plugin-for-velero
         volumeMounts:
           - mountPath: /target
             name: plugins
