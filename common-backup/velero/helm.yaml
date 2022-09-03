@@ -1,0 +1,49 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  chart:
+    spec:
+      chart: velero
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu
+        namespace: flux-system
+      version: 2.31.3
+  interval: 30m
+  values:
+    configuration:
+      logFormat: json
+      backupStorageLocation:
+        bucket: beryjuio-k8s-backups
+        prefix: ${CLUSTER_NAME}
+        config:
+          region: fra1
+          s3Url: https://fra1.digitaloceanspaces.com
+      features: EnableCSI
+      provider: aws
+      volumeSnapshotLocation:
+        config:
+          region: fra1
+    credentials:
+      existingSecret: beryjuorg-s3-secret
+    initContainers:
+      - image: velero/velero-plugin-for-aws:v1.5.0
+        name: velero-plugin-for-aws
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+      - image: velero/velero-plugin-for-csi:v0.3.0
+        name: velero-plugin-for-csi
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    installCRDs: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    upgradeCRDs: true
