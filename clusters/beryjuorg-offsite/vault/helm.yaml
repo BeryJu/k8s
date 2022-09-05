@@ -19,6 +19,8 @@ spec:
     global:
       enabled: false
     server:
+      # Fixes https://github.com/kubernetes/kube-state-metrics/issues/1324
+      updateStrategyType: RollingUpdate
       enabled: true
       logFormat: "json"
       readinessProbe:
