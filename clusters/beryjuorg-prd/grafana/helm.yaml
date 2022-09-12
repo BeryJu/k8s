@@ -24,10 +24,16 @@ spec:
       enabled: true
     deploymentStrategy:
       type: Recreate
+    plugins:
+      - grafana-github-datasource
+      - vonage-status-panel
+      - grafana-polystat-panel
+      - jdbranham-diagram-panel
+      - grafana-sentry-datasource
+      - vertamedia-clickhouse-datasource
     env:
       GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
       GF_SERVER_ROOT_URL: "https://grafana.infra.beryju.org/"
-      GF_INSTALL_PLUGINS: "vonage-status-panel,grafana-polystat-panel,jdbranham-diagram-panel,grafana-sentry-datasource,vertamedia-clickhouse-datasource"
       GF_PLUGINS_ENABLE_ALPHA: "true"
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
       GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
@@ -36,5 +42,4 @@ spec:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.beryju.org/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://id.beryju.org/application/o/userinfo/"
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://id.beryju.org/application/o/grafana/end-session/"
-      # Optionally enable auto-login
       GF_AUTH_OAUTH_AUTO_LOGIN: "true"
