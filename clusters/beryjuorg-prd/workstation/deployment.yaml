@@ -28,6 +28,9 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "2"
+        env:
+          - name: DOCKER_HOST
+            value: tcp://localhost:2375
         ports:
         - containerPort: 22
           name: ssh
@@ -98,6 +101,13 @@ spec:
           name: config-vault
         - mountPath: /etc/shared/vault
           name: shared-vault
+      - name: dind
+        image: docker:20.10.18-dind
+        securityContext:
+            privileged: true
+        volumeMounts:
+          - name: docker-storage
+            mountPath: /var/lib/docker
       hostname: workstation
       volumes:
       - name: workstation-data
@@ -111,5 +121,7 @@ spec:
         name: config-vault
       - emptyDir: {}
         name: shared-vault
+      - name: docker-storage
+        emptyDir: {}
       serviceAccount: workstation
       serviceAccountName: workstation
