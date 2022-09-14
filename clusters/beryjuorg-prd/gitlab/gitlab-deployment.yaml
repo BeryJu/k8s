@@ -33,12 +33,12 @@ spec:
             - containerPort: 443
               name: https
               protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /-/readiness
-              port: 80
-              scheme: HTTP
-            initialDelaySeconds: 120
+          # readinessProbe:
+          #   httpGet:
+          #     path: /-/readiness
+          #     port: 80
+          #     scheme: HTTP
+          #   initialDelaySeconds: 120
           resources:
             limits:
               cpu: 1500m
