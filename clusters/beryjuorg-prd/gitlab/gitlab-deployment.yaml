@@ -42,7 +42,7 @@ spec:
           resources:
             limits:
               cpu: 1500m
-              memory: 8192M
+              memory: 12G
           volumeMounts:
             - mountPath: /etc/gitlab
               name: config
