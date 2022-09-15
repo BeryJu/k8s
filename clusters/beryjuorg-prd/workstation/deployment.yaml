@@ -19,7 +19,7 @@ spec:
     spec:
       shareProcessNamespace: true
       containers:
-      - image: ghcr.io/beryju/workstation:auto-1663135712 # {"$imagepolicy": "flux-system:workstation"}
+      - image: ghcr.io/beryju/workstation:auto-1663221878 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-ssh
         resources:
           requests:
@@ -29,8 +29,8 @@ spec:
             memory: "2Gi"
             cpu: "2"
         env:
-          - name: DOCKER_HOST
-            value: tcp://localhost:2375
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375
         ports:
         - containerPort: 22
           name: ssh
@@ -62,7 +62,7 @@ spec:
           name: workstation-data
         - mountPath: /etc/shared/vault
           name: shared-vault
-      - image: ghcr.io/beryju/workstation:auto-1663135712 # {"$imagepolicy": "flux-system:workstation"}
+      - image: ghcr.io/beryju/workstation:auto-1663221878 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-code
         args:
         - su
@@ -104,10 +104,10 @@ spec:
       - name: dind
         image: docker:20.10.18-dind
         securityContext:
-            privileged: true
+          privileged: true
         volumeMounts:
-          - name: docker-storage
-            mountPath: /var/lib/docker
+        - name: docker-storage
+          mountPath: /var/lib/docker
       hostname: workstation
       volumes:
       - name: workstation-data
