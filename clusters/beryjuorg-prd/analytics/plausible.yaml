@@ -53,7 +53,7 @@ spec:
             - "/bin/sh"
             - "-c"
           args:
-            - sleep 30 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin
+            - /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin
           envFrom:
             - secretRef:
                 name: beryjuorg-plausible-config
