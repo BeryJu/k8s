@@ -82,7 +82,7 @@ spec:
         fsGroup: 101
       containers:
         - name: plausible-events-db
-          image: yandex/clickhouse-server:21.12.4.1
+          image: yandex/clickhouse-server:22.1.3.7
           imagePullPolicy: Always
           ports:
             - containerPort: 8123
