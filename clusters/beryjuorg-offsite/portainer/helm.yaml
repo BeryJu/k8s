@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: portainer
         namespace: flux-system
-      version: 1.0.34
+      version: 1.0.35
   interval: 6h
   timeout: 30m
   values:
