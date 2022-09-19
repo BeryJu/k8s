@@ -53,7 +53,7 @@ spec:
             - "/bin/sh"
             - "-c"
           args:
-            - sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run
+            - sleep 30 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run
           ports:
             - containerPort: 8000
           envFrom:
