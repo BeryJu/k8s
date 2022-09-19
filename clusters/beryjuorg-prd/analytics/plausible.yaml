@@ -46,14 +46,29 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-      containers:
-        - name: plausible
+      initContainers:
+        - name: plausible-init
           image: plausible/analytics:v1.4.4
           command:
             - "/bin/sh"
             - "-c"
           args:
-            - sleep 30 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run
+            - /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin
+          envFrom:
+            - secretRef:
+                name: beryjuorg-plausible-config
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 1500m
+            requests:
+              memory: 50Mi
+              cpu: 10m
+      containers:
+        - name: plausible
+          image: plausible/analytics:v1.4.4
           ports:
             - containerPort: 8000
           envFrom:
