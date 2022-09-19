@@ -14,10 +14,8 @@ spec:
       labels:
         app.kubernetes.io/name: gitlab
     spec:
-      imagePullSecrets:
-        - name: registry-sa-pull
       containers:
-        - image: registry.beryju.org/gitlab-ee
+        - image: gitlab/gitlab-ce:15.3.3-ce.0
           imagePullPolicy: Always
           envFrom:
             - secretRef:
