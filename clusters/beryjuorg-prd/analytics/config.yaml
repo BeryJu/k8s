@@ -1,0 +1,22 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-plausible-config
+  namespace: analytics
+spec:
+  path: kv/services/plausible
+  type: Opaque
+  templates:
+    ADMIN_USER_EMAIL: admin@beryju.org
+    ADMIN_USER_NAME: admin
+    ADMIN_USER_PWD: "{% .Secrets.admin_pwd %}"
+    BASE_URL: https://analytics.beryju.org
+    DISABLE_REGISTRATION: "true"
+    MAILER_EMAIL: plausible@services.beryju.org
+    SECRET_KEY_BASE: "{% .Secrets.secret_key %}"
+    SMTP_HOST_ADDR: email-smtp.eu-central-1.amazonaws.com
+    SMTP_HOST_PORT: "587"
+    SMTP_USER_NAME: "{% .Secrets.email_user %}"
+    SMTP_USER_PWD: "{% .Secrets.email_pwd %}"
+    DATABASE_URL: postgres://postgres:{% .Secrets.postgres_pwd %}@$(PLAUSIBLE_DB_SERVICE_HOST):$(PLAUSIBLE_DB_SERVICE_PORT)/plausible_db
+    CLICKHOUSE_DATABASE_URL: http://$(PLAUSIBLE_EVENTS_DB_SERVICE_HOST):$(PLAUSIBLE_EVENTS_DB_SERVICE_PORT)/plausible_events_db
