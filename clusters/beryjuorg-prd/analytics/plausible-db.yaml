@@ -51,7 +51,7 @@ spec:
         fsGroup: 999
       containers:
         - name: plausible-db
-          image: postgres:12
+          image: postgres:14
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
