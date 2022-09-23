@@ -45,6 +45,13 @@ spec:
         watch: true
       containers:
         logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/controlplane
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/etcd
+          effect: NoSchedule
     splunk-kubernetes-objects:
       enabled: false
     splunk-kubernetes-metrics:
