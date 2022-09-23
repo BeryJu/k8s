@@ -17,6 +17,14 @@ spec:
         name: prometheus-community
         namespace: flux-system
   values:
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
+    kubeScheduler:
+      enabled: false
     defaultRules:
       create: false
     prometheusOperator:
