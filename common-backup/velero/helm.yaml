@@ -39,7 +39,7 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
-      - image: velero/velero-plugin-for-csi:v0.3.0
+      - image: velero/velero-plugin-for-csi:v0.3.1
         name: velero-plugin-for-csi
         volumeMounts:
           - mountPath: /target
