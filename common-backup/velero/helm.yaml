@@ -34,7 +34,7 @@ spec:
     credentials:
       existingSecret: beryjuorg-s3-secret
     initContainers:
-      - image: velero/velero-plugin-for-aws:v1.5.0
+      - image: velero/velero-plugin-for-aws:v1.5.1
         name: velero-plugin-for-aws
         volumeMounts:
           - mountPath: /target
