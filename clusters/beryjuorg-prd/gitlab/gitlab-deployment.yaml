@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: gitlab
     spec:
       containers:
-        - image: gitlab/gitlab-ce:15.4.0-ce.0
+        - image: gitlab/gitlab-ce:15.4.1-ce.0
           imagePullPolicy: Always
           envFrom:
             - secretRef:
