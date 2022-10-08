@@ -94,7 +94,7 @@ spec:
         env:
         - name: VAULT_ADDR
           value: https://vault.beryju.org
-        image: vault:1.11.3
+        image: vault:1.11.4
         name: vault-agent
         volumeMounts:
         - mountPath: /etc/vault
