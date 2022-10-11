@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redbot-rpc
+  namespace: redbot
+  labels:
+    app.kubernetes.io/name: redbot-rpc
+spec:
+  ports:
+    - name: http
+      port: 6133
+      protocol: TCP
+      targetPort: 6133
+  selector:
+    app.kubernetes.io/name: redbot
+  type: ClusterIP
