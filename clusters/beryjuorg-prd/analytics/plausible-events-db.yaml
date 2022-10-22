@@ -59,6 +59,7 @@ metadata:
     app.kubernetes.io/name: clickhouse
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: plausible
+    app.kubernetes.io/instance: main
 spec:
   replicas: 1
   serviceName: plausible-events-db
@@ -67,12 +68,14 @@ spec:
       app.kubernetes.io/name: clickhouse
       app.kubernetes.io/component: database
       app.kubernetes.io/part-of: plausible
+      app.kubernetes.io/instance: main
   template:
     metadata:
       labels:
         app.kubernetes.io/name: clickhouse
         app.kubernetes.io/component: database
         app.kubernetes.io/part-of: plausible
+        app.kubernetes.io/instance: main
     spec:
       restartPolicy: Always
       # see https://github.com/ClickHouse/ClickHouse/blob/master/docker/server/Dockerfile
@@ -131,6 +134,8 @@ spec:
           app.kubernetes.io/name: clickhouse
           app.kubernetes.io/component: database
           app.kubernetes.io/part-of: plausible
+          app.kubernetes.io/instance: main
+          snapshot.home.arpa/enabled: "true"
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

@@ -28,6 +28,7 @@ metadata:
     app.kubernetes.io/name: postgres
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: plausible
+    app.kubernetes.io/instance: main
 spec:
   replicas: 1
   serviceName: plausible-db
@@ -36,12 +37,14 @@ spec:
       app.kubernetes.io/name: postgres
       app.kubernetes.io/component: database
       app.kubernetes.io/part-of: plausible
+      app.kubernetes.io/instance: main
   template:
     metadata:
       labels:
         app.kubernetes.io/name: postgres
         app.kubernetes.io/component: database
         app.kubernetes.io/part-of: plausible
+        app.kubernetes.io/instance: main
     spec:
       restartPolicy: Always
       # see https://github.com/docker-library/postgres/blob/6bbf1c7b308d1c4288251d73c37f6caf75f8a3d4/14/buster/Dockerfile
@@ -97,6 +100,8 @@ spec:
           app.kubernetes.io/name: postgres
           app.kubernetes.io/component: database
           app.kubernetes.io/part-of: plausible
+          app.kubernetes.io/instance: main
+          snapshot.home.arpa/enabled: "true"
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
