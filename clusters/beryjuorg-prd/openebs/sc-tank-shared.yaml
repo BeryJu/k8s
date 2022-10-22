@@ -1,15 +1,14 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-zfs-nvme0n1
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
+  name: openebs-zfs-tank-shared
 parameters:
   recordsize: "4k"
   compression: "off"
   dedup: "off"
   fstype: "zfs"
-  poolname: "nvme0n1/k8s"
+  poolname: "tank/k8s"
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
 allowVolumeExpansion: true
 reclaimPolicy: Retain
