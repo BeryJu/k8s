@@ -3,6 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: redbot-data
   namespace: redbot
+  labels:
+    snapshot.home.arpa/enabled: "true"
+    app.kubernetes.io/name: redbot
+    app.kubernetes.io/instance: main
 spec:
   accessModes:
     - ReadWriteMany

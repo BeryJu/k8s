@@ -3,6 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   name: gitlab-config
   namespace: gitlab
+  labels:
+    snapshot.home.arpa/enabled: "true"
+    app.kubernetes.io/name: gitlab
+    app.kubernetes.io/instance: main
 spec:
   accessModes:
     - ReadWriteOnce
