@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - https://github.com/openebs/zfs-localpv//deploy/yamls/?ref=zfs-localpv-2.1.0
   - sc.yaml
+  - sc-shared.yaml
   - vsc.yaml

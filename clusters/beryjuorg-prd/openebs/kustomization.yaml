@@ -6,4 +6,7 @@ resources:
   - sc-nvme0n1.yaml
   - sc-nvme1n1.yaml
   - sc-tank.yaml
+  - sc-nvme0n1-shared.yaml
+  - sc-nvme1n1-shared.yaml
+  - sc-tank-shared.yaml
   - vsc.yaml
