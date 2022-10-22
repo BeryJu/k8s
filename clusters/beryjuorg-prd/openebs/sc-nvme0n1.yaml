@@ -3,13 +3,12 @@ kind: StorageClass
 metadata:
   name: openebs-zfs-nvme0n1
   annotations:
-    storageclass.kubernetes.io/is-default-class: "false"
+    storageclass.kubernetes.io/is-default-class: "true"
 parameters:
   recordsize: "4k"
   compression: "off"
   dedup: "off"
   fstype: "zfs"
-  shared: "yes"
   poolname: "nvme0n1/k8s"
 provisioner: zfs.csi.openebs.io
 allowVolumeExpansion: true
