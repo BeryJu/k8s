@@ -1,0 +1,25 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kyverno:admin-vault
+rules:
+  - apiGroups:
+      - ricoberger.de
+    resources:
+      - vaultsecrets
+    verbs:
+      - "*"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kyverno:admin-vault
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kyverno:admin-vault
+subjects:
+  - kind: ServiceAccount
+    name: kyverno
+    namespace: kyverno
