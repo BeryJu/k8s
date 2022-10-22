@@ -18,7 +18,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: beryju-workstation
-      app.kubernetes.io/instance: main
+        app.kubernetes.io/instance: main
     spec:
       shareProcessNamespace: true
       containers:
