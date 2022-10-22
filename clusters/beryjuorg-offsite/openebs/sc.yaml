@@ -9,6 +9,7 @@ parameters:
   compression: "off"
   dedup: "off"
   fstype: "zfs"
+  shared: "yes"
   poolname: "sda/k8s"
 provisioner: zfs.csi.openebs.io
 allowVolumeExpansion: true
