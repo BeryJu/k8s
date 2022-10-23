@@ -44,8 +44,12 @@ spec:
           - app.kubernetes.io/name
           - app.kubernetes.io/version
           - app.kubernetes.io/instance
-        watch: "true
-          ssl_partial_chain true"
+        # This is a really hacky way to set ssl_partial_chain
+        # the helm chart doesn't allow to set this natively but we can inject it with this
+        # this option seems to be required for symbiosis?
+        watch: |
+          true
+                  ssl_partial_chain true
       containers:
         logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
       tolerations:
