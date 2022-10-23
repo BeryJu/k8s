@@ -33,6 +33,8 @@ spec:
         clusterName: "${CLUSTER_NAME}"
     splunk-kubernetes-logging:
       enabled: true
+      kubernetes:
+        insecureSSL: true
       k8sMetadata:
         podLabels:
           - app
