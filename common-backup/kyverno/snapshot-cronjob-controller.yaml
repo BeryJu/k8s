@@ -148,11 +148,11 @@ spec:
                             set -x
                             BACKUP_PATH="/data/{{ namespace }}/{{ appName }}/{{ claimName }}"
                             kopia repo connect s3 \
-                              --endpoint="${ENDPOINT}" \
-                              --bucket="${BUCKET}" \
-                              --override-hostname="${CLUSTER_NAME}" \
+                              --endpoint="$${ENDPOINT}" \
+                              --bucket="$${BUCKET}" \
+                              --override-hostname="$${CLUSTER_NAME}" \
                               --override-username=root
-                            kopia policy set ${BACKUP_PATH} \
+                            kopia policy set $${BACKUP_PATH} \
                               --compression=zstd \
                               --keep-latest 14 \
                               --keep-hourly 0 \
@@ -160,10 +160,10 @@ spec:
                               --keep-weekly 2 \
                               --keep-monthly 0 \
                               --keep-annual 0
-                            fsfreeze -f ${BACKUP_PATH}
-                            kopia snap create ${BACKUP_PATH}
-                            fsfreeze -u ${BACKUP_PATH}
-                            kopia snap list ${BACKUP_PATH}
+                            fsfreeze -f $${BACKUP_PATH}
+                            kopia snap create $${BACKUP_PATH}
+                            fsfreeze -u $${BACKUP_PATH}
+                            kopia snap list $${BACKUP_PATH}
                             kopia content stats
                             kopia maintenance info
                             kopia repo disconnect
