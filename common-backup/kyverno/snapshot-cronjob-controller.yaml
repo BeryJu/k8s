@@ -150,7 +150,7 @@ spec:
                             kopia repo connect s3 \
                               --endpoint="$${ENDPOINT}" \
                               --bucket="$${BUCKET}" \
-                              --override-hostname="$${CLUSTER_NAME}" \
+                              --override-hostname="${CLUSTER_NAME}" \
                               --override-username=root
                             kopia policy set $${BACKUP_PATH} \
                               --compression=zstd \
