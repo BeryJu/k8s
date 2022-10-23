@@ -31,10 +31,20 @@ spec:
           indexName: kubernetes
       kubernetes:
         clusterName: "${CLUSTER_NAME}"
+      serviceMonitor:
+        enabled: true
     splunk-kubernetes-logging:
       enabled: true
-      kubernetes:
-        insecureSSL: true
+      customFilters:
+        kubernetes_fixed:
+          tag: tail.containers.**
+          type: kubernetes_metadata
+          body: |
+            annotation_match [ ".*" ]
+            de_dot false
+            watch true
+            cache_ttl 3600
+            ssl_partial_chain true
       k8sMetadata:
         podLabels:
           - app
