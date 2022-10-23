@@ -9,6 +9,7 @@ data:
   VAULT_AUTH_PATH: "auth/k8s-defr"
   # Cluster name
   CLUSTER_NAME: "beryjuorg-defr"
+  CLUSTER_NETWORK: onpr-beryjuorg-defr
   # Ingress public IP
   INGRESS_IP: "10.120.21.1"
   INGRESS_TRAFFIC_POLICY: "Local"

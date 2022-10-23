@@ -9,3 +9,4 @@ data:
   VAULT_AUTH_PATH: "auth/k8s-beryjuio-infra"
   # Cluster name
   CLUSTER_NAME: "beryjuio-infra"
+  CLUSTER_NETWORK: symb-beryjuio-infra

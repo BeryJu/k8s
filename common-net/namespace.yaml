@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: istio-system
   labels:
-    topology.istio.io/network: de-netcup
+    topology.istio.io/network: ${CLUSTER_NETWORK}

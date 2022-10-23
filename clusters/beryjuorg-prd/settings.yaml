@@ -9,6 +9,7 @@ data:
   VAULT_AUTH_PATH: "auth/k8s-prd"
   # Cluster name
   CLUSTER_NAME: "beryjuorg-prd"
+  CLUSTER_NETWORK: leg-beryjuorg-prd
   # Ingress public IP
   INGRESS_IP: "65.21.142.146"
   INGRESS_TRAFFIC_POLICY: "Local"
