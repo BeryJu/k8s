@@ -35,16 +35,6 @@ spec:
         enabled: true
     splunk-kubernetes-logging:
       enabled: true
-      customFilters:
-        kubernetes_fixed:
-          tag: tail.containers.**
-          type: kubernetes_metadata
-          body: |
-            annotation_match [ ".*" ]
-            de_dot false
-            watch true
-            cache_ttl 3600
-            ssl_partial_chain true
       k8sMetadata:
         podLabels:
           - app
@@ -54,7 +44,8 @@ spec:
           - app.kubernetes.io/name
           - app.kubernetes.io/version
           - app.kubernetes.io/instance
-        watch: true
+        watch: "true
+          ssl_partial_chain true"
       containers:
         logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
       tolerations:
