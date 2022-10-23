@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: flux-system
+  name: cluster-settings
+data:
+  # Vault
+  VAULT_AUTH_PATH: "auth/k8s-beryjuio-infra"
+  # Cluster name
+  CLUSTER_NAME: "beryjuio-infra"

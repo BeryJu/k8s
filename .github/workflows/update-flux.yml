@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         cluster:
-          - beryjuorg-offsite
+          - beryjuio-infra
           - beryjuorg-defr
           - beryjuorg-prd
         include:

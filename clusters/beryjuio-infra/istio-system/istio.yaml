@@ -50,7 +50,7 @@ spec:
       logAsJson: true
       meshID: beryjuorg
       multiCluster:
-        clusterName: beryjuorg-offsite
+        clusterName: beryjuio-infra
       network: de-netcup
       # remotePilotAddress: 194.56.224.181
   meshConfig:
