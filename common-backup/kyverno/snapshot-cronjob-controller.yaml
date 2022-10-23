@@ -48,6 +48,12 @@ spec:
         name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
+          metadata:
+            ownerReferences:
+              - apiVersion: "{{ request.object.apiVersion }}"
+                kind: "{{ request.object.kind }}"
+                name: "{{ request.object.metadata.name }}"
+                uid: "{{ request.object.metadata.uid }}"
           spec:
             path: kv/wasabi/backup
             type: Opaque
@@ -150,7 +156,7 @@ spec:
                               --endpoint="$${ENDPOINT}" \
                               --bucket="$${BUCKET}" \
                               --override-hostname="${CLUSTER_NAME}" \
-                              --override-username=root
+                              --override-username="{{ request.object.metadata.namespace }}"
                             kopia policy set $${BACKUP_PATH} \
                               --compression=zstd \
                               --keep-latest 14 \
