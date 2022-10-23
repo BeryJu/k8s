@@ -123,14 +123,6 @@ spec:
                   spec:
                     automountServiceAccountToken: false
                     restartPolicy: OnFailure
-                    env:
-                      - name: BUCKET
-                        value: "beryjuio-k8s-backup"
-                      - name: ENDPOINT
-                        value: "s3.eu-central-2.wasabisys.com"
-                    envFrom:
-                      - secretRef:
-                          name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
                     # Stagger jobs to run randomly within X seconds to avoid bringing down all apps at once
                     initContainers:
                       - name: wait
@@ -141,6 +133,13 @@ spec:
                       - name: snapshot
                         image: ghcr.io/onedr0p/kopia:0.12.1@sha256:e333295b519ce586e7c050c970b2255d87bdb2979298ff87ebdb1113e381ba3b
                         env:
+                          - name: BUCKET
+                            value: "beryjuio-k8s-backup"
+                          - name: ENDPOINT
+                            value: "s3.eu-central-2.wasabisys.com"
+                        envFrom:
+                          - secretRef:
+                              name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
                         command:
                           - /bin/bash
                           - -c
