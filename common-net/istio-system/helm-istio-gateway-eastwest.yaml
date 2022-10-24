@@ -18,8 +18,6 @@ spec:
     - name: istio-istiod
   values:
     networkGateway: ${CLUSTER_NETWORK}
-    labels:
-      topology.istio.io/network: ${CLUSTER_NETWORK}
     service:
       type: LoadBalancer
       ports:
