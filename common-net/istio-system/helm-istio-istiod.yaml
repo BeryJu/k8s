@@ -34,3 +34,16 @@ spec:
           # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
         interceptionMode: TPROXY
       enablePrometheusMerge: true
+      extensionProviders:
+        - envoyExtAuthzHttp:
+            headersToDownstreamOnAllow:
+              - cookie
+            headersToUpstreamOnAllow:
+              - set-cookie
+              - x-authentik-*
+            includeRequestHeadersInCheck:
+              - cookie
+            pathPrefix: /outpost.goauthentik.io/auth/envoy
+            port: "9000"
+            service: ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local
+          name: authentik
