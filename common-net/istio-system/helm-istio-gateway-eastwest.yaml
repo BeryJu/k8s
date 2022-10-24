@@ -19,11 +19,10 @@ spec:
   values:
     networkGateway: ${CLUSTER_NETWORK}
     service:
+      annotations:
+        metallb.universe.tf/allow-shared-ip: main
       type: LoadBalancer
       ports:
-        - name: status-port
-          port: 15021
-          targetPort: 15021
         - name: tls
           port: 15443
           targetPort: 15443

@@ -16,3 +16,7 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: istio-istiod
+  values:
+    service:
+      annotations:
+        metallb.universe.tf/allow-shared-ip: main
