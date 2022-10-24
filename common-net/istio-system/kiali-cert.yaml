@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-kiali-cluster
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuorg-kiali-cluster
+  commonName: kiali-${CLUSTER_NAME}.infra.beryju.org
+  dnsNames:
+    - kiali-${CLUSTER_NAME}.infra.beryju.org

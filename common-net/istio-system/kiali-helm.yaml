@@ -48,7 +48,7 @@ spec:
             tls:
               - hosts:
                   - kiali-${CLUSTER_NAME}.infra.beryju.org
-                secretName: beryjuorg-authentik-proxy-infra
+                secretName: beryjuorg-kiali-cluster
     external_services:
       custom_dashboards:
         discovery_enabled: "false"
