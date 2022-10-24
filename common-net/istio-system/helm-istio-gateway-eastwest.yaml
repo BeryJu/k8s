@@ -22,13 +22,3 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
       type: LoadBalancer
-      ports:
-        - name: tls
-          port: 15443
-          targetPort: 15443
-        - name: tls-istiod
-          port: 15012
-          targetPort: 15012
-        - name: tls-webhook
-          port: 15017
-          targetPort: 15017

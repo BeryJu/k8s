@@ -20,3 +20,13 @@ spec:
     service:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
+      type: LoadBalancer
+      ports:
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
