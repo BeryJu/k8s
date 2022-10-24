@@ -27,7 +27,8 @@ spec:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
       defaultConfig:
-        tracing: {}
+        tracing:
+          zipkin: {}
         proxyMetadata:
           ISTIO_META_DNS_CAPTURE: "true"
           ISTIO_META_DNS_AUTO_ALLOCATE: "true"
