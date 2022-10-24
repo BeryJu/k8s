@@ -25,6 +25,7 @@ metadata:
 spec:
   addresses:
     - 10.120.21.0/28
+  avoidBuggyIPs: true
 ---
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
