@@ -17,11 +17,9 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    networkGateway: ${CLUSTER_NETWORK}
     labels:
       topology.istio.io/network: ${CLUSTER_NETWORK}
-    env:
-      - name: ISTIO_META_REQUESTED_NETWORK_VIEW
-        value: ${CLUSTER_NETWORK}
     service:
       type: LoadBalancer
       ports:
