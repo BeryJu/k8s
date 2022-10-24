@@ -1,7 +1,8 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: cross-network-gateway
+  name: gateway-cross-network
+  namespace: istio-system
 spec:
   selector:
     istio: eastwestgateway
