@@ -3,17 +3,20 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: radarr
+    app.kubernetes.io/instance: main
   name: radarr
   namespace: dl-stack
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: radarr
+      app.kubernetes.io/instance: main
   serviceName: "radarr"
   template:
     metadata:
       labels:
         app.kubernetes.io/name: radarr
+        app.kubernetes.io/instance: main
         io.jela.stack: dl
     spec:
       securityContext:
@@ -58,6 +61,10 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: config
+        labels:
+          app.kubernetes.io/name: radarr
+          app.kubernetes.io/instance: main
+          snapshot.home.arpa/enabled: "true"
       spec:
         resources:
           requests:
