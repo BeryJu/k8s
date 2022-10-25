@@ -47,9 +47,11 @@ spec:
         # This is a really hacky way to set ssl_partial_chain
         # the helm chart doesn't allow to set this natively but we can inject it with this
         # this option seems to be required for symbiosis?
+        # ssl_partial_chain causes issues with rke and kubeadm
         watch: |
           true
-                  ssl_partial_chain true
+                  # ssl_partial_chain true
+                  verify_ssl false
       containers:
         logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
       tolerations:
