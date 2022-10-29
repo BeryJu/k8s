@@ -31,6 +31,7 @@ spec:
           indexName: kubernetes
       kubernetes:
         clusterName: "${CLUSTER_NAME}"
+      prometheus_enabled: true
       serviceMonitor:
         enabled: true
     splunk-kubernetes-logging:
