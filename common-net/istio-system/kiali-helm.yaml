@@ -35,7 +35,7 @@ spec:
           spec:
             ingressClassName: istio
             rules:
-              - host: kiali-${CLUSTER_NAME}.infra.beryju.org
+              - host: kiali.${CLUSTER_NAME}.k8s.beryju.org
                 http:
                   paths:
                     - path: /
@@ -47,7 +47,7 @@ spec:
                             number: 20001
             tls:
               - hosts:
-                  - kiali-${CLUSTER_NAME}.infra.beryju.org
+                  - kiali.${CLUSTER_NAME}.k8s.beryju.org
                 secretName: beryjuorg-kiali-cluster
     external_services:
       custom_dashboards:
@@ -57,6 +57,6 @@ spec:
       grafana:
         enabled: false
     server:
-      web_fqdn: kiali-${CLUSTER_NAME}.infra.beryju.org
+      web_fqdn: kiali.${CLUSTER_NAME}.k8s.beryju.org
       web_port: 443
       web_root: /

@@ -9,6 +9,6 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-kiali-cluster
-  commonName: kiali-${CLUSTER_NAME}.infra.beryju.org
+  commonName: kiali.${CLUSTER_NAME}.k8s.beryju.org
   dnsNames:
-    - kiali-${CLUSTER_NAME}.infra.beryju.org
+    - kiali.${CLUSTER_NAME}.k8s.beryju.org
