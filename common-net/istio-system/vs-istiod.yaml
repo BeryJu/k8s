@@ -7,7 +7,7 @@ spec:
   hosts:
     - "*"
   gateways:
-    - istiod-gateway
+    - gateway-istiod
   tls:
     - match:
         - port: 15012
