@@ -13,3 +13,4 @@ data:
   # Ingress public IP
   INGRESS_IP: "10.120.21.1"
   INGRESS_TRAFFIC_POLICY: "Local"
+  MONITORING_ENABLE_NODE_EXPORTER: "false"

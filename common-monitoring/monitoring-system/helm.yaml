@@ -68,4 +68,4 @@ spec:
     grafana:
       enabled: false
     nodeExporter:
-      enabled: false
+      enabled: ${MONITORING_ENABLE_NODE_EXPORTER}
