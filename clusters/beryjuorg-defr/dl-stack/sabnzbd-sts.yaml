@@ -64,7 +64,7 @@ spec:
         labels:
           app.kubernetes.io/name: sabnzbd
           app.kubernetes.io/instance: main
-          snapshot.home.arpa/enabled: "false"
+          snapshot.home.arpa/enabled: "true"
       spec:
         resources:
           requests:
