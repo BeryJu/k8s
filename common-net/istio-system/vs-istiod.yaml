@@ -18,7 +18,6 @@ spec:
             host: istiod.istio-system.svc.cluster.local
             port:
               number: 15012
-          priority: 100
     - match:
         - port: 15017
           sniHosts:
@@ -28,4 +27,3 @@ spec:
             host: istiod.istio-system.svc.cluster.local
             port:
               number: 443
-          priority: 100

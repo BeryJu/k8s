@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debug-wks
+  namespace: debug-wks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: debug-wks
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: debug-wks
+    spec:
+      containers:
+        - image: ghcr.io/beryju/workstation
+          imagePullPolicy: IfNotPresent
+          name: debug-wks
+          resources: {}
+          volumeMounts:
+            - name: host
+              mountPath: /host
+      volumes:
+        - name: host
+          hostPath:
+            path: /
