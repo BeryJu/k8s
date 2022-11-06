@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: minio
-  name: minio-offsite
+  name: minio-${CLUSTER_NAME}
   namespace: minio
 spec:
   ports:
