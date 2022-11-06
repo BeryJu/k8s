@@ -12,7 +12,6 @@ spec:
   prune: true
   validation: client
   postBuild:
-    substitute: {}
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
