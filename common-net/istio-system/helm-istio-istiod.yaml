@@ -17,6 +17,11 @@ spec:
   dependsOn:
     - name: istio-base
   values:
+    pilot:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 2048Mi
     global:
       logAsJson: true
       meshID: beryjuorg
