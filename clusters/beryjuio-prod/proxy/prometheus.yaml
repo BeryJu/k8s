@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryjuorg-gw-prometheus
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - prometheus.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - prometheus.infra.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-prometheus
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-prometheus
+  hosts:
+    - prometheus.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 9090
+            host: beryjuorg-mon-prometheus.monitoring-system.svc.cluster.local

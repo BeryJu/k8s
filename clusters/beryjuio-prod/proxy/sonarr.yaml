@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryjuorg-gw-dl-stack-sonarr
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - sonarr-dl-stack.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - sonarr-dl-stack.infra.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-dl-stack-sonarr
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-dl-stack-sonarr
+  hosts:
+    - sonarr-dl-stack.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8989
+            host: sonarr.dl-stack.svc.cluster.local

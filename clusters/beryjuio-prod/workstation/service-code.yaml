@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: beryju-workstation
+  name: workstation-code
+  namespace: workstation
+spec:
+  ports:
+    - name: http
+      port: 8000
+      protocol: TCP
+      targetPort: http-code
+  selector:
+    app.kubernetes.io/name: beryju-workstation
+  type: ClusterIP

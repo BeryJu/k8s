@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryjuorg-gw-dl-stack-sabnzbd
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - sabnzbd-dl-stack.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - sabnzbd-dl-stack.infra.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-dl-stack-sabnzbd
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-dl-stack-sabnzbd
+  hosts:
+    - sabnzbd-dl-stack.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8080
+            host: sabnzbd.dl-stack.svc.cluster.local

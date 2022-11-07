@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: mimir
+  name: mimir
+  namespace: mimir
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mimir
+  serviceName: "mimir"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mimir
+    spec:
+      containers:
+        - name: mimir
+          args:
+            - --config.file=/etc/mimir/config.yaml
+          image: grafana/mimir:2.4.0
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 60
+          volumeMounts:
+            - name: config
+              mountPath: /etc/mimir
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config
+          secret:
+            secretName: beryjuorg-mimir
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        resources:
+          requests:
+            storage: 200Gi
+        accessModes:
+          - ReadWriteOnce

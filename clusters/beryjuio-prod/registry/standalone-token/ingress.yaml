@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: standalone-registry-token
+  namespace: registry
+spec:
+  ingressClassName: istio
+  rules:
+    - host: registry.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: standalone-registry-token
+                port:
+                  number: 9001
+            path: /token
+            pathType: Prefix
+  tls:
+    - hosts:
+        - registry.beryju.org
+      secretName: beryjuorg-gw-registries

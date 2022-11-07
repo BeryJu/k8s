@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pullthrough-registry-token
+  namespace: registry
+  labels:
+    app.kubernetes.io/name: pullthrough-registry-token
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 9001
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: pullthrough-registry-token
+  type: ClusterIP

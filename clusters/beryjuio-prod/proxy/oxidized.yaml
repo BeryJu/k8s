@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryjuorg-gw-oxidized
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuorg-authentik-proxy-infra
+      hosts:
+        - oxidized.infra.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - oxidized.infra.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-oxidized
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-oxidized
+  hosts:
+    - oxidized.infra.beryju.org
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8888
+            host: oxidized.oxidized.svc.cluster.local

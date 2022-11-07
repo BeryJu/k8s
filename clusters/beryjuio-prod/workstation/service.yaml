@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: beryju-workstation
+  name: workstation
+  namespace: workstation
+spec:
+  externalTrafficPolicy: Local
+  loadBalancerIP: 194.56.224.179
+  ports:
+    - name: ssh
+      port: 22
+      protocol: TCP
+      targetPort: ssh
+    - name: http-alt
+      port: 8080
+      protocol: TCP
+      targetPort: http-alt
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+    - name: ssh-alt
+      port: 53
+      protocol: TCP
+      targetPort: ssh
+  selector:
+    app.kubernetes.io/name: beryju-workstation
+  type: LoadBalancer

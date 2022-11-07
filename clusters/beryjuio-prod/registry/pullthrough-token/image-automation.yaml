@@ -1,0 +1,23 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: pullthrough-registry-token-update
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    path: ./clusters/beryjuio-prod/registry/pullthrough-token
+    strategy: Setters
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: flux[bot]
+        email: admin@beryju.org
+      messageTemplate: |
+        clusters/beryjuio-prod/registry/pullthrough-token: bump token

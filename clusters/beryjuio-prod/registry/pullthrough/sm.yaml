@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: registry-pullthrough
+  namespace: registry
+spec:
+  endpoints:
+    - port: http-metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: registry
+      app.kubernetes.io/instance: pullthrough
