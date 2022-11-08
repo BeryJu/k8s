@@ -18,6 +18,14 @@ spec:
     - kind: Secret
       name: grafana-secrets
   values:
+    ingress:
+      enabled: true
+      hosts:
+        - grafana.infra.beryju.org
+      tls:
+        - secretName: beryjuorg-authentik-proxy-infra
+          hosts:
+            - grafana.infra.beryju.org
     serviceMonitor:
       enabled: true
     persistence:
@@ -42,4 +50,5 @@ spec:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.beryju.org/application/o/token/"
       GF_AUTH_GENERIC_OAUTH_API_URL: "https://id.beryju.org/application/o/userinfo/"
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://id.beryju.org/application/o/grafana/end-session/"
-      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      # GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      GF_LOG_CONSOLE_FORMAT: "json"
