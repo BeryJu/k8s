@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImagePolicy
+metadata:
+  name: authentik-gh-next
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: authentik-beryju-org
+  filterTags:
+    pattern: "^gh-next-(?P<ts>.*)-(?P<sha>.*)"
+    extract: "$ts"
+  policy:
+    numerical:
+      order: asc

@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageRepository
+metadata:
+  name: authentik-beryju-org
+  namespace: flux-system
+spec:
+  image: ghcr.io/goauthentik/dev-server
+  interval: 1m0s

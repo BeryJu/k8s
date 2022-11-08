@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-authentik-proxy-infra
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuorg-authentik-proxy-infra
+  commonName: infra.beryju.org
+  dnsNames:
+    - infra.beryju.org
+    - "*.infra.beryju.org"
+    - hass-ext.beryju.org

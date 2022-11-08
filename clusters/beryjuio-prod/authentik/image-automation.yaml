@@ -1,0 +1,23 @@
+apiVersion: image.toolkit.fluxcd.io/v1alpha2
+kind: ImageUpdateAutomation
+metadata:
+  name: authentik-update
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  interval: 5m
+  update:
+    path: ./clusters/beryjuorg-prd/authentik
+    strategy: Setters
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: flux[bot]
+        email: admin@beryju.org
+      messageTemplate: |
+        clusters/beryjuorg-prd/authentik: bump authentik prod
