@@ -34,7 +34,7 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.0.1
+      # - ip: 10.120.0.1
       - ip: 10.120.20.1
     ports:
       - name: metrics

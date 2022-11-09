@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: beryjuorg-prom-gravity
+  labels:
+    svc: beryjuorg-prom-gravity
+  namespace: monitoring-system
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8009
+      targetPort: 8009
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: beryjuorg-prom-gravity
+  namespace: monitoring-system
+subsets:
+  - addresses:
+      - ip: 10.120.20.250
+    ports:
+      - name: http
+        port: 8009
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: beryjuorg-prom-gravity
+  namespace: monitoring-system
+spec:
+  endpoints:
+    - interval: 30s
+      port: http
+  selector:
+    matchLabels:
+      svc: beryjuorg-prom-gravity
