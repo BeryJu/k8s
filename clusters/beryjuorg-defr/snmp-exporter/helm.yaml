@@ -25,12 +25,12 @@ spec:
           target: esxi3ipmi.prod.beryju.org
           interval: 1m
           scrapeTimeout: 1m
-        - name: esxi4.prod.beryju.org
-          module:
-            - if_mib
-          target: esxi4ipmi.prod.beryju.org
-          interval: 1m
-          scrapeTimeout: 1m
+        # - name: esxi4.prod.beryju.org
+        #   module:
+        #     - if_mib
+        #   target: esxi4ipmi.prod.beryju.org
+        #   interval: 1m
+        #   scrapeTimeout: 1m
         - name: switch-tv.net.beryju.org
           module:
             - if_mib
