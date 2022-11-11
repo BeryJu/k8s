@@ -22,3 +22,7 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
       type: LoadBalancer
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway

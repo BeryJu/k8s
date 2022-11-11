@@ -17,6 +17,10 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
     service:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
