@@ -20,9 +20,9 @@ spec:
         io.jela.stack: dl
     spec:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 1024
+        runAsGroup: 100
+        fsGroup: 100
         fsGroupChangePolicy: Always
       containers:
         - name: radarr
