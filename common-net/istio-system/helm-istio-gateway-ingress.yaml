@@ -17,6 +17,8 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    autoscaling:
+      minReplicas: 2
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
