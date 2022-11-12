@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app.kubernetes.io/name: radarr
+    app.kubernetes.io/name: sonarr
     app.kubernetes.io/instance: main
-  name: radarr
+  name: sonarr
   namespace: dl-stack
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: radarr
+      app.kubernetes.io/name: sonarr
       app.kubernetes.io/instance: main
-  serviceName: "radarr"
+  serviceName: "sonarr"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: radarr
+        app.kubernetes.io/name: sonarr
         app.kubernetes.io/instance: main
         io.jela.stack: dl
     spec:
@@ -25,8 +25,8 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: Always
       containers:
-        - name: radarr
-          image: ghcr.io/k8s-at-home/radarr:v4.2.4.6635
+        - name: sonarr
+          image: ghcr.io/k8s-at-home/sonarr:v3.0.9.1549
           resources:
             requests:
               memory: "250Mi"
@@ -39,15 +39,15 @@ spec:
               value: "022"
           livenessProbe:
             httpGet:
-              path: /
-              port: 7878
+              path: /ping
+              port: 8989
               scheme: HTTP
             initialDelaySeconds: 60
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 5
           ports:
-            - containerPort: 7878
+            - containerPort: 8989
               name: http
           volumeMounts:
             - name: config
@@ -62,7 +62,7 @@ spec:
     - metadata:
         name: config
         labels:
-          app.kubernetes.io/name: radarr
+          app.kubernetes.io/name: sonarr
           app.kubernetes.io/instance: main
           snapshot.home.arpa/enabled: "true"
       spec:
@@ -71,16 +71,3 @@ spec:
             storage: 1Gi
         accessModes:
           - ReadWriteOnce
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: radarr
-  namespace: dl-stack
-spec:
-  type: ClusterIP
-  selector:
-    app.kubernetes.io/name: radarr
-  ports:
-    - port: 7878
-      targetPort: 7878

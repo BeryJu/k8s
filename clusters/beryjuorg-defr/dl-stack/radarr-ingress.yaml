@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-dl-stack-radarr
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-dl-stack-radarr
+  commonName: radarr.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - radarr.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: radarr
+  namespace: dl-stack
+spec:
+  ingressClassName: istio
+  rules:
+    - host: radarr.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: radarr
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - radarr.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-dl-stack-radarr

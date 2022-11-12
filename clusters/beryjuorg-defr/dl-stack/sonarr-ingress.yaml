@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-dl-stack-sonarr
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-dl-stack-sonarr
+  commonName: sonarr.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - sonarr.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+  namespace: dl-stack
+spec:
+  ingressClassName: istio
+  rules:
+    - host: sonarr.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: sonarr
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sonarr.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-dl-stack-sonarr

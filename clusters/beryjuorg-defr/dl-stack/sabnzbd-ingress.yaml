@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-dl-stack-sabnzbd
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-dl-stack-sabnzbd
+  commonName: sabnzbd.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - sabnzbd.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sabnzbd
+  namespace: dl-stack
+spec:
+  ingressClassName: istio
+  rules:
+    - host: sabnzbd.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: sabnzbd
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sabnzbd.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-dl-stack-sabnzbd
