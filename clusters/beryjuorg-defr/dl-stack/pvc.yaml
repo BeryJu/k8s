@@ -11,8 +11,8 @@ spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.120.20.31
-    path: "/bigpool/media"
+    server: 10.120.20.86
+    path: "/volume1/media"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
