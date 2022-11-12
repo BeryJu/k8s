@@ -35,3 +35,12 @@ spec:
   myASN: 65553
   peerASN: 64517
   peerAddress: 10.120.20.1
+---
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: default
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - default-pool
