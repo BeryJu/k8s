@@ -15,6 +15,7 @@ spec:
         namespace: flux-system
   dependsOn:
     - name: csi-secrets-store
+      namespace: kube-system
   values:
     server:
       enabled: false
