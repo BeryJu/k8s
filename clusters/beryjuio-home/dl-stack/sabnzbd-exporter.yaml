@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: sabnzbd-exporter
+  name: sabnzbd-exporter
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sabnzbd-exporter
+    spec:
+      securityContext:
+        runAsUser: 1024
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: Always
+      containers:
+        - name: exporter
+          image: msroest/sabnzbd_exporter:0.1.60
+          env:
+            - name: SABNZBD_BASEURL
+              value: http://sabnzbd:8080
+            - name: SABNZBD_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: sabnzbd-api-key
+                  key: api-key
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "0.5"
+            limits:
+              memory: "750Mi"
+          ports:
+            - containerPort: 9387
+              name: metrics

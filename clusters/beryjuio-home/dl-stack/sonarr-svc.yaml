@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+  namespace: dl-stack
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sonarr
+  ports:
+    - port: 8989
+      name: http
+      targetPort: 8989
