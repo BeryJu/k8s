@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-plex
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-plex
+  commonName: plex.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - plex.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plex
+  namespace: plex
+spec:
+  ingressClassName: istio
+  rules:
+    - host: plex.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: plex
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - plex.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-plex

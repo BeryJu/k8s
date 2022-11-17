@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: gravity
+  name: gravity
+  namespace: gravity
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gravity
+  serviceName: "gravity"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gravity
+    spec:
+      hostname: gravity-defr1
+      containers:
+        - name: gravity
+          image: ghcr.io/beryju/gravity:latest-amd64
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+          env:
+            - name: INSTANCE_LISTEN
+              value: 10.120.20.250
+            - name: SENTRY_ENVIRONMENT
+              value: beryjuorg-prod
+          ports:
+            - containerPort: 53
+              name: dns-tcp
+            - containerPort: 53
+              protocol: UDP
+              name: dns-udp
+            - containerPort: 67
+              protocol: UDP
+              name: dhcp
+            - containerPort: 68
+              protocol: UDP
+              name: dhcp-alt
+            - containerPort: 8008
+              name: http
+            - containerPort: 8009
+              name: http-metrics
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        resources:
+          requests:
+            storage: 10Gi
+        accessModes:
+          - ReadWriteOnce

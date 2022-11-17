@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: plex
+    app.kubernetes.io/instance: main
+  name: plex
+  namespace: plex
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: plex
+      app.kubernetes.io/instance: main
+  serviceName: "plex"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: plex
+        app.kubernetes.io/instance: main
+    spec:
+      containers:
+        - name: plex
+          image: plexinc/pms-docker:1.29.2.6364-6d72b0cf6
+          resources:
+            requests:
+              memory: "250Mi"
+            limits:
+              memory: "500Mi"
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: PLEX_UID
+              value: "1024"
+            - name: PLEX_GID
+              value: "100"
+            - name: CHANGE_CONFIG_DIR_OWNERSHIP
+              value: "true"
+          ports:
+            - containerPort: 32400
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /data
+            - name: transcode
+              mountPath: /transcode
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+        - name: transcode
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: config
+        labels:
+          app.kubernetes.io/name: plex
+          app.kubernetes.io/instance: main
+          snapshot.home.arpa/enabled: "true"
+      spec:
+        resources:
+          requests:
+            storage: 10Gi
+        accessModes:
+          - ReadWriteOnce
