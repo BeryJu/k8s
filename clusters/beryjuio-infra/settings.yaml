@@ -10,5 +10,4 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-infra"
   CLUSTER_NETWORK: symb-beryjuio-infra
-  CLUSTER_CONTAINER_LOG_TYPE: cri
   MONITORING_ENABLE_NODE_EXPORTER: "true"

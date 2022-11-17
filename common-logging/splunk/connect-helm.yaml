@@ -54,7 +54,7 @@ spec:
                   # ssl_partial_chain true
                   verify_ssl false
       containers:
-        logFormatType: "${CLUSTER_CONTAINER_LOG_TYPE:=json}"
+        logFormatType: cri
       tolerations:
         - effect: NoExecute
           operator: Exists
