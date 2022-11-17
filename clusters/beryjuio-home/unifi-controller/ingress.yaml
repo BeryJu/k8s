@@ -28,7 +28,7 @@ spec:
               service:
                 name: unifi-controller
                 port:
-                  name: http
+                  name: https
             path: /
             pathType: Prefix
   tls:
