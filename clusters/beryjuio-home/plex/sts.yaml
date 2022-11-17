@@ -18,6 +18,7 @@ spec:
         app.kubernetes.io/name: plex
         app.kubernetes.io/instance: main
     spec:
+      hostname: plex
       containers:
         - name: plex
           image: plexinc/pms-docker:1.29.2.6364-6d72b0cf6
