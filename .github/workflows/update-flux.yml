@@ -11,11 +11,14 @@ jobs:
     strategy:
       matrix:
         cluster:
+          - beryjuio-home
+          - beryjuio-prod
           - beryjuio-infra
-          - beryjuorg-defr
           - beryjuorg-prd
         include:
           - cluster: beryjuorg-prd
+            args: "--components-extra=image-reflector-controller,image-automation-controller"
+          - cluster: beryjuio-prod
             args: "--components-extra=image-reflector-controller,image-automation-controller"
     steps:
       - name: Check out code
