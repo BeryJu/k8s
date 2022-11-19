@@ -19,7 +19,7 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.86
+      - ip: 10.120.20.30
     ports:
       - name: metrics
         port: 9100

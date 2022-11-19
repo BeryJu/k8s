@@ -11,7 +11,7 @@ spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 10.120.20.86
+    server: 10.120.20.30
     path: "/volume1/media"
 ---
 apiVersion: v1
