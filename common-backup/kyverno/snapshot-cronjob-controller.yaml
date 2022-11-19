@@ -165,9 +165,9 @@ spec:
                               --keep-weekly 2 \
                               --keep-monthly 0 \
                               --keep-annual 0
-                            fsfreeze -f $${BACKUP_PATH}
+                            # fsfreeze -f $${BACKUP_PATH}
                             kopia snap create $${BACKUP_PATH}
-                            fsfreeze -u $${BACKUP_PATH}
+                            # fsfreeze -u $${BACKUP_PATH}
                             kopia snap list $${BACKUP_PATH}
                             kopia content stats
                             kopia maintenance info
