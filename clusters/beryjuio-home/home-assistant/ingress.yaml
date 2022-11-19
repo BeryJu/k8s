@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-home-assistant
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-home-assistant
+  commonName: home-assistant.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - home-assistant.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  ingressClassName: istio
+  rules:
+    - host: home-assistant.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: home-assistant
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - home-assistant.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-home-assistant
