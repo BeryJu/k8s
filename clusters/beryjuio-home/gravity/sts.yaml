@@ -20,6 +20,8 @@ spec:
         - name: gravity
           image: ghcr.io/beryju/gravity:latest-amd64
           env:
+            - name: LOG_LEVEL
+              value: debug
             - name: INSTANCE_LISTEN
               value: 10.120.20.250
             - name: SENTRY_ENVIRONMENT
