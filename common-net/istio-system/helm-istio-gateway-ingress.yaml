@@ -26,6 +26,7 @@ spec:
     service:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
+      externalTrafficPolicy: Local
       type: LoadBalancer
       ports:
         - name: http2
