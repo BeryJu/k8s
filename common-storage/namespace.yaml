@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: trident
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled

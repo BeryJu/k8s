@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gravity
+  namespace: gravity
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gravity
+  endpoints:
+    - port: http-metrics

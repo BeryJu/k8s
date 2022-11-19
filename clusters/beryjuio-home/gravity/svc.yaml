@@ -29,3 +29,6 @@ spec:
     - port: 8008
       name: http
       targetPort: 8008
+    - port: 8009
+      name: http-metrics
+      targetPort: 8009
