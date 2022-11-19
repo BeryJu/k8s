@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-esphome
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-esphome
+  commonName: esphome.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - esphome.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: esphome
+  namespace: home-assistant
+spec:
+  ingressClassName: istio
+  rules:
+    - host: esphome.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: esphome
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - esphome.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-esphome

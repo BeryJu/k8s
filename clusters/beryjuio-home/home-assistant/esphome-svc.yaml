@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: esphome
+  namespace: home-assistant
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: esphome
+  ports:
+    - name: '6052'
+      port: 6052
+      targetPort: 6052
