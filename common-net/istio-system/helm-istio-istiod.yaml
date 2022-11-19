@@ -32,6 +32,8 @@ spec:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
       defaultConfig:
+        gatewayTopology:
+          numTrustedProxies: 1
         tracing:
           zipkin: {}
         proxyMetadata:
