@@ -33,7 +33,3 @@ spec:
       protocol: TCP
       port: 6789
       targetPort: 6789
-    - name: '3478'
-      protocol: UDP
-      port: 3478
-      targetPort: 3478
