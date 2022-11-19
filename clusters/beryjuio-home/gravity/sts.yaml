@@ -19,9 +19,6 @@ spec:
       containers:
         - name: gravity
           image: ghcr.io/beryju/gravity:latest-amd64
-          securityContext:
-            allowPrivilegeEscalation: false
-            runAsUser: 0
           env:
             - name: INSTANCE_LISTEN
               value: 10.120.20.250
