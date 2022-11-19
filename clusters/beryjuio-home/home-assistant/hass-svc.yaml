@@ -4,7 +4,7 @@ metadata:
   name: home-assistant
   namespace: home-assistant
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app.kubernetes.io/name: home-assistant
   ports:
