@@ -27,6 +27,14 @@ spec:
               value: debug
             - name: SENTRY_ENVIRONMENT
               value: beryjuorg-prod
+          livenessProbe:
+            httpGet:
+              path: /healthz/live
+              port: http-metrics
+          readinessProbe:
+            httpGet:
+              path: /healthz/live
+              port: http-metrics
           ports:
             - containerPort: 53
               name: dns-tcp
