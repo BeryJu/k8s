@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitlab
+      app.kubernetes.io/instance: main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gitlab
+        app.kubernetes.io/instance: main
+    spec:
+      containers:
+        - image: gitlab/gitlab-ce:15.5.4-ce.0
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: gitlab-config
+          name: gitlab
+          ports:
+            - containerPort: 22
+              name: ssh
+              protocol: TCP
+            - containerPort: 80
+              name: http
+              protocol: TCP
+            - containerPort: 443
+              name: https
+              protocol: TCP
+          # readinessProbe:
+          #   httpGet:
+          #     path: /-/readiness
+          #     port: 80
+          #     scheme: HTTP
+          #   initialDelaySeconds: 120
+          resources:
+            requests:
+              cpu: 1500m
+              memory: 8G
+            limits:
+              cpu: 1500m
+              memory: 8G
+          volumeMounts:
+            - mountPath: /etc/gitlab
+              name: config
+            - mountPath: /var/opt/gitlab
+              name: data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: gitlab-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: gitlab-data
