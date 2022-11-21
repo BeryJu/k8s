@@ -9,7 +9,7 @@ spec:
     name: flux-system
   interval: 5m
   update:
-    path: ./clusters/beryjuorg-prd/minio
+    path: ./clusters/beryjuio-prod/minio
     strategy: Setters
   git:
     checkout:
@@ -20,4 +20,4 @@ spec:
         name: flux[bot]
         email: admin@beryju.org
       messageTemplate: |
-        clusters/beryjuorg-prd/minio: bump imagik
+        clusters/beryjuio-prod/minio: bump imagik
