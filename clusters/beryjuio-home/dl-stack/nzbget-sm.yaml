@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: sabnzbd
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd-exporter
+  endpoints:
+    - port: metrics

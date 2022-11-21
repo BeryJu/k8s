@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nzbget
+  namespace: dl-stack
+  labels:
+    app.kubernetes.io/name: nzbget
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: nzbget
+  ports:
+    - port: 6789
+      name: http
+      targetPort: 6789
+    - port: 9452
+      name: metrics
+      targetPort: 9452

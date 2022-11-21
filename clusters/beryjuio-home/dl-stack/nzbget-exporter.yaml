@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: nzbget-exporter
+  name: nzbget-exporter
+  namespace: dl-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nzbget-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nzbget-exporter
+    spec:
+      securityContext:
+        runAsUser: 1024
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: Always
+      containers:
+        - name: exporter
+          image: frebib/nzbget-exporter:0.2.2
+          env:
+            - name: NZBGET_HOST
+              value: http://nzbget:6789
+            # - name: nzbget_APIKEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: nzbget-api-key
+            #       key: api-key
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "0.5"
+            limits:
+              memory: "750Mi"
+          ports:
+            - containerPort: 9452
+              name: metrics
