@@ -38,15 +38,6 @@ spec:
           ports:
             - containerPort: 6789
               name: http
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 6789
-              scheme: HTTP
-            initialDelaySeconds: 60
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 5
           volumeMounts:
             - name: config
               mountPath: /config

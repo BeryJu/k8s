@@ -28,10 +28,10 @@ spec:
           image: ghcr.io/onedr0p/sabnzbd:v3.7.0
           resources:
             requests:
-              memory: "300Mi"
+              memory: "2Gi"
               cpu: "0.5"
             limits:
-              memory: "750Mi"
+              memory: "2Gi"
           env:
             - name: TZ
               value: Europe/Berlin
