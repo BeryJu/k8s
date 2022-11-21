@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/name: imagik
+  name: imagik
+  namespace: minio
+spec:
+  ingressClassName: istio
+  rules:
+    - host: i.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: imagik
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - i.beryju.org
+      secretName: beryjuorg-minio

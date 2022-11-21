@@ -5,7 +5,7 @@ metadata:
   namespace: istio-system
 spec:
   dnsNames:
-    - overseerr.infra.beryju.org
+    - overseerr.${CLUSTER_NAME}.k8s.beryju.org
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer

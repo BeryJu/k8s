@@ -25,11 +25,11 @@ spec:
         enabled: true
         ingressClassName: istio
         hosts:
-          - host: overseerr.infra.beryju.org
+          - host: overseerr.${CLUSTER_NAME}.k8s.beryju.org
             paths:
               - path: /
                 pathType: Prefix
             tls:
               - hosts:
-                  - overseerr.infra.beryju.org
+                  - overseerr.${CLUSTER_NAME}.k8s.beryju.org
                 secretName: overseerr-acme
