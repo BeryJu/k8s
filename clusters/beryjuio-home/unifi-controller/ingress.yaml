@@ -43,7 +43,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-minio-offsite
+  name: beryjuorg-vs-unifi-controller
   namespace: istio-system
 spec:
   gateways:
@@ -55,5 +55,5 @@ spec:
         - destination:
             host: unifi-controller
             port:
-              name: https
+              number: 8443
           weight: 100
