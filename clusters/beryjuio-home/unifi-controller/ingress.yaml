@@ -13,25 +13,47 @@ spec:
   dnsNames:
     - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
   name: unifi-controller
-  namespace: unifi-controller
+  namespace: istio-system
 spec:
-  ingressClassName: istio
-  rules:
-    - host: unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
-      http:
-        paths:
-          - backend:
-              service:
-                name: unifi-controller
-                port:
-                  name: https
-            path: /
-            pathType: Prefix
-  tls:
-    - hosts:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuio-unifi-controller
+      hosts:
         - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
-      secretName: beryjuio-unifi-controller
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-minio-offsite
+  namespace: istio-system
+spec:
+  gateways:
+    - unifi-controller
+  hosts:
+    - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+  http:
+    - route:
+        - destination:
+            host: unifi-controller
+            port:
+              name: https
+          weight: 100
