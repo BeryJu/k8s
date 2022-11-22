@@ -1,0 +1,62 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-hass
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuorg-hass
+  commonName: hass-ext.beryju.org
+  dnsNames:
+    - hass-ext.beryju.org
+    - hass.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hass-proxy
+  namespace: proxy
+spec:
+  type: ExternalName
+  externalName: hass1.prod.beryju.org
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8123
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hass
+  namespace: proxy
+spec:
+  ingressClassName: istio
+  rules:
+    - host: hass-ext.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: hass-proxy
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: hass.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: hass-proxy
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - hass-ext.beryju.org
+        - hass.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuorg-hass
