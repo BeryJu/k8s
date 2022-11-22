@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-oxidized
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-oxidized
+  commonName: oxidized.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - oxidized.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oxidized
+  namespace: oxidized
+spec:
+  ingressClassName: istio
+  rules:
+    - host: oxidized.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: oxidized
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - oxidized.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuio-oxidized
