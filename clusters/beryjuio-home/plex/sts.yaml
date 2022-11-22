@@ -24,9 +24,10 @@ spec:
           image: plexinc/pms-docker:1.29.2.6364-6d72b0cf6
           resources:
             requests:
-              memory: "250Mi"
-            limits:
               memory: "500Mi"
+            limits:
+              gpu.intel.com/i915: "1"
+              memory: "2Gi"
           env:
             - name: TZ
               value: Europe/Berlin
