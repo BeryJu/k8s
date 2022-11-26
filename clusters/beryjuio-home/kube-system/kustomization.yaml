@@ -17,5 +17,5 @@ patchesStrategicMerge:
         containers:
         - name: intel-gpu-plugin
           args:
-            - -shared-dev-num
-            - 2
+            - "-shared-dev-num"
+            - "2"
