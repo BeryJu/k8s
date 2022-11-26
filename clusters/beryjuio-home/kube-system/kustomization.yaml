@@ -3,3 +3,19 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.25.1
+patchesStrategicMerge:
+- |-
+  apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    name: intel-gpu-plugin
+    labels:
+      app: intel-gpu-plugin
+  spec:
+    template:
+      spec:
+        containers:
+        - name: intel-gpu-plugin
+          args:
+            - -shared-dev-num
+            - 2
