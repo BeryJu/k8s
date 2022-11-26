@@ -43,5 +43,3 @@ spec:
               memory: 500Mi
           securityContext:
             privileged: true
-      nodeSelector:
-        kubernetes.io/os: linux

@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: intel-gpu-exporter
+  namespace: kube-system
+spec:
+  namespaceSelector:
+    matchNames:
+      - kube-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: intel-gpu-exporter
+  podMetricsEndpoints:
+    - port: http
