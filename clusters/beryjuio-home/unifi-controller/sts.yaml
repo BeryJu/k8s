@@ -21,7 +21,7 @@ spec:
       hostname: unifi-controller
       containers:
         - name: unifi-controller
-          image: linuxserver/unifi-controller:7.2.95
+          image: linuxserver/unifi-controller:7.3.76
           env:
             - name: PUID
               value: "1000"
