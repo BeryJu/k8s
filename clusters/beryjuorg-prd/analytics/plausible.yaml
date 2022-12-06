@@ -48,7 +48,7 @@ spec:
         fsGroup: 1000
       initContainers:
         - name: plausible-init
-          image: plausible/analytics:v1.4.4
+          image: plausible/analytics:v1.5.1
           command:
             - "/bin/sh"
             - "-c"
@@ -68,7 +68,7 @@ spec:
               cpu: 10m
       containers:
         - name: plausible
-          image: plausible/analytics:v1.4.4
+          image: plausible/analytics:v1.5.1
           ports:
             - containerPort: 8000
           envFrom:
