@@ -12,8 +12,9 @@ jobs:
       matrix:
         cluster:
           - beryjuio-home
-          - beryjuio-prod
           - beryjuio-infra
+          - beryjuio-oci
+          - beryjuio-prod
           - beryjuorg-prd
         include:
           - cluster: beryjuorg-prd

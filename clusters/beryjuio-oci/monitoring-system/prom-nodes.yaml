@@ -1,0 +1,61 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-prom-additional-scrape-creds-node-exporter
+  namespace: monitoring-system
+spec:
+  path: kv/services/prometheus/node_exporter
+  type: Opaque
+  templates:
+    PW_NODE_EXPORTER: "{% .Secrets.prometheus %}"
+    username: prometheus
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: beryjuorg-prom-nodes
+  labels:
+    svc: beryjuorg-prom-nodes
+  namespace: monitoring-system
+spec:
+  type: ClusterIP
+  ports:
+    - name: metrics
+      port: 9100
+      targetPort: 9100
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: beryjuorg-prom-nodes
+  namespace: monitoring-system
+subsets:
+  - addresses:
+      - ip: 65.21.142.146
+      - ip: 202.61.239.168
+    ports:
+      - name: metrics
+        port: 9100
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: beryjuorg-prom-nodes
+  namespace: monitoring-system
+spec:
+  endpoints:
+    - interval: 30s
+      port: metrics
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+      basicAuth:
+        username:
+          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          key: username
+        password:
+          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          key: PW_NODE_EXPORTER
+  selector:
+    matchLabels:
+      svc: beryjuorg-prom-nodes

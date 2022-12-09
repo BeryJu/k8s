@@ -10,4 +10,3 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-prod"
   CLUSTER_NETWORK: symb-beryjuio-prod
-  MONITORING_ENABLE_NODE_EXPORTER: "false"

@@ -10,4 +10,3 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuorg-prd"
   CLUSTER_NETWORK: leg-beryjuorg-prd
-  MONITORING_ENABLE_NODE_EXPORTER: "false"

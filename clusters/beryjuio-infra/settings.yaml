@@ -10,4 +10,3 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-infra"
   CLUSTER_NETWORK: symb-beryjuio-infra
-  MONITORING_ENABLE_NODE_EXPORTER: "true"
