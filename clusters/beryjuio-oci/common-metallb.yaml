@@ -23,7 +23,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 130.61.116.187/32
+    - 10.120.90.154/32
   avoidBuggyIPs: true
 ---
 apiVersion: metallb.io/v1beta1
