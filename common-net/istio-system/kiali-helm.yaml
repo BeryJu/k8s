@@ -27,6 +27,7 @@ spec:
         issuer_uri: "https://id.beryju.org/application/o/kiali/"
         username_claim: "preferred_username"
     deployment:
+      image_version: v1.60-distro
       accessible_namespaces:
         - "**"
       ingress:
