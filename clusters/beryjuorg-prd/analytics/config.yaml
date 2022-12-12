@@ -7,9 +7,6 @@ spec:
   path: kv/services/plausible
   type: Opaque
   templates:
-    ADMIN_USER_EMAIL: admin@beryju.org
-    ADMIN_USER_NAME: admin
-    ADMIN_USER_PWD: "{% .Secrets.admin_pwd %}"
     BASE_URL: https://analytics.beryju.org
     DISABLE_REGISTRATION: "true"
     MAILER_EMAIL: plausible@services.beryju.org

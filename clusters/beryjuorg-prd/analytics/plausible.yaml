@@ -48,12 +48,12 @@ spec:
         fsGroup: 1000
       initContainers:
         - name: plausible-init
-          image: plausible/analytics:v1.4.4
+          image: plausible/analytics:v1.5.1
           command:
             - "/bin/sh"
             - "-c"
           args:
-            - /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin
+            - /entrypoint.sh db createdb && /entrypoint.sh db migrate
           envFrom:
             - secretRef:
                 name: beryjuorg-plausible-config
