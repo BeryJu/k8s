@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-headscale
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-headscale
+  commonName: headscale.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - headscale.${CLUSTER_NAME}.k8s.beryju.org

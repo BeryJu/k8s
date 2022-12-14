@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/name: headscale
+    app.kubernetes.io/instance: main
+  name: headscale
+  namespace: headscale
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: headscale
+      app.kubernetes.io/instance: main
+  serviceName: "headscale"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: headscale
+        app.kubernetes.io/instance: main
+    spec:
+      hostname: headscale
+      containers:
+        - name: headscale
+          image: ghcr.io/juanfont/headscale:0.17.1-debug
+          args:
+            - headscale
+            - serve
+          resources:
+            requests:
+              memory: "500Mi"
+            limits:
+              memory: "2Gi"
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 3478
+              name: derp
+              protocol: UDP
+            - containerPort: 9090
+              name: metrics
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /etc/headscale
+      volumes:
+        - name: config
+          secret:
+            secretName: headscale-settings
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app.kubernetes.io/name: headscale
+          app.kubernetes.io/instance: main
+          snapshot.home.arpa/enabled: "true"
+      spec:
+        resources:
+          requests:
+            storage: 1Gi
+        accessModes:
+          - ReadWriteOnce

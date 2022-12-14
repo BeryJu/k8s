@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: headscale
+  namespace: headscale
+spec:
+  selector:
+    app.kubernetes.io/name: headscale
+  ports:
+    - port: 8080
+      name: http
+      targetPort: http
+    - port: 9090
+      name: http-metrics
+      targetPort: metrics
