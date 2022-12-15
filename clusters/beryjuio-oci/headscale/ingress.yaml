@@ -16,6 +16,13 @@ spec:
                   name: http
             path: /
             pathType: Prefix
+          - backend:
+              service:
+                name: headscale-ui
+                port:
+                  name: http
+            path: /web
+            pathType: Prefix
   tls:
     - hosts:
         - headscale.${CLUSTER_NAME}.k8s.beryju.org
