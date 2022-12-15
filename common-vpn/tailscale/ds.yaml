@@ -15,6 +15,7 @@ spec:
         app.kubernetes.io/name: tailscale-subnet-router
     spec:
       hostname: "${CLUSTER_NAME}"
+      serviceAccount: tailscale
       containers:
         - name: tailscale
           image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
