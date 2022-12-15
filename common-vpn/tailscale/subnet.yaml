@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tailscale-subnet-router
+  namespace: tailscale
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tailscale-subnet-router
+      app.kubernetes.io/name: tailscale-subnet-router
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: tailscale-subnet-router
+        app.kubernetes.io/name: tailscale-subnet-router
+    spec:
+      hostname: "${CLUSTER_NAME}"
+      containers:
+        - name: tailscale
+          image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
+          env:
+            # Store the state in a k8s secret
+            - name: TS_KUBE_SECRET
+              value: "tailscale-auth"
+            - name: TS_EXTRA_ARGS
+              value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.org"
+            - name: TS_USERSPACE
+              value: "true"
+            - name: TS_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-auth
+                  key: TS_AUTH_KEY
+                  optional: true
+            - name: TS_ROUTES
+              value: "${CLUSTER_LOCAL_NETWORKS}"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
