@@ -27,8 +27,6 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
-            - name: MEM_LIMIT
-              value: "1024M"
           ports:
             - containerPort: 3478
               protocol: UDP
