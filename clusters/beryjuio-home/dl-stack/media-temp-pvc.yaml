@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 10.120.20.30
-    path: "/volume1/media-temp"
+    path: "/volume2/media-temp"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
