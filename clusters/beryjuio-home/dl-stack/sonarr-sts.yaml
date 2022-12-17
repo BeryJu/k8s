@@ -54,10 +54,15 @@ spec:
               mountPath: /config
             - name: media
               mountPath: /media
+            - name: media-temp
+              mountPath: /media-temp
       volumes:
         - name: media
           persistentVolumeClaim:
             claimName: media-pvc
+        - name: media-temp
+          persistentVolumeClaim:
+            claimName: media-temp-pvc
   volumeClaimTemplates:
     - metadata:
         name: config
