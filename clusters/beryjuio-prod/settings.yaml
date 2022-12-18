@@ -5,8 +5,6 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  # Vault
-  VAULT_AUTH_PATH: "auth/k8s-beryjuio-prod"
   # Cluster name
   CLUSTER_NAME: "beryjuio-prod"
   CLUSTER_NETWORK: symb-beryjuio-prod

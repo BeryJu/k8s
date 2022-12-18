@@ -5,8 +5,6 @@ metadata:
   namespace: flux-system
   name: cluster-settings
 data:
-  # Vault
-  VAULT_AUTH_PATH: "auth/k8s-beryjuio-oci"
   # Cluster name
   CLUSTER_NAME: "beryjuio-oci"
   CLUSTER_NETWORK: oci-beryjuio-oci

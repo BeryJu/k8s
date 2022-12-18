@@ -23,5 +23,5 @@ spec:
     vault:
       address: https://vault.beryju.org
       authMethod: kubernetes
-      kubernetesPath: "${VAULT_AUTH_PATH}"
+      kubernetesPath: "auth/k8s-${CLUSTER_NAME}"
       kubernetesRole: vault-secrets-operator
