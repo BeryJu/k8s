@@ -43,7 +43,7 @@ spec:
 
       ruler:
         rule_path: /data/ruler
-        alertmanager_url: http://alertmanager-operated.monitoring-system.svc.cluster.local:9093
+        alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
 
       ruler_storage:
         backend: s3

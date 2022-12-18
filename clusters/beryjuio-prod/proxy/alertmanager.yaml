@@ -40,4 +40,4 @@ spec:
         - destination:
             port:
               number: 9093
-            host: alertmanager-operated.monitoring-system.svc.cluster.local
+            host: beryjuio-alertmanager.monitoring-system.svc.cluster.local
