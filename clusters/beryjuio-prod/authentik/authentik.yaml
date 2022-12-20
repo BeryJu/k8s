@@ -51,8 +51,6 @@ spec:
       repository: ghcr.io/goauthentik/dev-server
       tag: gh-next-1671452251-c28f3ab2254204a5d17e9b24f3d928147fbfc5ff # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
-    geoip:
-      enabled: true
     authentik:
       postgresql:
         name: "authentik"
