@@ -38,6 +38,8 @@ spec:
               mountPath: /config/devices
             - name: ssh
               mountPath: /home/oxidized/.ssh
+            - name: state
+              mountPath: /run/state
       volumes:
         - name: config
           configMap:
@@ -48,3 +50,6 @@ spec:
         - name: ssh
           secret:
             secretName: beryjuorg-oxidized
+        - name: state
+          persistentVolumeClaim:
+            claimName: state
