@@ -31,3 +31,9 @@ spec:
           target: switch-kitchen.net.beryju.org
           interval: 1m
           scrapeTimeout: 1m
+        - name: switch-bed.net.beryju.org
+          module:
+            - if_mib
+          target: switch-bed.net.beryju.org
+          interval: 1m
+          scrapeTimeout: 1m
