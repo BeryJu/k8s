@@ -27,7 +27,6 @@ spec:
         issuer_uri: "https://id.beryju.org/application/o/kiali/"
         username_claim: "preferred_username"
     deployment:
-      image_version: v1.60-distro
       accessible_namespaces:
         - "**"
       ingress:
@@ -61,3 +60,4 @@ spec:
       web_fqdn: kiali.${CLUSTER_NAME}.k8s.beryju.org
       web_port: 443
       web_root: /
+      web_schema: https
