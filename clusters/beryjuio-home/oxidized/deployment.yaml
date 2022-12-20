@@ -28,16 +28,16 @@ spec:
               cpu: 150m
               memory: "200Mi"
             limits:
-              cpu: 1
+              cpu: "1"
               memory: "1Gi"
           volumeMounts:
             - name: config
-              mountPath: /root/.config/oxidized/config
+              mountPath: /home/oxidized/.config/oxidized/config
               subPath: config
             - name: devices
               mountPath: /config/devices
             - name: ssh
-              mountPath: /root/.ssh
+              mountPath: /home/oxidized/.ssh
       volumes:
         - name: config
           configMap:

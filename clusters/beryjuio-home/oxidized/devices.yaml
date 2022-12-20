@@ -6,5 +6,7 @@ metadata:
 data:
   devices.csv: |-
     freiburg1.net.beryju.org:vyatta
-    freiburg2.net.beryju.org:vyatta
     ap-living-room.net.beryju.org:airos:beryju
+    switch-kitchen.net.beryju.org:swos:admin
+    switch-tv.net.beryju.org:swos:admin
+    switch-bed.net.beryju.org:swos:admin

@@ -21,9 +21,9 @@ data:
       ssh_keys: "~/.ssh/id_rsa"
     groups: {}
     models: {}
-    pid: "/root/.config/oxidized/pid"
+    pid: "/home/oxidized/.config/oxidized/pid"
     crash:
-      directory: "/root/.config/oxidized/crashes"
+      directory: "/home/oxidized/.config/oxidized/crashes"
       hostnames: false
     stats:
       history_size: 10
@@ -60,5 +60,5 @@ data:
         type: githubrepo
         events: [post_store]
         remote_repo: git@code.beryju.org:BeryJu.org/oxidized.git
-        publickey: /root/.ssh/id_rsa.pub
-        privatekey: /root/.ssh/id_rsa
+        publickey: /home/oxidized/.ssh/id_rsa.pub
+        privatekey: /home/oxidized/.ssh/id_rsa
