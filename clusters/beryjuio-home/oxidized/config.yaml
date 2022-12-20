@@ -10,31 +10,11 @@ data:
     model: vyatta
     resolve_dns: true
     interval: 3600
-    use_syslog: false
-    debug: false
-    threads: 30
-    timeout: 20
-    retries: 3
+    debug: true
     rest: 0.0.0.0:8888
-    next_adds_job: false
+    next_adds_job: true
     vars:
       ssh_keys: "~/.ssh/id_rsa"
-    groups: {}
-    models: {}
-    pid: "/home/oxidized/.config/oxidized/pid"
-    crash:
-      directory: "/home/oxidized/.config/oxidized/crashes"
-      hostnames: false
-    stats:
-      history_size: 10
-    input:
-      default: ssh, telnet
-      debug: false
-      ssh:
-        secure: false
-      ftp:
-        passive: true
-      utf8_encoded: true
     output:
       default: git
       git:
