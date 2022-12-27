@@ -4,7 +4,7 @@ guacamole
 ## TL;DR;
 
 ```console
-$ helm repo add beryju https://charts.beryju.org
+$ helm repo add beryju https://charts.beryju.io
 $ helm install guacamole beryju/guacamole
 ```
 
@@ -14,7 +14,7 @@ This is a fork of https://artifacthub.io/packages/helm/halkeye/guacamole, but up
 
 ### Dependencies
 
-This chart has a dependency on ``postgresql`` to be up and running _before_ this chart is deployed. The init-container will not fail if the ``postgresql`` service is not found. 
+This chart has a dependency on ``postgresql`` to be up and running _before_ this chart is deployed. The init-container will not fail if the ``postgresql`` service is not found.
 
 Sample ``postgresql`` install which works with the defaults of this chart:
 ```console
