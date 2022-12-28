@@ -21,6 +21,8 @@ jobs:
             args: "--components-extra=image-reflector-controller,image-automation-controller"
           - cluster: beryjuio-prod
             args: "--components-extra=image-reflector-controller,image-automation-controller"
+          - cluster: beryjuio-home
+            args: "--components-extra=image-reflector-controller,image-automation-controller"
     steps:
       - name: Check out code
         uses: actions/checkout@v3
