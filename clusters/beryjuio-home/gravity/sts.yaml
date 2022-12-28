@@ -23,8 +23,10 @@ spec:
           env:
             - name: LISTEN_ONLY
               value: "true"
-            - name: LOG_LEVEL
-              value: debug
+            - name: INSTANCE_LISTEN
+              value: 0.0.0.0
+            - name: INSTANCE_IP
+              value: 10.120.20.249
             - name: SENTRY_ENVIRONMENT
               value: beryjuio-home
           livenessProbe:
