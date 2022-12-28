@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: gravity
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: gravity-beryju-org
+  filterTags:
+    pattern: "^(?P<version>.*)"
+    extract: "$version"
+  policy:
+    semver:
+      range: '*'
