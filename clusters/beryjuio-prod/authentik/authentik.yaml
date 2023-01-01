@@ -49,7 +49,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1672436996-780b986be846848e481d26d53fb3368a42bc9d0b # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1672596355-82184b28826dbd4c42109fe3e2487e17a645047d # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       pullPolicy: Always
     authentik:
       postgresql:
