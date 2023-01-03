@@ -33,8 +33,6 @@ spec:
                   name: tailscale-auth
                   key: TS_AUTH_KEY
                   optional: true
-            - name: TS_ROUTES
-              value: "${CLUSTER_LOCAL_NETWORKS}"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000

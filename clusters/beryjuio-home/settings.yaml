@@ -8,4 +8,3 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-home"
   CLUSTER_NETWORK: onpr-beryjuio-home
-  CLUSTER_LOCAL_NETWORKS: "10.120.20.0/24"
