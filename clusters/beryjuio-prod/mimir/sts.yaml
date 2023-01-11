@@ -35,8 +35,6 @@ spec:
               path: /ready
               port: http
             initialDelaySeconds: 300
-            failureThreshold: 30
-            periodSeconds: 30
           volumeMounts:
             - name: config
               mountPath: /etc/mimir
