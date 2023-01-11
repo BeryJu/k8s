@@ -1,0 +1,70 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-mimir
+  namespace: mimir
+spec:
+  path: kv/services/thanos
+  type: Opaque
+  templates:
+    config.yaml: |
+      multitenancy_enabled: false
+      target: all
+
+      blocks_storage:
+        backend: s3
+        s3:
+          endpoint: minio-prd.minio.svc.cluster.local:9000
+          insecure: true
+          bucket_name: mimir
+          access_key_id: "{% .Secrets.access_key %}"
+          secret_access_key: "{% .Secrets.secret_key %}"
+        tsdb:
+          dir: /data/tsdb
+
+      compactor:
+        data_dir: /data/compactor
+        sharding_ring:
+          kvstore:
+            store: memberlist
+
+      distributor:
+        ring:
+          instance_addr: 127.0.0.1
+          kvstore:
+            store: memberlist
+
+      ingester:
+        ring:
+          instance_addr: 127.0.0.1
+          kvstore:
+            store: memberlist
+          replication_factor: 1
+
+      ruler:
+        rule_path: /data/ruler
+        alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
+
+      ruler_storage:
+        backend: s3
+        s3:
+          endpoint: minio-prd.minio.svc.cluster.local:9000
+          insecure: true
+          bucket_name: mimir-ruler
+          access_key_id: "{% .Secrets.access_key %}"
+          secret_access_key: "{% .Secrets.secret_key %}"
+
+      server:
+        log_level: info
+
+      store_gateway:
+        sharding_ring:
+          replication_factor: 1
+
+      limits:
+        max_label_names_per_series: 100
+        max_global_series_per_user: 1500000
+        max_global_series_per_metric: 200000
+        ingestion_rate: 1000000
+        ruler_max_rules_per_rule_group: 500
+        compactor_blocks_retention_period: 30d
