@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: pullthrough-registry-token
     spec:
       containers:
-      - image: ghcr.io/beryju/distribution-oauth:latest-1670410214-1efb5f7cf080e88c30028872e299e12f3f93a6a8 # {"$imagepolicy": "flux-system:registry-token"}
+      - image: ghcr.io/beryju/distribution-oauth:latest-1673426129-70c12713260089194ff06bbfef2bd1583ffcabe1 # {"$imagepolicy": "flux-system:registry-token"}
         name: token-svc
         resources:
           requests:
