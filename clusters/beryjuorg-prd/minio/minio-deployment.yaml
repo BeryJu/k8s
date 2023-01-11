@@ -4,6 +4,7 @@ metadata:
   name: minio-deployment
   namespace: minio
 spec:
+  replicas: 0
   strategy:
     type: Recreate
   selector:
