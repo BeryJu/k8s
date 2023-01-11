@@ -53,6 +53,16 @@ spec:
     - match:
         - headers:
             host:
+              exact: new.s3.beryju.org
+      route:
+        - destination:
+            host: minio-prd-new.minio.svc.cluster.local
+            port:
+              number: 9001
+          weight: 100
+    - match:
+        - headers:
+            host:
               regex: '.*\.?s3\.beryju\.org'
       route:
         - destination:
