@@ -3,15 +3,13 @@ kind: PodMonitor
 metadata:
   name: envoy-stats-monitor
   namespace: istio-system
-  labels:
-    monitoring: istio-proxies
-    release: istio
 spec:
   selector:
     matchExpressions:
       - { key: istio-prometheus-ignore, operator: DoesNotExist }
   namespaceSelector:
-    any: true
+    matchNames:
+      - istio-system
   jobLabel: envoy-stats
   podMetricsEndpoints:
     - path: /stats/prometheus
@@ -43,9 +41,6 @@ kind: ServiceMonitor
 metadata:
   name: istio-component-monitor
   namespace: istio-system
-  labels:
-    monitoring: istio-components
-    release: istio
 spec:
   jobLabel: istio
   targetLabels: [app]
