@@ -8,8 +8,9 @@ spec:
     matchExpressions:
       - { key: istio-prometheus-ignore, operator: DoesNotExist }
   namespaceSelector:
-    matchNames:
-      - istio-system
+    any: true
+    # matchNames:
+    #   - istio-system
   jobLabel: envoy-stats
   podMetricsEndpoints:
     - path: /stats/prometheus
