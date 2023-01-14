@@ -48,6 +48,8 @@ spec:
             medium: Memory
         remoteWrite:
           - url: https://mimir.beryjuorg-prd.k8s.beryju.org/api/v1/push
+            headers:
+              X-Authentik-No-Redirect: "true"
             oauth2:
               clientId:
                 configMap:
@@ -56,11 +58,7 @@ spec:
               clientSecret:
                 name: beryjuorg-prom-rw-oauth2
                 key: token
-              scopes:
-                - openid
-                - email
-                - profile
-                - ak_proxy
+              scopes: [openid]
               endpointParams:
                 grant_type: client_credentials
                 client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
