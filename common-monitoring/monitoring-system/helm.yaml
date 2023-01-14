@@ -57,7 +57,7 @@ spec:
               endpointParams:
                 grant_type: client_credentials
                 client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
-              tokenUrl: http://authentik.authentik.svc.cluster.local/application/o/token/
+              tokenUrl: https://id.beryju.org/application/o/token/
             writeRelabelConfigs:
               - sourceLabels: [__address__]
                 # target label is the one you want to create
