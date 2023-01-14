@@ -14,8 +14,7 @@ spec:
       blocks_storage:
         backend: s3
         s3:
-          endpoint: minio-prd.minio.svc.cluster.local:9000
-          insecure: true
+          endpoint: s3.beryju.org
           bucket_name: mimir
           access_key_id: "{% .Secrets.access_key %}"
           secret_access_key: "{% .Secrets.secret_key %}"
@@ -48,9 +47,8 @@ spec:
       ruler_storage:
         backend: s3
         s3:
-          endpoint: minio-prd.minio.svc.cluster.local:9000
-          insecure: true
-          bucket_name: mimir-ruler
+          endpoint: s3.beryju.org
+          bucket_name: mimir
           access_key_id: "{% .Secrets.access_key %}"
           secret_access_key: "{% .Secrets.secret_key %}"
 
