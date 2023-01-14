@@ -58,7 +58,9 @@ spec:
               clientSecret:
                 name: beryjuorg-prom-rw-oauth2
                 key: token
-              scopes: [openid]
+              scopes:
+                - openid
+                - profile
               endpointParams:
                 grant_type: client_credentials
                 client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
