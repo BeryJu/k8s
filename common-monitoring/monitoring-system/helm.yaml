@@ -47,7 +47,8 @@ spec:
           emptyDir:
             medium: Memory
         remoteWrite:
-          - url: https://mimir.beryjuorg-prd.k8s.beryju.org/api/v1/push
+          - # url: https://mimir.beryjuorg-prd.k8s.beryju.org/api/v1/push
+            url: http://mimir.mimir.svc.cluster.local/api/v1/push
             headers:
               X-Authentik-No-Redirect: "true"
             oauth2:
