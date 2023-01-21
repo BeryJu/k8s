@@ -7,7 +7,7 @@ spec:
   imageRepositoryRef:
     name: authentik-beryju-org
   filterTags:
-    pattern: "^gh-next-(?P<ts>.*)-(?P<sha>.*)"
+    pattern: "^gh-next-(?P<ts>\\d+)-(?P<sha>.*)"
     extract: "$ts"
   policy:
     numerical:
