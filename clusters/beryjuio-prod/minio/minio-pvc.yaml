@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minio-pvc-new
+  name: minio-pvc
   namespace: minio
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 450Gi
+      storage: 200Gi

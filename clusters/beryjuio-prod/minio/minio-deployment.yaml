@@ -82,4 +82,4 @@ spec:
       volumes:
         - name: storage
           persistentVolumeClaim:
-            claimName: minio-pvc-new
+            claimName: minio-pvc
