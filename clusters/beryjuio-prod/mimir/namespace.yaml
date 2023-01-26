@@ -3,5 +3,4 @@ kind: Namespace
 metadata:
   name: mimir
   labels:
-    beryju.org/role: mimir
     istio-injection: enabled
