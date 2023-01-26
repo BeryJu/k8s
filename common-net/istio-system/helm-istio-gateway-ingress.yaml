@@ -26,6 +26,8 @@ spec:
     service:
       annotations:
         metallb.universe.tf/allow-shared-ip: main
+        service.beta.kubernetes.io/linode-loadbalancer-default-proxy-protocol: v2
+        service.beta.kubernetes.io/linode-loadbalancer-preserve: "true"
       externalTrafficPolicy: Local
       type: LoadBalancer
       ports:
