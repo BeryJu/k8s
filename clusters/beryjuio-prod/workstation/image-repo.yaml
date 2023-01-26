@@ -1,8 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
-metadata:
-  name: workstation-beryju-org
-  namespace: flux-system
-spec:
-  image: ghcr.io/beryju/workstation
-  interval: 1m0s
