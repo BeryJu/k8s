@@ -36,9 +36,7 @@ spec:
         sidecar.istio.io/inject: "false"
     prometheus:
       prometheusSpec:
-        enableRemoteWriteReceiver: true
-        enableFeatures:
-          - remote-write-receiver
+        logFormat: json
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
