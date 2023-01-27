@@ -24,7 +24,7 @@ spec:
             - --config.file=/etc/loki/config.yaml
           image: grafana/loki:2.7.0
           ports:
-            - containerPort: 8080
+            - containerPort: 3100
               name: http
             - containerPort: 7946
               name: ring
