@@ -31,7 +31,9 @@ spec:
               name: http-collector
           resources:
             requests:
-              memory: 1Gi
+              memory: 1.5Gi
+            limits:
+              memory: 2Gi
           livenessProbe:
             httpGet:
               path: /
