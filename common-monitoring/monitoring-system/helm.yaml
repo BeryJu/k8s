@@ -41,6 +41,9 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
         retention: 2h
+        resources:
+          requests:
+            memory: 1Gi
         storageSpec:
           emptyDir:
             medium: Memory
