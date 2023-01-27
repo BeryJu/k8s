@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/name: imagik
   name: imagik
-  namespace: imagik
+  namespace: minio
 spec:
   ports:
     - name: http
