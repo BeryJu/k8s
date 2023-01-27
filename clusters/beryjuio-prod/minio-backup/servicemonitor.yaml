@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: minio
-  namespace: minio
+  namespace: minio-backup
 spec:
   endpoints:
     - bearerTokenSecret:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: minio-pv-claim
-  namespace: minio
+  namespace: minio-backup
 spec:
   accessModes:
     - ReadWriteOnce

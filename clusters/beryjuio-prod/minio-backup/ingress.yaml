@@ -61,7 +61,7 @@ spec:
               exact: console.backup-s3.beryju.org
       route:
         - destination:
-            host: minio-${CLUSTER_NAME}.minio.svc.cluster.local
+            host: minio-${CLUSTER_NAME}.minio-backup.svc.cluster.local
             port:
               number: 9001
           weight: 100
@@ -71,7 +71,7 @@ spec:
               regex: '.*\.?s3\.beryju\.org'
       route:
         - destination:
-            host: minio-${CLUSTER_NAME}.minio.svc.cluster.local
+            host: minio-${CLUSTER_NAME}.minio-backup.svc.cluster.local
             port:
               number: 9000
           headers:
