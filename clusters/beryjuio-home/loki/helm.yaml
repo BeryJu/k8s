@@ -31,16 +31,16 @@ spec:
             clusterName: "${CLUSTER_NAME}"
       snippets:
         scrapeConfigs: |
-          job_name: tcp-syslog-vyos
-          syslog:
-            listen_address: 0.0.0.0:1514
-            labels:
-              source: syslog-vyos
-          job_name: tcp-syslog-syno
-          syslog:
-            listen_address: 0.0.0.0:1515
-            labels:
-              source: syslog-syno
+          - job_name: tcp-syslog-vyos
+            syslog:
+              listen_address: 0.0.0.0:1514
+              labels:
+                source: syslog-vyos
+          - job_name: tcp-syslog-syno
+            syslog:
+              listen_address: 0.0.0.0:1515
+              labels:
+                source: syslog-syno
     extraPorts:
       syslog-vyos:
         name: tcp-syslog-vyos
