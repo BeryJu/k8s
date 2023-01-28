@@ -26,6 +26,6 @@ spec:
       enabled: true
     config:
       clients:
-        - url: http://loki.loki.cluster.svc.local/loki/api/v1/push
+        - url: http://loki.loki.svc.cluster.local/loki/api/v1/push
           external_labels:
             clusterName: "${CLUSTER_NAME}"
