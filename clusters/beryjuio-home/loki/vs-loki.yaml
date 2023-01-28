@@ -1,0 +1,51 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-loki
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-loki
+  commonName: loki.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - loki.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryjuorg-gw-loki
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuio-loki
+      hosts:
+        - loki.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-splunk-hec
+  namespace: istio-system
+spec:
+  gateways:
+    - beryjuorg-gw-loki
+  hosts:
+    - loki.${CLUSTER_NAME}.k8s.beryju.org
+  http:
+    - route:
+        - destination:
+            host: loki.loki.svc.cluster.local
+            port:
+              number: 80
+          weight: 100
