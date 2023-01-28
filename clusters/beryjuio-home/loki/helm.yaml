@@ -1,0 +1,56 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: promtail-syslog
+  namespace: loki
+spec:
+  timeout: 30m
+  interval: 6h
+  chart:
+    spec:
+      chart: promtail
+      version: 6.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  values:
+    resources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    serviceMonitor:
+      enabled: true
+    config:
+      clients:
+        - url: http://loki.loki.svc.cluster.local/loki/api/v1/push
+          external_labels:
+            clusterName: "${CLUSTER_NAME}"
+      snippets:
+        scrapeConfigs: |
+          job_name: tcp-syslog-vyos
+          syslog:
+            listen_address: 0.0.0.0:1514
+            labels:
+              source: syslog-vyos
+          job_name: tcp-syslog-syno
+          syslog:
+            listen_address: 0.0.0.0:1515
+            labels:
+              source: syslog-syno
+    extraPorts:
+      syslog-vyos:
+        name: tcp-syslog-vyos
+        containerPort: 1514
+        protocol: TCP
+        service:
+          type: LoadBalancer
+      syslog-syno:
+        name: tcp-syslog-syno
+        containerPort: 1515
+        protocol: TCP
+        service:
+          type: LoadBalancer
