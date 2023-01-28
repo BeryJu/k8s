@@ -29,6 +29,8 @@ spec:
     deployment:
       accessible_namespaces:
         - "**"
+      logger:
+        log_format: "json"
       ingress:
         enabled: true
         override_yaml:
