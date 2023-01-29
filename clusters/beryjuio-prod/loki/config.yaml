@@ -87,6 +87,8 @@ spec:
         reject_old_samples: true
         reject_old_samples_max_age: 168h
         retention_period: 90d
+        max_query_series: 100000
+        max_query_parallelism: 2
 
       compactor:
         working_directory: /loki/compactor
