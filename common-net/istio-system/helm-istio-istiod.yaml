@@ -28,8 +28,9 @@ spec:
       multiCluster:
         clusterName: ${CLUSTER_NAME}
       network: ${CLUSTER_NETWORK}
-      proxy:
-        tracer: foo
+      tracer:
+        zipkin:
+          address: localhost:9411
     meshConfig:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
