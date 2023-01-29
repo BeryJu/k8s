@@ -12,13 +12,9 @@ jobs:
       matrix:
         cluster:
           - beryjuio-home
-          - beryjuio-infra
           - beryjuio-oci
           - beryjuio-prod
-          - beryjuorg-prd
         include:
-          - cluster: beryjuorg-prd
-            args: "--components-extra=image-reflector-controller,image-automation-controller"
           - cluster: beryjuio-prod
             args: "--components-extra=image-reflector-controller,image-automation-controller"
           - cluster: beryjuio-home
