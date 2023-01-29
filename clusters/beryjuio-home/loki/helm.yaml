@@ -35,17 +35,12 @@ spec:
             syslog:
               listen_address: 0.0.0.0:1514
               labels:
-                source: syslog-vyos
+                node_name: freiburg1
           - job_name: tcp-syslog-syno
             syslog:
               listen_address: 0.0.0.0:1515
               labels:
-                source: syslog-syno
-          - job_name: tcp-syslog-iot
-            syslog:
-              listen_address: 0.0.0.0:1516
-              labels:
-                source: syslog-iot
+                node_name: nas1
     extraPorts:
       syslog-vyos:
         name: tcp-syslog-vyos
@@ -56,12 +51,6 @@ spec:
       syslog-syno:
         name: tcp-syslog-syno
         containerPort: 1515
-        protocol: TCP
-        service:
-          type: LoadBalancer
-      syslog-iot:
-        name: tcp-syslog-iot
-        containerPort: 1516
         protocol: TCP
         service:
           type: LoadBalancer
