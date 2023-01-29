@@ -24,6 +24,12 @@ spec:
         memory: 128Mi
     serviceMonitor:
       enabled: true
+    daemonset:
+      enabled: false
+    deployment:
+      enabled: true
+    extraArgs:
+      - -log.format=json
     config:
       clients:
         - url: http://loki.loki.svc.cluster.local/loki/api/v1/push
