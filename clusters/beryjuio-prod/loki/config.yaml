@@ -17,6 +17,7 @@ spec:
 
       server:
         http_listen_port: 3100
+        log_format: json
 
       distributor:
         ring:
