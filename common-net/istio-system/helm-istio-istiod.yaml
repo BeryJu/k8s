@@ -31,9 +31,8 @@ spec:
     meshConfig:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
+      enableTracing: false
       defaultConfig:
-        tracing:
-          zipkin: {}
         proxyMetadata:
           ISTIO_META_DNS_CAPTURE: "true"
           ISTIO_META_DNS_AUTO_ALLOCATE: "true"
