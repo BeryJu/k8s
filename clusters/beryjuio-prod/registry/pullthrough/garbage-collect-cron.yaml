@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: pullthrough
+  name: registry-pullthrough-cleanup
+  namespace: registry
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            linkerd.io/inject: disabled
+            sidecar.istio.io/inject: "false"
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - command:
+            - /bin/registry
+            - garbage-collect
+            - /etc/docker/registry/config.yml
+            envFrom:
+              - secretRef:
+                  name: registry-general
+              - secretRef:
+                  name: registry-pullthrough
+            volumeMounts:
+              - name: jwt-cert
+                readOnly: true
+                mountPath: "/srv/docker/cert"
+            image: ghcr.io/beryju/registry:jwt
+            name: cleanup
+            resources: {}
+          volumes:
+            - name: jwt-cert
+              secret:
+                secretName: registry-jwt-cert
+      ttlSecondsAfterFinished: 86400
+  schedule: 0 3 * * *
+  successfulJobsHistoryLimit: 1
+  suspend: false
