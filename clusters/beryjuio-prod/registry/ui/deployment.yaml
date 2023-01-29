@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: registry
+    app.kubernetes.io/instance: ui
+  name: registry-ui
+  namespace: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: registry
+      app.kubernetes.io/instance: ui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: registry
+        app.kubernetes.io/instance: ui
+    spec:
+      containers:
+        - image: joxit/docker-registry-ui
+          name: registry
+          resources: {}
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          env:
+            - name: DELETE_IMAGES
+              value: "true"
+            - name: SHOW_CONTENT_DIGEST
+              value: "true"
+            - name: SINGLE_REGISTRY
+              value: "true"
+            - name: REGISTRY_TITLE
+              value: "BeryJu.io registry"
+            - name: REGISTRY_URL
+              value: "https://registry.beryju.org"
