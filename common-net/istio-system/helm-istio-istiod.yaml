@@ -28,6 +28,8 @@ spec:
       multiCluster:
         clusterName: ${CLUSTER_NAME}
       network: ${CLUSTER_NETWORK}
+      proxy:
+        tracer: foo
     meshConfig:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
