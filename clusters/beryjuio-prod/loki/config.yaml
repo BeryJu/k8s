@@ -75,6 +75,8 @@ spec:
           secret_access_key: "{% .Secrets.secret_key %}"
 
       ruler:
+        alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
+        rule_path: /loki/ruler
         storage:
           type: s3
           s3:

@@ -45,14 +45,10 @@ spec:
               mountPath: /etc/loki
             - name: data
               mountPath: /loki
-            - name: rules
-              mountPath: /rules
       volumes:
         - name: config
           secret:
             secretName: beryjuorg-loki
-        - name: rules
-          emptyDir: {}
   volumeClaimTemplates:
     - metadata:
         name: data
