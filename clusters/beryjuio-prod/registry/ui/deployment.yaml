@@ -19,8 +19,7 @@ spec:
         app.kubernetes.io/instance: ui
     spec:
       containers:
-        - image: ghcr.io/beryju/docker-registry-ui:amd64
-          imagePullPolicy: Always
+        - image: joxit/docker-registry-ui:latest
           name: registry
           resources:
             limits:
