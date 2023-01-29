@@ -31,6 +31,7 @@ spec:
       - hosts: [id.beryju.org]
         secretName: beryjuorg-authentik
     postgresql:
+      postgresqlMaxConnections: 500
       enabled: true
       metrics:
         enabled: true
