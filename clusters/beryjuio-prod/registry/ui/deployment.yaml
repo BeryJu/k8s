@@ -19,9 +19,12 @@ spec:
         app.kubernetes.io/instance: ui
     spec:
       containers:
-        - image: joxit/docker-registry-ui
+        - image: ghcr.io/beryju/docker-registry-ui
           name: registry
-          resources: {}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
           ports:
             - containerPort: 80
               name: http
