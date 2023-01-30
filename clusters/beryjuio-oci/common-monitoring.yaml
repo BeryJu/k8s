@@ -21,14 +21,14 @@ spec:
         name: prom
       patch: |-
         - op: replace
-          path: /spec/values/kubeControllerManager
+          path: /spec/values/kubeControllerManager/enabled
           value: true
         - op: replace
-          path: /spec/values/kubeEtcd
+          path: /spec/values/kubeEtcd/enabled
           value: true
         - op: replace
-          path: /spec/values/kubeProxy
+          path: /spec/values/kubeProxy/enabled
           value: true
         - op: replace
-          path: /spec/values/kubeScheduler
+          path: /spec/values/kubeScheduler/enabled
           value: true
