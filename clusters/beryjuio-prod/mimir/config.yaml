@@ -54,6 +54,7 @@ spec:
 
       server:
         log_level: info
+        log_format: json
 
       store_gateway:
         sharding_ring:
