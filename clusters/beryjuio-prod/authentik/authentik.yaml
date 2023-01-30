@@ -55,7 +55,6 @@ spec:
       postgresql:
         name: "authentik"
         user: "authentik"
-      log_level: debug
       email:
         from: authentik@services.beryju.org
         host: email-smtp.eu-central-1.amazonaws.com
