@@ -17,6 +17,8 @@ spec:
         name: prometheus-community
         namespace: flux-system
   values:
+    global:
+      imageRegistry: proxy.registry.beryju.org
     fullnameOverride: "prometheus"
     kubeControllerManager:
       enabled: false
