@@ -15,3 +15,20 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+  patches:
+    - target:
+        kind: HelmRelease
+        name: prom
+      patch: |-
+        - op: replace
+          path: /spec/values/kubeControllerManager
+          value: true
+        - op: replace
+          path: /spec/values/kubeEtcd
+          value: true
+        - op: replace
+          path: /spec/values/kubeProxy
+          value: true
+        - op: replace
+          path: /spec/values/kubeScheduler
+          value: true
