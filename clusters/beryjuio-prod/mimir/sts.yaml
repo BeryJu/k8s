@@ -34,7 +34,6 @@ spec:
             httpGet:
               path: /ready
               port: http
-            initialDelaySeconds: 300
           volumeMounts:
             - name: config
               mountPath: /etc/mimir
