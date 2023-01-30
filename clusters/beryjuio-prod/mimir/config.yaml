@@ -66,3 +66,4 @@ spec:
         ingestion_rate: 1000000
         ruler_max_rules_per_rule_group: 500
         compactor_blocks_retention_period: 30d
+        out_of_order_time_window: 6h
