@@ -15,3 +15,11 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+  patches:
+    - target:
+        kind: HelmRelease
+        name: prom
+      patch: |-
+        - op: replace
+          path: /spec/values/prometheus/prometheusSpec/resources/limits/memory
+          value: 3Gi
