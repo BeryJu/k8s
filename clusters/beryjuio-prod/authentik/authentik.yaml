@@ -50,7 +50,7 @@ spec:
     fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1675163092-47f4b42 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1675251716-98b7597 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     authentik:
       postgresql:
         name: "authentik"
