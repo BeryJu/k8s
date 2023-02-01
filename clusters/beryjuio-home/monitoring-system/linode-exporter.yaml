@@ -1,0 +1,54 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-linode-exporter
+  namespace: monitoring-system
+spec:
+  path: kv/linode
+  type: Opaque
+  templates:
+    LINODE_TOKEN: "{% .Secrets.key %}"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linode-exporter
+  namespace: monitoring-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: linode-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: linode-exporter
+    spec:
+      containers:
+      - name: linode-exporter
+        image: ghcr.io/beryju/linode-exporter
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: beryjuorg-linode-exporter
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 9388
+          name: http-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: linode-exporter
+  namespace: monitoring-system
+spec:
+  namespaceSelector:
+    matchNames:
+      - monitoring-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: linode-exporter
+  podMetricsEndpoints:
+    - port: http-metrics
