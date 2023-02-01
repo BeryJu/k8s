@@ -31,3 +31,37 @@ spec:
         - url: http://loki.loki.svc.cluster.local/loki/api/v1/push
           external_labels:
             clusterName: "${CLUSTER_NAME}"
+      # Configure Journal log scraping
+      snippets:
+        extraScrapeConfigs: |
+          - job_name: journal
+            journal:
+              json: false
+              max_age: 12h
+              path: /var/log/journal
+              matches: _TRANSPORT=kernel
+              labels:
+                job: systemd-journal
+            relabel_configs:
+              - source_labels: ['__journal__systemd_unit']
+                target_label: 'unit'
+    extraVolumes:
+      - name: var-journal
+        hostPath:
+          path: /var/log/journal
+      - name: run-journal
+        hostPath:
+          path: /run/log/journal
+      - name: machine-id
+        hostPath:
+          path: /etc/machine-id
+    extraVolumeMounts:
+      - name: var-journal
+        mountPath: /var/log/journal
+        readOnly: true
+      - name: run-journal
+        mountPath: /run/log/journal
+        readOnly: true
+      - name: machine-id
+        mountPath: /etc/machine-id
+        readOnly: true
