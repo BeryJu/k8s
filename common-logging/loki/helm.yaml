@@ -33,6 +33,16 @@ spec:
             clusterName: "${CLUSTER_NAME}"
       # Configure Journal log scraping
       snippets:
+        pipelineStages:
+          - cri: {}
+          - match:
+            selector: '{app="eventrouter"}'
+            stages:
+            - json:
+                expressions:
+                  namespace: event.metadata.namespace
+            - labels:
+                namespace: ""
         extraScrapeConfigs: |
           - job_name: journal
             journal:
