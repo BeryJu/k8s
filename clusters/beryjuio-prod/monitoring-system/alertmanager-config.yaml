@@ -1,7 +1,7 @@
 apiVersion: ricoberger.de/v1alpha1
 kind: VaultSecret
 metadata:
-  name: alertmanager-prom-kube-prometheus-stack-alertmanager
+  name: alertmanager
   namespace: monitoring-system
 spec:
   path: kv/services/prometheus/alertmanager
