@@ -18,6 +18,11 @@ spec:
     - kind: Secret
       name: grafana-secrets
   values:
+    resources:
+      limits:
+        memory: 750Mi
+      requests:
+        memory: 500Mi
     ingress:
       enabled: true
       hosts:
