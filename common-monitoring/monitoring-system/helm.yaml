@@ -72,6 +72,8 @@ spec:
                 # target label is the one you want to create
                 targetLabel: cluster
                 replacement: ${CLUSTER_NAME}
+              - sourceLabels: ["prometheus", "prometheus_replica"]
+                action: drop
     alertmanager:
       enabled: false
     grafana:
