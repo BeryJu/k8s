@@ -1,0 +1,15 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-ara-config
+  namespace: ansible-ara
+spec:
+  path: kv/services/ansible-ara/postgres
+  type: Opaque
+  templates:
+    ARA_DATABASE_ENGINE: django.db.backends.postgresql
+    ARA_DATABASE_HOST: postgres-postgresql
+    ARA_DATABASE_NAME: ansible-ara
+    ARA_DATABASE_PASSWORD: "{% .Secrets.pg_password %}"
+    ARA_DATABASE_PORT: "5432"
+    ARA_DATABASE_USER: ansible-ara

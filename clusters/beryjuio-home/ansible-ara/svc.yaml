@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ara
+  namespace: ansible-ara
+  labels:
+    app.kubernetes.io/name: ara
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: ara
+  ports:
+    - port: 8000
+      name: http
+      targetPort: 8000

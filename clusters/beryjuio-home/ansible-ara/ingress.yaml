@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ansible-ara
+  namespace: ansible-ara
+spec:
+  ingressClassName: istio
+  rules:
+    - host: ara.${CLUSTER_NAME}.k8s.beryju.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: ara
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - ara.${CLUSTER_NAME}.k8s.beryju.org
+      secretName: beryjuorg-ansible-ara

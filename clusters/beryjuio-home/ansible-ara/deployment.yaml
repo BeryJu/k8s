@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ara
+  namespace: ansible-ara
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ara
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ara
+    spec:
+      containers:
+      - name: ara
+        image: docker.io/recordsansible/ara-api:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+          - name: ARA_ALLOWED_HOSTS
+            value: ara.${CLUSTER_NAME}.k8s.beryju.org
+        envFrom:
+          - secretRef:
+              name: beryjuorg-ara-config
