@@ -21,7 +21,7 @@ spec:
       hostname: plex
       containers:
         - name: plex
-          image: plexinc/pms-docker:1.29.2.6364-6d72b0cf6
+          image: plexinc/pms-docker:1.30.2.6563-3d4dc0cce
           resources:
             requests:
               memory: "500Mi"
