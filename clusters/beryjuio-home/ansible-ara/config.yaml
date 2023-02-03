@@ -13,3 +13,4 @@ spec:
     ARA_DATABASE_PASSWORD: "{% .Secrets.pg_password %}"
     ARA_DATABASE_PORT: "5432"
     ARA_DATABASE_USER: ansible-ara
+    ARA_SECRET_KEY: "{% .Secrets.pg_password %}"
