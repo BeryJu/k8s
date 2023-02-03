@@ -5,8 +5,6 @@ metadata:
   name: beryjuorg-gh-pat
   namespace: flux-system
 spec:
-  keys:
-    - github_pat
   path: kv/k8s-flux
   type: Opaque
   templates:
