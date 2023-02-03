@@ -17,7 +17,7 @@ spec:
         image: docker.io/recordsansible/ara-api:latest
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         ports:
         - containerPort: 8000
