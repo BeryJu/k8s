@@ -4,7 +4,7 @@ metadata:
   name: beryjuorg-loki
   namespace: loki
 spec:
-  path: kv/linode/obj/loki
+  path: kv/services/thanos
   type: Opaque
   templates:
     config.yaml: |
@@ -69,8 +69,8 @@ spec:
           shared_store: s3
 
         aws:
-          bucketnames: beryjuio-loki
-          endpoint: eu-central-1.linodeobjects.com
+          bucketnames: loki
+          endpoint: s3.beryju.org
           access_key_id: "{% .Secrets.access_key %}"
           secret_access_key: "{% .Secrets.secret_key %}"
 
@@ -80,8 +80,8 @@ spec:
         storage:
           type: s3
           s3:
-            bucketnames: beryjuio-loki-rules
-            endpoint: eu-central-1.linodeobjects.com
+            bucketnames: loki-ruler
+            endpoint: s3.beryju.org
             access_key_id: "{% .Secrets.access_key %}"
             secret_access_key: "{% .Secrets.secret_key %}"
 
