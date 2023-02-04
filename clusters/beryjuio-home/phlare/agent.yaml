@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phlare-agent
+  namespace: phlare
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: phlare-agent
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: phlare-agent
+    spec:
+      containers:
+      - name: phlare
+        args:
+          - --config.file=/etc/phlare/config.yaml
+        image: grafana/phlare:0.1.2
+        resources: {}
+        volumeMounts:
+          - name: config
+            mountPath: /etc/phlare
+      volumes:
+        - name: config
+          secret:
+            secretName: beryjuorg-phlare
