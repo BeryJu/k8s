@@ -1,11 +1,11 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: mimir
-  namespace: mimir
+  name: loki
+  namespace: loki
 spec:
   endpoints:
     - port: http
   selector:
     matchLabels:
-      app.kubernetes.io/name: mimir
+      app.kubernetes.io/name: loki
