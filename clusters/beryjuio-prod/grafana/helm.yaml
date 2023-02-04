@@ -57,3 +57,4 @@ spec:
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://id.beryju.org/application/o/grafana/end-session/"
       # GF_AUTH_OAUTH_AUTO_LOGIN: "true"
       GF_LOG_CONSOLE_FORMAT: "json"
+      GF_FEATURE_TOGGLES_ENABLE: flameGraph
