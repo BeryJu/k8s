@@ -11,10 +11,10 @@ spec:
       name: http
       protocol: TCP
       targetPort: http
-    - port: 14268
-      name: jaeger
+    - port: 9411
+      name: zipkin
       protocol: TCP
-      targetPort: jaeger
+      targetPort: zipkin
   selector:
     app.kubernetes.io/name: tempo
   type: ClusterIP

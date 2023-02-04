@@ -23,8 +23,8 @@ spec:
           ports:
             - containerPort: 3200
               name: http
-            - containerPort: 14268
-              name: jaeger
+            - containerPort: 9411
+              name: zipkin
           resources: {}
           readinessProbe:
             httpGet:
