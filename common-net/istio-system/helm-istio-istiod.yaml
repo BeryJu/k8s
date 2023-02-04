@@ -34,7 +34,7 @@ spec:
     meshConfig:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
-      enableTracing: false
+      enableTracing: true
       defaultConfig:
         proxyMetadata:
           ISTIO_META_DNS_CAPTURE: "true"
