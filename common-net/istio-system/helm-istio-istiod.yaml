@@ -42,7 +42,7 @@ spec:
           # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
         interceptionMode: TPROXY
         tracing:
-          sampling: 100
+          sampling: 20
       enablePrometheusMerge: true
       extensionProviders:
         - envoyExtAuthzHttp:
