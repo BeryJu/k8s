@@ -41,6 +41,8 @@ spec:
           ISTIO_META_DNS_AUTO_ALLOCATE: "true"
           # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
         interceptionMode: TPROXY
+        tracing:
+          sampling: 100
       enablePrometheusMerge: true
       extensionProviders:
         - envoyExtAuthzHttp:
