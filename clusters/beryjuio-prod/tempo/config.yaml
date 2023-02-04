@@ -1,0 +1,37 @@
+apiVersion: ricoberger.de/v1alpha1
+kind: VaultSecret
+metadata:
+  name: beryjuorg-tempo
+  namespace: tempo
+spec:
+  path: kv/linode/obj/tempo
+  type: Opaque
+  templates:
+    config.yaml: |
+      target: all
+
+      storage:
+        trace:
+          backend: s3
+          s3:
+            endpoint: eu-central-1.linodeobjects.com:443
+            bucket: beryjuio-tempo
+            access_key: "{% .Secrets.access_key %}"
+            secret_key: "{% .Secrets.secret_key %}"
+          wal:
+            path: /data/tsdb
+      server:
+        log_level: info
+        log_format: json
+        http_listen_port: 3200
+      distributor:
+        receivers:                           # this configuration will listen on all ports and protocols that tempo is capable of.
+          jaeger:                            # the receives all come from the OpenTelemetry collector.  more configuration information can
+            protocols:                       # be found there: https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver
+              thrift_http:                   #
+              grpc:                          # for a production deployment you should only enable the receivers you need!
+              thrift_binary:
+              thrift_compact:
+      compactor:
+        compaction:
+          block_retention: 96h
