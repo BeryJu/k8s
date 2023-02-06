@@ -1,0 +1,15 @@
+groups:
+  - name: Core
+    rules:
+      - alert: Gravity panic
+        expr: sum(rate({compose_service="gravity"} | json | msg = "recover"[5m])) > 1
+        for: 1m
+        annotations:
+          summary: Gravity has occurred a panic
+  - name: Roles.Backup
+    rules:
+      - alert: Gravity Backup error
+        expr: sum(rate({compose_service="gravity"} | json | logger = "role.backup" and level != "info"[5m])) > 1
+        for: 25m
+        annotations:
+          summary: A backup has failed to run
