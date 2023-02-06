@@ -3,7 +3,7 @@ groups:
   - name: beryjuorg-prometheus-prometheus
     rules:
       - alert: PrometheusJobMissing
-        expr: absent(up{job="prom-kube-prometheus-stack-prometheus"})
+        expr: absent(up{job="prometheus-prometheus"})
         for: 0m
         labels:
           severity: warning

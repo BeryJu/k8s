@@ -17,6 +17,9 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    resources:
+      requests:
+        cpu: 200m
     autoscaling:
       minReplicas: 2
     topologySpreadConstraints:
