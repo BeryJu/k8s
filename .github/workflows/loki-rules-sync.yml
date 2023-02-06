@@ -16,7 +16,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: sync-rules
-        uses: grafana/cortex-rules-action@v0.4.0
+        uses: grafana/cortex-rules-action@v0.9.1
         env:
           CORTEX_ADDRESS: https://loki.infra.beryju.org
           CORTEX_TENANT_ID: fake
