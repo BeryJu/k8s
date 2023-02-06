@@ -1,0 +1,28 @@
+name: loki-rules-sync
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: sync-rules
+        uses: grafana/cortex-rules-action@v0.4.0
+        env:
+          CORTEX_ADDRESS: https://loki.infra.beryju.org
+          CORTEX_TENANT_ID: fake
+          CORTEX_API_USER: "jens"
+          CORTEX_API_KEY: ${{ secrets.AK_PASS }}
+          ACTION: sync
+          RULES_DIR: "./monitoring/loki/"
+        with:
+          args: --backend=loki
