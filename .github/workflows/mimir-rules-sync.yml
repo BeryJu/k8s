@@ -23,7 +23,7 @@ jobs:
       - name: sync-rules
         uses: grafana/mimir/operations/mimir-rules-action@main
         env:
-          MIMIR_ADDRESS: https://mimir.beryjuio-prod.k8s.beryju.org
+          MIMIR_ADDRESS: https://mimir.infra.beryju.org
           MIMIR_TENANT_ID: anonymous
           MIMIR_API_KEY: ${{ steps.jwt.outputs.token }}
           ACTION: sync

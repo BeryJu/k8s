@@ -16,14 +16,7 @@ spec:
             hosts:
               - "*.infra.beryju.org"
             notHosts:
-              - tautulli-dl-stack.infra.beryju.org
               - grafana.infra.beryju.org
-              - puppet-dashboard.infra.beryju.org
               - unifi.infra.beryju.org
-              - netbox.infra.beryju.org
-              - netapp-aiq.infra.beryju.org
-              - infra.infra.beryju.org
-              - splunk.infra.beryju.org
-              - splunk-collector.infra.beryju.org
-              - kiali-beryjuio-prod.infra.beryju.org
-              - maas.infra.beryju.org
+              - mimir.infra.beryju.org
+              - loki.infra.beryju.org
