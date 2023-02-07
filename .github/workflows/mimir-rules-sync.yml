@@ -35,7 +35,7 @@ jobs:
               timeout=10
           )
           _gh_jwt.raise_for_status()
-          jwt = _gh_jwt.json().get("data")
+          jwt = _gh_jwt.json().get("value")
 
           # Get authentik JWT
 
