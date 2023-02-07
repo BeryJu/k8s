@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,13 +16,50 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - name: Get GitHub & authentik JWT
+        id: jwt
+        shell: python
+        run: |
+          from requests import get, post
+          from os import environ
+
+          authentik_url = "https://id.beryju.org"
+          client_id = "6qC6wfLtRuwQIPfBG0K0hWhMZJJbm7dwwjl9ixyM"
+
+          # Get GitHub token
+
+          _gh_jwt = get(
+              environ["ACTIONS_ID_TOKEN_REQUEST_URL"],
+              headers={
+                  "Authorization": f"Bearer {environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']}",
+              },
+              timeout=10
+          )
+          _gh_jwt.raise_for_status()
+          jwt = _gh_jwt.json().get("value")
+
+          # Get authentik JWT
+
+          _jwt = post(
+              f"{authentik_url}/application/o/token/",
+              data={
+                  "grant_type": "client_credentials",
+                  "client_id": client_id,
+                  "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                  "client_assertion": jwt
+              },
+              timeout=10
+          )
+          _jwt.raise_for_status()
+          with open(environ['GITHUB_OUTPUT'], 'a') as fh:
+            print(f'jwt={_jwt.json().get("access_token")}', file=fh)
       - name: sync-rules
         uses: grafana/cortex-rules-action@v0.9.1
         env:
           CORTEX_ADDRESS: https://loki.infra.beryju.org
           CORTEX_TENANT_ID: fake
-          CORTEX_API_USER: "jens"
-          CORTEX_API_KEY: ${{ secrets.AK_PASS }}
+          CORTEX_API_USER: "goauthentik.io/token"
+          CORTEX_API_KEY: ${{ steps.jwt.outputs.jwt }}
           ACTION: sync
           RULES_DIR: "./monitoring/loki/"
         with:
