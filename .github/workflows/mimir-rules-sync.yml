@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Get GitHub & authentik JWT
         id: jwt
+        shell: python
         run: |
           from requests import get, post
           from os import environ
