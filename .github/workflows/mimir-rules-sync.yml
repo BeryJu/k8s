@@ -51,7 +51,7 @@ jobs:
               timeout=10
           )
           _jwt.raise_for_status()
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+          with open(environ['GITHUB_OUTPUT'], 'a') as fh:
             print(f'jwt={_jwt.json().get("access_token")}', file=fh)
       - name: sync-rules
         uses: grafana/mimir/operations/mimir-rules-action@main
