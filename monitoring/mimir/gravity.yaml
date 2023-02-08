@@ -1,0 +1,8 @@
+groups:
+  - name: Roles.DHCP
+    rules:
+      - alert: DHCP scope out of leases
+        expr: ((100 * gravity_dhcp_scope_usage) / gravity_dhcp_scope_size) < 10
+        for: 20m
+        annotations:
+          summary: Scope {{ $labels.scope }} has below 10% of free addresses
