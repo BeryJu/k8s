@@ -64,7 +64,7 @@ groups:
 
       - alert: HostUnusualDiskReadLatency
         expr: rate(node_disk_read_time_seconds_total[1m]) / rate(node_disk_reads_completed_total[1m]) > 0.1 and rate(node_disk_reads_completed_total[1m]) > 0
-        for: 2m
+        for: 2h
         labels:
           severity: warning
         annotations:
@@ -73,7 +73,7 @@ groups:
 
       - alert: HostUnusualDiskWriteLatency
         expr: rate(node_disk_write_time_seconds_total[1m]) / rate(node_disk_writes_completed_total[1m]) > 0.1 and rate(node_disk_writes_completed_total[1m]) > 0
-        for: 2m
+        for: 2h
         labels:
           severity: warning
         annotations:
@@ -199,7 +199,7 @@ groups:
 
       - alert: HostNetworkInterfaceSaturated
         expr: (rate(node_network_receive_bytes_total{device!~"^tap.*"}[1m]) + rate(node_network_transmit_bytes_total{device!~"^tap.*"}[1m])) / node_network_speed_bytes{device!~"^tap.*"} > 0.8 < 10000
-        for: 1m
+        for: 2h
         labels:
           severity: warning
         annotations:
@@ -244,7 +244,7 @@ groups:
 
       - alert: AptUpgradesPending
         expr: apt_upgrades_pending
-        for: 3h
+        for: 96h
         labels:
           severity: warning
         annotations:
