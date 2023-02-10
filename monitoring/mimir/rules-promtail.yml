@@ -1,6 +1,6 @@
-namespace: loki
+namespace: promtail
 groups:
-  - name: promtail
+  - name: EmbeddedExporter
     rules:
       - alert: PromtailRequestErrors
         expr: '100 * sum(rate(promtail_request_duration_seconds_count{status_code=~"5..|failed"}[1m])) by (namespace, job, route, instance) / sum(rate(promtail_request_duration_seconds_count[1m])) by (namespace, job, route, instance) > 10'
