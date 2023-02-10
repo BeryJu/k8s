@@ -1,0 +1,21 @@
+groups:
+  - name: arr
+    rules:
+      - alert: ArrDatabaseIsLocked
+        expr: |
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database is locked"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is experiencing locked database issues"
+      - alert: ArrDatabaseIsMalformed
+        expr: |
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database disk image is malformed"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is experiencing malformed database disk image issues"
