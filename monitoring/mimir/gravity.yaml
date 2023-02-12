@@ -82,14 +82,14 @@ groups:
         annotations:
           summary: Etcd member communication slow (instance {{ $labels.instance }})
           description: "Etcd member communication slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-      - alert: EtcdHighNumberOfFailedProposals
-        expr: increase(etcd_server_proposals_failed_total[1h]) > 5
-        for: 2m
-        labels:
-          severity: warning
-        annotations:
-          summary: Etcd high number of failed proposals (instance {{ $labels.instance }})
-          description: "Etcd server got more than 5 failed proposals past hour\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      # - alert: EtcdHighNumberOfFailedProposals
+      #   expr: increase(etcd_server_proposals_failed_total[1h]) > 5
+      #   for: 2m
+      #   labels:
+      #     severity: warning
+      #   annotations:
+      #     summary: Etcd high number of failed proposals (instance {{ $labels.instance }})
+      #     description: "Etcd server got more than 5 failed proposals past hour\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdHighFsyncDurations
         expr: histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[1m])) > 0.5
         for: 2m
