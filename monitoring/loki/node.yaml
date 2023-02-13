@@ -1,0 +1,18 @@
+groups:
+  - name: Node
+    rules:
+      - alert: HostOomKillDetected
+        expr: |
+          sum by (node_name, proc) (
+              count_over_time(
+                  {job="systemd-journal"}
+                  |= "Memory cgroup out of memory"
+                  | regexp "Killed process \\d+ \\((?P<proc>\\w+)\\)"[5m]
+              )
+          ) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "OOM Kill on {{ $labels.node_name }} detected: {{ $labels.proc }}"
