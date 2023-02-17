@@ -9,27 +9,27 @@ spec:
     app.kubernetes.io/name: unifi-controller
   loadBalancerIP: 10.120.21.3
   ports:
-    - name: '3478'
+    - name: "3478"
       protocol: UDP
       port: 3478
       targetPort: 3478
-    - name: '8080'
+    - name: "8080"
       protocol: TCP
       port: 8080
       targetPort: 8080
-    - name: '8443'
+    - name: "8443"
       protocol: TCP
       port: 8443
       targetPort: 8443
-    - name: '8843'
+    - name: "8843"
       protocol: TCP
       port: 8843
       targetPort: 8843
-    - name: '8880'
+    - name: "8880"
       protocol: TCP
       port: 8880
       targetPort: 8880
-    - name: '6789'
+    - name: "6789"
       protocol: TCP
       port: 6789
       targetPort: 6789
