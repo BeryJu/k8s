@@ -4,18 +4,18 @@ namespace: kube-system
 resources:
   - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.26.0
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: DaemonSet
-  metadata:
-    name: intel-gpu-plugin
-    labels:
-      app: intel-gpu-plugin
-  spec:
-    template:
-      spec:
-        containers:
-        - name: intel-gpu-plugin
-          args:
-            - "-shared-dev-num"
-            - "2"
+  - |-
+    apiVersion: apps/v1
+    kind: DaemonSet
+    metadata:
+      name: intel-gpu-plugin
+      labels:
+        app: intel-gpu-plugin
+    spec:
+      template:
+        spec:
+          containers:
+          - name: intel-gpu-plugin
+            args:
+              - "-shared-dev-num"
+              - "2"

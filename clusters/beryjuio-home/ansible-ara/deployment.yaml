@@ -13,18 +13,18 @@ spec:
         app.kubernetes.io/name: ara
     spec:
       containers:
-      - name: ara
-        image: docker.io/recordsansible/ara-api:latest
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 8000
-          name: http
-        env:
-          - name: ARA_ALLOWED_HOSTS
-            value: "['ara.${CLUSTER_NAME}.k8s.beryju.org']"
-        envFrom:
-          - secretRef:
-              name: beryjuorg-ara-config
+        - name: ara
+          image: docker.io/recordsansible/ara-api:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: ARA_ALLOWED_HOSTS
+              value: "['ara.${CLUSTER_NAME}.k8s.beryju.org']"
+          envFrom:
+            - secretRef:
+                name: beryjuorg-ara-config

@@ -7,6 +7,6 @@ roleRef:
   kind: ClusterRole
   name: authentik-token-reviews
 subjects:
-- kind: ServiceAccount
-  name: authentik
-  namespace: authentik
+  - kind: ServiceAccount
+    name: authentik
+    namespace: authentik

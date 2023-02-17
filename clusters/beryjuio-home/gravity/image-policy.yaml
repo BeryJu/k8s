@@ -11,4 +11,4 @@ spec:
     extract: "$version"
   policy:
     semver:
-      range: '*'
+      range: "*"

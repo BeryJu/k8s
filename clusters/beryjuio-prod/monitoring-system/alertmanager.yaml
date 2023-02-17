@@ -10,7 +10,7 @@ spec:
     volumeClaimTemplate:
       spec:
         accessModes:
-        - ReadWriteOnce
+          - ReadWriteOnce
         resources:
           requests:
             storage: 5Gi

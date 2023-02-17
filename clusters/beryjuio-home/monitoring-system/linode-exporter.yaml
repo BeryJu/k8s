@@ -24,19 +24,19 @@ spec:
         app.kubernetes.io/name: linode-exporter
     spec:
       containers:
-      - name: linode-exporter
-        image: ghcr.io/beryju/linode-exporter
-        imagePullPolicy: Always
-        envFrom:
-          - secretRef:
-              name: beryjuorg-linode-exporter
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
-        ports:
-        - containerPort: 9388
-          name: http-metrics
+        - name: linode-exporter
+          image: ghcr.io/beryju/linode-exporter
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: beryjuorg-linode-exporter
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 9388
+              name: http-metrics
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
