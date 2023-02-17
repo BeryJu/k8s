@@ -22,4 +22,4 @@ spec:
       patch: |-
         - op: replace
           path: /spec/values/prometheus/prometheusSpec/resources/limits/memory
-          value: 3Gi
+          value: 4Gi
