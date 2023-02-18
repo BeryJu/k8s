@@ -19,7 +19,6 @@ spec:
       containers:
         - name: gravity
           image: ghcr.io/beryju/gravity:0.4.8 # {"$imagepolicy": "flux-system:gravity"}
-          imagePullPolicy: Always
           env:
             - name: LISTEN_ONLY
               value: "true"

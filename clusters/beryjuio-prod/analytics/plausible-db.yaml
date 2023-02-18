@@ -55,7 +55,6 @@ spec:
       containers:
         - name: plausible-db
           image: postgres:12
-          imagePullPolicy: Always
           ports:
             - containerPort: 5432
           volumeMounts:
