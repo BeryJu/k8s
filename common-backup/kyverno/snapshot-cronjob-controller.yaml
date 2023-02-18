@@ -159,11 +159,11 @@ spec:
                               --override-username="{{ request.object.metadata.namespace }}"
                             kopia policy set $${BACKUP_PATH} \
                               --compression=zstd \
-                              --keep-latest 14 \
+                              --keep-latest 28 \
                               --keep-hourly 0 \
                               --keep-daily 7 \
                               --keep-weekly 2 \
-                              --keep-monthly 0 \
+                              --keep-monthly 2 \
                               --keep-annual 0
                             # fsfreeze -f $${BACKUP_PATH}
                             kopia snap create $${BACKUP_PATH}
