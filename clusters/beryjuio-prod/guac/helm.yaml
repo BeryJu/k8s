@@ -18,6 +18,9 @@ spec:
     guacd:
       image:
         repository: proxy.registry.beryju.org/guacamole/guacd
+    dbcreation:
+      image:
+        repository: proxy.registry.beryju.org/bitnami/postgresql
     guacamole:
       image:
         repository: proxy.registry.beryju.org/guacamole/guacamole
