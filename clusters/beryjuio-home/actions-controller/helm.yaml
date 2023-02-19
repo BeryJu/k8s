@@ -18,3 +18,7 @@ spec:
     logFormat: json
     metrics:
       serviceMonitor: true
+    image:
+      repository: "proxy.registry.beryju.org/summerwind/actions-runner-controller"
+      actionsRunnerRepositoryAndTag: "proxy.registry.beryju.org/summerwind/actions-runner:latest"
+      dindSidecarRepositoryAndTag: "proxy.registry.beryju.org/library/docker:dind"

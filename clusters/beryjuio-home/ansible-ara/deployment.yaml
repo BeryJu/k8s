@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ara
-          image: docker.io/recordsansible/ara-api:latest
+          image: proxy.registry.beryju.org/recordsansible/ara-api:latest
           resources:
             limits:
               memory: "512Mi"
