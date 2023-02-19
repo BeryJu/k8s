@@ -15,7 +15,12 @@ spec:
   interval: 1h0m0s
   releaseName: guacamole
   values:
+    guacd:
+      image:
+        repository: proxy.registry.beryju.org/guacamole/guacd
     guacamole:
+      image:
+        repository: proxy.registry.beryju.org/guacamole/guacamole
       settings:
         OPENID_AUTHORIZATION_ENDPOINT: https://id.beryju.org/application/o/authorize/
         OPENID_CLIENT_ID: eOpL1ne4AnLZKvrC8r5SJey2a4W0D9QN8VX3CC4T
