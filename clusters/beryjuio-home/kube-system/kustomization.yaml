@@ -19,3 +19,6 @@ patchesStrategicMerge:
             args:
               - "-shared-dev-num"
               - "2"
+images:
+  - name: intel/intel-gpu-plugin
+    newName: proxy.registry.beryju.org/intel/intel-gpu-plugin

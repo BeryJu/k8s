@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: oxidized
-          image: "oxidized/oxidized"
+          image: proxy.registry.beryju.org/oxidized/oxidized
           imagePullPolicy: Always
           ports:
             - containerPort: 8888
