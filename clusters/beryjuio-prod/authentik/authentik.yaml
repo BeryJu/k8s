@@ -31,6 +31,8 @@ spec:
       - hosts: [id.beryju.org]
         secretName: beryjuorg-authentik
     postgresql:
+      global:
+        imageRegistry: proxy.registry.beryju.org
       postgresqlMaxConnections: 500
       enabled: true
       metrics:
@@ -38,6 +40,8 @@ spec:
         serviceMonitor:
           enabled: true
     redis:
+      global:
+        imageRegistry: proxy.registry.beryju.org
       enabled: true
       architecture: standalone
       metrics:

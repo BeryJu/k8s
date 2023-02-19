@@ -23,6 +23,7 @@ spec:
       serviceMonitor:
         enabled: true
     global:
+      imageRegistry: proxy.registry.beryju.org
       postgresql:
         auth:
           database: guacamole
