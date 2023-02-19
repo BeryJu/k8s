@@ -23,6 +23,7 @@ spec:
           cpu: 100m
           memory: 2048Mi
     global:
+      hub: proxy.registry.beryju.org/istio
       logAsJson: true
       meshID: beryjuorg
       multiCluster:
