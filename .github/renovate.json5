@@ -57,6 +57,14 @@
       "matchDatasources": [
         "docker"
       ],
+      "registryUrls": [
+        "https://proxy.registry.beryju.org"
+      ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
       "semanticCommitScope": "images",
       "separateMinorPatch": true
     },
