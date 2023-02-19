@@ -20,6 +20,8 @@ spec:
         name: vault-secrets-operator
         namespace: flux-system
   values:
+    image:
+      repository: proxy.registry.beryju.org
     vault:
       address: https://vault.beryju.org
       authMethod: kubernetes
