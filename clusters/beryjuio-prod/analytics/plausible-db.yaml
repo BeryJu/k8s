@@ -54,7 +54,7 @@ spec:
         fsGroup: 999
       containers:
         - name: plausible-db
-          image: postgres:12
+          image: proxy.registry.beryju.org/library/postgres:12
           ports:
             - containerPort: 5432
           volumeMounts:

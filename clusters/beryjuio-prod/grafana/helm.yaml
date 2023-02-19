@@ -18,6 +18,8 @@ spec:
     - kind: Secret
       name: grafana-secrets
   values:
+    image:
+      repository: proxy.registry.beryju.org/grafana/grafana
     resources:
       limits:
         memory: 750Mi

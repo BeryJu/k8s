@@ -19,6 +19,8 @@ spec:
     global:
       enabled: false
     server:
+      image:
+        repository: proxy.registry.beryju.org/hashicorp/vault
       # Fixes https://github.com/kubernetes/kube-state-metrics/issues/1324
       updateStrategyType: RollingUpdate
       enabled: true
