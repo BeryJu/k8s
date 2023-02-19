@@ -21,7 +21,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: proxy.registry.beryju.org
+      repository: proxy.registry.beryju.org/ricoberger/vault-secrets-operator
     vault:
       address: https://vault.beryju.org
       authMethod: kubernetes
