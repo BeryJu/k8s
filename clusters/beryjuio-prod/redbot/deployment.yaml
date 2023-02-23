@@ -7,6 +7,9 @@ metadata:
     app.kubernetes.io/name: redbot
     app.kubernetes.io/instance: main
 spec:
+  # Recreate because pvc
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: redbot
