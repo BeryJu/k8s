@@ -18,7 +18,7 @@ spec:
       hostname: gravity-defr1
       containers:
         - name: gravity
-          image: ghcr.io/beryju/gravity:0.4.10 # {"$imagepolicy": "flux-system:gravity"}
+          image: ghcr.io/beryju/gravity:0.4.11 # {"$imagepolicy": "flux-system:gravity"}
           env:
             - name: LISTEN_ONLY
               value: "true"
