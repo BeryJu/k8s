@@ -5,6 +5,7 @@ metadata:
   namespace: plex
 spec:
   type: LoadBalancer
+  loadBalancerIP: 10.120.21.2
   selector:
     app.kubernetes.io/name: plex
   ports:
