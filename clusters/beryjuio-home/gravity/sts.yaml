@@ -34,7 +34,7 @@ spec:
               port: http-metrics
           readinessProbe:
             httpGet:
-              path: /healthz/live
+              path: /healthz/ready
               port: http-metrics
           ports:
             - containerPort: 53

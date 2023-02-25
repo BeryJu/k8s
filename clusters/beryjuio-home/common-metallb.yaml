@@ -26,17 +26,6 @@ spec:
     - 10.120.21.0/28
   avoidBuggyIPs: true
 ---
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: gravity-pool
-  namespace: metallb-system
-spec:
-  addresses:
-    - 10.120.20.249/32
-  avoidBuggyIPs: true
-  autoAssign: false
----
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
@@ -55,4 +44,3 @@ metadata:
 spec:
   ipAddressPools:
     - default-pool
-    - gravity-pool
