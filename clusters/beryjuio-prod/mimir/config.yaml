@@ -62,7 +62,7 @@ spec:
         max_label_names_per_series: 100
         max_global_series_per_user: 1500000
         max_global_series_per_metric: 200000
-        ingestion_rate: 1000000
+        ingestion_rate: 5000
         ruler_max_rules_per_rule_group: 500
         compactor_blocks_retention_period: 30d
         out_of_order_time_window: 1h
