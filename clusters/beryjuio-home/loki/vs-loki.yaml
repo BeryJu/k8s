@@ -35,7 +35,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-splunk-hec
+  name: beryjuorg-vs-loki
   namespace: istio-system
 spec:
   gateways:
