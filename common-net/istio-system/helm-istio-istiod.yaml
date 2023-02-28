@@ -22,6 +22,7 @@ spec:
         requests:
           cpu: 100m
           memory: 2048Mi
+      image: ghcr.io/beryju/pilot:latest
     global:
       hub: proxy.registry.beryju.org/istio
       logAsJson: true
