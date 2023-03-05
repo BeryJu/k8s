@@ -1,0 +1,8 @@
+groups:
+  - name: Ingester
+    rules:
+      - alert: High rate of failed ingestions
+        expr: sum(count_over_time({namespace="mimir", container="mimir"} | json | msg=`push error` [$__interval])) > 500
+        for: 30m
+        annotations:
+          summary: Mimir has a high rate of failed ingestions, check `ingestion_rate`
