@@ -73,7 +73,6 @@ spec:
       # Each prefix consists of either an IPv4 or IPv6 address,
       # and the associated prefix length, delimited by a slash.
       ip_prefixes:
-        - fd7a:115c:a1e0::/48
         - 100.64.0.0/10
 
       # DERP is a relay system that Tailscale uses when a direct
