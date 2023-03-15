@@ -216,7 +216,7 @@ spec:
 
         # List of DNS servers to expose to clients.
         nameservers:
-          - 1.1.1.1
+          - 10.120.20.250 # gravity
 
         # NextDNS (see https://tailscale.com/kb/1218/nextdns/).
         # "abc123" is example NextDNS ID, replace with yours.
