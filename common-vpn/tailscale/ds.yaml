@@ -14,7 +14,6 @@ spec:
         app.kubernetes.io/instance: tailscale-subnet-router
         app.kubernetes.io/name: tailscale-subnet-router
     spec:
-      hostname: "${CLUSTER_NAME}"
       serviceAccount: tailscale
       containers:
         - name: tailscale
@@ -27,11 +26,11 @@ spec:
               value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.org"
             - name: TS_USERSPACE
               value: "true"
-            - name: TS_AUTH_KEY
+            - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
                   name: tailscale-auth
-                  key: TS_AUTH_KEY
+                  key: TS_AUTHKEY
                   optional: true
           securityContext:
             runAsUser: 1000
