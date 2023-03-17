@@ -15,7 +15,7 @@ spec:
         abort_if_cluster_join_fails: false
         compression_enabled: false
         join_members:
-        - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
+        - dns+mimir-headless.mimir.svc.cluster.local:7946
 
       blocks_storage:
         backend: s3
