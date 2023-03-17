@@ -7,7 +7,8 @@ groups:
               count_over_time(
                   {job="systemd-journal"}
                   |= "Memory cgroup out of memory"
-                  | regexp "Killed process \\d+ \\((?P<proc>\\w+)\\)"[5m]
+                  | regexp "Killed process \\d+ \\((?P<proc>\\w+)\\)"
+                  | proc != "bundle"[5m]
               )
           ) > 0
         for: 2m
