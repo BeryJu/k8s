@@ -11,6 +11,12 @@ spec:
       multitenancy_enabled: false
       target: all
 
+      memberlist:
+        abort_if_cluster_join_fails: false
+        compression_enabled: false
+        join_members:
+        - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
+
       blocks_storage:
         backend: s3
         s3:
@@ -23,20 +29,6 @@ spec:
 
       compactor:
         data_dir: /data/compactor
-        sharding_ring:
-          kvstore:
-            store: memberlist
-
-      distributor:
-        ring:
-          kvstore:
-            store: memberlist
-
-      ingester:
-        ring:
-          kvstore:
-            store: memberlist
-          replication_factor: 1
 
       ruler:
         rule_path: /data/ruler
@@ -53,10 +45,6 @@ spec:
       server:
         log_level: info
         log_format: json
-
-      store_gateway:
-        sharding_ring:
-          replication_factor: 1
 
       limits:
         max_label_names_per_series: 100
