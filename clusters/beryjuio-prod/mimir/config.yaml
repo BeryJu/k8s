@@ -29,10 +29,28 @@ spec:
 
       compactor:
         data_dir: /data/compactor
+        sharding_ring:
+          kvstore:
+            store: memberlist
+
+      distributor:
+        ring:
+          kvstore:
+            store: memberlist
+
+      ingester:
+        ring:
+          kvstore:
+            store: memberlist
+          replication_factor: 1
 
       ruler:
         rule_path: /data/ruler
         alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
+
+      store_gateway:
+        sharding_ring:
+          replication_factor: 1
 
       ruler_storage:
         backend: s3
