@@ -32,7 +32,7 @@ spec:
       network: ${CLUSTER_NETWORK}
       tracer:
         zipkin:
-          address: tempo.tempo.svc.cluster.local:9411
+          address: localhost:9411
     meshConfig:
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
