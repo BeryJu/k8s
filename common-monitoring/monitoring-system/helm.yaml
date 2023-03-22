@@ -35,6 +35,14 @@ spec:
         enabled: false
       podLabels:
         sidecar.istio.io/inject: "false"
+    kube-state-metrics:
+      podAnnotations:
+        # kube-state-metrics tries to connect to the K8s API directly on startup
+        # which fails due to istio, so the container usually restarts a couple times
+        # this is to prevent that
+        # not enabled globally to prevent breakage if istio is down
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
     prometheus:
       prometheusSpec:
         logFormat: json
