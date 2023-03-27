@@ -23,7 +23,7 @@ spec:
               protocol: TCP
           env:
             - name: HS_SERVER
-              value: headscale.${CLUSTER_NAME}.k8s.beryju.org
+              value: https://headscale.${CLUSTER_NAME}.k8s.beryju.org
             - name: SCRIPT_NAME
               value: /ui
             - name: AUTH_TYPE
