@@ -7,6 +7,6 @@ spec:
   selector:
     app.kubernetes.io/name: headscale-ui
   ports:
-    - port: 80
+    - port: 5000
       name: http
       targetPort: http

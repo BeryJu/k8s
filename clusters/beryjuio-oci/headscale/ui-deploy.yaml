@@ -15,9 +15,20 @@ spec:
         app.kubernetes.io/instance: main
     spec:
       containers:
-        - image: ghcr.io/beryju/headscale-ui:arm
+        - image: ghcr.io/ifargle/headscale-webui:v0.5.6
           name: headscale-ui
           ports:
-            - containerPort: 80
+            - containerPort: 5000
               name: http
               protocol: TCP
+          env:
+            - name: HS_SERVER
+              value: headscale.${CLUSTER_NAME}.k8s.beryju.org
+            - name: SCRIPT_NAME
+              value: /ui
+            - name: AUTH_TYPE
+              value: OIDC
+          envFrom:
+            - secretRef:
+                name: headscale-ui-settings
+          resources: {}
