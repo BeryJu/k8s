@@ -28,6 +28,8 @@ spec:
               value: /ui
             - name: AUTH_TYPE
               value: OIDC
+            - name: OIDC_AUTH_URL
+              value: https://id.beryju.org/application/o/headscale/.well-known/openid-configuration
           envFrom:
             - secretRef:
                 name: headscale-ui-settings
