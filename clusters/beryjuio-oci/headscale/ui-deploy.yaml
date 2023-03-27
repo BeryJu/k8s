@@ -33,4 +33,13 @@ spec:
           envFrom:
             - secretRef:
                 name: headscale-ui-settings
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /etc/headscale
           resources: {}
+      volumes:
+        - name: config
+          secret:
+            secretName: headscale-settings
