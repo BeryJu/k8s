@@ -43,3 +43,6 @@ spec:
         - name: config
           secret:
             secretName: headscale-settings
+        - name: data
+          persistentVolumeClaim:
+            claimName: headscale-ui
