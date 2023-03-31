@@ -19,7 +19,9 @@ spec:
     spec:
       containers:
         - args:
-            - server --console-address :9001 /storage
+            - server
+            - --console-address :9001
+            - /storage
           env:
             - name: MINIO_DOMAIN
               value: s3.beryju.org,minio.prd.beryjuorg
