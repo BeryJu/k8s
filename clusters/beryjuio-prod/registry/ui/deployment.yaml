@@ -19,7 +19,7 @@ spec:
         app.kubernetes.io/instance: ui
     spec:
       containers:
-        - image: proxy.registry.beryju.org/joxit/docker-registry-ui:latest
+        - image: proxy.registry.beryju.org/joxit/docker-registry-ui:2.4.1-debian
           name: registry
           resources:
             limits:
