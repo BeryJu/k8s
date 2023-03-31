@@ -11,6 +11,9 @@ spec:
       app.kubernetes.io/name: imagik
   template:
     metadata:
+      annotations:
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
       labels:
         app.kubernetes.io/name: imagik
     spec:

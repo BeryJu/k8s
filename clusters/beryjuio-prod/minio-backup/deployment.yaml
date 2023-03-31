@@ -11,15 +11,15 @@ spec:
       app.kubernetes.io/name: minio
   template:
     metadata:
+      annotations:
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
       labels:
         app.kubernetes.io/name: minio
     spec:
       containers:
-        - command:
-            - sh
-          args:
-            - -c
-            - "sleep 30 && minio server --console-address :9001 /storage"
+        - args:
+            - server --console-address :9001 /storage
           env:
             - name: MINIO_DOMAIN
               value: backup-s3.beryju.org,minio.offsite.beryjuorg
