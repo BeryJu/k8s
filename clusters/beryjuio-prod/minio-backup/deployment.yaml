@@ -20,7 +20,7 @@ spec:
       containers:
         - args:
             - server
-            - --console-address :9001
+            - --console-address=:9001
             - /storage
           env:
             - name: MINIO_DOMAIN
