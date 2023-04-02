@@ -77,5 +77,10 @@
         "quay.io/minio/minio"
       ]
     }
+    {
+      "datasources": ["docker"],
+      "versioning": "loose",
+      "packageNames": ["plexinc/pms-docker"]
+    }
   ]
 }
