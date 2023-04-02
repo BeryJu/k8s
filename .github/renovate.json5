@@ -76,11 +76,15 @@
       "matchPackageNames": [
         "quay.io/minio/minio"
       ]
-    }
+    },
     {
-      "datasources": ["docker"],
+      "datasources": [
+        "docker"
+      ],
       "versioning": "loose",
-      "packageNames": ["plexinc/pms-docker"]
+      "packageNames": [
+        "plexinc/pms-docker"
+      ]
     }
   ]
 }
