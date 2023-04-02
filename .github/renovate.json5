@@ -78,12 +78,13 @@
       ]
     },
     {
-      "datasources": [
+      "matchDatasources": [
         "docker"
       ],
       "versioning": "loose",
-      "packageNames": [
-        "plexinc/pms-docker"
+      "matchPackageNames": [
+        "plexinc/pms-docker",
+        "proxy.registry.beryju.org/plexinc/pms-docker"
       ]
     }
   ]
