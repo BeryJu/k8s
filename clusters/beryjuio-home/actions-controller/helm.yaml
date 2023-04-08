@@ -16,6 +16,9 @@ spec:
         namespace: flux-system
   values:
     logFormat: json
+    podAnnotations:
+      proxy.istio.io/config: |
+        holdApplicationUntilProxyStarts: true
     metrics:
       serviceMonitor: true
     image:
