@@ -10,7 +10,6 @@ spec:
     name: flux-system
   path: ./common
   prune: true
-  validation: client
   postBuild:
     substituteFrom:
       - kind: ConfigMap
