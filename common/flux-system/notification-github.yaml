@@ -21,7 +21,7 @@ spec:
   secretRef:
     name: beryjuorg-gh-pat
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert
 metadata:
   name: github
