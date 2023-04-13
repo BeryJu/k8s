@@ -7,6 +7,11 @@ spec:
   template:
     spec:
       repository: BeryJu/infrastructure
+      containers:
+        - name: docker
+          env:
+            - name: DOCKER_GROUP_GID
+              value: "1001"
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
