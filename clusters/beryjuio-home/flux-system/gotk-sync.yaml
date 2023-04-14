@@ -28,11 +28,11 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
-  patches:
-    - patch: |
-        - op: add
-          path: /spec/template/spec/containers/0/args/-
-          value: --feature-gates=DetectDrift=true,OOMWatch=true
-      target:
-        kind: Deployment
-        name: "(helm-controller)"
+  # patches:
+  #   - patch: |
+  #       - op: add
+  #         path: /spec/template/spec/containers/0/args/-
+  #         value: --feature-gates=DetectDrift=true,OOMWatch=true
+  #     target:
+  #       kind: Deployment
+  #       name: "(helm-controller)"
