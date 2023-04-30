@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: minecraft
+  namespace: games
+spec:
+  namespaceSelector:
+    matchNames:
+      - games
+  selector:
+    matchLabels:
+      app: minecraft-minecraft
+  podMetricsEndpoints:
+    - port: metrics

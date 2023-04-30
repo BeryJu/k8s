@@ -14,6 +14,18 @@ spec:
         namespace: flux-system
   interval: 1h0m0s
   values:
+    sidecarContainers:
+      - name: exporter
+        image: ghcr.io/dirien/minecraft-exporter:0.18.0
+        environment:
+          - name: MC_RCON_ADDRESS
+            value: localhost:25575
+          - name: MC_WORLD
+            value: /data
+        ports:
+          - containerPort: 9150
+            name: metrics
+            protocol: TCP
     image:
       repository: proxy.registry.beryju.org/itzg/minecraft-server
     minecraftServer:
