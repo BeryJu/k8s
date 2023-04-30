@@ -17,15 +17,18 @@ spec:
     sidecarContainers:
       - name: exporter
         image: ghcr.io/dirien/minecraft-exporter:0.18.0
-        environment:
+        env:
           - name: MC_RCON_ADDRESS
             value: localhost:25575
           - name: MC_WORLD
-            value: /data
+            value: /data/world
         ports:
           - containerPort: 9150
             name: metrics
             protocol: TCP
+        volumeMounts:
+          - mountPath: /data
+            name: datadir
     image:
       repository: proxy.registry.beryju.org/itzg/minecraft-server
     minecraftServer:
