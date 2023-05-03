@@ -6,3 +6,11 @@ resources:
 images:
   - name: rancher/local-path-provisioner
     newName: proxy.registry.beryju.org/rancher/local-path-provisioner
+patches:
+  - target:
+      kind: StorageClass
+      name: local-path
+    patch: |-
+      - op: add
+        path: /metadata/annotations/storageclass.kubernetes.io~1is-default-class
+        value: "true"
