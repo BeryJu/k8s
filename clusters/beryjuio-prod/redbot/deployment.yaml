@@ -31,7 +31,7 @@ spec:
           envFrom:
             - secretRef:
                 name: beryjuorg-redbot
-          image: ghcr.io/rhomelab/red-discordbot:3.4.19
+          image: ghcr.io/rhomelab/red-discordbot:3.5.1
           name: redbot
           resources:
             requests:
