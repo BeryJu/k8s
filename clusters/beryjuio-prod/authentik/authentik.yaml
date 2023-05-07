@@ -35,6 +35,8 @@ spec:
         imageRegistry: proxy.registry.beryju.org
       postgresqlMaxConnections: 500
       enabled: true
+      image:
+        tag: 15.2.0-debian-11-r26
       metrics:
         enabled: true
         serviceMonitor:
