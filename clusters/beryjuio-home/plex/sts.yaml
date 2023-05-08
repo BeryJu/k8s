@@ -37,6 +37,10 @@ spec:
               value: "100"
             - name: CHANGE_CONFIG_DIR_OWNERSHIP
               value: "true"
+            - name: ADVERTISE_IP
+              value: 10.120.21.2
+            - name: ALLOWED_NETWORKS
+              value: 10.0.0.0/8
           ports:
             - containerPort: 32400
               name: http
