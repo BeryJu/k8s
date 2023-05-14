@@ -14,9 +14,6 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  valuesFrom:
-    - kind: Secret
-      name: grafana-secrets
   values:
     image:
       repository: proxy.registry.beryju.org/grafana/grafana
@@ -46,6 +43,7 @@ spec:
       - jdbranham-diagram-panel
       - grafana-sentry-datasource
       - vertamedia-clickhouse-datasource
+    envFromSecret: grafana-secrets
     env:
       GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
       GF_SERVER_ROOT_URL: "https://grafana.infra.beryju.org/"
