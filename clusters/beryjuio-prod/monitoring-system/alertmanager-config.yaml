@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: alertmanager-alertmanager
   namespace: monitoring-system
-spec:
+data:
   alertmanager.yaml: |
     global:
       resolve_timeout: 5m
