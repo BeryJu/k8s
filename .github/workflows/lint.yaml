@@ -13,7 +13,7 @@ jobs:
           node-version: "16"
           cache: "npm"
           cache-dependency-path: package-lock.json
-      # - name: prettier
-      #   run: |
-      #     npm i
-      #     npx prettier --ignore-path '.github/lint/.prettierignore' --config '.github/lint/.prettierrc.yaml' --check .
+      - name: prettier
+        run: |
+          npm i
+          npx prettier --ignore-path '.github/lint/.prettierignore' --config '.github/lint/.prettierrc.yaml' --check .
