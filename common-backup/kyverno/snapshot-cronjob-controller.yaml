@@ -43,8 +43,8 @@ spec:
             jmesPath: "request.object.metadata.namespace"
       generate:
         synchronize: true
-        apiVersion: ricoberger.de/v1alpha1
-        kind: VaultSecret
+        apiVersion: external-secrets.io/v1beta1
+        kind: ExternalSecret
         name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
@@ -55,12 +55,22 @@ spec:
                 name: "{{ request.object.metadata.name }}"
                 uid: "{{ request.object.metadata.uid }}"
           spec:
-            path: kv/wasabi/backup
-            type: Opaque
-            templates:
-              KOPIA_PASSWORD: "none"
-              AWS_ACCESS_KEY_ID: "{% .Secrets.access_key %}"
-              AWS_SECRET_ACCESS_KEY: "{% .Secrets.secret_key %}"
+            secretStoreRef:
+              name: vault-kv
+              kind: ClusterSecretStore
+            target:
+              template:
+                data:
+                  KOPIA_PASSWORD: "none"
+            data:
+              - secretKey: AWS_ACCESS_KEY_ID
+                remoteRef:
+                  key: kv/wasabi/backup
+                  property: access_key
+              - secretKey: AWS_AAWS_SECRET_ACCESS_KEYCCESS_KEY_ID
+                remoteRef:
+                  key: kv/wasabi/backup
+                  property: secret_key
     - name: create-snapshot-cronjob
       match:
         any:
