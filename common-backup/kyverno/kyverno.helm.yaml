@@ -26,3 +26,15 @@ spec:
     resources:
       requests:
         cpu: 10m
+    admissionController:
+      logging:
+        format: json
+    backgroundController:
+      logging:
+        format: json
+    cleanupController:
+      logging:
+        format: json
+    reportsController:
+      logging:
+        format: json
