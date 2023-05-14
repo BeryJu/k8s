@@ -18,3 +18,10 @@ spec:
     fsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
+  volumes:
+    - name: secrets
+      secret:
+        secretName: alertmanager-alertmanager-secret
+  volumeMounts:
+    - mountPath: /etc/alertmanager/secrets
+      name: secrets
