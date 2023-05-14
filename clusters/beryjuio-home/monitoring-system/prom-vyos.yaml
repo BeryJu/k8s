@@ -7,9 +7,10 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  template:
-    data:
-      username: prometheus
+  target:
+    template:
+      data:
+        username: prometheus
   data:
     - secretKey: PW_NODE_EXPORTER
       remoteRef:
