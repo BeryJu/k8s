@@ -1,20 +1,30 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: unifi-controller-exporter
   namespace: "unifi-controller"
 spec:
-  path: kv/services/unifi
-  type: Opaque
-  templates:
-    UP_UNIFI_DEFAULT_USER: "{% .Secrets.poller_username %}"
-    UP_UNIFI_DEFAULT_PASS: "{% .Secrets.poller_password %}"
-    UP_UNIFI_DEFAULT_URL: https://unifi-controller:8443
-    UP_LOKI_URL: http://loki.loki.svc.cluster.local
-    UP_INFLUXDB_DISABLE: "true"
-    UP_UNIFI_DEFAULT_SAVE_ALARMS: "true"
-    UP_UNIFI_DEFAULT_SAVE_ANOMALIES: "true"
-    UP_UNIFI_DEFAULT_SAVE_DPI: "true"
-    UP_UNIFI_DEFAULT_SAVE_EVENTS: "true"
-    UP_UNIFI_DEFAULT_SAVE_IDS: "true"
-    UP_UNIFI_DEFAULT_SAVE_SITES: "true"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        UP_UNIFI_DEFAULT_URL: https://unifi-controller:8443
+        UP_LOKI_URL: http://loki.loki.svc.cluster.local
+        UP_INFLUXDB_DISABLE: "true"
+        UP_UNIFI_DEFAULT_SAVE_ALARMS: "true"
+        UP_UNIFI_DEFAULT_SAVE_ANOMALIES: "true"
+        UP_UNIFI_DEFAULT_SAVE_DPI: "true"
+        UP_UNIFI_DEFAULT_SAVE_EVENTS: "true"
+        UP_UNIFI_DEFAULT_SAVE_IDS: "true"
+        UP_UNIFI_DEFAULT_SAVE_SITES: "true"
+  data:
+    - secretKey: UP_UNIFI_DEFAULT_USER
+      remoteRef:
+        key: kv/services/unifi
+        property: poller_username
+    - secretKey: UP_UNIFI_DEFAULT_PASS
+      remoteRef:
+        key: kv/services/unifi
+        property: poller_password
