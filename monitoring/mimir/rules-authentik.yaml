@@ -21,7 +21,7 @@ groups:
         labels:
           severity: critical
       - alert: FailedSystemTasks
-        expr: sum(increase(authentik_system_tasks{status="TaskResultStatus.ERROR"}[2h])) > 0
+        expr: sum by (task_name, task_uid) (increase(authentik_system_tasks{status="TaskResultStatus.ERROR"}[2h])) > 0
         annotations:
           message: |
             System task {{ $labels.task_name }} has failed
