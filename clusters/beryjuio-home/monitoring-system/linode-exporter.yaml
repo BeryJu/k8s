@@ -1,13 +1,21 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: beryjuorg-linode-exporter
   namespace: monitoring-system
 spec:
-  path: kv/linode
-  type: Opaque
-  templates:
-    LINODE_TOKEN: "{% .Secrets.key %}"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  # target:
+  #   template:
+  #     data:
+  #       LINODE_TOKEN: "{{ .key }}"
+  data:
+    - secretKey: LINODE_TOKEN
+      remoteRef:
+        key: kv/linode
+        property: key
 ---
 apiVersion: apps/v1
 kind: Deployment

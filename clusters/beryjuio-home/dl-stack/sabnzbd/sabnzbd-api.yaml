@@ -1,10 +1,18 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: sabnzbd-api-key
   namespace: dl-stack
 spec:
-  path: kv/services/sabnzbd
-  type: Opaque
-  templates:
-    api-key: "{% .Secrets.api %}"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        api-key: "{{ .api }}"
+  data:
+    - secretKey: api
+      remoteRef:
+        key: kv/services/sabnzbd
+        property: api
