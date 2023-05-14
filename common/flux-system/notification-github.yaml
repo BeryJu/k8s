@@ -1,14 +1,18 @@
 ---
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: beryjuorg-gh-pat
   namespace: flux-system
 spec:
-  path: kv/k8s-flux
-  type: Opaque
-  templates:
-    token: "{% .Secrets.github_pat %}"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  data:
+    - secretKey: token
+      remoteRef:
+        key: kv/k8s-flux
+        property: github_pat
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Provider

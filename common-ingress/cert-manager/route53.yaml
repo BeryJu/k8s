@@ -1,11 +1,18 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: aws-route53-creds
   namespace: cert-manager
 spec:
-  path: aws/creds/route53
-  type: Opaque
-  templates:
-    access_key: "{% .Secrets.access_key %}"
-    secret_key: "{% .Secrets.secret_key %}"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  data:
+    - secretKey: access_key
+      remoteRef:
+        key: aws/creds/route53
+        property: access_key
+    - secretKey: secret_key
+      remoteRef:
+        key: aws/creds/route53
+        property: secret_key
