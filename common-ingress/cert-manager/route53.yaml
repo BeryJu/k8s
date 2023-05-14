@@ -7,12 +7,18 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  data:
-    - secretKey: access_key
-      remoteRef:
-        key: aws/creds/route53
-        property: access_key
-    - secretKey: secret_key
-      remoteRef:
-        key: aws/creds/route53
-        property: secret_key
+  # data:
+  #   - secretKey: access_key
+  #     remoteRef:
+  #       key: aws/creds/route53
+  #       property: access_key
+  #   - secretKey: secret_key
+  #     remoteRef:
+  #       key: aws/creds/route53
+  #       property: secret_key
+  dataFrom:
+  - sourceRef:
+      generatorRef:
+        apiVersion: generators.external-secrets.io/v1alpha1
+        kind: VaultDynamicSecret
+        name: "vault-aws-cert-manager"
