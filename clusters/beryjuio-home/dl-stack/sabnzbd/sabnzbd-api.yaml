@@ -7,12 +7,8 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  target:
-    template:
-      data:
-        api-key: "{{ .api }}"
   data:
-    - secretKey: api
+    - secretKey: api-key
       remoteRef:
         key: kv/services/sabnzbd
         property: api

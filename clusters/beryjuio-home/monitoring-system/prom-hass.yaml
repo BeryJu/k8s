@@ -1,13 +1,17 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: beryjuorg-prom-additional-scrape-creds-hass
   namespace: monitoring-system
 spec:
-  path: kv/services/prometheus/home-assistant
-  type: Opaque
-  templates:
-    PW_HOME_ASSISTANT: "{% .Secrets.metrics_jwt %}"
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  data:
+    - secretKey: PW_HOME_ASSISTANT
+      remoteRef:
+        key: kv/services/prometheus/home-assistant
+        property: metrics_jwt
 ---
 kind: Service
 apiVersion: v1

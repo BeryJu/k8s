@@ -7,10 +7,6 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  # target:
-  #   template:
-  #     data:
-  #       LINODE_TOKEN: "{{ .key }}"
   data:
     - secretKey: LINODE_TOKEN
       remoteRef:

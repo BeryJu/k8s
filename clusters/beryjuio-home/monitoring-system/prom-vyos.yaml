@@ -1,14 +1,20 @@
-apiVersion: ricoberger.de/v1alpha1
-kind: VaultSecret
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
 metadata:
   name: beryjuorg-prom-additional-scrape-creds-node-exporter
   namespace: monitoring-system
 spec:
-  path: kv/services/prometheus/node_exporter
-  type: Opaque
-  templates:
-    PW_NODE_EXPORTER: "{% .Secrets.prometheus %}"
-    username: prometheus
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  template:
+    data:
+      username: prometheus
+  data:
+    - secretKey: PW_NODE_EXPORTER
+      remoteRef:
+        key: kv/services/prometheus/node_exporter
+        property: prometheus
 ---
 kind: Service
 apiVersion: v1
