@@ -63,3 +63,8 @@ spec:
       web_port: 443
       web_root: /
       web_schema: https
+    kiali_feature_flags:
+      clustering:
+        autodetect_secrets:
+          enabled: true
+          label: "istio/multiCluster=true"
