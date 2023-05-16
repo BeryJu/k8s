@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terraform-agent
+  namespace: terraform-agent
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: terraform-agent
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: terraform-agent
+    spec:
+      containers:
+        - name: terraform-agent
+          image: docker.io/hashicorp/tfc-agent:1.9
+          resources: {}
+          env:
+            - name: TFC_AGENT_NAME
+              value: ${CLUSTER_NAME}
+          envFrom:
+            - secretRef:
+                name: terraform-agent

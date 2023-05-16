@@ -1,0 +1,14 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: terraform-agent
+  namespace: terraform-agent
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  data:
+    - secretKey: TFC_AGENT_TOKEN
+      remoteRef:
+        key: kv/services/terraform-cloud
+        property: agent_token
