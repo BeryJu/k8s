@@ -58,12 +58,6 @@ spec:
             secretStoreRef:
               name: vault-kv
               kind: ClusterSecretStore
-            target:
-              template:
-                data:
-                  KOPIA_PASSWORD: "none"
-                  AWS_ACCESS_KEY_ID: "{{`{{ .AWS_ACCESS_KEY_ID }}`}}"
-                  AWS_SECRET_ACCESS_KEY: "{{`{{ .AWS_SECRET_ACCESS_KEY }}`}}"
             data:
               - secretKey: AWS_ACCESS_KEY_ID
                 remoteRef:
@@ -73,6 +67,10 @@ spec:
                 remoteRef:
                   key: kv/wasabi/backup
                   property: secret_key
+              - secretKey: KOPIA_PASSWORD
+                remoteRef:
+                  key: kv/wasabi/backup
+                  property: kopia
     - name: create-snapshot-cronjob
       match:
         any:
