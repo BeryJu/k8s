@@ -62,8 +62,8 @@ spec:
               template:
                 data:
                   KOPIA_PASSWORD: "none"
-                  AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
-                  AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
+                  AWS_ACCESS_KEY_ID: "{{`{{ .AWS_ACCESS_KEY_ID }}`}}"
+                  AWS_SECRET_ACCESS_KEY: "{{`{{ .AWS_SECRET_ACCESS_KEY }}`}}"
             data:
               - secretKey: AWS_ACCESS_KEY_ID
                 remoteRef:
