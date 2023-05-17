@@ -11,11 +11,10 @@ spec:
     template:
       data:
         username: prometheus
-  data:
-    - secretKey: PW_NODE_EXPORTER
-      remoteRef:
+        PW_NODE_EXPORTER: "{{ .prometheus }}"
+  dataFrom:
+    - extract:
         key: kv/services/prometheus/node_exporter
-        property: prometheus
 ---
 kind: Service
 apiVersion: v1

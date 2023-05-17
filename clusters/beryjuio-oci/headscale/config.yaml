@@ -269,8 +269,8 @@ spec:
           oidc:
             only_start_if_oidc_is_available: true
             issuer: "https://id.beryju.org/application/o/headscale/"
-            client_id: "{{ .OIDC_CLIENT_ID }}"
-            client_secret: "{{ .OIDC_CLIENT_SECRET }}"
+            client_id: "{{ .oidc_client_id }}"
+            client_secret: "{{ .oidc_client_secret }}"
             scope: ["openid", "profile", "email"]
             strip_email_domain: true
           # Logtail configuration
@@ -286,12 +286,6 @@ spec:
           # default static port 41641. This option is intended as a workaround for some buggy
           # firewall devices. See https://tailscale.com/kb/1181/firewalls/ for more information.
           randomize_client_port: false
-  data:
-    - secretKey: OIDC_CLIENT_ID
-      remoteRef:
+  dataFrom:
+    - extract:
         key: kv/services/headscale
-        property: oidc_client_id
-    - secretKey: OIDC_CLIENT_SECRET
-      remoteRef:
-        key: kv/services/headscale
-        property: oidc_client_secret

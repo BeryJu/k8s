@@ -15,12 +15,8 @@ spec:
         ARA_DATABASE_NAME: ansible-ara
         ARA_DATABASE_PORT: "5432"
         ARA_DATABASE_USER: ansible-ara
-  data:
-    - secretKey: ARA_DATABASE_PASSWORD
-      remoteRef:
+        ARA_DATABASE_PASSWORD: "{{ .root_password }}"
+        ARA_SECRET_KEY: "{{ .pg_password }}"
+  dataFrom:
+    - extract:
         key: kv/services/ansible-ara/postgres
-        property: root_password
-    - secretKey: ARA_SECRET_KEY
-      remoteRef:
-        key: kv/services/ansible-ara/postgres
-        property: pg_password

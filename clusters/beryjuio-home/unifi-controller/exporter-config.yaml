@@ -19,12 +19,8 @@ spec:
         UP_UNIFI_DEFAULT_SAVE_EVENTS: "true"
         UP_UNIFI_DEFAULT_SAVE_IDS: "true"
         UP_UNIFI_DEFAULT_SAVE_SITES: "true"
-  data:
-    - secretKey: UP_UNIFI_DEFAULT_USER
-      remoteRef:
+        UP_UNIFI_DEFAULT_USER: "{{ .poller_username }}"
+        UP_UNIFI_DEFAULT_PASS: "{{ .poller_password }}"
+  dataFrom:
+    - extract:
         key: kv/services/unifi
-        property: poller_username
-    - secretKey: UP_UNIFI_DEFAULT_PASS
-      remoteRef:
-        key: kv/services/unifi
-        property: poller_password
