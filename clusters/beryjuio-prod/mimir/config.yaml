@@ -75,12 +75,6 @@ spec:
             ruler_max_rules_per_rule_group: 500
             compactor_blocks_retention_period: 30d
             out_of_order_time_window: 1h
-  data:
-    - secretKey: access_key
-      remoteRef:
+  dataFrom:
+    - extract:
         key: kv/services/thanos
-        property: access_key
-    - secretKey: secret_key
-      remoteRef:
-        key: kv/services/thanos
-        property: secret_key

@@ -15,7 +15,7 @@ spec:
         MAILER_EMAIL: plausible@services.beryju.org
         SMTP_HOST_ADDR: email-smtp.eu-central-1.amazonaws.com
         SMTP_HOST_PORT: "587"
-        DATABASE_URL: postgres://postgres:{% .postgres_pwd %}@plausible-db:5432/plausible_db
+        DATABASE_URL: postgres://postgres:{{ .postgres_pwd }}@plausible-db:5432/plausible_db
         CLICKHOUSE_DATABASE_URL: http://plausible-events-db:8123/plausible_events_db
         SECRET_KEY_BASE: "{{ .secret_key }}"
         SMTP_USER_NAME: "{{ .email_user }}"

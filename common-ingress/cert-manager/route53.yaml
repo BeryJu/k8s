@@ -7,15 +7,6 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  # data:
-  #   - secretKey: access_key
-  #     remoteRef:
-  #       key: aws/creds/route53
-  #       property: access_key
-  #   - secretKey: secret_key
-  #     remoteRef:
-  #       key: aws/creds/route53
-  #       property: secret_key
   dataFrom:
     - sourceRef:
         generatorRef:

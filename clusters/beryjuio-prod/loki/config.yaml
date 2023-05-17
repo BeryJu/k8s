@@ -105,12 +105,6 @@ spec:
             shared_store: s3
             compaction_interval: 5m
             retention_enabled: true
-  data:
-    - secretKey: access_key
-      remoteRef:
+  dataFrom:
+    - extract:
         key: kv/services/thanos
-        property: access_key
-    - secretKey: secret_key
-      remoteRef:
-        key: kv/services/thanos
-        property: secret_key
