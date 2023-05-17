@@ -62,12 +62,14 @@ spec:
               template:
                 data:
                   KOPIA_PASSWORD: "none"
+                  AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
+                  AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
             data:
               - secretKey: AWS_ACCESS_KEY_ID
                 remoteRef:
                   key: kv/wasabi/backup
                   property: access_key
-              - secretKey: AWS_AAWS_SECRET_ACCESS_KEYCCESS_KEY_ID
+              - secretKey: AWS_SECRET_ACCESS_KEY
                 remoteRef:
                   key: kv/wasabi/backup
                   property: secret_key
