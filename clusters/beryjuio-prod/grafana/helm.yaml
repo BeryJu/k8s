@@ -36,13 +36,6 @@ spec:
       enabled: true
     deploymentStrategy:
       type: Recreate
-    plugins:
-      - grafana-github-datasource
-      - vonage-status-panel
-      - grafana-polystat-panel
-      - jdbranham-diagram-panel
-      - grafana-sentry-datasource
-      - vertamedia-clickhouse-datasource
     envFromSecret: grafana-secrets
     env:
       GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
