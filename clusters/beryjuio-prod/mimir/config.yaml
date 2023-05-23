@@ -29,6 +29,7 @@ spec:
               secret_access_key: "{{ .secret_key }}"
             tsdb:
               dir: /data/tsdb
+              flush_blocks_on_shutdown: true
 
           compactor:
             data_dir: /data/compactor
