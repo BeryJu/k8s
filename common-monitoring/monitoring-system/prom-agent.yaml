@@ -8,6 +8,10 @@ spec:
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
   probeNamespaceSelector: {}
+  scrapeConfigSelector: {}
+  scrapeConfigNamespaceSelector: {}
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
   portName: http-web
   probeSelector:
     matchLabels:
@@ -46,7 +50,5 @@ spec:
     requests:
       memory: 1Gi
   serviceAccountName: beryjuio-prometheus-agent
-  serviceMonitorNamespaceSelector: {}
-  serviceMonitorSelector: {}
   shards: 1
   version: v2.44.0
