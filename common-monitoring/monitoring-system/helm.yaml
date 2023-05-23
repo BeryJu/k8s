@@ -44,6 +44,7 @@ spec:
         proxy.istio.io/config: |
           holdApplicationUntilProxyStarts: true
     prometheus:
+      enabled: false
       prometheusSpec:
         logFormat: json
         serviceMonitorSelectorNilUsesHelmValues: false

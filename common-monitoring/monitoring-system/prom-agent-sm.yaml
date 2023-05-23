@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: beryjuio-prometheus-agent
+  namespace: monitoring-system
+spec:
+  endpoints:
+    - path: /metrics
+      port: http-web
+  namespaceSelector:
+    matchNames:
+      - monitoring-system
+  selector:
+    matchLabels:
+      operated-prometheus: "true"

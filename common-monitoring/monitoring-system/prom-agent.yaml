@@ -1,0 +1,52 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: PrometheusAgent
+metadata:
+  name: beryjuio-prometheus-agent
+  namespace: monitoring-system
+spec:
+  logFormat: json
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  probeNamespaceSelector: {}
+  portName: http-web
+  probeSelector:
+    matchLabels:
+      release: prom
+  podMetadata:
+    annotations:
+      proxy.istio.io/config: |
+        holdApplicationUntilProxyStarts: true
+  remoteWrite:
+    - oauth2:
+        clientId:
+          configMap:
+            key: client-id
+            name: beryjuorg-prom-rw-oauth2
+        clientSecret:
+          key: token
+          name: beryjuorg-prom-rw-oauth2
+        endpointParams:
+          client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+          grant_type: client_credentials
+        scopes:
+          - openid
+          - profile
+        tokenUrl: https://id.beryju.org/application/o/token/
+      url: http://mimir.mimir.svc.cluster.local/api/v1/push
+      writeRelabelConfigs:
+        - action: replace
+          replacement: beryjuio-prod
+          sourceLabels:
+            - __address__
+          targetLabel: cluster
+  replicas: 1
+  resources:
+    limits:
+      memory: 4Gi
+    requests:
+      memory: 1Gi
+  serviceAccountName: beryjuio-prometheus-agent
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
+  shards: 1
+  version: v2.44.0
