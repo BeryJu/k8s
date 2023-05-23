@@ -45,42 +45,6 @@ spec:
           holdApplicationUntilProxyStarts: true
     prometheus:
       enabled: false
-      prometheusSpec:
-        logFormat: json
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
-        retention: 2h
-        resources:
-          requests:
-            memory: 1Gi
-          limits:
-            memory: 2Gi
-        storageSpec:
-          emptyDir:
-            medium: Memory
-        remoteWrite:
-          - url: http://mimir.mimir.svc.cluster.local/api/v1/push
-            oauth2:
-              clientId:
-                configMap:
-                  name: beryjuorg-prom-rw-oauth2
-                  key: client-id
-              clientSecret:
-                name: beryjuorg-prom-rw-oauth2
-                key: token
-              scopes:
-                - openid
-                - profile
-              endpointParams:
-                grant_type: client_credentials
-                client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
-              tokenUrl: https://id.beryju.org/application/o/token/
-            writeRelabelConfigs:
-              - sourceLabels: [__address__]
-                # target label is the one you want to create
-                targetLabel: cluster
-                replacement: ${CLUSTER_NAME}
     alertmanager:
       enabled: false
     grafana:

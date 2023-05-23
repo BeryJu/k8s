@@ -35,7 +35,7 @@ spec:
       url: http://mimir.mimir.svc.cluster.local/api/v1/push
       writeRelabelConfigs:
         - action: replace
-          replacement: beryjuio-prod
+          replacement: ${CLUSTER_NAME}
           sourceLabels:
             - __address__
           targetLabel: cluster
