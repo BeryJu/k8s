@@ -31,6 +31,3 @@ spec:
         - op: replace
           path: /spec/values/kubeScheduler/enabled
           value: true
-        - op: replace
-          path: /spec/values/prometheus/prometheusSpec/resources/limits/memory
-          value: 6Gi
