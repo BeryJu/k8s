@@ -70,5 +70,5 @@ spec:
         - destination:
             host: gitlab.gitlab.svc.cluster.local
             port:
-              number: 8443
+              number: 443
           weight: 100
