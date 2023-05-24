@@ -14,7 +14,8 @@ spec:
         name: gitlab
         namespace: flux-system
   values:
-    gitlabUrl: http://gitlab.gitlab
+    # Depends on the ingress and service working fully
+    gitlabUrl: https://gitlab.${CLUSTER_NAME}.k8s.beryju.org
     logFormat: json
     rbac:
       create: true
