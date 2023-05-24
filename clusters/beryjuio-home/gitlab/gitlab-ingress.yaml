@@ -1,0 +1,74 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-gitlab
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-gitlab
+  commonName: gitlab.${CLUSTER_NAME}.k8s.beryju.org
+  dnsNames:
+    - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gitlab
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuio-gitlab
+      hosts:
+        - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: beryjuorg-dr-gitlab
+  namespace: istio-system
+spec:
+  host: gitlab.gitlab.svc.cluster.local
+  trafficPolicy:
+    portLevelSettings:
+      - port:
+          number: 443
+        tls:
+          mode: SIMPLE
+          insecureSkipVerify: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryjuorg-vs-gitlab
+  namespace: istio-system
+spec:
+  gateways:
+    - gitlab
+  hosts:
+    - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+  http:
+    - route:
+        - destination:
+            host: gitlab.gitlab.svc.cluster.local
+            port:
+              number: 8443
+          weight: 100

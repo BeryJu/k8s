@@ -14,7 +14,7 @@ spec:
         name: gitlab
         namespace: flux-system
   values:
-    gitlabUrl: https://code.beryju.org
+    gitlabUrl: http://gitlab.gitlab
     logFormat: json
     rbac:
       create: true
