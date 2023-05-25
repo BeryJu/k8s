@@ -19,7 +19,11 @@ spec:
   - kind: Secret
     name: authentik-secrets
   values:
-    replicas: 2
+    fullnameOverride: authentik
+    autoscaling:
+      server:
+        enabled: true
+        minReplicas: 2
     ingress:
       enabled: true
       ingressClassName: istio
@@ -34,7 +38,6 @@ spec:
     postgresql:
       global:
         imageRegistry: proxy.registry.beryju.org
-      postgresqlMaxConnections: 500
       enabled: true
       image:
         tag: 15.2.0-debian-11-r26
@@ -46,7 +49,6 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.org
       enabled: true
-      architecture: standalone
       metrics:
         enabled: true
         serviceMonitor:
@@ -54,7 +56,6 @@ spec:
     prometheus:
       serviceMonitor:
         create: true
-    fullnameOverride: authentik
     image:
       repository: ghcr.io/goauthentik/dev-server
       tag: gh-next-1685016148-c869f3a # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
@@ -74,4 +75,4 @@ spec:
         environment: beryjuio-prod
         send_pii: true
         sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.org/3
-        sample_rate: 1
+        sample_rate: 0.5
