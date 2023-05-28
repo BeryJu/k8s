@@ -25,3 +25,5 @@ spec:
   volumeMounts:
     - mountPath: /etc/alertmanager/secrets
       name: secrets
+  alertmanagerConfiguration:
+    name: beryjuio-alertmanager
