@@ -5,5 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  type: "oci"
-  url: oci://ghcr.io/beryju/helm-charts
+  url: https://charts.goauthentik.io
