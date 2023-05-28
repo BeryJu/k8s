@@ -35,6 +35,12 @@ spec:
       tls:
       - hosts: [id.beryju.org]
         secretName: beryjuorg-authentik
+    resourcse:
+      server:
+        requests:
+          cpu: 200m
+        limits:
+          cpu: "2"
     postgresql:
       global:
         imageRegistry: proxy.registry.beryju.org
