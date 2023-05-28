@@ -4,8 +4,6 @@ metadata:
   name: beryjuio-alertmanager
   namespace: monitoring-system
 spec:
-  global:
-    resolve_timeout: 5m
   inhibitRules:
     - equal:
         - alertname
