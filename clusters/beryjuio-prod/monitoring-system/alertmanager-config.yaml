@@ -4,21 +4,13 @@ metadata:
   name: beryjuio-alertmanager
   namespace: monitoring-system
 spec:
-  inhibitRules:
-    - equal:
-        - alertname
-        - namespace
-      source_match:
-        severity: critical
-      target_match:
-        severity: warning
   receivers:
     - name: "null"
     - name: discord
-      slack_configs:
+      slackConfigs:
         - channel: "#prometheus"
-          icon_url: https://images.s3.beryju.org/prometheus.png
-          send_resolved: true
+          iconURL: https://images.s3.beryju.org/prometheus.png
+          sendResolved: true
           text: |-
             {{ range .Alerts -}}
 
@@ -34,13 +26,13 @@ spec:
             }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
           username: Prometheus
   route:
-    group_by:
+    groupBy:
       - alertname
       - job
-    group_interval: 5m
-    group_wait: 30s
+    groupInterval: 5m
+    groupWait: 30s
     receiver: discord
-    repeat_interval: 6h
+    repeatInterval: 6h
     routes:
       - match:
           alertname: Watchdog
