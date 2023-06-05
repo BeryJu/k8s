@@ -55,7 +55,7 @@ spec:
       custom_dashboards:
         discovery_enabled: "false"
       prometheus:
-        url: "http://prometheus-operated.monitoring-system:9090/"
+        url: "http://mimir.mimir.svc.cluster.local/prometheus"
       grafana:
         enabled: false
     server:
