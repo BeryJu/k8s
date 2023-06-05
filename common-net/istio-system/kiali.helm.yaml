@@ -27,6 +27,8 @@ spec:
         issuer_uri: "https://id.beryju.org/application/o/kiali/"
         username_claim: "preferred_username"
     deployment:
+      pod_labels:
+        sidecar.istio.io/inject: "true"
       accessible_namespaces:
         - "**"
       logger:
