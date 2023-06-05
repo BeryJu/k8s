@@ -29,8 +29,9 @@ spec:
     deployment:
       pod_labels:
         sidecar.istio.io/inject: "true"
+      pod_annotations:
         proxy.istio.io/config: |
-          holdApplicationUntilProxyStarts: "true"
+          holdApplicationUntilProxyStarts: true
       accessible_namespaces:
         - "**"
       logger:
