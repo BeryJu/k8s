@@ -237,8 +237,8 @@ groups:
           description: "Kubernetes API server is experiencing high error rate\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: KubernetesApiClientErrors
-        expr: (sum(rate(rest_client_requests_total{code=~"(4|5).."}[1m])) by (instance, job) / sum(rate(rest_client_requests_total[1m])) by (instance, job)) * 100 > 1
-        for: 2m
+        expr: (sum(rate(rest_client_requests_total{code=~"(4|5).."}[1m])) by (instance, job, cluster) / sum(rate(rest_client_requests_total[1m])) by (instance, job, cluster)) * 100 > 1
+        for: 15m
         labels:
           severity: critical
         annotations:
