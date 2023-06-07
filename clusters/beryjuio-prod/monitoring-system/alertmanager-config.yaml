@@ -28,7 +28,7 @@ spec:
   route:
     groupBy:
       - alertname
-      - job
+      - cluster
     groupInterval: 5m
     groupWait: 30s
     receiver: discord
