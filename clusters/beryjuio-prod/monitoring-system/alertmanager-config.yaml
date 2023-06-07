@@ -34,10 +34,12 @@ spec:
     receiver: discord
     repeatInterval: 6h
     routes:
-      - match:
-          alertname: Watchdog
-        receiver: "null"
-      - continue: true
-        match_re:
-          severity: critical
+      - matchers:
+          - name: alertname
+            value: Watchdog
+        receiver: null
+      - matchers:
+          - name: severity
+            matchType: "=~"
+            value: critical
         receiver: discord
