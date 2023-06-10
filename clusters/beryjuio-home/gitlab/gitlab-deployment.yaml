@@ -17,7 +17,7 @@ spec:
         app.kubernetes.io/instance: main
     spec:
       containers:
-        - image: proxy.registry.beryju.org/gitlab/gitlab-ce:16.0.2-ce.0
+        - image: proxy.registry.beryju.org/gitlab/gitlab-ce:16.0.4-ce.0
           envFrom:
             - secretRef:
                 name: gitlab-config
