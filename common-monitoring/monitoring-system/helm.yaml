@@ -16,7 +16,8 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  disableWait: false
+  upgrade:
+    disableWait: false
   values:
     fullnameOverride: "prometheus"
     kubeControllerManager:
