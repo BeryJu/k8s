@@ -60,7 +60,7 @@ groups:
           description: "More than 1% HTTP failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdHighNumberOfFailedHttpRequests
         expr: sum(rate(etcd_http_failed_total[1m])) BY (method) / sum(rate(etcd_http_received_total[1m])) BY (method) > 0.05
-        for: 2m
+        for: 5m
         labels:
           severity: critical
         annotations:
@@ -68,7 +68,7 @@ groups:
           description: "More than 5% HTTP failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdHttpRequestsSlow
         expr: histogram_quantile(0.99, rate(etcd_http_successful_duration_seconds_bucket[1m])) > 0.15
-        for: 2m
+        for: 5m
         labels:
           severity: warning
         annotations:
@@ -76,23 +76,23 @@ groups:
           description: "HTTP requests slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdMemberCommunicationSlow
         expr: histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket[1m])) > 0.15
-        for: 2m
+        for: 5m
         labels:
           severity: warning
         annotations:
           summary: Etcd member communication slow (instance {{ $labels.instance }})
           description: "Etcd member communication slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-      # - alert: EtcdHighNumberOfFailedProposals
-      #   expr: increase(etcd_server_proposals_failed_total[1h]) > 5
-      #   for: 2m
-      #   labels:
-      #     severity: warning
-      #   annotations:
-      #     summary: Etcd high number of failed proposals (instance {{ $labels.instance }})
-      #     description: "Etcd server got more than 5 failed proposals past hour\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: EtcdHighNumberOfFailedProposals
+        expr: increase(etcd_server_proposals_failed_total[1h]) > 5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Etcd high number of failed proposals (instance {{ $labels.instance }})
+          description: "Etcd server got more than 5 failed proposals past hour\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdHighFsyncDurations
         expr: histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[1m])) > 0.5
-        for: 2m
+        for: 5m
         labels:
           severity: warning
         annotations:
@@ -100,7 +100,7 @@ groups:
           description: "Etcd WAL fsync duration increasing, 99th percentile is over 0.5s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
       - alert: EtcdHighCommitDurations
         expr: histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket[1m])) > 0.25
-        for: 2m
+        for: 5m
         labels:
           severity: warning
         annotations:
