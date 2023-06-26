@@ -34,6 +34,11 @@ spec:
         zipkin:
           address: localhost:9411
     meshConfig:
+      serviceSettings:
+        - settings:
+            clusterLocal: true
+          hosts:
+          - "kiali.istio-system.svc.cluster.local"
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
       enableTracing: true
