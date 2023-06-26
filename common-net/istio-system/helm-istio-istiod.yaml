@@ -38,7 +38,7 @@ spec:
         - settings:
             clusterLocal: true
           hosts:
-          - "kiali.istio-system.svc.cluster.local"
+            - "kiali.istio-system.svc.cluster.local"
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
       enableTracing: true
