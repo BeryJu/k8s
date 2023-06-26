@@ -62,7 +62,23 @@ spec:
       prometheus:
         url: "http://mimir.mimir.svc.cluster.local/prometheus"
       grafana:
-        enabled: false
+        enabled: true
+        in_cluster_url: 'http://grafana.grafana/'
+        # Public facing URL of Grafana
+        url: 'https://grafana.infra.beryju.org'
+        dashboards:
+        - name: "Istio Service Dashboard"
+          variables:
+            namespace: "var-namespace"
+            service: "var-service"
+        - name: "Istio Workload Dashboard"
+          variables:
+            namespace: "var-namespace"
+            workload: "var-workload"
+        - name: "Istio Mesh Dashboard"
+        - name: "Istio Control Plane Dashboard"
+        - name: "Istio Performance Dashboard"
+        - name: "Istio Wasm Extension Dashboard"
     server:
       web_fqdn: kiali.${CLUSTER_NAME}.k8s.beryju.org
       web_port: 443
