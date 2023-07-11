@@ -73,7 +73,10 @@ spec:
 
             aws:
               bucketnames: loki
-              endpoint: s3.beryju.org
+              endpoint: minio-prd.minio.svc.cluster.local
+              # Required since we're using an in-cluster dns entry
+              s3forcepathstyle: true
+              insecure: true
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
 
@@ -84,7 +87,10 @@ spec:
               type: s3
               s3:
                 bucketnames: loki-ruler
-                endpoint: s3.beryju.org
+                # Required since we're using an in-cluster dns entry
+                s3forcepathstyle: true
+                insecure: true
+                endpoint: minio-prd.minio.svc.cluster.local
                 access_key_id: "{{ .access_key }}"
                 secret_access_key: "{{ .secret_key }}"
 
