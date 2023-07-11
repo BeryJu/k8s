@@ -20,8 +20,6 @@ spec:
     resources:
       requests:
         cpu: 200m
-    labels:
-      app.kubernetes.io/name: istio
     autoscaling:
       minReplicas: 2
     topologySpreadConstraints:
