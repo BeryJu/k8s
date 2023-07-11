@@ -26,3 +26,5 @@ spec:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
         whenUnsatisfiable: ScheduleAnyway
+    labels:
+      app.kubernetes.io/name: istio
