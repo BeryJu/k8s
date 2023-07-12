@@ -66,6 +66,8 @@ spec:
       prometheus:
         url: "http://mimir.mimir.svc.cluster.local/prometheus"
       grafana:
+        auth:
+          type: bearer
         enabled: true
         url: "https://grafana.infra.beryju.org"
         in_cluster_url: "http://grafana.grafana/"
