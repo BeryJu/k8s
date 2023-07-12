@@ -55,4 +55,4 @@ spec:
         - destination:
             port:
               number: 5055
-            host: overseerr.overseerr.svc.cluster.local
+            host: overseerr.dl-stack.svc.cluster.local
