@@ -56,3 +56,4 @@ spec:
             port:
               number: 5055
             host: overseerr.dl-stack.svc.cluster.local
+          weight: 100
