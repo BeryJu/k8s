@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: beryjuorg-kiali-grafana-token
+  namespace: istio-system
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        values.yaml: |
+          external_services:
+            grafana:
+              auth:
+                token: "{{ .kiali_token }}"
+  dataFrom:
+    - extract:
+        key: kv/services/grafana
