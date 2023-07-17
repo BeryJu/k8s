@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kiali-server
-      version: 1.70.0
+      version: 1.71.0
       sourceRef:
         kind: HelmRepository
         name: kiali
@@ -30,7 +30,6 @@ spec:
         issuer_uri: "https://id.beryju.org/application/o/kiali/"
         username_claim: "preferred_username"
     deployment:
-      image_version: latest
       pod_labels:
         sidecar.istio.io/inject: "true"
       pod_annotations:
