@@ -23,13 +23,10 @@ spec:
           blocks_storage:
             backend: s3
             s3:
+              endpoint: s3.beryju.org
               bucket_name: mimir
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
-              endpoint: minio-prd.minio.svc.cluster.local:9000
-              # Required since we're using an in-cluster dns entry
-              s3forcepathstyle: true
-              insecure: true
             tsdb:
               dir: /data/tsdb
               flush_blocks_on_shutdown: true
@@ -66,10 +63,6 @@ spec:
               bucket_name: mimir-ruler
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
-              # Required since we're using an in-cluster dns entry
-              s3forcepathstyle: true
-              insecure: true
-              endpoint: minio-prd.minio.svc.cluster.local:9000
 
           server:
             log_level: info
