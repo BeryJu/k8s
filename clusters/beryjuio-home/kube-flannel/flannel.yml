@@ -130,7 +130,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
         - name: install-cni-plugin
-          image: proxy.registry.beryju.org/flannel/flannel-cni-plugin:v1.1.2
+          image: proxy.registry.beryju.org/flannel/flannel-cni-plugin:v1.2.0
           #image: proxy.registry.beryju.org/rancher/mirrored-flannelcni-flannel-cni-plugin:v1.1.2
           command:
             - cp
