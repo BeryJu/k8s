@@ -64,7 +64,7 @@ spec:
         create: true
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1691278385-c5222bf # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+      tag: gh-next-1691445152-23ce63f # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     authentik:
       postgresql:
         name: "authentik"
