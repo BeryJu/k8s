@@ -16,7 +16,7 @@ spec:
   values:
     sidecarContainers:
       - name: exporter
-        image: ghcr.io/dirien/minecraft-exporter:0.18.0
+        image: ghcr.io/dirien/minecraft-exporter:0.19.0
         env:
           - name: MC_RCON_ADDRESS
             value: localhost:25575
