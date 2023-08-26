@@ -67,7 +67,7 @@ spec:
         deleteDatasources: []
     envFromSecret: grafana-secrets
     grafana.ini:
-      log:
+      log.console:
         format: json
       server:
         root_url: "https://grafana.infra.beryju.org/"
@@ -83,4 +83,4 @@ spec:
         auth_url: "https://id.beryju.org/application/o/authorize/"
         token_url: "https://id.beryju.org/application/o/token/"
         api_url: "https://id.beryju.org/application/o/userinfo/"
-        role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
+        role_attribute_path: contains(groups[*], 'acl_grafana_admin') && 'Admin' || 'Viewer'
