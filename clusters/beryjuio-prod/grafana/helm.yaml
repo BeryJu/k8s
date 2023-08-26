@@ -36,18 +36,51 @@ spec:
       enabled: true
     deploymentStrategy:
       type: Recreate
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://mimir.mimir.svc.cluster.local/prometheus
+            access: proxy
+            editable: false
+            isDefault: true
+            withCredentials: true
+            jsonData:
+              manageAlerts: true
+              prometheusType: Mimir
+          - name: Loki
+            type: loki
+            url: http://loki.loki.svc.cluster.local
+            access: proxy
+            editable: false
+            withCredentials: true
+            jsonData:
+              manageAlerts: true
+          - name: Alert Manager
+            type: alertmanager
+            url: http://alertmanager-operated.monitoring-system:9093
+            access: proxy
+            editable: false
+            withCredentials: true
+        deleteDatasources: []
     envFromSecret: grafana-secrets
-    env:
-      GF_SERVER_DOMAIN: "grafana.infra.beryju.org"
-      GF_SERVER_ROOT_URL: "https://grafana.infra.beryju.org/"
-      GF_PLUGINS_ENABLE_ALPHA: "true"
-      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
-      GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
-      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://id.beryju.org/application/o/authorize/"
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://id.beryju.org/application/o/token/"
-      GF_AUTH_GENERIC_OAUTH_API_URL: "https://id.beryju.org/application/o/userinfo/"
-      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://id.beryju.org/application/o/grafana/end-session/"
-      # GF_AUTH_OAUTH_AUTO_LOGIN: "true"
-      GF_LOG_CONSOLE_FORMAT: "json"
-      GF_FEATURE_TOGGLES_ENABLE: flameGraph
+    grafana.ini:
+      log:
+        format: json
+      server:
+        root_url: "https://grafana.infra.beryju.org/"
+      plugins:
+        enable_alpha: true
+      auth:
+        disable_login_form: true
+        signout_redirect_url: "https://id.beryju.org/application/o/grafana/end-session/"
+      auth.generic_oauth:
+        enabled: true
+        name: authentik
+        scopes: "openid profile email"
+        auth_url: "https://id.beryju.org/application/o/authorize/"
+        token_url: "https://id.beryju.org/application/o/token/"
+        api_url: "https://id.beryju.org/application/o/userinfo/"
+        role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
