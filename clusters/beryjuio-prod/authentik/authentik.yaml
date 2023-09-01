@@ -62,7 +62,7 @@ spec:
         create: true
     image:
       repository: ghcr.io/goauthentik/dev-server
-      tag: gh-root-connect-backend-socket-1693600870-1f8cb1f-arm64
+      tag: gh-root-connect-backend-socket-1693600870-1f8cb1f
       tag_: gh-next-1693593880-c04e83c # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     authentik:
       postgresql:
