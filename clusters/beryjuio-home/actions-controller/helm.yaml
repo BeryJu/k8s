@@ -20,7 +20,8 @@ spec:
       proxy.istio.io/config: |
         holdApplicationUntilProxyStarts: true
     metrics:
-      serviceMonitor: true
+      serviceMonitor:
+        enable: true
     image:
       repository: "proxy.registry.beryju.org/summerwind/actions-runner-controller"
       actionsRunnerRepositoryAndTag: "proxy.registry.beryju.org/summerwind/actions-runner:latest"
