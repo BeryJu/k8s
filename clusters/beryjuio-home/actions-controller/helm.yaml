@@ -25,4 +25,4 @@ spec:
     image:
       repository: "ghcr.io/actions-runner-controller/actions-runner-controller"
       actionsRunnerRepositoryAndTag: "ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner:ubuntu-22.04"
-      dindSidecarRepositoryAndTag: "ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:ubuntu-22.04"
+      dindSidecarRepositoryAndTag: "proxy.registry.beryju.org/library/docker:dind"
