@@ -23,6 +23,6 @@ spec:
       serviceMonitor:
         enable: true
     image:
-      repository: "proxy.registry.beryju.org/summerwind/actions-runner-controller"
-      actionsRunnerRepositoryAndTag: "proxy.registry.beryju.org/summerwind/actions-runner:latest"
-      dindSidecarRepositoryAndTag: "proxy.registry.beryju.org/library/docker:dind"
+      repository: "ghcr.io/actions-runner-controller/actions-runner-controller"
+      actionsRunnerRepositoryAndTag: "ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner:ubuntu-22.04"
+      dindSidecarRepositoryAndTag: "ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:ubuntu-22.04"

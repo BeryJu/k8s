@@ -7,6 +7,7 @@ spec:
   template:
     spec:
       repository: BeryJu/infrastructure
+      image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner:ubuntu-22.04
       containers:
         - name: docker
           env:
