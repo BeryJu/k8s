@@ -73,6 +73,8 @@ spec:
         root_url: "https://grafana.infra.beryju.org/"
       plugins:
         enable_alpha: true
+      feature_toggles:
+        enable: nestedFolders
       auth:
         disable_login_form: true
         signout_redirect_url: "https://id.beryju.org/application/o/grafana/end-session/"
