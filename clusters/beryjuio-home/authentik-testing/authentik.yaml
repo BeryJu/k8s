@@ -59,9 +59,9 @@ spec:
     prometheus:
       serviceMonitor:
         create: true
-    # image:
-    #   repository:
-    #   tag: gh-next-1697117314-b503379 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+    image:
+      repository: docker.io/beryju/authentik-guac-server
+      tag: v1
     authentik:
       postgresql:
         name: "authentik"
