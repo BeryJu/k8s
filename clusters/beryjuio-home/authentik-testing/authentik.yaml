@@ -61,7 +61,7 @@ spec:
         create: true
     image:
       repository: docker.io/beryju/authentik-guac-server
-      tag: v1
+      tag: v2
     authentik:
       postgresql:
         name: "authentik"
