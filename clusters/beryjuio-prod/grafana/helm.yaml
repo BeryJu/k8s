@@ -15,8 +15,9 @@ spec:
         name: grafana
         namespace: flux-system
   values:
-    image:
-      repository: proxy.registry.beryju.org/grafana/grafana
+    global:
+      image:
+        registry: proxy.registry.beryju.org
     resources:
       limits:
         memory: 750Mi
