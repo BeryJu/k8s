@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: gitlab
         namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: beryjuio-gitlab-runner
   values:
     # Depends on the ingress and service working fully
     gitlabUrl: https://gitlab.${CLUSTER_NAME}.k8s.beryju.org
