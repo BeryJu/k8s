@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: terraform-agent
-          image: docker.io/hashicorp/tfc-agent:1.13
+          image: docker.io/hashicorp/tfc-agent:1.14
           resources: {}
           env:
             - name: TFC_AGENT_NAME
