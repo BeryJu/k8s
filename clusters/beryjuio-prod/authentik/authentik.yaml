@@ -62,8 +62,7 @@ spec:
         create: true
     image:
       repository: ghcr.io/goauthentik/dev-server
-      # tag: gh-next-1700271326-6e5eb67 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
-      tag: gh-dependabot-docker-python-3.12.0-bookworm
+      tag: gh-next-1700271326-6e5eb67 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     authentik:
       postgresql:
         name: "authentik"
