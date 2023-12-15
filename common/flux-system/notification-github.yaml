@@ -14,7 +14,7 @@ spec:
         key: kv/k8s-flux
         property: github_pat
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
   name: github
