@@ -80,3 +80,7 @@ spec:
         send_pii: true
         sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.org/3
         sample_rate: 0.5
+      events:
+        context_processors:
+          geoip: /geoip/GeoLite2-City.mmdb
+          asn: /geoip/GeoLite2-ASN.mmdb
