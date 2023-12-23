@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuorg-fleetdm
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuorg-fleetdm
+  commonName: fleet.beryjuio-home.k8s.beryju.org
+  dnsNames:
+    - fleet.beryjuio-home.k8s.beryju.org
