@@ -18,6 +18,8 @@ spec:
     - name: istio-base
   values:
     pilot:
+      env:
+        ENABLE_EXTERNAL_NAME_ALIAS: "true"
       resources:
         requests:
           cpu: 100m
