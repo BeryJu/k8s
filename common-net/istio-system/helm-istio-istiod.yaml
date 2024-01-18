@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: istiod
-      version: 1.18.2
+      version: 1.20.2
       sourceRef:
         kind: HelmRepository
         name: istio
@@ -22,7 +22,7 @@ spec:
         requests:
           cpu: 100m
           memory: 2048Mi
-      image: ghcr.io/beryju/pilot:1.18.1
+      image: ghcr.io/beryju/pilot:1.20.2
     global:
       hub: proxy.registry.beryju.org/istio
       logAsJson: true
