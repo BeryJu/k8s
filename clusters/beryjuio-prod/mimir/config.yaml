@@ -17,8 +17,10 @@ spec:
           memberlist:
             abort_if_cluster_join_fails: false
             compression_enabled: false
+            message_history_buffer_bytes: 1024
+            cluster_label: beryjuio-mimir-prod
             join_members:
-            - dns+mimir-headless.mimir.svc.cluster.local:7946
+              - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
 
           blocks_storage:
             backend: s3
@@ -49,6 +51,9 @@ spec:
               replication_factor: 1
 
           ruler:
+            ring:
+              kvstore:
+                store: memberlist
             rule_path: /data/ruler
             alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
 

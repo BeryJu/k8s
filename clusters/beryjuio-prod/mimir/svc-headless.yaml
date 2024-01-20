@@ -11,6 +11,7 @@ spec:
       name: gossip
       protocol: TCP
       targetPort: gossip
+  publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: mimir
   type: ClusterIP
