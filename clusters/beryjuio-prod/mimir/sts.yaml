@@ -38,10 +38,10 @@ spec:
               name: gossip
           resources:
             limits:
-              memory: "5Gi"
+              memory: "3Gi"
             requests:
-              cpu: "2"
-              memory: "4Gi"
+              cpu: "1"
+              memory: "2Gi"
           readinessProbe:
             httpGet:
               path: /ready
