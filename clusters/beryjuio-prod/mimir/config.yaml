@@ -20,7 +20,8 @@ spec:
             abort_if_cluster_join_fails: false
             message_history_buffer_bytes: 1024
             cluster_label: beryjuio-mimir-prod
-            gossip_nodes: 500ms
+            gossip_nodes: 2
+            gossip_interval: 500ms
             retransmit_factor: 8
             gossip_interval:
             join_members:
