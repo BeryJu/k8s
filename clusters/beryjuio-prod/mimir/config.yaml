@@ -15,17 +15,22 @@ spec:
           target: all
 
           memberlist:
+            randomize_node_name: false
+            dead_node_reclaim_time: 5s
             abort_if_cluster_join_fails: false
-            compression_enabled: false
             message_history_buffer_bytes: 1024
             cluster_label: beryjuio-mimir-prod
+            gossip_nodes: 500ms
+            retransmit_factor: 8
+            gossip_interval:
             join_members:
               - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
 
           blocks_storage:
             backend: s3
             s3:
-              endpoint: s3.beryju.org
+              endpoint: minio-prd.minio.svc.cluster.local:9000
+              insecure: true
               bucket_name: mimir
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
@@ -64,7 +69,8 @@ spec:
           ruler_storage:
             backend: s3
             s3:
-              endpoint: s3.beryju.org
+              endpoint: minio-prd.minio.svc.cluster.local:9000
+              insecure: true
               bucket_name: mimir-ruler
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
@@ -79,7 +85,7 @@ spec:
             max_global_series_per_metric: 200000
             ingestion_rate: 25000
             ruler_max_rules_per_rule_group: 500
-            compactor_blocks_retention_period: 30d
+            compactor_blocks_retention_period: 1y
             out_of_order_time_window: 1h
   dataFrom:
     - extract:
