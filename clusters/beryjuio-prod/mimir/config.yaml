@@ -15,17 +15,16 @@ spec:
           target: all
 
           memberlist:
-            randomize_node_name: false
-            dead_node_reclaim_time: 5s
             abort_if_cluster_join_fails: false
             message_history_buffer_bytes: 1024
             cluster_label: beryjuio-mimir-prod
-            gossip_nodes: 2
+            # gossip_nodes: 2
             gossip_interval: 500ms
             retransmit_factor: 8
             advertise_addr: "$${POD_IP}"
             join_members:
-              - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
+              # - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
+              - mimir-headless
 
           blocks_storage:
             backend: s3
