@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempo
+  namespace: tempo
+  labels:
+    app.kubernetes.io/name: tempo
+spec:
+  ports:
+    - port: 80
+      name: http
+      protocol: TCP
+      targetPort: http
+    - port: 9411
+      name: zipkin
+      protocol: TCP
+      targetPort: zipkin
+  selector:
+    app.kubernetes.io/name: tempo
+  type: ClusterIP

@@ -1,0 +1,40 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: beryjuio-tempo
+  namespace: tempo
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        config.yaml: |
+          target: all
+
+          storage:
+            trace:
+              backend: s3
+              s3:
+                endpoint: minio-prd.minio.svc.cluster.local:9000
+                insecure: true
+                bucket: mimir
+                forcepathstyle: true
+                access_key: "{{ .access_key }}"
+                secret_key: "{{ .secret_key }}"
+              wal:
+                path: /data/tsdb
+          server:
+            log_level: info
+            log_format: json
+            http_listen_port: 3200
+          distributor:
+            receivers:
+              zipkin:
+          compactor:
+            compaction:
+              block_retention: 96h
+  dataFrom:
+    - extract:
+        key: kv/services/thanos
