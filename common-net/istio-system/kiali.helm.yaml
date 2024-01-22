@@ -64,6 +64,8 @@ spec:
         discovery_enabled: "false"
       prometheus:
         url: "http://mimir.mimir.svc.cluster.local/prometheus"
+      tracing:
+        in_cluster_url: "http://tempo.tempo.svc.cluster.local:9095"
       grafana:
         auth:
           type: bearer

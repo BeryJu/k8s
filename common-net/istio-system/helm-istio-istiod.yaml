@@ -32,7 +32,7 @@ spec:
       network: ${CLUSTER_NETWORK}
       tracer:
         zipkin:
-          address: localhost:9411
+          address: tempo.tempo.svc.cluster.local:9411
     meshConfig:
       serviceSettings:
         - settings:
@@ -41,8 +41,11 @@ spec:
             - "kiali.istio-system.svc.cluster.local"
       accessLogFile: "/dev/stdout"
       accessLogEncoding: "JSON"
-      enableTracing: false
+      enableTracing: true
       defaultConfig:
+        tracing:
+          zipkin:
+            address: tempo.tempo.svc.cluster.local:9411
         proxyMetadata:
           ISTIO_META_DNS_CAPTURE: "true"
           ISTIO_META_DNS_AUTO_ALLOCATE: "true"
