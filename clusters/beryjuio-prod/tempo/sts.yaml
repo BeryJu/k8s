@@ -23,6 +23,8 @@ spec:
           ports:
             - containerPort: 3200
               name: http
+            - containerPort: 9095
+              name: grpc
             - containerPort: 9411
               name: zipkin
           resources: {}

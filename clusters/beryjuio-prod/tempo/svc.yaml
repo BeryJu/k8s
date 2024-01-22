@@ -11,6 +11,10 @@ spec:
       name: http
       protocol: TCP
       targetPort: http
+    - port: 9095
+      name: grpc
+      protocol: TCP
+      targetPort: grpc
     - port: 9411
       name: zipkin
       protocol: TCP
