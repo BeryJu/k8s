@@ -37,6 +37,8 @@ spec:
           ports:
             - containerPort: 8080
               name: http
+            - containerPort: 9095
+              name: grpc
             - containerPort: 7946
               name: gossip
           env:
