@@ -33,6 +33,11 @@ spec:
             receivers:
               zipkin:
               jaeger:
+                protocols:
+                    thrift_http:
+                    grpc:
+                    thrift_binary:
+                    thrift_compact:
           compactor:
             compaction:
               block_retention: 96h
