@@ -23,6 +23,7 @@ spec:
             gossip_nodes: 2
             gossip_interval: 500ms
             retransmit_factor: 8
+            advertise_addr: ${POD_IP}
             join_members:
               - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
 

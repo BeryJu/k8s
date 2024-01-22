@@ -39,6 +39,12 @@ spec:
               name: http
             - containerPort: 7946
               name: gossip
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
           resources:
             limits:
               memory: "3Gi"
