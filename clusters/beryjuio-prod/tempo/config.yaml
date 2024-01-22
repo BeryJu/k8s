@@ -32,7 +32,6 @@ spec:
           distributor:
             receivers:
               zipkin:
-              jaeger:
           compactor:
             compaction:
               block_retention: 96h
