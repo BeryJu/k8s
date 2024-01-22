@@ -51,4 +51,3 @@ spec:
       memory: 1Gi
   serviceAccountName: beryjuio-prometheus-agent
   shards: 1
-  version: v2.44.0
