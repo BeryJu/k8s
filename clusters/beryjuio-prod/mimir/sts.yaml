@@ -32,7 +32,8 @@ spec:
       containers:
         - name: mimir
           args:
-            - --config.file=/etc/mimir/config.yaml
+            - -config.expand-env=true
+            - -config.file=/etc/mimir/config.yaml
           image: proxy.registry.beryju.org/grafana/mimir:2.11.0
           ports:
             - containerPort: 8080
