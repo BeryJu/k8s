@@ -25,7 +25,7 @@ spec:
         - name: loki
           args:
             - --config.file=/etc/loki/config.yaml
-          image: proxy.registry.beryju.org/grafana/loki:2.9.3
+          image: proxy.registry.beryju.org/grafana/loki:2.9.4
           ports:
             - containerPort: 3100
               name: http
