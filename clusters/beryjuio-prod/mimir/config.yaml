@@ -80,13 +80,14 @@ spec:
             log_format: json
 
           limits:
-            max_label_names_per_series: 100
-            max_global_series_per_user: 1500000
-            max_global_series_per_metric: 200000
-            ingestion_rate: 25000
-            ruler_max_rules_per_rule_group: 500
-            compactor_blocks_retention_period: 1y
-            out_of_order_time_window: 1h
+            max_label_names_per_series: 100           # default 30
+            max_global_series_per_user: 1_500_000     # default 150_000
+            max_global_series_per_metric: 200_000     # default 0
+            ingestion_rate: 30_000                    # default 10_000
+            ingestion_burst_size: 400_000             # default 200_000
+            ruler_max_rules_per_rule_group: 500       # default 20
+            compactor_blocks_retention_period: 1y     # default 0s
+            out_of_order_time_window: 1h              # default 0s
   dataFrom:
     - extract:
         key: kv/services/thanos
