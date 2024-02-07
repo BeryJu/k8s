@@ -23,8 +23,7 @@ spec:
             retransmit_factor: 8
             advertise_addr: "$${POD_IP}"
             join_members:
-              # - dnssrv+mimir-headless.mimir.svc.cluster.local:7946
-              - mimir-headless
+              - dns+mimir-headless.mimir.svc.cluster.local.:7946
 
           blocks_storage:
             backend: s3
@@ -54,6 +53,15 @@ spec:
               kvstore:
                 store: memberlist
               # replication_factor: 1
+              final_sleep: 0s
+              num_tokens: 512
+              tokens_file_path: /data/tokens
+              unregister_on_shutdown: false
+              zone_awareness_enabled: true
+          ingester_client:
+            grpc_client_config:
+              max_recv_msg_size: 104857600
+              max_send_msg_size: 104857600
 
           ruler:
             ring:
