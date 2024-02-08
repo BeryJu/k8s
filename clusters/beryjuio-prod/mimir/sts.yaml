@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: mimir
   serviceName: "mimir"
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -50,10 +50,10 @@ spec:
                   fieldPath: status.podIP
           resources:
             limits:
-              memory: "3Gi"
+              memory: "5Gi"
             requests:
-              cpu: "1"
-              memory: "2Gi"
+              cpu: "2"
+              memory: "4Gi"
           readinessProbe:
             httpGet:
               path: /ready
