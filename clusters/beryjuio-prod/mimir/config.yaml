@@ -13,6 +13,9 @@ spec:
         config.yaml: |
           multitenancy_enabled: false
           target: all
+          server:
+            log_level: info
+            log_format: json
 
           memberlist:
             abort_if_cluster_join_fails: false
@@ -52,7 +55,7 @@ spec:
             ring:
               kvstore:
                 store: memberlist
-              # replication_factor: 1
+              replication_factor: 1
               final_sleep: 0s
               num_tokens: 512
               tokens_file_path: /data/tokens
@@ -70,9 +73,9 @@ spec:
             rule_path: /data/ruler
             alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
 
-          # store_gateway:
-          #   sharding_ring:
-          #     replication_factor: 1
+          store_gateway:
+            sharding_ring:
+              replication_factor: 1
 
           ruler_storage:
             backend: s3
@@ -82,10 +85,6 @@ spec:
               bucket_name: mimir-ruler
               access_key_id: "{{ .access_key }}"
               secret_access_key: "{{ .secret_key }}"
-
-          server:
-            log_level: info
-            log_format: json
 
           limits:
             max_label_names_per_series: 100           # default 30
