@@ -69,3 +69,5 @@ spec:
         json: true
       tls:
         enabled: false
+    environments:
+      FLEET_UPGRADES_ALLOW_MISSING_MIGRATIONS: 1
