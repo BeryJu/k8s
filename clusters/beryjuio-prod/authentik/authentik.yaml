@@ -20,49 +20,30 @@ spec:
     name: authentik-secrets
   values:
     fullnameOverride: authentik
-    autoscaling:
-      server:
+    global:
+      image:
+        repository: ghcr.io/goauthentik/dev-server
+        tag: gh-next-1708622181-c80e3da # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+    server:
+      autoscaling:
         enabled: true
         minReplicas: 2
-    ingress:
-      enabled: true
-      ingressClassName: istio
-      hosts:
-      - host: id.beryju.org
-        paths:
-        - path: "/"
-          pathType: Prefix
-      tls:
-      - hosts: [id.beryju.org]
-        secretName: beryjuorg-authentik
-    resources:
-      server:
+      resources:
         requests:
           cpu: 200m
         limits:
           cpu: "2"
-    postgresql:
-      global:
-        imageRegistry: proxy.registry.beryju.org
-      enabled: true
       metrics:
-        enabled: true
         serviceMonitor:
           enabled: true
-    redis:
-      global:
-        imageRegistry: proxy.registry.beryju.org
-      enabled: true
-      metrics:
+      ingress:
         enabled: true
-        serviceMonitor:
-          enabled: true
-    prometheus:
-      serviceMonitor:
-        create: true
-    image:
-      repository: ghcr.io/goauthentik/dev-server
-      tag: gh-next-1708622181-c80e3da # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+        ingressClassName: istio
+        hosts:
+          - id.beryju.org
+        tls:
+        - hosts: [id.beryju.org]
+          secretName: beryjuorg-authentik
     authentik:
       postgresql:
         name: "authentik"
@@ -84,3 +65,19 @@ spec:
         context_processors:
           geoip: /geoip/GeoLite2-City.mmdb
           asn: /geoip/GeoLite2-ASN.mmdb
+    postgresql:
+      global:
+        imageRegistry: proxy.registry.beryju.org
+      enabled: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    redis:
+      global:
+        imageRegistry: proxy.registry.beryju.org
+      enabled: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
