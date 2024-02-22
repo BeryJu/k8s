@@ -37,8 +37,8 @@ spec:
         hosts:
           - "authentik.${CLUSTER_NAME}.k8s.beryju.org"
         tls:
-        - hosts: ["authentik.${CLUSTER_NAME}.k8s.beryju.org"]
-          secretName: beryjuorg-authentik
+          - hosts: ["authentik.${CLUSTER_NAME}.k8s.beryju.org"]
+            secretName: beryjuorg-authentik
     authentik:
       postgresql:
         name: "authentik"
