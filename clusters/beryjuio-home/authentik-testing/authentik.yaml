@@ -19,27 +19,36 @@ spec:
       name: authentik-secrets
   values:
     fullnameOverride: authentik
-    autoscaling:
-      server:
+    server:
+      autoscaling:
         enabled: true
         minReplicas: 1
-    ingress:
-      enabled: true
-      ingressClassName: istio
-      hosts:
-        - host: "authentik.${CLUSTER_NAME}.k8s.beryju.org"
-          paths:
-            - path: "/"
-              pathType: Prefix
-      tls:
-        - hosts: ["authentik.${CLUSTER_NAME}.k8s.beryju.org"]
-          secretName: beryjuorg-authentik
-    resources:
-      server:
+      resources:
         requests:
           cpu: 200m
         limits:
           cpu: "2"
+      metrics:
+        serviceMonitor:
+          enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        hosts:
+          - "authentik.${CLUSTER_NAME}.k8s.beryju.org"
+        tls:
+        - hosts: ["authentik.${CLUSTER_NAME}.k8s.beryju.org"]
+          secretName: beryjuorg-authentik
+    authentik:
+      postgresql:
+        name: "authentik"
+        user: "authentik"
+      error_reporting:
+        enabled: true
+        environment: beryjuio-test
+        send_pii: true
+        sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.org/3
+        sample_rate: 0.5
     postgresql:
       global:
         imageRegistry: proxy.registry.beryju.org
@@ -56,21 +65,3 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-    prometheus:
-      serviceMonitor:
-        create: true
-    image:
-      repository: docker.io/beryju/authentik-guac-server
-      tag: v3
-    authentik:
-      postgresql:
-        name: "authentik"
-        user: "authentik"
-      outposts:
-        container_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
-      error_reporting:
-        enabled: true
-        environment: beryjuio-test
-        send_pii: true
-        sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.org/3
-        sample_rate: 0.5
