@@ -23,7 +23,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/dev-server
-        tag: gh-next-1708622181-c80e3da # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+        tag: gh-next-1708713905-5991b82 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     server:
       autoscaling:
         enabled: true
@@ -40,7 +40,7 @@ spec:
         enabled: true
         ingressClassName: istio
         hosts:
-          - id.beryju.org
+        - id.beryju.org
         tls:
         - hosts: [id.beryju.org]
           secretName: beryjuorg-authentik
