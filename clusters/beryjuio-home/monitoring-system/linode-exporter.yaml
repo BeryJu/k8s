@@ -29,15 +29,12 @@ spec:
     spec:
       containers:
         - name: linode-exporter
-          image: ghcr.io/beryju/linode-exporter
+          image: ghcr.io/dazwilkin/linode-exporter:81414358d70efc004b5be004da3eb99d25f6f85b
           imagePullPolicy: Always
           envFrom:
             - secretRef:
                 name: beryjuorg-linode-exporter
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "100m"
+          resources: {}
           ports:
             - containerPort: 9388
               name: http-metrics
