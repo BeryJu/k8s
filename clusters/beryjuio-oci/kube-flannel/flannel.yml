@@ -142,7 +142,7 @@ spec:
             - name: cni-plugin
               mountPath: /opt/cni/bin
         - name: install-cni
-          image: proxy.registry.beryju.org/flannel/flannel:v0.24.2
+          image: proxy.registry.beryju.org/flannel/flannel:v0.24.3
           #image: proxy.registry.beryju.org/rancher/mirrored-flannelcni-flannel:v0.20.2
           command:
             - cp
@@ -157,7 +157,7 @@ spec:
               mountPath: /etc/kube-flannel/
       containers:
         - name: kube-flannel
-          image: proxy.registry.beryju.org/flannel/flannel:v0.24.2
+          image: proxy.registry.beryju.org/flannel/flannel:v0.24.3
           #image: proxy.registry.beryju.org/rancher/mirrored-flannelcni-flannel:v0.20.2
           command:
             - /opt/bin/flanneld
