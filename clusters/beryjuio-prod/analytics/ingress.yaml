@@ -9,13 +9,21 @@ spec:
     - host: analytics.beryju.org
       http:
         paths:
-          - backend:
+          - path: /
+            pathType: Prefix
+            backend:
               service:
                 name: plausible
                 port:
-                  number: 8000
-            path: /
+                  name: http
+          # Easy way to block public requests to /metrics
+          - path: /metrics
             pathType: Prefix
+            backend:
+              service:
+                name: plausible
+                port:
+                  number: 1234
   tls:
     - hosts:
         - analytics.beryju.org

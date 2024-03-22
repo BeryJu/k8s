@@ -20,6 +20,7 @@ spec:
         SECRET_KEY_BASE: "{{ .secret_key }}"
         SMTP_USER_NAME: "{{ .email_user }}"
         SMTP_USER_PWD: "{{ .email_pwd }}"
+        PROMEX_DISABLED: "false"
   dataFrom:
     - extract:
         key: kv/services/plausible
