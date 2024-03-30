@@ -1,0 +1,38 @@
+name: flux-diff
+
+on:
+  pull_request:
+
+jobs:
+  diffs:
+    name: Compute diffs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cluster_path:
+          - clusters/beryjuio-home
+          - clusters/beryjuio-oci
+          - clusters/beryjuio-prod
+        resource:
+          - helmrelease
+          - kustomization
+    steps:
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@v2
+      - uses: allenporter/flux-local/action/diff@2.0.0
+        id: diff
+        with:
+          live-branch: main
+          path: ${{ matrix.cluster_path }}
+          resource: ${{ matrix.resource }}
+      - name: PR Comments
+        uses: mshick/add-pr-comment@v2
+        if: ${{ steps.diff.outputs.diff != '' }}
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message-id: ${{ github.event.pull_request.number }}/${{ matrix.cluster_path }}/${{ matrix.resource }}
+          message-failure: Unable to post kustomization diff
+          message: |
+            `````diff
+            ${{ steps.diff.outputs.diff }}
+            `````
