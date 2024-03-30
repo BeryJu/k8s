@@ -18,7 +18,7 @@ jobs:
           - kustomization
     steps:
       - uses: fluxcd/flux2/action@main
-      - uses: allenporter/flux-local/action/diff@2.1.0
+      - uses: allenporter/flux-local/action/diff@4.3.1
         id: diff
         with:
           live-branch: main
