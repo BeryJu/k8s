@@ -42,6 +42,7 @@ spec:
     - interval: 30s
       port: metrics-pve
       scheme: http
+      path: /pve
       params:
         cluster: ["1"]
         node: ["1"]
