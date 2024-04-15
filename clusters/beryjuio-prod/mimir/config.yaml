@@ -31,11 +31,10 @@ spec:
           blocks_storage:
             backend: s3
             s3:
-              endpoint: minio-prd.minio.svc.cluster.local:9000
-              insecure: true
-              bucket_name: mimir
-              access_key_id: "{{ .access_key }}"
-              secret_access_key: "{{ .secret_key }}"
+              endpoint: eu-central-1.linodeobjects.com
+              bucket_name: beryjuio-mimir
+              access_key_id: "{{ .linode_access_key }}"
+              secret_access_key: "{{ .linode_secret_key }}"
             tsdb:
               dir: /data/tsdb
               flush_blocks_on_shutdown: true
