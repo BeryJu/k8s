@@ -79,11 +79,10 @@ spec:
           ruler_storage:
             backend: s3
             s3:
-              endpoint: minio-prd.minio.svc.cluster.local:9000
-              insecure: true
-              bucket_name: mimir-ruler
-              access_key_id: "{{ .access_key }}"
-              secret_access_key: "{{ .secret_key }}"
+              endpoint: eu-central-1.linodeobjects.com
+              bucket_name: beryjuio-mimir-rules
+              access_key_id: "{{ .linode_access_key }}"
+              secret_access_key: "{{ .linode_secret_key }}"
 
           limits:
             max_label_names_per_series: 100           # default 30
