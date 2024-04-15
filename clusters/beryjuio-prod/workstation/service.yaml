@@ -6,7 +6,6 @@ metadata:
   name: workstation
   namespace: workstation
 spec:
-  externalTrafficPolicy: Local
   ports:
     - name: ssh
       port: 22
