@@ -65,7 +65,7 @@ spec:
           name: workstation-data
         - mountPath: /etc/shared/vault
           name: shared-vault
-      - image: ghcr.io/beryju/workstation:auto-1674536719 # {"$imagepolicy": "flux-system:workstation"}
+      - image: ghcr.io/beryju/workstation:auto-1709355921 # {"$imagepolicy": "flux-system:workstation"}
         name: workstation-code
         args:
         - su
