@@ -65,23 +65,23 @@ spec:
           name: workstation-data
         - mountPath: /etc/shared/vault
           name: shared-vault
-      - image: ghcr.io/beryju/workstation:auto-1713210251 # {"$imagepolicy": "flux-system:workstation"}
-        name: workstation-code
-        args:
-        - su
-        - -c
-        - "/usr/bin/code-server --bind-addr 0.0.0.0:8000 --auth none"
-        - jens
-        resources: {}
-        ports:
-        - containerPort: 8000
-          name: http-code
-          protocol: TCP
-        volumeMounts:
-        - mountPath: /home
-          name: workstation-data
-        - mountPath: /etc/shared/vault
-          name: shared-vault
+      # - image: ghcr.io/beryju/workstation:auto-1713210251 # {"$imagepolicy": "flux-system:workstation"}
+      #   name: workstation-code
+      #   args:
+      #   - su
+      #   - -c
+      #   - "/usr/bin/code-server --bind-addr 0.0.0.0:8000 --auth none"
+      #   - jens
+      #   resources: {}
+      #   ports:
+      #   - containerPort: 8000
+      #     name: http-code
+      #     protocol: TCP
+      #   volumeMounts:
+      #   - mountPath: /home
+      #     name: workstation-data
+      #   - mountPath: /etc/shared/vault
+      #     name: shared-vault
       - command: [/bin/vault]
         args:
         - agent
