@@ -29,6 +29,7 @@ spec:
         limits:
           cpu: "2"
       metrics:
+        enabled: true
         serviceMonitor:
           enabled: true
       ingress:
