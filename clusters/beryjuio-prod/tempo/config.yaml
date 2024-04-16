@@ -17,10 +17,8 @@ spec:
             trace:
               backend: s3
               s3:
-                endpoint: minio-prd.minio.svc.cluster.local:9000
-                insecure: true
-                bucket: mimir
-                forcepathstyle: true
+                endpoint: eu-central-1.linodeobjects.com
+                bucket: beryjuio-tempo
                 access_key: "{{ .access_key }}"
                 secret_key: "{{ .secret_key }}"
               wal:
@@ -37,4 +35,4 @@ spec:
               block_retention: 96h
   dataFrom:
     - extract:
-        key: kv/services/thanos
+        key: kv/linode/obj/tempo

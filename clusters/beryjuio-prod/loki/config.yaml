@@ -74,8 +74,8 @@ spec:
             aws:
               bucketnames: beryjuio-loki
               endpoint: eu-central-1.linodeobjects.com
-              access_key_id: "{{ .linode_access_key }}"
-              secret_access_key: "{{ .linode_secret_key }}"
+              access_key_id: "{{ .access_key }}"
+              secret_access_key: "{{ .secret_key }}"
 
           ruler:
             alertmanager_url: http://beryjuio-alertmanager.monitoring-system.svc.cluster.local:9093
@@ -85,8 +85,8 @@ spec:
               s3:
                 bucketnames: beryjuio-loki-rules
                 endpoint: eu-central-1.linodeobjects.com
-                access_key_id: "{{ .linode_access_key }}"
-                secret_access_key: "{{ .linode_secret_key }}"
+                access_key_id: "{{ .access_key }}"
+                secret_access_key: "{{ .secret_key }}"
 
           limits_config:
             enforce_metric_name: false
@@ -107,4 +107,4 @@ spec:
             retention_enabled: true
   dataFrom:
     - extract:
-        key: kv/services/thanos
+        key: kv/linode/obj/loki
