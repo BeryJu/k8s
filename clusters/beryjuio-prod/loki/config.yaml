@@ -109,6 +109,7 @@ spec:
             working_directory: /loki/compactor
             compaction_interval: 5m
             retention_enabled: true
+            delete_request_store: s3
   dataFrom:
     - extract:
         key: kv/linode/obj/loki
