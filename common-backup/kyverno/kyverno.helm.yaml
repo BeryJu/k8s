@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kyverno
-      version: 2.7.5
+      version: 3.1.4
       sourceRef:
         kind: HelmRepository
         name: kyverno-charts
@@ -21,20 +21,18 @@ spec:
     remediation:
       retries: 5
   values:
-    serviceMonitor:
-      enabled: true
-    resources:
-      requests:
-        cpu: 10m
+    features:
+      logging:
+        format: json
     admissionController:
-      logging:
-        format: json
+      serviceMonitor:
+        enabled: true
     backgroundController:
-      logging:
-        format: json
+      serviceMonitor:
+        enabled: true
     cleanupController:
-      logging:
-        format: json
+      serviceMonitor:
+        enabled: true
     reportsController:
-      logging:
-        format: json
+      serviceMonitor:
+        enabled: true
