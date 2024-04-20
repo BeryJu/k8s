@@ -11,11 +11,6 @@ spec:
     template:
       data:
         config.yaml: |
-          # This is a configuration to deploy Loki depending only on a storage solution
-          # for example, an S3-compatible API like MinIO.
-          # The ring configuration is based on the gossip memberlist and the index is shipped to storage
-          # via Single Store (boltdb-shipper)
-
           auth_enabled: false
 
           server:
@@ -64,12 +59,22 @@ spec:
               index:
                 prefix: index_
                 period: 24h
+            - from: 2024-04-21
+              store: tsdb
+              object_store: s3
+              schema: v13
+              index:
+                prefix: index_
+                period: 24h
 
           storage_config:
             boltdb_shipper:
               active_index_directory: /loki/index
               cache_location: /loki/index_cache
               shared_store: s3
+            tsdb_shipper:
+              active_index_directory: /loki/tsdb/index
+              cache_location: /loki/tsdb/index_cache
 
             aws:
               bucketnames: beryjuio-loki
@@ -89,6 +94,7 @@ spec:
                 secret_access_key: "{{ .secret_key }}"
 
           limits_config:
+            allow_structured_metadata: false # temporary
             enforce_metric_name: false
             reject_old_samples: true
             reject_old_samples_max_age: 168h
