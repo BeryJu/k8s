@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: kyverno:admin-external-secrets
+  name: kyverno:snapshot-cronjob-controller
 rules:
   - apiGroups:
       - external-secrets.io
@@ -10,15 +10,23 @@ rules:
       - externalsecrets
     verbs:
       - "*"
+  - apiGroups:
+      - "batch"
+      - ""
+    resources:
+      - "cronjobs"
+    resourceNames: [""]
+    verbs:
+      - "*"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: kyverno:admin-external-secrets
+  name: kyverno:snapshot-cronjob-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: kyverno:admin-external-secrets
+  name: kyverno:snapshot-cronjob-controller
 subjects:
   - kind: ServiceAccount
     name: kyverno-background-controller
