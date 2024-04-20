@@ -7,7 +7,7 @@ rules:
   - apiGroups:
       - external-secrets.io
     resources:
-      - ExternalSecret
+      - externalsecrets
     verbs:
       - "*"
 ---
