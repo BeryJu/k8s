@@ -87,13 +87,7 @@ spec:
             - agent
             - -config=/etc/vault/vault-agent-config.hcl
             - -log-level=debug
-          resources:
-            requests:
-              memory: "30M"
-              cpu: "10m"
-            limits:
-              memory: "30M"
-              cpu: "30m"
+          resources: {}
           env:
             - name: VAULT_ADDR
               value: https://vault.beryju.org
