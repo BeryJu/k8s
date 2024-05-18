@@ -41,10 +41,10 @@ spec:
           resources:
             requests:
               cpu: 1500m
-              memory: 6G
+              memory: 8G
             limits:
               cpu: 1500m
-              memory: 6G
+              memory: 8G
           volumeMounts:
             - mountPath: /etc/gitlab
               name: config
