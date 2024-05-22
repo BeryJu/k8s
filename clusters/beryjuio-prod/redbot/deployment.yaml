@@ -33,6 +33,18 @@ spec:
                 name: beryjuorg-redbot
           image: ghcr.io/rhomelab/red-discordbot:3.5.9
           name: redbot
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9900
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          ports:
+            - containerPort: 9900
+              name: http
           resources:
             requests:
               memory: "500Mi"
