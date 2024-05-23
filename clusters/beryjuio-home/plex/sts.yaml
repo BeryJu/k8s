@@ -28,7 +28,6 @@ spec:
               memory: "500Mi"
             limits:
               gpu.intel.com/i915: "1"
-              memory: "2Gi"
           env:
             - name: TZ
               value: Europe/Berlin
