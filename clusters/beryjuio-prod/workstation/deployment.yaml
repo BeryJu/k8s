@@ -7,7 +7,6 @@ metadata:
   name: workstation
   namespace: workstation
 spec:
-  replicas: 1
   strategy:
     type: Recreate
   selector:
