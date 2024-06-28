@@ -64,6 +64,11 @@ spec:
         discovery_enabled: "false"
       prometheus:
         url: "http://mimir.mimir.svc.cluster.local/prometheus"
+        health_check_url: "http://mimir.mimir.svc.cluster.local/ready"
+        thanos_proxy:
+          enabled: true
+          retention_period: "1y"
+          scrape_interval: "30s"
       tracing:
         provider: tempo
         in_cluster_url: "http://tempo.tempo.svc.cluster.local"
