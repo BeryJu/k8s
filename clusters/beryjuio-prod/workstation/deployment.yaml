@@ -21,7 +21,7 @@ spec:
     spec:
       shareProcessNamespace: true
       containers:
-        - image: ghcr.io/beryju/workstation:auto-1713816425 # {"$imagepolicy": "flux-system:workstation"}
+        - image: ghcr.io/beryju/workstation:auto-1719695777 # {"$imagepolicy": "flux-system:workstation"}
           name: workstation-ssh
           resources:
             requests:
