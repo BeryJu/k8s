@@ -18,6 +18,9 @@ spec:
         namespace: flux-system
   upgrade:
     disableWait: false
+    crds: CreateReplace
+  install:
+    crds: CreateReplace
   values:
     fullnameOverride: "prometheus"
     kubeControllerManager:
