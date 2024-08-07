@@ -69,3 +69,4 @@ spec:
   podMetricsEndpoints:
     - port: http-metrics
       scrapeTimeout: 1m
+      interval: 1m
