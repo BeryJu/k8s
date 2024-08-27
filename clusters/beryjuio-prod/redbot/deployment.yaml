@@ -31,7 +31,7 @@ spec:
           envFrom:
             - secretRef:
                 name: beryjuorg-redbot
-          image: ghcr.io/rhomelab/red-discordbot:3.5.12
+          image: ghcr.io/rhomelab/red-discordbot:3.5.13
           name: redbot
           livenessProbe:
             httpGet:
