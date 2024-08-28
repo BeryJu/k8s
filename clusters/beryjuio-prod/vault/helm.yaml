@@ -19,6 +19,26 @@ spec:
     global:
       enabled: false
     server:
+      extraInitContainers:
+        - name: github-plugin
+          image: "alpine"
+          command: [sh, -c]
+          args:
+            - cd /tmp &&
+              wget https://github.com/martinbaillie/vault-plugin-secrets-github/releases/download/v2.1.0/vault-plugin-secrets-github-linux-amd64 &&
+              mv vault-plugin-secrets-github-linux-amd64 /usr/local/libexec/vault/secrets-github &&
+              chmod +x /usr/local/libexec/vault/secrets-github &&
+              setcap cap_ipc_lock=+ep /usr/local/libexec/vault/secrets-github
+          volumeMounts:
+            - name: plugins
+              mountPath: /usr/local/libexec/vault
+      volumes:
+        - name: plugins
+          emptyDir: {}
+      volumeMounts:
+        - mountPath: /usr/local/libexec/vault
+          name: plugins
+          readOnly: true
       image:
         repository: proxy.registry.beryju.org/hashicorp/vault
       # Fixes https://github.com/kubernetes/kube-state-metrics/issues/1324
@@ -49,6 +69,7 @@ spec:
             log_format = "json"
             ui = true
             cluster_name = "beryjuorg-prod"
+            plugin_directory = "/usr/local/libexec/vault"
             storage "file" {
               path = "/vault/data"
             }
