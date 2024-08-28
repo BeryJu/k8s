@@ -1,4 +1,27 @@
 ---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: VaultDynamicSecret
+metadata:
+  name: beryjuorg-gh-pat-dynamic
+  namespace: flux-system
+spec:
+  path: "/github/token"
+  method: "POST"
+  parameters:
+    installation_id: "54263036"
+    repository_ids: 347929503
+  provider:
+    server: "https://vault.beryju.org"
+    auth:
+      jwt:
+        path: "k8s-${CLUSTER_NAME}"
+        role: "github-flux-commit-status"
+        kubernetesServiceAccountToken:
+          serviceAccountRef:
+            name: "notification-controller"
+          audiences:
+            - https://kubernetes.default.svc.cluster.local
+---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
@@ -8,11 +31,12 @@ spec:
   secretStoreRef:
     name: vault-kv
     kind: ClusterSecretStore
-  data:
-    - secretKey: token
-      remoteRef:
-        key: kv/k8s-flux
-        property: github_pat
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: VaultDynamicSecret
+          name: "beryjuorg-gh-pat-dynamic"
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
