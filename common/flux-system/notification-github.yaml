@@ -15,7 +15,7 @@ spec:
     auth:
       jwt:
         path: "k8s-${CLUSTER_NAME}"
-        role: "github-flux-commit-status"
+        role: "flux-notification-controller"
         kubernetesServiceAccountToken:
           serviceAccountRef:
             name: "notification-controller"
