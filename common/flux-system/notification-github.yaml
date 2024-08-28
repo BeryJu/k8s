@@ -8,8 +8,9 @@ spec:
   path: "/github/token"
   method: "POST"
   parameters:
-    installation_id: "54263036"
+    installation_id: 54263036
     repository_ids: 347929503
+    permissions: "statuses=write"
   provider:
     server: "https://vault.beryju.org"
     auth:
