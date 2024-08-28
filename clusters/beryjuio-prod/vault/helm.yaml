@@ -27,8 +27,7 @@ spec:
             - cd /tmp &&
               wget https://github.com/martinbaillie/vault-plugin-secrets-github/releases/download/v2.1.0/vault-plugin-secrets-github-linux-amd64 &&
               mv vault-plugin-secrets-github-linux-amd64 /usr/local/libexec/vault/secrets-github &&
-              chmod +x /usr/local/libexec/vault/secrets-github &&
-              setcap cap_ipc_lock=+ep /usr/local/libexec/vault/secrets-github
+              chmod +x /usr/local/libexec/vault/secrets-github
           volumeMounts:
             - name: plugins
               mountPath: /usr/local/libexec/vault
@@ -63,23 +62,23 @@ spec:
             hosts:
               - vault.beryju.org
               - vault.beryju.io
-        standalone:
-          enabled: true
-          config: |
-            log_format = "json"
-            ui = true
-            cluster_name = "beryjuorg-prod"
-            plugin_directory = "/usr/local/libexec/vault"
-            storage "file" {
-              path = "/vault/data"
-            }
-            # HTTPS listener
-            listener "tcp" {
-              address = "[::]:8200"
-              cluster_address = "[::]:8201"
-              tls_disable = 1
-            }
-            telemetry {
-              prometheus_retention_time = "24h"
-              disable_hostname = true
-            }
+      standalone:
+        enabled: true
+        config: |
+          log_format = "json"
+          ui = true
+          cluster_name = "beryjuorg-prod"
+          plugin_directory = "/usr/local/libexec/vault"
+          storage "file" {
+            path = "/vault/data"
+          }
+          # HTTPS listener
+          listener "tcp" {
+            address = "[::]:8200"
+            cluster_address = "[::]:8201"
+            tls_disable = 1
+          }
+          telemetry {
+            prometheus_retention_time = "24h"
+            disable_hostname = true
+          }
