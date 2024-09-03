@@ -20,7 +20,14 @@ spec:
     extraArgs:
       - --dns01-recursive-nameservers-only
       - --dns01-recursive-nameservers="8.8.8.8:53"
+      - --logging-format=json
     installCRDs: true
     prometheus:
       servicemonitor:
         enabled: true
+    webhook:
+      extraArgs:
+        - --logging-format=json
+    cainjector:
+      extraArgs:
+        - --logging-format=json
