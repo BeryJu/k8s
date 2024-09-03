@@ -9,7 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-gw-registries
-  commonName: registry.beryju.org
+  commonName: registry.beryju.io
   dnsNames:
+    - registry.beryju.io
+    - proxy.registry.beryju.io
     - registry.beryju.org
     - proxy.registry.beryju.org

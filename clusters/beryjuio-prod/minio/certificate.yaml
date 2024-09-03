@@ -9,8 +9,11 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-minio
-  commonName: s3.beryju.org
+  commonName: s3.beryju.io
   dnsNames:
     - i.beryju.org
+    - i.beryju.io
+    - s3.beryju.io
+    - "*.s3.beryju.io"
     - s3.beryju.org
     - "*.s3.beryju.org"

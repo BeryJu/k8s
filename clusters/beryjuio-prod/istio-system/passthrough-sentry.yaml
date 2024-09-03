@@ -9,8 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-sentry
-  commonName: sentry.beryju.org
+  commonName: sentry.beryju.io
   dnsNames:
+    - sentry.beryju.io
     - sentry.beryju.org
 ---
 apiVersion: networking.istio.io/v1alpha3

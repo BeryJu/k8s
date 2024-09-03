@@ -9,6 +9,7 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-analytics
-  commonName: analytics.beryju.org
+  commonName: analytics.beryju.io
   dnsNames:
+    - analytics.beryju.io
     - analytics.beryju.org

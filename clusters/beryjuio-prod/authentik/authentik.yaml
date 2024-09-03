@@ -42,9 +42,12 @@ spec:
         ingressClassName: istio
         hosts:
         - id.beryju.org
+        - id.beryju.io
         tls:
-        - hosts: [id.beryju.org]
-          secretName: beryjuorg-authentik
+        - hosts:
+            - id.beryju.org
+            - id.beryju.io
+          secretName: beryju-io-authentik
     authentik:
       postgresql:
         name: "authentik"

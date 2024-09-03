@@ -9,8 +9,10 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuorg-gw-minio-offsite
-  commonName: backup-s3.beryju.org
+  commonName: backup-s3.beryju.io
   dnsNames:
+    - backup-s3.beryju.io
+    - "*.backup-s3.beryju.io"
     - backup-s3.beryju.org
     - "*.backup-s3.beryju.org"
 ---
