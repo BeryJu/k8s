@@ -89,7 +89,7 @@ spec:
           resources: {}
           env:
             - name: VAULT_ADDR
-              value: https://vault.beryju.org
+              value: https://vault.beryju.io
           image: vault:1.13.3
           name: vault-agent
           volumeMounts:

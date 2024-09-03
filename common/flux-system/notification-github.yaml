@@ -12,7 +12,7 @@ spec:
     repository_ids: "347929503"
     permissions: "statuses=write"
   provider:
-    server: "https://vault.beryju.org"
+    server: "https://vault.beryju.io"
     auth:
       jwt:
         path: "k8s-${CLUSTER_NAME}"
