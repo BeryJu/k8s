@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-alertmanager
+  name: beryju-io-gw-alertmanager
   namespace: istio-system
 spec:
   selector:
@@ -15,26 +15,26 @@ spec:
         mode: SIMPLE
         credentialName: beryju-io-authentik-proxy-infra
       hosts:
-        - alertmanager.infra.beryju.org
+        - alertmanager.lab.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - alertmanager.infra.beryju.org
+        - alertmanager.lab.beryju.io
       tls:
         httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-alertmanager
+  name: beryju-io-vs-alertmanager
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-alertmanager
+    - beryju-io-gw-alertmanager
   hosts:
-    - alertmanager.infra.beryju.org
+    - alertmanager.lab.beryju.io
   http:
     - route:
         - destination:
