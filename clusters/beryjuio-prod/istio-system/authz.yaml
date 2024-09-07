@@ -15,8 +15,9 @@ spec:
         - operation:
             hosts:
               - "*.infra.beryju.org"
+              - "*.lab.beryju.io"
             notHosts:
-              - grafana.infra.beryju.org
+              - grafana.lab.beryju.io
               - unifi.infra.beryju.org
               - mimir.infra.beryju.org
               - loki.infra.beryju.org

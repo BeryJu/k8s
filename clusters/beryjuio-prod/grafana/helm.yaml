@@ -25,11 +25,11 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - grafana.infra.beryju.org
+        - grafana.lab.beryju.io
       tls:
         - secretName: beryju-io-authentik-proxy-infra
           hosts:
-            - grafana.infra.beryju.org
+            - grafana.lab.beryju.io
     serviceMonitor:
       enabled: true
     persistence:
@@ -70,7 +70,7 @@ spec:
       log.console:
         format: json
       server:
-        root_url: "https://grafana.infra.beryju.org/"
+        root_url: "https://grafana.lab.beryju.io/"
       plugins:
         enable_alpha: true
       feature_toggles:

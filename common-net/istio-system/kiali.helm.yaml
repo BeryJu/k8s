@@ -76,7 +76,7 @@ spec:
         auth:
           type: bearer
         enabled: true
-        url: "https://grafana.infra.beryju.org"
+        url: "https://grafana.lab.beryju.io"
         in_cluster_url: "http://grafana.grafana/"
         dashboards:
           - name: "Istio Service Dashboard"
