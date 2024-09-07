@@ -24,7 +24,7 @@ spec:
             - /storage
           env:
             - name: MINIO_DOMAIN
-              value: backup-s3.beryju.org,minio.offsite.beryjuorg
+              value: backup-s3.beryju.org,minio.offsite.beryjuorg,backup-s3.beryju.io
             - name: MINIO_IDENTITY_OPENID_CLIENT_ID
               value: AxPVXlbHsGeud4XFw3HdN6RnnX5awvC6d7N5mjsl
             - name: MINIO_IDENTITY_OPENID_CLIENT_SECRET
@@ -33,11 +33,11 @@ spec:
                   name: minio
                   key: oidc_secret
             - name: MINIO_IDENTITY_OPENID_CONFIG_URL
-              value: https://id.beryju.org/application/o/minio-s3/.well-known/openid-configuration
+              value: https://id.beryju.io/application/o/minio-s3/.well-known/openid-configuration
             - name: MINIO_IDENTITY_OPENID_SCOPES
               value: openid,profile,email,minio
             - name: MINIO_BROWSER_REDIRECT_URL
-              value: https://console.backup-s3.beryju.org
+              value: https://console.backup-s3.beryju.io
             - name: MINIO_IDENTITY_OPENID_COMMENT
               value: authentik
             - name: MINIO_ROOT_USER
