@@ -13,7 +13,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-authentik-proxy-infra
+        credentialName: beryju-io-authentik-proxy-infra
       hosts:
         - oxidized.infra.beryju.org
     - port:

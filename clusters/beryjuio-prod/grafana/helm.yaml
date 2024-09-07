@@ -27,7 +27,7 @@ spec:
       hosts:
         - grafana.infra.beryju.org
       tls:
-        - secretName: beryjuorg-authentik-proxy-infra
+        - secretName: beryju-io-authentik-proxy-infra
           hosts:
             - grafana.infra.beryju.org
     serviceMonitor:
