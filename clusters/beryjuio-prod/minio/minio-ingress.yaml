@@ -2,7 +2,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-minio
+  name: beryju-io-gw-minio
   namespace: istio-system
 spec:
   selector:
@@ -14,8 +14,10 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-minio
+        credentialName: beryju-io-minio
       hosts:
+        - s3.beryju.io
+        - "*.s3.beryju.io"
         - s3.beryju.org
         - "*.s3.beryju.org"
     - port:
@@ -23,6 +25,8 @@ spec:
         name: http
         protocol: HTTP
       hosts:
+        - s3.beryju.io
+        - "*.s3.beryju.io"
         - s3.beryju.org
         - "*.s3.beryju.org"
       tls:
@@ -31,19 +35,21 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-minio
+  name: beryju-io-vs-minio
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-minio
+    - beryju-io-gw-minio
   hosts:
+    - s3.beryju.io
+    - "*.s3.beryju.io"
     - s3.beryju.org
     - "*.s3.beryju.org"
   http:
     - match:
         - headers:
             host:
-              exact: console.s3.beryju.org
+              exact: console.s3.beryju.io
       route:
         - destination:
             host: minio-prd.minio.svc.cluster.local
@@ -51,6 +57,9 @@ spec:
               number: 9001
           weight: 100
     - match:
+        - headers:
+            host:
+              regex: '.*\.?s3\.beryju\.io'
         - headers:
             host:
               regex: '.*\.?s3\.beryju\.org'

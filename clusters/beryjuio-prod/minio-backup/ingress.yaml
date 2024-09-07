@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-gw-minio-offsite
+  name: beryju-io-gw-minio-offsite
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-gw-minio-offsite
+  secretName: beryju-io-gw-minio-offsite
   commonName: backup-s3.beryju.io
   dnsNames:
     - backup-s3.beryju.io
@@ -19,7 +19,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-minio-offsite
+  name: beryju-io-gw-minio-offsite
   namespace: istio-system
 spec:
   selector:
@@ -31,8 +31,10 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-gw-minio-offsite
+        credentialName: beryju-io-gw-minio-offsite
       hosts:
+        - backup-s3.beryju.io
+        - "*.backup-s3.beryju.io"
         - backup-s3.beryju.org
         - "*.backup-s3.beryju.org"
     - port:
@@ -40,6 +42,8 @@ spec:
         name: http
         protocol: HTTP
       hosts:
+        - backup-s3.beryju.io
+        - "*.backup-s3.beryju.io"
         - backup-s3.beryju.org
         - "*.backup-s3.beryju.org"
       tls:
@@ -48,19 +52,21 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-minio-offsite
+  name: beryju-io-vs-minio-offsite
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-minio-offsite
+    - beryju-io-gw-minio-offsite
   hosts:
+    - backup-s3.beryju.io
+    - "*.backup-s3.beryju.io"
     - backup-s3.beryju.org
     - "*.backup-s3.beryju.org"
   http:
     - match:
         - headers:
             host:
-              exact: console.backup-s3.beryju.org
+              exact: console.backup-s3.beryju.io
       route:
         - destination:
             host: minio-${CLUSTER_NAME}.minio-backup.svc.cluster.local
@@ -68,6 +74,9 @@ spec:
               number: 9001
           weight: 100
     - match:
+        - headers:
+            host:
+              regex: '.*\.?s3\.beryju\.io'
         - headers:
             host:
               regex: '.*\.?s3\.beryju\.org'
