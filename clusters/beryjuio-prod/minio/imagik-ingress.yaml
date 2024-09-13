@@ -8,6 +8,16 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
+    - host: i.beryju.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: imagik
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
     - host: i.beryju.org
       http:
         paths:
@@ -20,5 +30,6 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
+        - i.beryju.io
         - i.beryju.org
       secretName: beryjuorg-minio

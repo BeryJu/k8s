@@ -45,7 +45,7 @@ spec:
           spec:
             ingressClassName: istio
             rules:
-              - host: kiali.${CLUSTER_NAME}.k8s.beryju.org
+              - host: kiali.${CLUSTER_NAME}.k8s.beryju.io
                 http:
                   paths:
                     - path: /
@@ -57,8 +57,8 @@ spec:
                             number: 20001
             tls:
               - hosts:
-                  - kiali.${CLUSTER_NAME}.k8s.beryju.org
-                secretName: beryjuorg-kiali-cluster
+                  - kiali.${CLUSTER_NAME}.k8s.beryju.io
+                secretName: beryju-io-kiali-cluster
     external_services:
       custom_dashboards:
         discovery_enabled: "false"
