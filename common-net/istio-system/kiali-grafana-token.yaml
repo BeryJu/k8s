@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-kiali-grafana-token
+  name: beryju-io-kiali-grafana-token
   namespace: istio-system
 spec:
   secretStoreRef:

@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   valuesFrom:
     - kind: Secret
-      name: beryjuorg-kiali-grafana-token
+      name: beryju-io-kiali-grafana-token
   values:
     istio_namespace: istio-system
     istio_labels:
@@ -27,7 +27,7 @@ spec:
       openid:
         client_id: "8fb22077c19781b517509bf6bca83cb65f07a2a6"
         disable_rbac: true
-        issuer_uri: "https://id.beryju.org/application/o/kiali/"
+        issuer_uri: "https://id.beryju.io/application/o/kiali/"
         username_claim: "preferred_username"
     deployment:
       pod_labels:
@@ -92,7 +92,7 @@ spec:
           - name: "Istio Performance Dashboard"
           - name: "Istio Wasm Extension Dashboard"
     server:
-      web_fqdn: kiali.${CLUSTER_NAME}.k8s.beryju.org
+      web_fqdn: kiali.${CLUSTER_NAME}.k8s.beryju.io
       web_port: 443
       web_root: /
       web_schema: https
