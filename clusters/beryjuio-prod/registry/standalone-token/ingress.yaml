@@ -16,7 +16,18 @@ spec:
                   number: 9001
             path: /token
             pathType: Prefix
+    - host: registry.beryju.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: standalone-registry-token
+                port:
+                  number: 9001
+            path: /token
+            pathType: Prefix
   tls:
     - hosts:
         - registry.beryju.org
+        - registry.beryju.io
       secretName: beryjuorg-gw-registries

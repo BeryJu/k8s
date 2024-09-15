@@ -39,4 +39,4 @@ spec:
             - name: REGISTRY_TITLE
               value: "BeryJu.io registry"
             - name: REGISTRY_URL
-              value: "https://registry.beryju.org"
+              value: "https://registry.beryju.io"

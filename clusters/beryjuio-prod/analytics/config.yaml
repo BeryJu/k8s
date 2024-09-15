@@ -10,7 +10,7 @@ spec:
   target:
     template:
       data:
-        BASE_URL: https://analytics.beryju.org
+        BASE_URL: https://analytics.beryju.io
         DISABLE_REGISTRATION: "true"
         MAILER_EMAIL: plausible@services.beryju.org
         SMTP_HOST_ADDR: email-smtp.eu-central-1.amazonaws.com

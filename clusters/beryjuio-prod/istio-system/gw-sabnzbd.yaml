@@ -15,13 +15,13 @@ spec:
         mode: SIMPLE
         credentialName: beryju-io-authentik-proxy-infra
       hosts:
-        - sabnzbd-dl-stack.infra.beryju.org
+        - sabnzbd-dl-stack.lab.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - sabnzbd-dl-stack.infra.beryju.org
+        - sabnzbd-dl-stack.lab.beryju.io
       tls:
         httpsRedirect: true
 ---
@@ -34,7 +34,7 @@ spec:
   gateways:
     - beryjuorg-gw-dl-stack-sabnzbd
   hosts:
-    - sabnzbd-dl-stack.infra.beryju.org
+    - sabnzbd-dl-stack.lab.beryju.io
   http:
     - route:
         - destination:

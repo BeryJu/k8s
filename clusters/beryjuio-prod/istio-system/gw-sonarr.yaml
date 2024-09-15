@@ -15,13 +15,13 @@ spec:
         mode: SIMPLE
         credentialName: beryju-io-authentik-proxy-infra
       hosts:
-        - sonarr-dl-stack.infra.beryju.org
+        - sonarr-dl-stack.lab.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - sonarr-dl-stack.infra.beryju.org
+        - sonarr-dl-stack.lab.beryju.io
       tls:
         httpsRedirect: true
 ---
@@ -34,7 +34,7 @@ spec:
   gateways:
     - beryjuorg-gw-dl-stack-sonarr
   hosts:
-    - sonarr-dl-stack.infra.beryju.org
+    - sonarr-dl-stack.lab.beryju.io
   http:
     - route:
         - destination:

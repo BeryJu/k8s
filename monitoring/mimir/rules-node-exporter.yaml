@@ -3,7 +3,7 @@ groups:
   - name: beryjuorg-prometheus-node-exporter
     rules:
       - alert: HostOutOfMemory
-        expr: node_memory_MemAvailable_bytes{instance!="mc1.prod.beryju.org:9100"} / node_memory_MemTotal_bytes{instance!="mc1.prod.beryju.org:9100"} * 100 < 10
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
         for: 10m
         labels:
           severity: warning
