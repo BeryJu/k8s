@@ -33,7 +33,7 @@ spec:
         database: fleetdm
         username: fleetdm
       global:
-        imageRegistry: proxy.registry.beryju.org
+        imageRegistry: proxy.registry.beryju.io
       metrics:
         enabled: true
         serviceMonitor:
@@ -45,7 +45,7 @@ spec:
       auth:
         enabled: false
       global:
-        imageRegistry: proxy.registry.beryju.org
+        imageRegistry: proxy.registry.beryju.io
       architecture: standalone
       metrics:
         enabled: true

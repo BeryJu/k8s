@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     global:
-      imageRegistry: proxy.registry.beryju.org
+      imageRegistry: proxy.registry.beryju.io
     resources:
       limits:
         memory: 750Mi

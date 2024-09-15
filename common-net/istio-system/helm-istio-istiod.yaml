@@ -24,7 +24,7 @@ spec:
           memory: 2048Mi
       image: ghcr.io/beryju/pilot:1.23.1
     global:
-      hub: proxy.registry.beryju.org/istio
+      hub: proxy.registry.beryju.io/istio
       logAsJson: true
       meshID: beryjuorg
       multiCluster:

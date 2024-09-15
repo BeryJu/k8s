@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      registry: proxy.registry.beryju.org
+      registry: proxy.registry.beryju.io
     extraArgs:
       - -log.format=json
     resources:

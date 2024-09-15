@@ -58,7 +58,7 @@
         "docker"
       ],
       "registryUrls": [
-        "https://proxy.registry.beryju.org"
+        "https://proxy.registry.beryju.io"
       ]
     },
     {
@@ -84,7 +84,7 @@
       "versioning": "loose",
       "matchPackageNames": [
         "plexinc/pms-docker",
-        "proxy.registry.beryju.org/plexinc/pms-docker"
+        "proxy.registry.beryju.io/plexinc/pms-docker"
       ]
     }
   ]

@@ -141,7 +141,7 @@ spec:
                     restartPolicy: OnFailure
                     containers:
                       - name: snapshot
-                        image: proxy.registry.beryju.org/kopia/kopia:0.17
+                        image: proxy.registry.beryju.io/kopia/kopia:0.17
                         env:
                           - name: BUCKET
                             value: "beryjuio-k8s-backup"

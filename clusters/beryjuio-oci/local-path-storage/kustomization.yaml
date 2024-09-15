@@ -5,4 +5,4 @@ resources:
   - https://github.com/rancher/local-path-provisioner/deploy?ref=v0.0.29
 images:
   - name: rancher/local-path-provisioner
-    newName: proxy.registry.beryju.org/rancher/local-path-provisioner
+    newName: proxy.registry.beryju.io/rancher/local-path-provisioner

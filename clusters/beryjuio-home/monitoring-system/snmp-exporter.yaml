@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: proxy.registry.beryju.org/prom/snmp-exporter
+      repository: proxy.registry.beryju.io/prom/snmp-exporter
     serviceMonitor:
       enabled: true
       namespace: monitoring-system

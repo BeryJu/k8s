@@ -23,7 +23,7 @@ jobs:
           from requests import get, post
           from os import environ
 
-          authentik_url = "https://id.beryju.org"
+          authentik_url = "https://id.beryju.io"
           client_id = "6qC6wfLtRuwQIPfBG0K0hWhMZJJbm7dwwjl9ixyM"
 
           # Get GitHub token

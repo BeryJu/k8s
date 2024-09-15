@@ -39,7 +39,7 @@ spec:
           name: plugins
           readOnly: true
       image:
-        repository: proxy.registry.beryju.org/hashicorp/vault
+        repository: proxy.registry.beryju.io/hashicorp/vault
       # Fixes https://github.com/kubernetes/kube-state-metrics/issues/1324
       updateStrategyType: RollingUpdate
       enabled: true

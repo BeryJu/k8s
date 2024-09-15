@@ -23,7 +23,7 @@ spec:
       serviceMonitor:
         enabled: true
     global:
-      imageRegistry: proxy.registry.beryju.org
+      imageRegistry: proxy.registry.beryju.io
       postgresql:
         auth:
           database: ansible-ara

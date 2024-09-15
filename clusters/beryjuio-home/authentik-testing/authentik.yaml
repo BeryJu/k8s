@@ -59,7 +59,7 @@ spec:
           enabled: true
     postgresql:
       global:
-        imageRegistry: proxy.registry.beryju.org
+        imageRegistry: proxy.registry.beryju.io
       enabled: true
       metrics:
         enabled: true
@@ -67,7 +67,7 @@ spec:
           enabled: true
     redis:
       global:
-        imageRegistry: proxy.registry.beryju.org
+        imageRegistry: proxy.registry.beryju.io
       enabled: true
       metrics:
         enabled: true
