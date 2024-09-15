@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-analytics
+  name: beryju-io-analytics
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-analytics
+  secretName: beryju-io-analytics
   commonName: analytics.beryju.io
   dnsNames:
     - analytics.beryju.io

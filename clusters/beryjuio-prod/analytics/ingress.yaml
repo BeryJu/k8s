@@ -46,4 +46,4 @@ spec:
     - hosts:
         - analytics.beryju.org
         - analytics.beryju.io
-      secretName: beryjuorg-analytics
+      secretName: beryju-io-analytics
