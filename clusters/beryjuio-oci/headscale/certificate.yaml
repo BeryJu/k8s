@@ -9,6 +9,6 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-headscale
-  commonName: headscale.${CLUSTER_NAME}.k8s.beryju.org
+  commonName: headscale.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - headscale.${CLUSTER_NAME}.k8s.beryju.org
+    - headscale.${CLUSTER_NAME}.k8s.beryju.io

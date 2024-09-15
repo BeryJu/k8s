@@ -23,7 +23,7 @@ spec:
             - name: TS_KUBE_SECRET
               value: "tailscale-auth"
             - name: TS_EXTRA_ARGS
-              value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.org --advertise-tags tag:${CLUSTER_NAME}"
+              value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.io --advertise-tags tag:${CLUSTER_NAME}"
             - name: TS_USERSPACE
               value: "true"
             - name: TS_AUTHKEY

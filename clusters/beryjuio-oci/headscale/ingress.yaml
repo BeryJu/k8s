@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
-    - host: headscale.${CLUSTER_NAME}.k8s.beryju.org
+    - host: headscale.${CLUSTER_NAME}.k8s.beryju.io
       http:
         paths:
           - backend:
@@ -25,5 +25,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - headscale.${CLUSTER_NAME}.k8s.beryju.org
+        - headscale.${CLUSTER_NAME}.k8s.beryju.io
       secretName: beryjuio-headscale

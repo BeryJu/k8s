@@ -32,7 +32,7 @@ spec:
           protocol: TCP
         env:
         - name: TOKEN_URL
-          value: https://id.beryju.org/application/o/token/
+          value: https://id.beryju.io/application/o/token/
         - name: CLIENT_ID
           value: 693e60deada0b71e8ecb3d078e4ebaaf08624e55
         - name: SCOPE

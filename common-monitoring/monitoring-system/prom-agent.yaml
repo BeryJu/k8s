@@ -36,7 +36,7 @@ spec:
         scopes:
           - openid
           - profile
-        tokenUrl: https://id.beryju.org/application/o/token/
+        tokenUrl: https://id.beryju.io/application/o/token/
       url: http://mimir.mimir.svc.cluster.local/api/v1/push
       writeRelabelConfigs:
         - action: replace

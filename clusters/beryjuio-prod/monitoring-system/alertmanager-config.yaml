@@ -9,7 +9,7 @@ spec:
     - name: discord
       slackConfigs:
         - channel: "#prometheus"
-          iconURL: https://images.s3.beryju.org/prometheus.png
+          iconURL: https://images.s3.beryju.io/prometheus.png
           sendResolved: true
           text: |-
             {{ range .Alerts -}}

@@ -23,7 +23,7 @@ spec:
           #
           # https://myheadscale.example.com:443
           #
-          server_url: https://headscale.${CLUSTER_NAME}.k8s.beryju.org
+          server_url: https://headscale.${CLUSTER_NAME}.k8s.beryju.io
 
           # Address to listen to / bind to on the server
           #
@@ -268,7 +268,7 @@ spec:
           # OpenID Connect
           oidc:
             only_start_if_oidc_is_available: true
-            issuer: "https://id.beryju.org/application/o/headscale/"
+            issuer: "https://id.beryju.io/application/o/headscale/"
             client_id: "{{ .oidc_client_id }}"
             client_secret: "{{ .oidc_client_secret }}"
             scope: ["openid", "profile", "email"]
