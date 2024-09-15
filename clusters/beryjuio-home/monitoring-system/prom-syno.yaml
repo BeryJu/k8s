@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-syno
+  name: beryju-io-prom-syno
   labels:
-    svc: beryjuorg-prom-syno
+    svc: beryju-io-prom-syno
   namespace: monitoring-system
 spec:
   type: ClusterIP
@@ -15,7 +15,7 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-syno
+  name: beryju-io-prom-syno
   namespace: monitoring-system
 subsets:
   - addresses:
@@ -27,7 +27,7 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: beryjuorg-prom-syno
+  name: beryju-io-prom-syno
   namespace: monitoring-system
 spec:
   endpoints:
@@ -36,4 +36,4 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      svc: beryjuorg-prom-syno
+      svc: beryju-io-prom-syno

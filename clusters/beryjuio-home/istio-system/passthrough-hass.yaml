@@ -1,23 +1,23 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-hass
+  name: beryju-io-hass
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-hass
-  commonName: hass-ext.beryju.org
+  secretName: beryju-io-hass
+  commonName: hass-ext.beryju.io
   dnsNames:
-    - hass-ext.beryju.org
-    - hass.${CLUSTER_NAME}.k8s.beryju.org
+    - hass-ext.beryju.io
+    - hass.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-hass
+  name: beryju-io-gw-hass
   namespace: istio-system
 spec:
   selector:
@@ -29,28 +29,28 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-hass
+        credentialName: beryju-io-hass
       hosts:
-        - hass-ext.beryju.org
-        - hass.${CLUSTER_NAME}.k8s.beryju.org
+        - hass-ext.beryju.io
+        - hass.${CLUSTER_NAME}.k8s.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - hass-ext.beryju.org
-        - hass.${CLUSTER_NAME}.k8s.beryju.org
+        - hass-ext.beryju.io
+        - hass.${CLUSTER_NAME}.k8s.beryju.io
       tls:
         httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: beryjuorg-se-hass
+  name: beryju-io-se-hass
   namespace: istio-system
 spec:
   hosts:
-    - hass1.prod.beryju.org
+    - hass1.prod.beryju.io
   location: MESH_EXTERNAL
   ports:
     - number: 8123
@@ -61,17 +61,17 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-hass
+  name: beryju-io-vs-hass
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-hass
+    - beryju-io-gw-hass
   hosts:
-    - hass.${CLUSTER_NAME}.k8s.beryju.org
-    - hass-ext.beryju.org
+    - hass.${CLUSTER_NAME}.k8s.beryju.io
+    - hass-ext.beryju.io
   http:
     - route:
         - destination:
             port:
               number: 8123
-            host: hass1.prod.beryju.org
+            host: hass1.prod.beryju.io

@@ -18,7 +18,7 @@ spec:
       name: beryjuio-gitlab-runner
   values:
     # Depends on the ingress and service working fully
-    gitlabUrl: https://gitlab.${CLUSTER_NAME}.k8s.beryju.org
+    gitlabUrl: https://gitlab.${CLUSTER_NAME}.k8s.beryju.io
     logFormat: json
     rbac:
       create: true

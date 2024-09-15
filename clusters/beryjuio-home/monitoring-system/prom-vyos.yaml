@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-prom-additional-scrape-creds-node-exporter
+  name: beryju-io-prom-additional-scrape-creds-node-exporter
   namespace: monitoring-system
 spec:
   secretStoreRef:
@@ -19,9 +19,9 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-vyos
+  name: beryju-io-prom-vyos
   labels:
-    svc: beryjuorg-prom-vyos
+    svc: beryju-io-prom-vyos
   namespace: monitoring-system
 spec:
   type: ClusterIP
@@ -36,7 +36,7 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-vyos
+  name: beryju-io-prom-vyos
   namespace: monitoring-system
 subsets:
   - addresses:
@@ -51,7 +51,7 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: beryjuorg-prom-vyos
+  name: beryju-io-prom-vyos
   namespace: monitoring-system
 spec:
   endpoints:
@@ -62,10 +62,10 @@ spec:
         insecureSkipVerify: true
       basicAuth:
         username:
-          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          name: beryju-io-prom-additional-scrape-creds-node-exporter
           key: username
         password:
-          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          name: beryju-io-prom-additional-scrape-creds-node-exporter
           key: PW_NODE_EXPORTER
     - interval: 30s
       port: metrics-frr
@@ -74,11 +74,11 @@ spec:
         insecureSkipVerify: true
       basicAuth:
         username:
-          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          name: beryju-io-prom-additional-scrape-creds-node-exporter
           key: username
         password:
-          name: beryjuorg-prom-additional-scrape-creds-node-exporter
+          name: beryju-io-prom-additional-scrape-creds-node-exporter
           key: PW_NODE_EXPORTER
   selector:
     matchLabels:
-      svc: beryjuorg-prom-vyos
+      svc: beryju-io-prom-vyos

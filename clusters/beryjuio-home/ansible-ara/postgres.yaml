@@ -16,7 +16,7 @@ spec:
   releaseName: postgres
   valuesFrom:
     - kind: Secret
-      name: beryjuorg-postgresql-chart
+      name: beryju-io-postgresql-chart
   values:
     metrics:
       enabled: true

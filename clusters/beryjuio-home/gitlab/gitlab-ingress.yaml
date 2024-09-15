@@ -9,9 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-gitlab
-  commonName: gitlab.${CLUSTER_NAME}.k8s.beryju.org
+  commonName: gitlab.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+    - gitlab.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -30,20 +30,20 @@ spec:
         mode: SIMPLE
         credentialName: beryjuio-gitlab
       hosts:
-        - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+        - gitlab.${CLUSTER_NAME}.k8s.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+        - gitlab.${CLUSTER_NAME}.k8s.beryju.io
       tls:
         httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: beryjuorg-dr-gitlab
+  name: beryju-io-dr-gitlab
   namespace: istio-system
 spec:
   host: gitlab.gitlab.svc.cluster.local
@@ -58,13 +58,13 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-gitlab
+  name: beryju-io-vs-gitlab
   namespace: istio-system
 spec:
   gateways:
     - gitlab
   hosts:
-    - gitlab.${CLUSTER_NAME}.k8s.beryju.org
+    - gitlab.${CLUSTER_NAME}.k8s.beryju.io
   http:
     - route:
         - destination:

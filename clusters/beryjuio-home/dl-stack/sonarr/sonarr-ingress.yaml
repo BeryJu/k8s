@@ -9,9 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-dl-stack-sonarr
-  commonName: sonarr.${CLUSTER_NAME}.k8s.beryju.org
+  commonName: sonarr.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - sonarr.${CLUSTER_NAME}.k8s.beryju.org
+    - sonarr.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -21,7 +21,7 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
-    - host: sonarr.${CLUSTER_NAME}.k8s.beryju.org
+    - host: sonarr.${CLUSTER_NAME}.k8s.beryju.io
       http:
         paths:
           - backend:
@@ -33,5 +33,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - sonarr.${CLUSTER_NAME}.k8s.beryju.org
+        - sonarr.${CLUSTER_NAME}.k8s.beryju.io
       secretName: beryjuio-dl-stack-sonarr

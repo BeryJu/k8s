@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-authentik
+  name: beryju-io-authentik
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-authentik
-  commonName: authentik.${CLUSTER_NAME}.k8s.beryju.org
+  secretName: beryju-io-authentik
+  commonName: authentik.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - authentik.${CLUSTER_NAME}.k8s.beryju.org
+    - authentik.${CLUSTER_NAME}.k8s.beryju.io

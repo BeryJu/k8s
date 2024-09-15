@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-prom-additional-scrape-creds-hass
+  name: beryju-io-prom-additional-scrape-creds-hass
   namespace: monitoring-system
 spec:
   secretStoreRef:
@@ -16,9 +16,9 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-hass
+  name: beryju-io-prom-hass
   labels:
-    svc: beryjuorg-prom-hass
+    svc: beryju-io-prom-hass
   namespace: monitoring-system
 spec:
   type: ClusterIP
@@ -30,7 +30,7 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-hass
+  name: beryju-io-prom-hass
   namespace: monitoring-system
 subsets:
   - addresses:
@@ -42,7 +42,7 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: beryjuorg-prom-hass
+  name: beryju-io-prom-hass
   namespace: monitoring-system
 spec:
   endpoints:
@@ -50,8 +50,8 @@ spec:
       port: http
       path: "/api/prometheus"
       bearerTokenSecret:
-        name: beryjuorg-prom-additional-scrape-creds-hass
+        name: beryju-io-prom-additional-scrape-creds-hass
         key: PW_HOME_ASSISTANT
   selector:
     matchLabels:
-      svc: beryjuorg-prom-hass
+      svc: beryju-io-prom-hass

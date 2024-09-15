@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-vmware-exporter
+  name: beryju-io-vmware-exporter
   namespace: monitoring-system
 spec:
   secretStoreRef:
@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - secretRef:
-                name: beryjuorg-vmware-exporter
+                name: beryju-io-vmware-exporter
           resources: {}
           ports:
             - containerPort: 9272

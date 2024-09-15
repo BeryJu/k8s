@@ -9,9 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-plex
-  commonName: plex.${CLUSTER_NAME}.k8s.beryju.org
+  commonName: plex.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - plex.${CLUSTER_NAME}.k8s.beryju.org
+    - plex.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -21,7 +21,7 @@ metadata:
 spec:
   ingressClassName: istio
   rules:
-    - host: plex.${CLUSTER_NAME}.k8s.beryju.org
+    - host: plex.${CLUSTER_NAME}.k8s.beryju.io
       http:
         paths:
           - backend:
@@ -33,5 +33,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - plex.${CLUSTER_NAME}.k8s.beryju.org
+        - plex.${CLUSTER_NAME}.k8s.beryju.io
       secretName: beryjuio-plex

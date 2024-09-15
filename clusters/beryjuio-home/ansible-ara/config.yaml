@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-ara-config
+  name: beryju-io-ara-config
   namespace: ansible-ara
 spec:
   secretStoreRef:

@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-gravity
+  name: beryju-io-prom-gravity
   labels:
-    svc: beryjuorg-prom-gravity
+    svc: beryju-io-prom-gravity
   namespace: monitoring-system
 spec:
   type: ClusterIP
@@ -15,7 +15,7 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: beryjuorg-prom-gravity
+  name: beryju-io-prom-gravity
   namespace: monitoring-system
 subsets:
   - addresses:
@@ -27,7 +27,7 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: beryjuorg-prom-gravity
+  name: beryju-io-prom-gravity
   namespace: monitoring-system
 spec:
   endpoints:
@@ -35,4 +35,4 @@ spec:
       port: http
   selector:
     matchLabels:
-      svc: beryjuorg-prom-gravity
+      svc: beryju-io-prom-gravity

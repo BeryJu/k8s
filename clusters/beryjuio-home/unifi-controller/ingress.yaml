@@ -9,9 +9,9 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryjuio-unifi-controller
-  commonName: unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+  commonName: unifi-controller.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+    - unifi-controller.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -30,20 +30,20 @@ spec:
         mode: SIMPLE
         credentialName: beryjuio-unifi-controller
       hosts:
-        - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+        - unifi-controller.${CLUSTER_NAME}.k8s.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+        - unifi-controller.${CLUSTER_NAME}.k8s.beryju.io
       tls:
         httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: beryjuorg-dr-unifi-controller
+  name: beryju-io-dr-unifi-controller
   namespace: istio-system
 spec:
   host: unifi-controller.unifi-controller.svc.cluster.local
@@ -58,13 +58,13 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-unifi-controller
+  name: beryju-io-vs-unifi-controller
   namespace: istio-system
 spec:
   gateways:
     - unifi-controller
   hosts:
-    - unifi-controller.${CLUSTER_NAME}.k8s.beryju.org
+    - unifi-controller.${CLUSTER_NAME}.k8s.beryju.io
   http:
     - route:
         - destination:

@@ -21,7 +21,7 @@ spec:
   values:
     fullnameOverride: fleet
     replicas: 1
-    hostName: fleet.beryjuio-home.k8s.beryju.org
+    hostName: fleet.beryjuio-home.k8s.beryju.io
     database:
       secretName: beryjuio-fleet-secret-mysql
       address: fleetdm-mysql:3306
@@ -55,14 +55,14 @@ spec:
       enabled: true
       className: istio
       hosts:
-        - host: fleet.beryjuio-home.k8s.beryju.org
+        - host: fleet.beryjuio-home.k8s.beryju.io
           paths:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: beryjuorg-fleetdm
+        - secretName: beryju-io-fleetdm
           hosts:
-            - fleet.beryjuio-home.k8s.beryju.org
+            - fleet.beryjuio-home.k8s.beryju.io
     fleet:
       autoApplySQLMigrations: false
       logging:

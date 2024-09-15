@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-ansible-ara
+  name: beryju-io-ansible-ara
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-ansible-ara
-  commonName: ara.${CLUSTER_NAME}.k8s.beryju.org
+  secretName: beryju-io-ansible-ara
+  commonName: ara.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
-    - ara.${CLUSTER_NAME}.k8s.beryju.org
+    - ara.${CLUSTER_NAME}.k8s.beryju.io

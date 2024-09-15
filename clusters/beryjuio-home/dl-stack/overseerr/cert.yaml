@@ -1,11 +1,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-overseerr
+  name: beryju-io-overseerr
   namespace: istio-system
 spec:
   dnsNames:
-    - overseerr.${CLUSTER_NAME}.k8s.beryju.org
+    - overseerr.${CLUSTER_NAME}.k8s.beryju.io
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
