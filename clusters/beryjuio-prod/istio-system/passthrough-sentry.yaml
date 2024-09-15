@@ -32,28 +32,13 @@ spec:
         credentialName: beryju-io-sentry
       hosts:
         - sentry.beryju.org
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - sentry.beryju.org
-      tls:
-        httpsRedirect: true
-    - port:
-        number: 443
-        name: https
-        protocol: HTTPS
-      tls:
-        mode: SIMPLE
-        credentialName: beryju-io-sentry
-      hosts:
         - sentry.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
+        - sentry.beryju.org
         - sentry.beryju.io
       tls:
         httpsRedirect: true
