@@ -18,6 +18,5 @@ spec:
               - "*.lab.beryju.io"
             notHosts:
               - grafana.lab.beryju.io
-              - unifi.infra.beryju.org
-              - mimir.infra.beryju.org
-              - loki.infra.beryju.org
+              - mimir.lab.beryju.io
+              - loki.lab.beryju.io

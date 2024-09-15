@@ -56,7 +56,7 @@ jobs:
       - name: sync-rules
         uses: grafana/cortex-rules-action@v0.9.1
         env:
-          CORTEX_ADDRESS: https://loki.infra.beryju.org
+          CORTEX_ADDRESS: https://loki.lab.beryju.io
           CORTEX_TENANT_ID: fake
           CORTEX_API_USER: "goauthentik.io/token"
           CORTEX_API_KEY: ${{ steps.jwt.outputs.jwt }}
