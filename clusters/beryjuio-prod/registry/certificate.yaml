@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-gw-registries
+  name: beryju-io-gw-registries
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-gw-registries
+  secretName: beryju-io-gw-registries
   commonName: registry.beryju.io
   dnsNames:
     - registry.beryju.io

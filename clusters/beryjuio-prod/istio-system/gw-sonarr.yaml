@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-dl-stack-sonarr
+  name: beryju-io-gw-dl-stack-sonarr
   namespace: istio-system
 spec:
   selector:
@@ -32,7 +32,7 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-dl-stack-sonarr
+    - beryju-io-gw-dl-stack-sonarr
   hosts:
     - sonarr-dl-stack.lab.beryju.io
   http:

@@ -30,4 +30,4 @@ spec:
     - hosts:
         - registry.beryju.org
         - registry.beryju.io
-      secretName: beryjuorg-gw-registries
+      secretName: beryju-io-gw-registries

@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-dl-stack-sabnzbd
+  name: beryju-io-gw-dl-stack-sabnzbd
   namespace: istio-system
 spec:
   selector:
@@ -32,7 +32,7 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-dl-stack-sabnzbd
+    - beryju-io-gw-dl-stack-sabnzbd
   hosts:
     - sabnzbd-dl-stack.lab.beryju.io
   http:

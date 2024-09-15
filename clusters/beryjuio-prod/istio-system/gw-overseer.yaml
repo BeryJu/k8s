@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-gw-overseerr
+  name: beryju-io-gw-overseerr
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-gw-overseerr
+  secretName: beryju-io-gw-overseerr
   commonName: requests.jela.io
   dnsNames:
     - requests.jela.io
@@ -16,7 +16,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-overseerr
+  name: beryju-io-gw-overseerr
   namespace: istio-system
 spec:
   selector:
@@ -28,7 +28,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-gw-overseerr
+        credentialName: beryju-io-gw-overseerr
       hosts:
         - requests.jela.io
     - port:
@@ -47,7 +47,7 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-overseerr
+    - beryju-io-gw-overseerr
   hosts:
     - requests.jela.io
   http:

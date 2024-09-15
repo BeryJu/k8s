@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: beryjuorg-sentry
+  name: beryju-io-sentry
   namespace: istio-system
 spec:
   issuerRef:
     name: letsencrypt-prod
     group: cert-manager.io
     kind: ClusterIssuer
-  secretName: beryjuorg-sentry
+  secretName: beryju-io-sentry
   commonName: sentry.beryju.io
   dnsNames:
     - sentry.beryju.io
@@ -17,7 +17,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-sentry
+  name: beryju-io-gw-sentry
   namespace: istio-system
 spec:
   selector:
@@ -29,7 +29,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: beryjuorg-sentry
+        credentialName: beryju-io-sentry
       hosts:
         - sentry.beryju.org
     - port:
@@ -38,6 +38,23 @@ spec:
         protocol: HTTP
       hosts:
         - sentry.beryju.org
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryju-io-sentry
+      hosts:
+        - sentry.beryju.io
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - sentry.beryju.io
       tls:
         httpsRedirect: true
 ---
@@ -63,9 +80,10 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-sentry
+    - beryju-io-gw-sentry
   hosts:
     - sentry.beryju.org
+    - sentry.beryju.io
   http:
     - route:
         - destination:

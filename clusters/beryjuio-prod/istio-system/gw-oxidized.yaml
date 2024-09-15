@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-oxidized
+  name: beryju-io-gw-oxidized
   namespace: istio-system
 spec:
   selector:
@@ -32,7 +32,7 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-oxidized
+    - beryju-io-gw-oxidized
   hosts:
     - oxidized.infra.beryju.org
   http:

@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: beryjuorg-gw-dl-stack-radarr
+  name: beryju-io-gw-dl-stack-radarr
   namespace: istio-system
 spec:
   selector:
@@ -32,7 +32,7 @@ metadata:
   namespace: istio-system
 spec:
   gateways:
-    - beryjuorg-gw-dl-stack-radarr
+    - beryju-io-gw-dl-stack-radarr
   hosts:
     - radarr-dl-stack.lab.beryju.io
   http:
