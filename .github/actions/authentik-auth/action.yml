@@ -1,0 +1,54 @@
+name: "Authenticate to an authentik application using GitHub Actions Tokens"
+description: "Authenticate to an authentik application using GitHub Actions Tokens"
+
+inputs:
+  authentik_url:
+    description: "URL of the authentik instance"
+    required: true
+  client_id:
+    description: "Client ID of the application to authenticate to"
+    required: true
+
+outputs:
+  token:
+    description: "Token"
+    value: ${{ steps.main.outputs.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run
+      shell: python
+      id: main
+      run: |
+        from requests import get, post
+        from os import environ
+
+        authentik_url = "${{ inputs.authentik_url }}"
+        client_id = "${{ inputs.client_id }}"
+
+        # Get GitHub token
+        _gh_jwt = get(
+            environ["ACTIONS_ID_TOKEN_REQUEST_URL"],
+            headers={
+                "Authorization": f"Bearer {environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']}",
+            },
+            timeout=10
+        )
+        _gh_jwt.raise_for_status()
+        jwt = _gh_jwt.json().get("value")
+
+        # Get authentik JWT
+        _jwt = post(
+            f"{authentik_url}/application/o/token/",
+            data={
+                "grant_type": "client_credentials",
+                "client_id": client_id,
+                "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                "client_assertion": jwt
+            },
+            timeout=10
+        )
+        _jwt.raise_for_status()
+        with open(environ['GITHUB_OUTPUT'], 'a') as fh:
+            print(f'token={_jwt.json().get("access_token")}', file=fh)
