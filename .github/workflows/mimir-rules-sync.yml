@@ -18,10 +18,41 @@ jobs:
         uses: actions/checkout@v4
       - name: Get GitHub & authentik JWT
         id: jwt
-        uses: ./.github/actions/authentik-auth
-        with:
-          authentik_url: https://id.beryju.io
-          client_id: lcRSrmUpLESkVEd99eCh9fqm68sYksAIxv3zjkl0
+        shell: python
+        run: |
+          from requests import get, post
+          from os import environ
+
+          authentik_url = "https://id.beryju.io"
+          client_id = "lcRSrmUpLESkVEd99eCh9fqm68sYksAIxv3zjkl0"
+
+          # Get GitHub token
+
+          _gh_jwt = get(
+              environ["ACTIONS_ID_TOKEN_REQUEST_URL"],
+              headers={
+                  "Authorization": f"Bearer {environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']}",
+              },
+              timeout=10
+          )
+          _gh_jwt.raise_for_status()
+          jwt = _gh_jwt.json().get("value")
+
+          # Get authentik JWT
+
+          _jwt = post(
+              f"{authentik_url}/application/o/token/",
+              data={
+                  "grant_type": "client_credentials",
+                  "client_id": client_id,
+                  "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                  "client_assertion": jwt
+              },
+              timeout=10
+          )
+          _jwt.raise_for_status()
+          with open(environ['GITHUB_OUTPUT'], 'a') as fh:
+            print(f'jwt={_jwt.json().get("access_token")}', file=fh)
       - name: sync-rules
         uses: grafana/mimir/operations/mimir-rules-action@main
         env:
