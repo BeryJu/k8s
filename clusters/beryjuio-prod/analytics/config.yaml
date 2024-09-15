@@ -1,7 +1,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: beryjuorg-plausible-config
+  name: beryju-io-plausible-config
   namespace: analytics
 spec:
   secretStoreRef:

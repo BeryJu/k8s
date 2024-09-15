@@ -28,7 +28,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-oxidized
+  name: beryju-io-vs-oxidized
   namespace: istio-system
 spec:
   gateways:

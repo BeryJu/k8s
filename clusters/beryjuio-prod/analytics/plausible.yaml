@@ -56,7 +56,7 @@ spec:
             - /entrypoint.sh db createdb && /entrypoint.sh db migrate
           envFrom:
             - secretRef:
-                name: beryjuorg-plausible-config
+                name: beryju-io-plausible-config
           securityContext:
             allowPrivilegeEscalation: false
           resources:
@@ -73,7 +73,7 @@ spec:
             - containerPort: 8000
           envFrom:
             - secretRef:
-                name: beryjuorg-plausible-config
+                name: beryju-io-plausible-config
           securityContext:
             allowPrivilegeEscalation: false
           resources:

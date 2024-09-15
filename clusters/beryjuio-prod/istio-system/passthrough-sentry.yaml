@@ -61,7 +61,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: beryjuorg-vs-sentry
+  name: beryju-io-vs-sentry
   namespace: istio-system
 spec:
   gateways:
