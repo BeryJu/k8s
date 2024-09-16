@@ -15,13 +15,13 @@ spec:
         mode: SIMPLE
         credentialName: beryju-io-authentik-proxy-infra
       hosts:
-        - oxidized.infra.beryju.org
+        - oxidized.lab.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-        - oxidized.infra.beryju.org
+        - oxidized.lab.beryju.io
       tls:
         httpsRedirect: true
 ---
@@ -34,7 +34,7 @@ spec:
   gateways:
     - beryju-io-gw-oxidized
   hosts:
-    - oxidized.infra.beryju.org
+    - oxidized.lab.beryju.io
   http:
     - route:
         - destination:
