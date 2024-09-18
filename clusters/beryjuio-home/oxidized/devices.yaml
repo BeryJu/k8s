@@ -5,8 +5,9 @@ metadata:
   namespace: oxidized
 data:
   devices.csv: |-
-    freiburg1.net.beryju.org:vyatta
-    ap-living-room.net.beryju.org:airos:beryju
-    switch-kitchen.net.beryju.org:swos:admin:
-    switch-tv.net.beryju.org:swos:admin:
-    switch-bed.net.beryju.org:swos:admin:
+    freiburg1.net.beryju.io:vyatta
+    ap-living-room.net.beryju.io:airos:beryju
+    ap-kitchen.net.beryju.io:airos:beryju
+    switch-kitchen.net.beryju.io:swos:admin:
+    switch-tv.net.beryju.io:swos:admin:
+    switch-bed.net.beryju.io:swos:admin:
