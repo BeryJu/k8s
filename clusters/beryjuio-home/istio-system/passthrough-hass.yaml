@@ -50,7 +50,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - hass1.prod.beryju.org
+    - hass1.prod.beryju.io
   location: MESH_EXTERNAL
   ports:
     - number: 8123
@@ -74,4 +74,4 @@ spec:
         - destination:
             port:
               number: 8123
-            host: hass1.prod.beryju.org
+            host: hass1.prod.beryju.io
