@@ -15,7 +15,7 @@ spec:
         # minio is required for the registry to work, but to start it needs the istio sidecar
         # ...which by default comes from the registry. Hence we use the upstream dockerhub image
         # here
-        sidecar.istio.io/proxyImage: docker.io/istio/proxyv2:1.23.1
+        sidecar.istio.io/proxyImage: docker.io/istio/proxyv2:1.23.2
         proxy.istio.io/config: |
           holdApplicationUntilProxyStarts: true
       labels:
