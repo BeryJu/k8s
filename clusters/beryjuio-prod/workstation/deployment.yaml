@@ -98,7 +98,7 @@ spec:
             - mountPath: /etc/shared/vault
               name: shared-vault
         - name: dind
-          image: docker:27.2.1-dind
+          image: docker:27.3.0-dind
           securityContext:
             privileged: true
           volumeMounts:
