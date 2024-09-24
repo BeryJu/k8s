@@ -22,7 +22,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/dev-server
-        tag: gh-next-1715275458-8b74b83
+        tag: gh-df44bf22f1adcb0b9406997c98be771a06617d70
     server:
       autoscaling:
         enabled: true
