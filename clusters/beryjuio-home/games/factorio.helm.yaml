@@ -23,6 +23,10 @@ spec:
     service:
       type: LoadBalancer
       port: 34197
+    mods:
+      enabled: true
+      portal:
+        - squeak-through-2
     factorioServer:
       save_name: "default-save"
       update_mods_on_start: true
