@@ -27,6 +27,7 @@ spec:
       enabled: true
       portal:
         - squeak-through-2
+        - factorio-prometheus-exporter
     factorioServer:
       save_name: "default-save"
       update_mods_on_start: true
