@@ -27,8 +27,8 @@ spec:
             - containerPort: 9102
               name: metrics
           volumeMounts:
-          - mountPath: /factorio
-            name: datadir
+            - mountPath: /factorio
+              name: datadir
       volumes:
         - name: datadir
           persistentVolumeClaim:
