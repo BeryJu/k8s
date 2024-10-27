@@ -29,6 +29,7 @@ spec:
         - squeak-through-2
         - factorio-prometheus-exporter
         - factoryplanner
+        - flib
     factorioServer:
       save_name: "default-save"
       update_mods_on_start: true
