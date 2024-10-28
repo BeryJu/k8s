@@ -36,6 +36,6 @@ data:
       push_to_remote:
         type: githubrepo
         events: [post_store]
-        remote_repo: git@code.beryju.org:BeryJu.org/oxidized.git
+        remote_repo: git@gitlab.beryjuio-home.k8s.beryju.io:BeryJu.org/oxidized.git
         publickey: /home/oxidized/.ssh/id_rsa.pub
         privatekey: /home/oxidized/.ssh/id_rsa
