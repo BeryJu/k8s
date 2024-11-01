@@ -18,8 +18,8 @@ spec:
       name: beryjuio-factorio
   values:
     image:
-      pullPolicy: IfNotPresent
-      tag: "2.0.12"
+      pullPolicy: Always
+      tag: "stable"
     service:
       type: LoadBalancer
       port: 34197
