@@ -27,7 +27,7 @@ spec:
       enabled: true
       portal:
         - squeak-through-2
-        - factorio-prometheus-exporter
+        # - factorio-prometheus-exporter
         - factoryplanner
         - flib
     factorioServer:
