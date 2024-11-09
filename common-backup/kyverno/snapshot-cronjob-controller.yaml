@@ -17,7 +17,6 @@ metadata:
       An optional label of "snapshot.home.arpa/ignoreAffinity" may be set on the PVC
       if the pod is guaranteed to not run during the time of this jobs execution
 spec:
-  generateExistingOnPolicyUpdate: true
   mutateExistingOnPolicyUpdate: true
   rules:
     - name: create-snapshot-cronjob-credential
@@ -42,6 +41,7 @@ spec:
           variable:
             jmesPath: "request.object.metadata.namespace"
       generate:
+        generateExisting: true
         synchronize: true
         apiVersion: external-secrets.io/v1beta1
         kind: ExternalSecret
@@ -106,6 +106,7 @@ spec:
                   values:
                     - '{{ request.object.metadata.labels."app.kubernetes.io/instance" }}'
       generate:
+        generateExisting: true
         synchronize: true
         apiVersion: batch/v1
         kind: CronJob
