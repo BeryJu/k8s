@@ -23,11 +23,13 @@ spec:
     service:
       type: LoadBalancer
       port: 34197
+    persistence:
+      labels:
+        snapshot.home.arpa/enabled: "true"
     mods:
       enabled: true
       portal:
         - squeak-through-2
-        # - factorio-prometheus-exporter
         - factoryplanner
         - flib
     factorioServer:
