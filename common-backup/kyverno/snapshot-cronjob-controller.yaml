@@ -30,8 +30,8 @@ spec:
                 matchLabels:
                   snapshot.home.arpa/enabled: "true"
                 matchExpressions:
-                  - {key: "app.kubernetes.io/name", operator: Exists}
-                  - {key: "app.kubernetes.io/instance", operator: Exists}
+                  - { key: "app.kubernetes.io/name", operator: Exists }
+                  - { key: "app.kubernetes.io/instance", operator: Exists }
       context:
         - name: appName
           variable:
@@ -83,8 +83,8 @@ spec:
                 matchLabels:
                   snapshot.home.arpa/enabled: "true"
                 matchExpressions:
-                  - {key: "app.kubernetes.io/name", operator: Exists}
-                  - {key: "app.kubernetes.io/instance", operator: Exists}
+                  - { key: "app.kubernetes.io/name", operator: Exists }
+                  - { key: "app.kubernetes.io/instance", operator: Exists }
       context:
         - name: appName
           variable:
