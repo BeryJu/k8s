@@ -26,6 +26,7 @@ spec:
     persistence:
       labels:
         snapshot.home.arpa/enabled: "true"
+        snapshot.home.arpa/ignoreAffinity: "true"
     mods:
       enabled: true
       portal:
