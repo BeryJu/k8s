@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kyverno.io/clusterpolicy_v1.json
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -28,8 +29,9 @@ spec:
               selector:
                 matchLabels:
                   snapshot.home.arpa/enabled: "true"
-                  app.kubernetes.io/name: "*"
-                  app.kubernetes.io/instance: "*"
+                matchExpressions:
+                  - {key: "app.kubernetes.io/name", operator: Exists}
+                  - {key: "app.kubernetes.io/instance", operator: Exists}
       context:
         - name: appName
           variable:
@@ -80,8 +82,9 @@ spec:
               selector:
                 matchLabels:
                   snapshot.home.arpa/enabled: "true"
-                  app.kubernetes.io/name: "*"
-                  app.kubernetes.io/instance: "*"
+                matchExpressions:
+                  - {key: "app.kubernetes.io/name", operator: Exists}
+                  - {key: "app.kubernetes.io/instance", operator: Exists}
       context:
         - name: appName
           variable:
