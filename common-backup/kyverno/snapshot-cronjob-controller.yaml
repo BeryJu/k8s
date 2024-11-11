@@ -45,7 +45,7 @@ spec:
         synchronize: true
         apiVersion: external-secrets.io/v1beta1
         kind: ExternalSecret
-        name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
+        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`52`) }}"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
           metadata:
@@ -110,7 +110,7 @@ spec:
         synchronize: true
         apiVersion: batch/v1
         kind: CronJob
-        name: "{{ appName }}-{{ claimName }}-snapshot"
+        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot',`52`) }}"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
           metadata:
