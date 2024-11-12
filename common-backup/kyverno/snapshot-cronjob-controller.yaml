@@ -47,7 +47,7 @@ spec:
         synchronize: true
         apiVersion: external-secrets.io/v1beta1
         kind: ExternalSecret
-        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`52`) }}"
+        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`50`) }}"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
           metadata:
@@ -113,7 +113,7 @@ spec:
         synchronize: true
         apiVersion: batch/v1
         kind: CronJob
-        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot',`52`) }}"
+        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot',`50`) }}"
         namespace: "{{ request.object.metadata.namespace }}"
         data:
           metadata:
@@ -153,7 +153,7 @@ spec:
                             value: "s3.eu-central-2.wasabisys.com"
                         envFrom:
                           - secretRef:
-                              name: "{{ appName }}-{{ claimName }}-snapshot-credentials"
+                              name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`50`) }}"
                         command:
                           - /bin/bash
                           - -c
