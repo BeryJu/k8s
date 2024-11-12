@@ -16,6 +16,20 @@ spec:
   valuesFrom:
     - kind: Secret
       name: beryjuio-factorio
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: factorio-factorio-server-charts
+            patch: |
+              - op: add
+                path: "/spec/template/metadata/labels/app.kubernetes.io~1instance"
+                value: factorio
+              - op: add
+                path: "/spec/template/metadata/labels/app.kubernetes.io~1name"
+                value: factorio
   values:
     image:
       pullPolicy: Always
@@ -27,6 +41,8 @@ spec:
       labels:
         snapshot.home.arpa/enabled: "true"
         snapshot.home.arpa/ignoreAffinity: "true"
+        app.kubernetes.io/instance: factorio
+        app.kubernetes.io/name: factorio
     mods:
       enabled: true
       portal:
