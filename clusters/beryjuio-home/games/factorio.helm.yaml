@@ -46,9 +46,9 @@ spec:
     mods:
       enabled: true
       portal:
-        - squeak-through-2
-        - factoryplanner
-        - flib
+        - name: squeak-through-2
+        - name: factoryplanner
+        - name: flib
     factorioServer:
       save_name: "default-save"
       update_mods_on_start: true
