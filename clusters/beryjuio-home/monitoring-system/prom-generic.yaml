@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: beryju-io-prom-syno
+  name: beryju-io-prom-nodes
   labels:
-    svc: beryju-io-prom-syno
+    svc: beryju-io-prom-nodes
   namespace: monitoring-system
 spec:
   type: ClusterIP
@@ -15,11 +15,12 @@ spec:
 kind: Endpoints
 apiVersion: v1
 metadata:
-  name: beryju-io-prom-syno
+  name: beryju-io-prom-nodes
   namespace: monitoring-system
 subsets:
   - addresses:
       - ip: 10.120.20.30
+      - ip: 10.120.20.60
     ports:
       - name: metrics
         port: 9100
@@ -27,7 +28,7 @@ subsets:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: beryju-io-prom-syno
+  name: beryju-io-prom-nodes
   namespace: monitoring-system
 spec:
   endpoints:
@@ -36,4 +37,4 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      svc: beryju-io-prom-syno
+      svc: beryju-io-prom-nodes
