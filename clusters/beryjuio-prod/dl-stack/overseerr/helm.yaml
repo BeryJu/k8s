@@ -33,3 +33,11 @@ spec:
               - hosts:
                   - overseerr.${CLUSTER_NAME}.k8s.beryju.io
                 secretName: overseerr-acme
+          - host: requests.jela.io
+            paths:
+              - path: /
+                pathType: Prefix
+            tls:
+              - hosts:
+                  - requests.jela.io
+                secretName: overseerr-acme

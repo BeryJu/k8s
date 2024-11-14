@@ -6,6 +6,7 @@ metadata:
 spec:
   dnsNames:
     - overseerr.${CLUSTER_NAME}.k8s.beryju.io
+    - requests.jela.io
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
