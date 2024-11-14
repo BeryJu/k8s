@@ -21,7 +21,7 @@ spec:
         fsGroupChangePolicy: Always
       containers:
         - name: exporter
-          image: proxy.registry.beryju.io/msroest/sabnzbd_exporter:0.1.73
+          image: proxy.registry.beryju.io/msroest/sabnzbd_exporter:0.1.78
           env:
             - name: SABNZBD_BASEURL
               value: http://sabnzbd:8080
