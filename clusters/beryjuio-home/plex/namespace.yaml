@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: "plex"
   labels:
-    istio-injection: disabled
+    istio-injection: enabled
