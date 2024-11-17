@@ -21,12 +21,15 @@ spec:
       hostname: unifi-controller
       containers:
         - name: unifi-controller
-          image: ghcr.io/linuxserver/unifi-controller:8.0.24
+          image: ghcr.io/linuxserver/unifi-network-application:8.6.9
           env:
             - name: PUID
               value: "1000"
             - name: PGID
               value: "1000"
+          envFrom:
+            - secretRef:
+                name: beryjuio-mongo
           ports:
             - containerPort: 3478
               protocol: UDP
