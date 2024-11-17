@@ -25,16 +25,15 @@ spec:
       prometheusRule:
         enabled: true
     resourcesPreset: "none"
+    persistence:
+      labels:
+        app.kubernetes.io/name: mongodb
+        app.kubernetes.io/instance: unifi
+        snapshot.home.arpa/enabled: "true"
     initdbScripts:
       unifi.sh: |
         #!/bin/bash
-
-        if which mongosh > /dev/null 2>&1; then
-          mongo_init_bin='mongosh'
-        else
-          mongo_init_bin='mongo'
-        fi
-        "${mongo_init_bin}" <<EOF
+        mongosh <<EOF
         use admin
         db.auth("${MONGODB_ROOT_USER}", "${MONGODB_ROOT_PASSWORD}")
         db.createUser({
