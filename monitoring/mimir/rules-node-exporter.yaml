@@ -91,7 +91,7 @@ groups:
 
       - alert: HostCpuStealNoisyNeighbor
         expr: avg by(instance) (rate(node_cpu_seconds_total{mode="steal"}[5m])) * 100 > 10
-        for: 0m
+        for: 1h
         labels:
           severity: warning
         annotations:
