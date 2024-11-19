@@ -26,7 +26,7 @@ spec:
         fsGroupChangePolicy: Always
       containers:
         - name: radarr
-          image: ghcr.io/onedr0p/radarr:5.14.0.9383
+          image: ghcr.io/onedr0p/radarr:5.15.1.9463
           resources:
             requests:
               memory: "250Mi"
