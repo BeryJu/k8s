@@ -34,8 +34,8 @@ spec:
             - |-
               set -x
               kopia repo connect s3 \
-                --endpoint="${ENDPOINT}" \
-                --bucket="${BUCKET}" \
+                --endpoint="$${ENDPOINT}" \
+                --bucket="$${BUCKET}" \
                 --override-hostname="${CLUSTER_NAME}"
               kopia server start \
                 --insecure \
