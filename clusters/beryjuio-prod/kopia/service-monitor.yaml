@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kopia
+  namespace: kopia
+spec:
+  endpoints:
+    - port: http-metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kopia
