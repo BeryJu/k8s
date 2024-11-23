@@ -55,3 +55,9 @@ spec:
               value: "beryjuio-k8s-backup"
             - name: ENDPOINT
               value: "s3.eu-central-2.wasabisys.com"
+      volumeMounts:
+        - mountPath: /app
+          name: app-volume
+      volumes:
+      - name: app-volume
+        emptyDir: {}
