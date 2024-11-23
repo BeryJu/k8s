@@ -10,11 +10,11 @@ spec:
     - port: 51515
       name: http
       protocol: TCP
-      targetPort: http
+      targetPort: 51515
     - port: 9300
       name: http-metrics
       protocol: TCP
-      targetPort: http-metrics
+      targetPort: 9300
   selector:
     app.kubernetes.io/name: kopia
   type: ClusterIP
