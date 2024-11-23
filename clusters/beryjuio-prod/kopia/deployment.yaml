@@ -29,14 +29,19 @@ spec:
         - name: kopia
           image: proxy.registry.beryju.io/kopia/kopia:0.18
           command:
-            - kopia
-          args:
-            - server
-            - start
-            - --insecure
-            - --without-password
-            - --log-level=debug
-            - --metrics-listen-addr=0.0.0.0:9300
+            - /bin/bash
+            - -c
+            - |-
+              set -x
+              kopia repo connect s3 \
+                --endpoint="${ENDPOINT}" \
+                --bucket="${BUCKET}" \
+                --override-hostname="${CLUSTER_NAME}"
+              kopia server start \
+                --insecure \
+                --without-password \
+                --log-level=debug \
+                --metrics-listen-addr=0.0.0.0:9300
           ports:
             - containerPort: 51515
             - containerPort: 9300
