@@ -6,6 +6,7 @@ metadata:
   name: factorio-exporter
   namespace: games
 spec:
+  replicas: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: factorio-exporter
