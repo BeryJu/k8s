@@ -19,9 +19,9 @@ spec:
         - name: tailscale
           image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
           ports:
-          - containerPort: 4103
-            name: healthz
-            protocol: TCP
+            - containerPort: 4103
+              name: healthz
+              protocol: TCP
           readinessProbe:
             httpGet:
               path: /healthz
