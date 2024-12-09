@@ -18,6 +18,14 @@ spec:
       containers:
         - name: tailscale
           image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
+          ports:
+          - containerPort: 4103
+            name: healthz
+            protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
           env:
             # Store the state in a k8s secret
             - name: TS_KUBE_SECRET
@@ -26,12 +34,19 @@ spec:
               value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.io --advertise-tags tag:${CLUSTER_NAME}"
             - name: TS_USERSPACE
               value: "true"
+            - name: TS_HEALTHCHECK_ADDR_PORT
+              value: ":4103"
             - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
                   name: tailscale-auth
                   key: TS_AUTHKEY
                   optional: true
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
             - name: TS_HOSTNAME
               valueFrom:
                 fieldRef:
