@@ -3,8 +3,7 @@ groups:
     rules:
       - alert: AuthentikSystemChecksIssues
         expr: |
-          sum by (clusterName) (count_over_time({app="authentik", container="server"} |= "System check identified some issues"[5m])) > 0
-        for: 2m
+          sum by (clusterName) (count_over_time({app="authentik", container="server"} |= "System check identified some issues"[2h])) > 0
         labels:
           severity: critical
           category: logs
@@ -12,8 +11,7 @@ groups:
           summary: "authentik System checks identified issues"
       - alert: AuthentikMissingMigrations
         expr: |
-          sum by (clusterName) (count_over_time({app="authentik", container="server"} |= "have changes that are not yet reflected in a migration"[5m])) > 0
-        for: 2m
+          sum by (clusterName) (count_over_time({app="authentik", container="server"} |= "have changes that are not yet reflected in a migration"[2h])) > 0
         labels:
           severity: critical
           category: logs
@@ -21,8 +19,7 @@ groups:
           summary: "authentik has missing migrations"
       - alert: AuthentikStageInvalidChallenge
         expr: |
-          sum by (clusterName, stage_view) (count_over_time({app="authentik", container="server"} | json | event = "f(ch): Invalid challenge"[5m])) > 0
-        for: 2m
+          sum by (clusterName, stage_view) (count_over_time({app="authentik", container="server"} | json | event = "f(ch): Invalid challenge"[2h])) > 0
         labels:
           severity: critical
           category: logs
