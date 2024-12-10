@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: tailscale-subnet-router
+  namespace: tailscale
+spec:
+  namespaceSelector:
+    matchNames:
+      - tailscale
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tailscale-subnet-router
+  podMetricsEndpoints:
+    - port: healthz

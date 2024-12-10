@@ -19,7 +19,7 @@ spec:
         - name: tailscale
           image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
           ports:
-            - containerPort: 4103
+            - containerPort: 9002
               name: healthz
               protocol: TCP
           readinessProbe:
@@ -34,8 +34,10 @@ spec:
               value: "--login-server https://headscale.beryjuio-oci.k8s.beryju.io --advertise-tags tag:${CLUSTER_NAME}"
             - name: TS_USERSPACE
               value: "true"
-            - name: TS_HEALTHCHECK_ADDR_PORT
-              value: ":4103"
+            - name: TS_ENABLE_HEALTH_CHECK
+              value: "true"
+            - name: TS_ENABLE_METRICS
+              value: "true"
             - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
