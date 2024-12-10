@@ -17,7 +17,7 @@ spec:
       serviceAccount: tailscale
       containers:
         - name: tailscale
-          image: ghcr.io/tailscale/tailscale:unstable-v1.35.25
+          image: ghcr.io/tailscale/tailscale:v1.76.6
           ports:
             - containerPort: 9002
               name: healthz
