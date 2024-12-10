@@ -32,6 +32,9 @@ spec:
     - name: metrics-frr
       port: 9342
       targetPort: 9342
+    - name: metrics-tailscale
+      port: 9002
+      targetPort: 9002
 ---
 kind: Endpoints
 apiVersion: v1
@@ -47,6 +50,8 @@ subsets:
         port: 9100
       - name: metrics-frr
         port: 9342
+      - name: metrics-tailscale
+        port: 9002
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -79,6 +84,7 @@ spec:
         password:
           name: beryju-io-prom-additional-scrape-creds-node-exporter
           key: PW_NODE_EXPORTER
+    - port: metrics-tailscale
   selector:
     matchLabels:
       svc: beryju-io-prom-vyos
