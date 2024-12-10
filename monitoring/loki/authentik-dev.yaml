@@ -1,0 +1,21 @@
+groups:
+  - name: authentik Dev
+    rules:
+      - alert: AuthentikSystemChecksIssues
+        expr: |
+          sum by (cluster) (count_over_time({app="authentik", container="server"} |= "System check identified some issues"[5m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "authentik System checks identified issues"
+      - alert: AuthentikMissingMigrations
+        expr: |
+          sum by (cluster) (count_over_time({app="authentik", container="server"} |= "have changes that are not yet reflected in a migration"[5m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "authentik has missing migrations"
