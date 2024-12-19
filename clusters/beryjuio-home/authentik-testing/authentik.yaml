@@ -21,8 +21,8 @@ spec:
     fullnameOverride: authentik
     global:
       image:
-        repository: ghcr.io/goauthentik/dev-server
-        tag: gh-df44bf22f1adcb0b9406997c98be771a06617d70
+        repository: ghcr.io/goauthentik/server
+        tag: 2024.12.0-rc1
     server:
       autoscaling:
         enabled: true
