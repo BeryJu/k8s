@@ -25,7 +25,7 @@ spec:
         envFrom:
         - configMapRef:
             name: imagik-config
-        image: ghcr.io/beryju/imagik:latest-1734520457-90b9ae663ff014357f9e0589788f40cc7f5baf8d # {"$imagepolicy": "flux-system:imagik"}
+        image: ghcr.io/beryju/imagik:latest-1734605469-98c79437d48681cbc809bda38c758fd7d6b3936e # {"$imagepolicy": "flux-system:imagik"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
