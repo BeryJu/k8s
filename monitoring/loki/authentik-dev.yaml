@@ -25,3 +25,11 @@ groups:
           category: logs
         annotations:
           summary: "authentik Stage returned invalid challenge: {{ $labels.stage_view }}"
+      - alert: AuthentikWebsocketConnectionErrorIncrease
+        expr: |
+          sum by (clusterName) (count_over_time({app="authentik", component="server", container="server"} |= "websocket"[2h])) > 60
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "authentik Websocket connection error increase"
