@@ -28,6 +28,8 @@ spec:
       app.kubernetes.io/name: vmware-exporter
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
       labels:
         app.kubernetes.io/name: vmware-exporter
     spec:
