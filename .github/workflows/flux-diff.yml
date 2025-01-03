@@ -32,6 +32,14 @@ jobs:
           message-id: ${{ github.event.pull_request.number }}/${{ matrix.cluster_path }}/${{ matrix.resource }}
           message-failure: Unable to post kustomization diff
           message: |
+            ## Cluster ${{ matrix.cluster_path }}/${{ matrix.resource }}
+
+            ---
+
+            <details>
+
             `````diff
             ${{ steps.diff.outputs.diff }}
             `````
+
+            </details>
