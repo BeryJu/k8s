@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Get authentik token
         id: authentik-token
-        uses: BeryJu/configure-authentik-credentials@main
+        uses: goauthentik/configure-authentik-credentials@v1
         with:
           authentik_url: https://id.beryju.io
           client_id: lcRSrmUpLESkVEd99eCh9fqm68sYksAIxv3zjkl0
