@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskin-api
+  namespace: taskin
+  labels:
+    app.kubernetes.io/name: taskin
+    app.kubernetes.io/instance: main
+    app.kubernetes.io/component: api
+spec:
+  # Recreate because pvc
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: taskin
+      app.kubernetes.io/instance: main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: taskin
+        app.kubernetes.io/instance: main
+        app.kubernetes.io/component: api
+    spec:
+      containers:
+        - env:
+            - name: DB_PATH
+              value: /data/database.db
+          image: ghcr.io/ripplefcl/taskin-api:0.1.4
+          name: taskin
+          livenessProbe:
+            httpGet:
+              path: /categories
+              port: 8080
+          ports:
+            - containerPort: 8080
+              name: http
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: storage
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: taskin-data

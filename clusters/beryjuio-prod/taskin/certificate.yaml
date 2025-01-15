@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryju-io-taskin
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryju-io-taskin
+  commonName: taskin.lab.beryju.io
+  dnsNames:
+    - taskin.lab.beryju.io
