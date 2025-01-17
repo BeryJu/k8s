@@ -23,7 +23,6 @@ spec:
         - name: headscale
           image: ghcr.io/juanfont/headscale:v0.24.0-debug
           args:
-            - headscale
             - serve
           resources:
             requests:
