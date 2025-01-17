@@ -198,12 +198,6 @@ spec:
             # Output formatting for logs: text or json
             format: json
             level: info
-
-          # Path to a file containg ACL policies.
-          # ACLs can be defined as YAML or HUJSON.
-          # https://tailscale.com/kb/1018/acls/
-          acl_policy_path: ""
-
           ## DNS
           #
           # headscale supports Tailscale's DNS configuration and MagicDNS.
@@ -213,10 +207,7 @@ spec:
           # - https://tailscale.com/kb/1081/magicdns/
           # - https://tailscale.com/blog/2021-09-private-dns-with-magicdns/
           #
-          dns_config:
-            # Whether to prefer using Headscale provided DNS or use local.
-            override_local_dns: true
-
+          dns:
             # List of DNS servers to expose to clients.
             nameservers:
               - 10.120.20.250 # gravity
