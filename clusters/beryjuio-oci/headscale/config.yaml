@@ -75,8 +75,8 @@ spec:
           # List of IP prefixes to allocate tailaddresses from.
           # Each prefix consists of either an IPv4 or IPv6 address,
           # and the associated prefix length, delimited by a slash.
-          ip_prefixes:
-            - 10.120.255.0/24
+          prefixes:
+            v4: 10.120.255.0/24
 
           # DERP is a relay system that Tailscale uses when a direct
           # connection cannot be established.
