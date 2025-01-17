@@ -139,12 +139,10 @@ spec:
           # In case of doubts, do not touch the default 10s.
           node_update_check_interval: 10s
 
-          # SQLite config
-          db_type: sqlite3
-
-          # For production:
-          # db_path: /var/lib/headscale/db.sqlite
-          db_path: /data/db.sqlite
+          database:
+            type: sqlite
+            sqlite:
+              path: /data/db.sqlite
 
           # # Postgres config
           # If using a Unix socket to connect to Postgres, set the socket path in the 'host' field and leave 'port' blank.
