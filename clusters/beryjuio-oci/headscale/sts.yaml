@@ -21,7 +21,7 @@ spec:
       hostname: headscale
       containers:
         - name: headscale
-          image: ghcr.io/juanfont/headscale:v0.24.0-debug
+          image: ghcr.io/juanfont/headscale:v0.24.1-debug
           args:
             - serve
           resources:
