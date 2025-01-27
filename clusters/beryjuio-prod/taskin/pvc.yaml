@@ -5,7 +5,7 @@ metadata:
   namespace: taskin
   labels:
     snapshot.home.arpa/enabled: "true"
-    app.kubernetes.io/name: taskin
+    app.kubernetes.io/name: taskin-api
     app.kubernetes.io/instance: main
 spec:
   accessModes:

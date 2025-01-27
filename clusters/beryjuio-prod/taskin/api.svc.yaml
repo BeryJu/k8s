@@ -12,6 +12,6 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app.kubernetes.io/name: taskin
+    app.kubernetes.io/name: taskin-api
     app.kubernetes.io/component: api
   type: ClusterIP
