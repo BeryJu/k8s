@@ -18,13 +18,6 @@ spec:
                   name: http
             path: /
             pathType: Prefix
-          - backend:
-              service:
-                name: taskin-api
-                port:
-                  name: http
-            path: /api
-            pathType: Prefix
   tls:
     - hosts:
         - taskin.lab.beryju.io
