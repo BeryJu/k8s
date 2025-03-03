@@ -208,33 +208,8 @@ spec:
           dns:
             # List of DNS servers to expose to clients.
             nameservers:
-              - 10.120.20.250 # gravity
-
-            # NextDNS (see https://tailscale.com/kb/1218/nextdns/).
-            # "abc123" is example NextDNS ID, replace with yours.
-            #
-            # With metadata sharing:
-            # nameservers:
-            #   - https://dns.nextdns.io/abc123
-            #
-            # Without metadata sharing:
-            # nameservers:
-            #   - 2a07:a8c0::ab:c123
-            #   - 2a07:a8c1::ab:c123
-
-            # Split DNS (see https://tailscale.com/kb/1054/dns/),
-            # list of search domains and the DNS to query for each one.
-            #
-            # restricted_nameservers:
-            #   foo.bar.com:
-            #     - 1.1.1.1
-            #   darp.headscale.net:
-            #     - 1.1.1.1
-            #     - 8.8.8.8
-
-            # Search domains to inject.
-            domains: []
-
+              global:
+                - 10.120.20.250 # gravity
             # Whether to use [MagicDNS](https://tailscale.com/kb/1081/magicdns/).
             # Only works if there is at least a nameserver defined.
             magic_dns: true
