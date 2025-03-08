@@ -27,7 +27,6 @@ metadata:
     app.kubernetes.io/component: server
 spec:
   # Plausible is not currently designed to run in a clustered scenario. Increasing the replicas of this deployment is highly NOT recommended!
-  replicas: 1
   strategy:
     type: Recreate
   selector:

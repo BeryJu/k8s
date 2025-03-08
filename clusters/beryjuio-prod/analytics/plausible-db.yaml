@@ -30,7 +30,6 @@ metadata:
     app.kubernetes.io/part-of: plausible
     app.kubernetes.io/instance: main
 spec:
-  replicas: 1
   serviceName: plausible-db
   selector:
     matchLabels:

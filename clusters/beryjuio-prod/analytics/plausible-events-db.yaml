@@ -61,7 +61,6 @@ metadata:
     app.kubernetes.io/part-of: plausible
     app.kubernetes.io/instance: main
 spec:
-  replicas: 1
   serviceName: plausible-events-db
   selector:
     matchLabels:
