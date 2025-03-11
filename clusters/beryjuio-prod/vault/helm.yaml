@@ -16,6 +16,9 @@ spec:
         name: hashicorp
         namespace: flux-system
   values:
+    serverTelemetry:
+      serviceMonitor:
+        enabled: true
     global:
       enabled: false
     server:
