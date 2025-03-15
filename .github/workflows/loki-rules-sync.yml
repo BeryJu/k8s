@@ -23,7 +23,7 @@ jobs:
           authentik_url: https://id.beryju.io
           client_id: 6qC6wfLtRuwQIPfBG0K0hWhMZJJbm7dwwjl9ixyM
       - name: sync-rules
-        uses: grafana/cortex-rules-action@v0.9.1
+        uses: grafana/cortex-rules-action@v0.10.0
         env:
           CORTEX_ADDRESS: https://loki.lab.beryju.io
           CORTEX_TENANT_ID: fake
