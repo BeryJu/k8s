@@ -31,5 +31,4 @@ jobs:
           CORTEX_API_KEY: ${{ steps.authentik-token.outputs.token }}
           ACTION: sync
           RULES_DIR: "./monitoring/loki/"
-        with:
-          args: --backend=loki
+          BACKEND: loki
