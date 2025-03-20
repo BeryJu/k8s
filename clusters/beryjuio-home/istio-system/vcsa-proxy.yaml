@@ -24,7 +24,7 @@ spec:
               name: http
           env:
             - name: INT_HOST
-              value: "https://vcsa1.prod.beryju.org"
+              value: "https://10.120.20.33"
 ---
 apiVersion: v1
 kind: Service
