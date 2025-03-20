@@ -25,6 +25,10 @@ spec:
           env:
             - name: INT_HOST
               value: "http://hass1.prod.beryju.io:8123"
+            - name: EXTRA_CONFIG
+              value: |
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
 ---
 apiVersion: v1
 kind: Service
