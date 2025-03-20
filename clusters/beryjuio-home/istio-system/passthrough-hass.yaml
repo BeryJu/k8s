@@ -30,13 +30,13 @@ spec:
         mode: SIMPLE
         credentialName: beryju-io-hass
       hosts:
-            - hass.${CLUSTER_NAME}.k8s.beryju.io
+        - hass.${CLUSTER_NAME}.k8s.beryju.io
     - port:
         number: 80
         name: http
         protocol: HTTP
       hosts:
-            - hass.${CLUSTER_NAME}.k8s.beryju.io
+        - hass.${CLUSTER_NAME}.k8s.beryju.io
       tls:
         httpsRedirect: true
 ---
