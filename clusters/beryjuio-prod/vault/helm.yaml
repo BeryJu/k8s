@@ -19,6 +19,10 @@ spec:
     serverTelemetry:
       serviceMonitor:
         enabled: true
+        authorization:
+          credentials:
+            name: beryju-io-vault-monitoring
+            key: TOKEN
     global:
       enabled: false
     server:

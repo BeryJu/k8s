@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: beryju-io-vault-monitoring
+  namespace: vault
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        TOKEN: "{{ .monitoring_token }}"
+  dataFrom:
+    - extract:
+        key: kv/services/vault
