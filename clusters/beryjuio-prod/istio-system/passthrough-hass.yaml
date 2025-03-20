@@ -44,21 +44,6 @@ spec:
         httpsRedirect: true
 ---
 apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
-metadata:
-  name: beryju-io-se-hass
-  namespace: istio-system
-spec:
-  hosts:
-    - hass1.prod.beryju.io
-  location: MESH_EXTERNAL
-  ports:
-    - number: 8123
-      name: http
-      protocol: HTTP
-  resolution: DNS
----
-apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: beryju-io-vs-hass
@@ -73,5 +58,5 @@ spec:
     - route:
         - destination:
             port:
-              number: 8123
-            host: hass1.prod.beryju.io
+              number: 8888
+            host: proxy-hass.istio-system.svc.cluster.local
