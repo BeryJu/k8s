@@ -27,7 +27,7 @@ spec:
               value: "https://10.120.20.33"
             - name: EXTRA_CONFIG
               value: |
-                proxy_set_header Host vcsa1.prod.beryju.org;
+                proxy_set_header Host vcsa1.prod.beryju.org
 ---
 apiVersion: v1
 kind: Service
