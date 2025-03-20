@@ -1,0 +1,73 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryju-io-hass
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryju-io-hass
+  commonName: hass.${CLUSTER_NAME}.k8s.beryju.io
+  dnsNames:
+    - hass.${CLUSTER_NAME}.k8s.beryju.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryju-io-gw-hass
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryju-io-hass
+      hosts:
+            - hass.${CLUSTER_NAME}.k8s.beryju.io
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+            - hass.${CLUSTER_NAME}.k8s.beryju.io
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: beryju-io-se-hass
+  namespace: istio-system
+spec:
+  hosts:
+    - hass1.prod.beryju.io
+  location: MESH_EXTERNAL
+  ports:
+    - number: 8123
+      name: http
+      protocol: HTTP
+  resolution: DNS
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryju-io-vs-hass
+  namespace: istio-system
+spec:
+  gateways:
+    - beryju-io-gw-hass
+  hosts:
+    - hass.${CLUSTER_NAME}.k8s.beryju.io
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8123
+            host: hass1.prod.beryju.io
