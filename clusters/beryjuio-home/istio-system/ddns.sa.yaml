@@ -1,5 +1,14 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: ddns
+  name: beryju-io-ddns
   namespace: istio-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: beryju-io-ddns
+  namespace: istio-system
+  annotations:
+    kubernetes.io/service-account.name: beryju-io-ddns
+type: kubernetes.io/service-account-token
