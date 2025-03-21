@@ -23,7 +23,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/dev-server
-        tag: gh-next-1742586949-0b806b7 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+        tag: gh-next-1742598522-8417d85 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     server:
       autoscaling:
         enabled: true
@@ -78,9 +78,9 @@ spec:
       primary:
         networkPolicy:
           extraIngress:
-            - ports:
-              - port: 15020
-                protocol: TCP
+          - ports:
+            - port: 15020
+              protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
@@ -91,9 +91,9 @@ spec:
       enabled: true
       networkPolicy:
         extraIngress:
-          - ports:
-            - port: 15020
-              protocol: TCP
+        - ports:
+          - port: 15020
+            protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
