@@ -66,8 +66,8 @@ spec:
         networkPolicy:
           extraIngress:
             - ports:
-              - port: 15020
-                protocol: TCP
+                - port: 15020
+                  protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
@@ -79,8 +79,8 @@ spec:
       networkPolicy:
         extraIngress:
           - ports:
-            - port: 15020
-              protocol: TCP
+              - port: 15020
+                protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
