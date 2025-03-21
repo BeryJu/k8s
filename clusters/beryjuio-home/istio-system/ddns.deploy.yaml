@@ -38,7 +38,7 @@ spec:
             - name: aws-creds
               mountPath: /run/aws-creds
               readOnly: true
-          volumes:
-            - name: aws-creds
-              secret:
-                secretName: beryjuio-ddns
+      volumes:
+        - name: aws-creds
+          secret:
+            secretName: beryjuio-ddns
