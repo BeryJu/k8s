@@ -78,8 +78,9 @@ spec:
       primary:
         networkPolicy:
           extraIngress:
-            - port: 15020
-              protocol: TCP
+            - ports:
+              - port: 15020
+                protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
@@ -88,9 +89,9 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
-      master:
-        networkPolicy:
-          extraIngress:
+      networkPolicy:
+        extraIngress:
+          - ports:
             - port: 15020
               protocol: TCP
       metrics:
