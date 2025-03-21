@@ -31,14 +31,14 @@ spec:
             - name: SCHEDULE
               value: "*/30 * * * *"
             - name: DDNSR53_CREDENTIALS_ACCESSKEYIDFILE
-              value: ""
+              value: "/run/aws-creds/access_key"
             - name: DDNSR53_CREDENTIALS_SECRETACCESSKEYFILE
-              value: ""
-      volumeMounts:
-        - name: aws-creds
-          mountPath: /run/aws-creds
-          readOnly: true
-  volumes:
-    - name: aws-creds
-      secret:
-        secretName: beryjuio-ddns
+              value: "/run/aws-creds/secret_key"
+          volumeMounts:
+            - name: aws-creds
+              mountPath: /run/aws-creds
+              readOnly: true
+          volumes:
+            - name: aws-creds
+              secret:
+                secretName: beryjuio-ddns
