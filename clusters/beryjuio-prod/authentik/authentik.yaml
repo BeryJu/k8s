@@ -76,8 +76,10 @@ spec:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
       primary:
-        podAnnotations:
-          traffic.sidecar.istio.io/excludeInboundPorts: "9187"
+        networkPolicy:
+          extraIngress:
+            - port: 15020
+              protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
@@ -87,8 +89,10 @@ spec:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
       master:
-        podAnnotations:
-          traffic.sidecar.istio.io/excludeInboundPorts: "9121"
+        networkPolicy:
+          extraIngress:
+            - port: 15020
+              protocol: TCP
       metrics:
         enabled: true
         serviceMonitor:
