@@ -68,10 +68,6 @@ spec:
         send_pii: true
         sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.io/3
         sample_rate: 0.5
-      events:
-        context_processors:
-          geoip: /geoip/GeoLite2-City.mmdb
-          asn: /geoip/GeoLite2-ASN.mmdb
       compliance:
         fips:
           enabled: true
@@ -79,6 +75,9 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
+      primary:
+        podAnnotations:
+          traffic.sidecar.istio.io/excludeInboundPorts: "9187"
       metrics:
         enabled: true
         serviceMonitor:
@@ -87,6 +86,9 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
+      master:
+        podAnnotations:
+          traffic.sidecar.istio.io/excludeInboundPorts: "9121"
       metrics:
         enabled: true
         serviceMonitor:

@@ -62,6 +62,9 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
+      primary:
+        podAnnotations:
+          traffic.sidecar.istio.io/excludeInboundPorts: "9187"
       metrics:
         enabled: true
         serviceMonitor:
@@ -70,6 +73,9 @@ spec:
       global:
         imageRegistry: proxy.registry.beryju.io
       enabled: true
+      master:
+        podAnnotations:
+          traffic.sidecar.istio.io/excludeInboundPorts: "9121"
       metrics:
         enabled: true
         serviceMonitor:
