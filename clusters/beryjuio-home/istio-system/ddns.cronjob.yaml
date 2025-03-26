@@ -30,8 +30,8 @@ spec:
                   value: "300"
                 - name: DDNSR53_ROUTE53_RECORDSSET_0_TYPE
                   value: "A"
-                - name: SCHEDULE
-                  value: "*/30 * * * *"
+                - name: LOG_JSON
+                  value: "true"
                 - name: DDNSR53_CREDENTIALS_ACCESSKEYIDFILE
                   value: "/run/aws-creds/access_key"
                 - name: DDNSR53_CREDENTIALS_SECRETACCESSKEYFILE
