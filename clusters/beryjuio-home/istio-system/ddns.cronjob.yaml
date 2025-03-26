@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ddns
+  namespace: istio-system
+spec:
+  schedule: "*/15 * * * *"
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: ddns
+              image: ghcr.io/crazy-max/ddns-route53:2.13.0
+              resources:
+                limits:
+                  memory: "128Mi"
+                  cpu: "500m"
+              env:
+                - name: DDNSR53_ROUTE53_HOSTEDZONEID
+                  value: "Z05800451CB52FAM1B1ZQ"
+                - name: DDNSR53_ROUTE53_RECORDSSET_0_NAME
+                  value: "kube-api.${CLUSTER_NAME}.k8s.beryju.io"
+                - name: DDNSR53_ROUTE53_RECORDSSET_0_TTL
+                  value: "300"
+                - name: DDNSR53_ROUTE53_RECORDSSET_0_TYPE
+                  value: "A"
+                - name: SCHEDULE
+                  value: "*/30 * * * *"
+                - name: DDNSR53_CREDENTIALS_ACCESSKEYIDFILE
+                  value: "/run/aws-creds/access_key"
+                - name: DDNSR53_CREDENTIALS_SECRETACCESSKEYFILE
+                  value: "/run/aws-creds/secret_key"
+              volumeMounts:
+                - name: aws-creds
+                  mountPath: /run/aws-creds
+                  readOnly: true
+          volumes:
+            - name: aws-creds
+              secret:
+                secretName: beryjuio-ddns
+      ttlSecondsAfterFinished: 86400
