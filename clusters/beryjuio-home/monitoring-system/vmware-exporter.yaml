@@ -46,7 +46,7 @@ spec:
               name: http-metrics
           env:
             - name: VSPHERE_HOST
-              value: "vcsa1.prod.beryju.org"
+              value: "vcsa1.prod.beryju.io"
             - name: VSPHERE_IGNORE_SSL
               value: "True"
             - name: VSPHERE_COLLECT_HOSTS
