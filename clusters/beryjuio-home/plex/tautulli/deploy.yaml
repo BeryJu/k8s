@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli
+  namespace: plex
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tautulli
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tautulli
+    spec:
+      containers:
+        - name: tautulli
+          image: ghcr.io/home-operations/tautulli:2.15.2
+          resources: {}
+          ports:
+            - containerPort: 8181
+          volumeMounts:
+            - mountPath: /config
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: tautulli
