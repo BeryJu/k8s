@@ -29,8 +29,6 @@ spec:
   minReplicas: 1
   maxReplicas: 5
   metrics:
-    - type: PercentageRunnersBusy
-      scaleUpThreshold: "0.75"
-      scaleDownThreshold: "0.25"
-      scaleUpFactor: "2"
-      scaleDownFactor: "0.5"
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames:
+        - infrastructure
