@@ -26,8 +26,6 @@ spec:
     global:
       enabled: false
     server:
-      image:
-        tag: 1.19.3
       extraInitContainers:
         - name: github-plugin
           image: "alpine"
@@ -48,6 +46,7 @@ spec:
           name: plugins
           readOnly: true
       image:
+        tag: 1.19.3
         repository: proxy.registry.beryju.io/hashicorp/vault
       # Fixes https://github.com/kubernetes/kube-state-metrics/issues/1324
       updateStrategyType: RollingUpdate
