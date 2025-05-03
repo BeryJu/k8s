@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2025.2.4
+      version: 2025.4.0
       sourceRef:
         kind: HelmRepository
         name: authentik
@@ -61,6 +61,8 @@ spec:
     postgresql:
       global:
         imageRegistry: proxy.registry.beryju.io
+        security:
+          allowInsecureImages: true
       enabled: true
       primary:
         networkPolicy:
@@ -75,6 +77,8 @@ spec:
     redis:
       global:
         imageRegistry: proxy.registry.beryju.io
+        security:
+          allowInsecureImages: true
       enabled: true
       networkPolicy:
         extraIngress:
