@@ -61,6 +61,8 @@ spec:
     postgresql:
       global:
         imageRegistry: proxy.registry.beryju.io
+        security:
+          allowInsecureImages: true
       enabled: true
       primary:
         networkPolicy:
@@ -75,6 +77,8 @@ spec:
     redis:
       global:
         imageRegistry: proxy.registry.beryju.io
+        security:
+          allowInsecureImages: true
       enabled: true
       networkPolicy:
         extraIngress:
