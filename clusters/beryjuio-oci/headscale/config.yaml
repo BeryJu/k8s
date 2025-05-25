@@ -236,7 +236,6 @@ spec:
             client_id: "{{ .oidc_client_id }}"
             client_secret: "{{ .oidc_client_secret }}"
             scope: ["openid", "profile", "email"]
-            strip_email_domain: true
           # Logtail configuration
           # Logtail is Tailscales logging and auditing infrastructure, it allows the control panel
           # to instruct tailscale nodes to log their activity to a remote server.
