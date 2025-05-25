@@ -23,6 +23,10 @@ spec:
           cpu: 100m
           memory: 2048Mi
       image: ghcr.io/beryju/pilot:1.26.0
+      env:
+        # Enable automatic address allocation, optional
+        # https://istio.io/v1.24/docs/ops/configuration/traffic-management/dns-proxy/#dns-auto-allocation-v2
+        PILOT_ENABLE_IP_AUTOALLOCATE: "true"
     global:
       hub: proxy.registry.beryju.io/istio
       logAsJson: true
@@ -48,7 +52,6 @@ spec:
             address: tempo.tempo.svc.cluster.local:9411
         proxyMetadata:
           ISTIO_META_DNS_CAPTURE: "true"
-          ISTIO_META_DNS_AUTO_ALLOCATE: "true"
           # ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
         interceptionMode: TPROXY
       enablePrometheusMerge: true
