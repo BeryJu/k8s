@@ -1,91 +1,90 @@
 {
-  "enabled": true,
-  "ignoreDeps": [
-    // Ignore flux images as they are updated by github actions
-    "ghcr.io/fluxcd/helm-controller",
-    "ghcr.io/fluxcd/image-automation-controller",
-    "ghcr.io/fluxcd/image-reflector-controller",
-    "ghcr.io/fluxcd/kustomize-controller",
-    "ghcr.io/fluxcd/notification-controller",
-    "ghcr.io/fluxcd/source-controller"
+  enabled: true,
+  ignoreDeps: [
+    'ghcr.io/fluxcd/helm-controller',
+    'ghcr.io/fluxcd/image-automation-controller',
+    'ghcr.io/fluxcd/image-reflector-controller',
+    'ghcr.io/fluxcd/kustomize-controller',
+    'ghcr.io/fluxcd/notification-controller',
+    'ghcr.io/fluxcd/source-controller',
   ],
-  "flux": {
-    "fileMatch": [
-      "\\.yaml$",
-      "\\.yml$"
-    ]
+  flux: {
+    managerFilePatterns: [
+      '/\\.yaml$/',
+      '/\\.yml$/',
+    ],
   },
-  "helm-values": {
-    "fileMatch": [
-      "\\.yaml$",
-      "\\.yml$"
-    ]
+  'helm-values': {
+    managerFilePatterns: [
+      '/\\.yaml$/',
+      '/\\.yml$/',
+    ],
   },
-  "helmv3": {
-    "fileMatch": [
-      "charts/.+/Chart\\.yaml$"
-    ]
+  helmv3: {
+    managerFilePatterns: [
+      '/charts/.+/Chart\\.yaml$/',
+    ],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "\\.yaml$",
-      "\\.yml$"
-    ]
+  kubernetes: {
+    managerFilePatterns: [
+      '/\\.yaml$/',
+      '/\\.yml$/',
+    ],
   },
-  "dependencyDashboard": true,
-  "packageRules": [
+  dependencyDashboard: true,
+  packageRules: [
     {
-      "matchDatasources": [
-        "helm"
+      matchDatasources: [
+        'helm',
       ],
-      "semanticCommitScope": "charts",
-      "separateMinorPatch": true,
-      "ignoreDeprecated": true
+      semanticCommitScope: 'charts',
+      separateMinorPatch: true,
+      ignoreDeprecated: true,
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "enabled": true,
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ]
+      enabled: true,
+      matchUpdateTypes: [
+        'major',
+        'minor',
+        'patch',
+      ],
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "registryUrls": [
-        "https://proxy.registry.beryju.io"
-      ]
+      registryUrls: [
+        'https://proxy.registry.beryju.io',
+      ],
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "semanticCommitScope": "images",
-      "separateMinorPatch": true
+      semanticCommitScope: 'images',
+      separateMinorPatch: true,
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
-      "matchPackageNames": [
-        "quay.io/minio/minio"
-      ]
+      versioning: 'regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$',
+      matchPackageNames: [
+        'quay.io/minio/minio',
+      ],
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "versioning": "loose",
-      "matchPackageNames": [
-        "plexinc/pms-docker",
-        "proxy.registry.beryju.io/plexinc/pms-docker"
-      ]
-    }
-  ]
+      versioning: 'loose',
+      matchPackageNames: [
+        'plexinc/pms-docker',
+        'proxy.registry.beryju.io/plexinc/pms-docker',
+      ],
+    },
+  ],
 }
