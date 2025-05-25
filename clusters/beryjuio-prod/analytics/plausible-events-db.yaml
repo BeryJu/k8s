@@ -84,7 +84,7 @@ spec:
         fsGroup: 101
       containers:
         - name: plausible-events-db
-          image: proxy.registry.beryju.io/clickhouse/clickhouse-server:25.4-alpine
+          image: proxy.registry.beryju.io/clickhouse/clickhouse-server:25.5-alpine
           ports:
             - containerPort: 8123
           volumeMounts:
