@@ -45,7 +45,7 @@ spec:
       generate:
         generateExisting: true
         synchronize: true
-        apiVersion: external-secrets.io/v1beta1
+        apiVersion: external-secrets.io/v1
         kind: ExternalSecret
         name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`50`) }}"
         namespace: "{{ request.object.metadata.namespace }}"
