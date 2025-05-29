@@ -1,3 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sabnzbd-exporter
+  namespace: dl-stack
+  labels:
+    app.kubernetes.io/name: sabnzbd-exporter
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sabnzbd-exporter
+  ports:
+    - port: 9387
+      name: metrics
+      targetPort: 9387
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
