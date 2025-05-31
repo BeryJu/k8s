@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: beryju-io-x-ripple
+  labels:
+    svc: beryju-io-x-ripple
+  namespace: monitoring-system
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      targetPort: 9090
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: beryju-io-x-ripple
+  namespace: monitoring-system
+subsets:
+  - addresses:
+      - ip: 10.0.7.21
+    ports:
+      - name: http
+        port: 9090
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: beryju-io-x-ripple
+  namespace: monitoring-system
+spec:
+  endpoints:
+    - interval: 30s
+      port: http
+  selector:
+    matchLabels:
+      svc: beryju-io-x-ripple
