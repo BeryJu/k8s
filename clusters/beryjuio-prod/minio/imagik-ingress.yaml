@@ -32,4 +32,4 @@ spec:
     - hosts:
         - i.beryju.io
         - i.beryju.org
-      secretName: beryjuorg-minio
+      secretName: beryju-io-minio
