@@ -1,0 +1,63 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: beryju-io-fritzbox-exporter
+  namespace: monitoring-system
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  data:
+    - secretKey: FRITZ_USERNAME
+      remoteRef:
+        key: kv/services/prometheus/fritzbox
+        property: username
+    - secretKey: FRITZ_PASSWORD
+      remoteRef:
+        key: kv/services/prometheus/fritzbox
+        property: password
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fritzbox-exporter
+  namespace: monitoring-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fritzbox-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fritzbox-exporter
+    spec:
+      containers:
+        - name: fritzbox-exporter
+          image: proxy.registry.beryju.io/pdreker/fritz_exporter:2.5
+          envFrom:
+            - secretRef:
+                name: beryju-io-fritzbox-exporter
+          env:
+            - name: FRITZ_HOSTNAME
+              value: 10.120.20.50
+          resources: {}
+          ports:
+            - containerPort: 9787
+              name: http-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: fritzbox-exporter
+  namespace: monitoring-system
+spec:
+  namespaceSelector:
+    matchNames:
+      - monitoring-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fritzbox-exporter
+  podMetricsEndpoints:
+    - port: http-metrics
+      scrapeTimeout: 1m
+      interval: 1m
