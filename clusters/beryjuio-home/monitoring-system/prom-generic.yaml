@@ -19,11 +19,17 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.30
-      - ip: 10.120.20.60
+      - ip: 10.120.20.30 # nas1
+      - ip: 10.120.20.60 # hass1 (node)
     ports:
       - name: metrics
         port: 9100
+  - addresses:
+      - ip: 10.120.20.63 # kvm router
+      - ip: 10.120.20.79 # kvm esxi1
+    ports:
+      - name: metrics
+        port: 80
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
