@@ -64,7 +64,7 @@ spec:
           hosts:
             - fleet.beryjuio-home.k8s.beryju.io
     fleet:
-      autoApplySQLMigrations: false
+      autoApplySQLMigrations: true
       logging:
         json: true
       tls:
