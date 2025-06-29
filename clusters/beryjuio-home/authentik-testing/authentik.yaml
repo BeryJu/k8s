@@ -22,7 +22,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
-        tag: 2025.6.2
+        tag: 2025.6.3
     server:
       autoscaling:
         enabled: true
