@@ -18,6 +18,17 @@ spec:
       name: beryjuio-fleet-secret-mysql
     - kind: Secret
       name: beryjuio-fleet-secret-apns
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: Deployment
+              name: fleet
+            patch: |
+              - op: add
+                path: "/spec/template/spec/containers/0/args/-"
+                value: --dev_license
   values:
     fullnameOverride: fleet
     replicas: 1
