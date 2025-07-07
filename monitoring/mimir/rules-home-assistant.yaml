@@ -12,3 +12,8 @@ groups:
         for: 5m
         annotations:
           summary: "Entity {{ $labels.friendly_name }} is low on battery"
+      - alert: HomeAssistantFanStalled
+        expr: hass_binary_sensor_state{entity=~"binary_sensor.server_.*_stall_detected"} > 0
+        for: 10s
+        annotations:
+          summary: "Entity {{ $labels.friendly_name }} is stalled"
