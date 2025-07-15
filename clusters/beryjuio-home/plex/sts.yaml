@@ -22,7 +22,7 @@ spec:
       hostNetwork: true
       containers:
         - name: plex
-          image: proxy.registry.beryju.io/plexinc/pms-docker:1.41.8.9834-071366d65
+          image: proxy.registry.beryju.io/plexinc/pms-docker:1.41.9.9961-46083195d
           resources:
             requests:
               memory: "500Mi"
