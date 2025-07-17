@@ -2,14 +2,14 @@ namespace: home-assistant
 groups:
   - name: beryjuorg-prometheus-home-assistant
     rules:
-      - alert: HomeAssistantUpdateAvailabe
-        expr: hass_binary_sensor_state{entity="binary_sensor.home_assistant_versions_update_available"} > 0
+      - alert: HomeAssistantUpdateAvailable
+        expr: hass_update_state > 0
         for: 5m
         annotations:
-          summary: "Home-Assistant has an update pending"
+          summary: "Home Assistant component {{ $labels.friendly_name }} has an update pending"
       - alert: HomeAssistantBatteryLow
         expr: hass_sensor_battery_percent < 20
-        for: 5m
+        for: 30m
         annotations:
           summary: "Entity {{ $labels.friendly_name }} is low on battery"
       - alert: HomeAssistantFanStalled
