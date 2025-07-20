@@ -23,7 +23,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: kopia
-          image: proxy.registry.beryju.io/kopia/kopia:0.20
+          image: proxy.registry.beryju.io/kopia/kopia:0.21
           command:
             - /bin/bash
             - -c
