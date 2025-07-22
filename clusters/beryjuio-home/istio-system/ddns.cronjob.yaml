@@ -17,10 +17,6 @@ spec:
           containers:
             - name: ddns
               image: ghcr.io/crazy-max/ddns-route53:2.13.0
-              resources:
-                limits:
-                  memory: "128Mi"
-                  cpu: "500m"
               env:
                 - name: DDNSR53_ROUTE53_HOSTEDZONEID
                   value: "Z05800451CB52FAM1B1ZQ"
