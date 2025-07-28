@@ -50,8 +50,6 @@ spec:
           secretName: beryju-io-authentik
     authentik:
       session_storage: "db"
-      worker:
-        concurrency: 4
       postgresql:
         name: "authentik"
         user: "authentik"
