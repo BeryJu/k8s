@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 2025.4.1
+      version: 2025.8.1
       sourceRef:
         kind: HelmRepository
         name: authentik
@@ -61,6 +61,8 @@ spec:
         fips:
           enabled: true
     postgresql:
+      image:
+        tag: "15.14-bookworm"
       global:
         imageRegistry: proxy.registry.beryju.io
         security:
