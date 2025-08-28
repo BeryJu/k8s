@@ -29,16 +29,6 @@ spec:
               - op: add
                 path: "/spec/template/spec/containers/0/args/-"
                 value: --dev_license
-          - target:
-              version: batch/v1
-              kind: Job
-              name: fleet-migration
-            patch: |
-              - op: add
-                path: "/spec/template/metadata/annotations"
-                value:
-                  linkerd.io/inject: disabled
-                  sidecar.istio.io/inject: "false"
   values:
     fullnameOverride: fleet
     replicas: 1
@@ -86,6 +76,9 @@ spec:
             - fleet.beryjuio-home.k8s.beryju.io
     fleet:
       autoApplySQLMigrations: true
+      migrationJobAnnotations:
+        linkerd.io/inject: disabled
+        sidecar.istio.io/inject: "false"
       logging:
         json: true
       tls:
