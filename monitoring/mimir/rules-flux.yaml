@@ -7,10 +7,35 @@ groups:
         for: 10m
         labels:
           severity: critical
-      - alert: ReconciliationFailure
-        expr: max(gotk_reconcile_condition{status="False",type="Ready"}) by (namespace, name, kind, cluster) + on(namespace, name, kind, cluster) (max(gotk_reconcile_condition{status="Deleted"}) by (namespace, name, kind, cluster)) * 2 == 1
-        for: 10m
+      - alert: FluxKustomizationFailure
+        expr: gotk_resource_info{ready="False", customresource_kind="Kustomization"} > 0
+        for: 15m
         labels:
-          severity: page
+          severity: warning
         annotations:
-          summary: "{{ $labels.kind }} {{ $labels.namespace }}/{{ $labels.name }} in {{ $labels.cluster }} reconciliation has been failing for more than ten minutes."
+          summary: Flux Kustomization Failure (instance {{ $labels.instance }})
+          description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' in namespace {{ $labels.exported_namespace }} is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: FluxHelmreleaseFailure
+        expr: gotk_resource_info{ready="False", customresource_kind="HelmRelease"} > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Flux HelmRelease Failure (instance {{ $labels.instance }})
+          description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' in namespace {{ $labels.exported_namespace }} is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: FluxSourceIssue
+        expr: gotk_resource_info{ready="False", customresource_kind=~"GitRepository|HelmRepository|Bucket|OCIRepository"} > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Flux Source Issue (instance {{ $labels.instance }})
+          description: "Flux source {{ $labels.customresource_kind }} '{{ $labels.name }}' has issue(s).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      - alert: FluxImageIssue
+        expr: gotk_resource_info{ready="False", customresource_kind=~"ImagePolicy|ImageRepository|ImageUpdateAutomation"} > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Flux Image Issue (instance {{ $labels.instance }})
+          description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
