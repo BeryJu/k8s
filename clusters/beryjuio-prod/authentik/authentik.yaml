@@ -70,6 +70,8 @@ spec:
         fips:
           enabled: true
     postgresql:
+      image:
+        tag: "15.14-bookworm"
       global:
         imageRegistry: proxy.registry.beryju.io
         security:
