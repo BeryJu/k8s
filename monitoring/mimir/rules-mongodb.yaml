@@ -9,7 +9,7 @@ groups:
           severity: critical
         annotations:
           summary: MongoDB Down (instance {{ $labels.instance }})
-          description: "MongoDB instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "MongoDB instance is down"
 
       - alert: MongodbReplicaMemberUnhealthy
         expr: "mongodb_rs_members_health == 0"
@@ -18,7 +18,7 @@ groups:
           severity: critical
         annotations:
           summary: Mongodb replica member unhealthy (instance {{ $labels.instance }})
-          description: "MongoDB replica member is not healthy\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "MongoDB replica member is not healthy"
 
       - alert: MongodbReplicationLag
         expr: '(mongodb_rs_members_optimeDate{member_state="PRIMARY"} - on (set) group_right mongodb_rs_members_optimeDate{member_state="SECONDARY"}) / 1000 > 10'
@@ -27,7 +27,7 @@ groups:
           severity: critical
         annotations:
           summary: MongoDB replication lag (instance {{ $labels.instance }})
-          description: "Mongodb replication lag is more than 10s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Mongodb replication lag is more than 10s"
 
       - alert: MongodbReplicationHeadroom
         expr: 'sum(avg(mongodb_mongod_replset_oplog_head_timestamp - mongodb_mongod_replset_oplog_tail_timestamp)) - sum(avg(mongodb_rs_members_optimeDate{member_state="PRIMARY"} - on (set) group_right mongodb_rs_members_optimeDate{member_state="SECONDARY"})) <= 0'
@@ -36,7 +36,7 @@ groups:
           severity: critical
         annotations:
           summary: MongoDB replication headroom (instance {{ $labels.instance }})
-          description: "MongoDB replication headroom is <= 0\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "MongoDB replication headroom is <= 0"
 
       - alert: MongodbNumberCursorsOpen
         expr: 'mongodb_ss_metrics_cursor_open{csr_type="total"} > 10 * 1000'
@@ -45,7 +45,7 @@ groups:
           severity: warning
         annotations:
           summary: MongoDB number cursors open (instance {{ $labels.instance }})
-          description: "Too many cursors opened by MongoDB for clients (> 10k)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Too many cursors opened by MongoDB for clients (> 10k)"
 
       - alert: MongodbCursorsTimeouts
         expr: "increase(mongodb_ss_metrics_cursor_timedOut[1m]) > 100"
@@ -54,7 +54,7 @@ groups:
           severity: warning
         annotations:
           summary: MongoDB cursors timeouts (instance {{ $labels.instance }})
-          description: "Too many cursors are timing out\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Too many cursors are timing out"
 
       - alert: MongodbTooManyConnections
         expr: 'avg by(instance) (rate(mongodb_ss_connections{conn_type="current"}[1m])) / avg by(instance) (sum (mongodb_ss_connections) by (instance)) * 100 > 80'
@@ -63,4 +63,4 @@ groups:
           severity: warning
         annotations:
           summary: MongoDB too many connections (instance {{ $labels.instance }})
-          description: "Too many connections (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Too many connections (> 80%)"

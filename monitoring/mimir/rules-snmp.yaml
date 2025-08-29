@@ -9,7 +9,7 @@ groups:
           severity: critical
         annotations:
           summary: SNMP Labeled Port is down (port {{ $labels.ifName }} switch {{ $labels.instance }})
-          description: "Port has gone offline.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Port has gone offline."
       - alert: SNMPUplinkPortSpeedDecrease
         expr: -1 * increase(ifHighSpeed{ifName=~".*Uplink.*"}[5m]) > 0
         for: 1m
@@ -17,4 +17,4 @@ groups:
           severity: critical
         annotations:
           summary: SNMP Uplink has decreased link speed (port {{ $labels.ifName }} switch {{ $labels.instance }})
-          description: "Port has decreased link speed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Port has decreased link speed."

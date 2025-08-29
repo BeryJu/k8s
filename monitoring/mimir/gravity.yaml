@@ -9,7 +9,7 @@ groups:
           severity: critical
         annotations:
           summary: Etcd insufficient Members (instance {{ $labels.instance }})
-          description: "Etcd cluster should have an odd number of members\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Etcd cluster should have an odd number of members"
       - alert: EtcdNoLeader
         expr: etcd_server_has_leader == 0
         for: 0m
@@ -17,7 +17,7 @@ groups:
           severity: critical
         annotations:
           summary: Etcd no Leader (instance {{ $labels.instance }})
-          description: "Etcd cluster have no leader\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Etcd cluster have no leader"
       - alert: EtcdHighFsyncDurations
         expr: histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket[1m])) > 0.5
         for: 5m
@@ -25,7 +25,7 @@ groups:
           severity: warning
         annotations:
           summary: Etcd high fsync durations (instance {{ $labels.instance }})
-          description: "Etcd WAL fsync duration increasing, 99th percentile is over 0.5s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Etcd WAL fsync duration increasing, 99th percentile is over 0.5s"
       - alert: EtcdHighCommitDurations
         expr: histogram_quantile(0.99, rate(etcd_disk_backend_commit_duration_seconds_bucket[1m])) > 0.25
         for: 5m
@@ -33,7 +33,7 @@ groups:
           severity: warning
         annotations:
           summary: Etcd high commit durations (instance {{ $labels.instance }})
-          description: "Etcd commit duration increasing, 99th percentile is over 0.25s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Etcd commit duration increasing, 99th percentile is over 0.25s"
   - name: Roles.DHCP
     rules:
       - alert: DHCP scope out of leases

@@ -9,4 +9,4 @@ groups:
           severity: critical
         annotations:
           summary: Vault sealed (instance {{ $labels.instance }})
-          description: "Vault instance is sealed on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Vault instance is sealed on {{ $labels.instance }}"
