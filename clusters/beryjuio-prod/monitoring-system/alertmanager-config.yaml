@@ -13,19 +13,20 @@ spec:
             name: beryjuio-alertmanager-discord
             key: discord_url
           sendResolved: true
-          text: |-
-            {{ range .Alerts -}}
-
-            **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
-            **Description:** {{ if ne .Annotations.description ""}}{{ printf "%.400s" .Annotations.description }}{{else}}N/A{{ end }}
-            **Details:**
-              {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-              {{ end }}
-            {{ end }}
           title:
             '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing
             | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary
             }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
+          text: |-
+            {{ range .Alerts -}}
+
+            **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+            **Description:** {{ if ne .Annotations.description ""}}{{ printf "%.400s" .Annotations.description }}{{ else }}N/A{{ end }}
+
+            **Details:**
+              {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+              {{ end }}
+            {{ end }}
           username: Prometheus
   route:
     groupBy:
