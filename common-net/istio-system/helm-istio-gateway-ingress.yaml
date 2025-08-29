@@ -28,7 +28,7 @@ spec:
         whenUnsatisfiable: ScheduleAnyway
     service:
       annotations:
-        metallb.universe.tf/allow-shared-ip: main
+        metallb.io/allow-shared-ip: main
         service.beta.kubernetes.io/linode-loadbalancer-default-proxy-protocol: v2
         service.beta.kubernetes.io/linode-loadbalancer-preserve: "true"
         service.beta.kubernetes.io/linode-loadbalancer-hostname-only-ingress: "true"

@@ -4,8 +4,8 @@ metadata:
   name: gravity
   namespace: gravity
   annotations:
-    metallb.universe.tf/address-pool: gravity-pool
-    metallb.universe.tf/allow-shared-ip: gravity
+    metallb.io/address-pool: gravity-pool
+    metallb.io/allow-shared-ip: gravity
 spec:
   type: ClusterIP
   selector:

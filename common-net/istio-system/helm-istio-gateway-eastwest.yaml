@@ -20,7 +20,7 @@ spec:
     networkGateway: ${CLUSTER_NETWORK}
     service:
       annotations:
-        metallb.universe.tf/allow-shared-ip: main
+        metallb.io/allow-shared-ip: main
       type: LoadBalancer
     topologySpreadConstraints:
       - maxSkew: 1

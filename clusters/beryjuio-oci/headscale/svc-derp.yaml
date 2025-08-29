@@ -4,7 +4,7 @@ metadata:
   name: headscale-derp
   namespace: headscale
   annotations:
-    metallb.universe.tf/allow-shared-ip: main
+    metallb.io/allow-shared-ip: main
 spec:
   type: LoadBalancer
   selector:
