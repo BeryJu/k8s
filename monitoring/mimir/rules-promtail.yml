@@ -9,7 +9,7 @@ groups:
           severity: critical
         annotations:
           summary: Promtail request errors (instance {{ $labels.instance }})
-          description: "The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}% errors."
+          description: 'The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf "%.2f" $value }}% errors.'
       - alert: PromtailRequestLatency
         expr: "histogram_quantile(0.99, sum(rate(promtail_request_duration_seconds_bucket[5m])) by (le)) > 1"
         for: 5m
@@ -17,4 +17,4 @@ groups:
           severity: critical
         annotations:
           summary: Promtail request latency (instance {{ $labels.instance }})
-          description: "The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}s 99th percentile latency."
+          description: 'The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf "%.2f" $value }}s 99th percentile latency.'
