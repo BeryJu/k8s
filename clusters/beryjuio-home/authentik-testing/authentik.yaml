@@ -19,10 +19,6 @@ spec:
       name: authentik-secrets
   values:
     fullnameOverride: authentik
-    global:
-      image:
-        repository: ghcr.io/goauthentik/dev-server
-        tag: gh-891b84f23a86fbfd7607385bab8c40062f7f9cd5
     server:
       autoscaling:
         enabled: true
@@ -45,9 +41,6 @@ spec:
           - hosts: ["authentik.${CLUSTER_NAME}.k8s.beryju.io"]
             secretName: beryju-io-authentik
     authentik:
-      outposts:
-        container_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
-      session_storage: "db"
       postgresql:
         name: "authentik"
         user: "authentik"
@@ -65,8 +58,6 @@ spec:
         tag: "15.14-bookworm"
       global:
         imageRegistry: proxy.registry.beryju.io
-        security:
-          allowInsecureImages: true
       enabled: true
       primary:
         networkPolicy:
@@ -81,8 +72,6 @@ spec:
     redis:
       global:
         imageRegistry: proxy.registry.beryju.io
-        security:
-          allowInsecureImages: true
       enabled: true
       networkPolicy:
         extraIngress:

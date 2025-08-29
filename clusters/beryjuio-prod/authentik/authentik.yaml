@@ -74,8 +74,6 @@ spec:
         tag: "15.14-bookworm"
       global:
         imageRegistry: proxy.registry.beryju.io
-        security:
-          allowInsecureImages: true
       enabled: true
       primary:
         networkPolicy:
@@ -90,8 +88,6 @@ spec:
     redis:
       global:
         imageRegistry: proxy.registry.beryju.io
-        security:
-          allowInsecureImages: true
       enabled: true
       networkPolicy:
         extraIngress:
