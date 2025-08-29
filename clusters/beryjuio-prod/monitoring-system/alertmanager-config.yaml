@@ -16,9 +16,10 @@ spec:
           text: |-
             {{ range .Alerts -}}
 
-              **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
-            **Description:** {{ if ne .Annotations.description ""}}{{ printf "%.400s" .Annotations.description }}{{else}}N/A{{ end }} **Details:**
+            **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+            **Description:** {{ if ne .Annotations.description ""}}{{ printf "%.400s" .Annotations.description }}{{else}}N/A{{ end }}
 
+            **Details:**
               {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
               {{ end }}
             {{ end }}
