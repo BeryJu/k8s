@@ -38,12 +38,8 @@ spec:
               value: "true"
             - name: TS_ENABLE_METRICS
               value: "true"
-            - name: TS_AUTHKEY
-              valueFrom:
-                secretKeyRef:
-                  name: tailscale-auth
-                  key: TS_AUTHKEY
-                  optional: true
+            - name: TS_ROUTES
+              value: "${TS_ROUTES}"
             - name: HOSTNAME
               valueFrom:
                 fieldRef:

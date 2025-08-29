@@ -8,3 +8,4 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-prod"
   CLUSTER_NETWORK: symb-beryjuio-prod
+  TS_ROUTES: "192.168.128.0/17"

@@ -8,3 +8,4 @@ data:
   # Cluster name
   CLUSTER_NAME: "beryjuio-oci"
   CLUSTER_NETWORK: oci-beryjuio-oci
+  TS_ROUTES: "10.120.90.0/24"
