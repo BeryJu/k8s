@@ -52,13 +52,6 @@ spec:
 
           schema_config:
             configs:
-            - from: 2020-05-15
-              store: boltdb-shipper
-              object_store: s3
-              schema: v11
-              index:
-                prefix: index_
-                period: 24h
             - from: 2024-04-21
               store: tsdb
               object_store: s3
@@ -93,11 +86,11 @@ spec:
                 secret_access_key: "{{ .secret_key }}"
 
           limits_config:
-            allow_structured_metadata: false # temporary
+            allow_structured_metadata: true
             # enforce_metric_name: false
             reject_old_samples: true
             reject_old_samples_max_age: 168h
-            retention_period: 90d
+            retention_period: 360d
             max_query_series: 100000
             max_query_parallelism: 2
             retention_stream:
