@@ -7,9 +7,11 @@ spec:
   receivers:
     - name: "null"
     - name: discord
-      slackConfigs:
+      discordConfigs:
         - channel: "#prometheus"
-          iconURL: https://images.s3.beryju.io/prometheus.png
+          apiURL:
+            name: beryjuio-alertmanager-discord
+            key: discord_url
           sendResolved: true
           text: |-
             {{ range .Alerts -}}
