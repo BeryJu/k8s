@@ -19,6 +19,11 @@ spec:
       name: authentik-secrets
   values:
     fullnameOverride: authentik
+    worker:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     server:
       autoscaling:
         enabled: true
