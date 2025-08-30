@@ -8,8 +8,7 @@ spec:
     - name: "null"
     - name: discord
       discordConfigs:
-        - channel: "#prometheus"
-          apiURL:
+        - apiURL:
             name: beryjuio-alertmanager-discord
             key: discord_url
           sendResolved: true
