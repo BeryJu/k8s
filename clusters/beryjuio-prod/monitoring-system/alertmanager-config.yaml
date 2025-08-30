@@ -16,7 +16,7 @@ spec:
             '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing
             | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary
             }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}'
-          text: |-
+          message: |-
             {{ range .Alerts -}}
 
             **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
