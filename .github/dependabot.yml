@@ -8,7 +8,7 @@ updates:
     open-pull-requests-limit: 10
     assignees:
       - BeryJu
-  - package-ecosystem: npm
+  - package-ecosystem: bun
     directory: "/"
     schedule:
       interval: daily

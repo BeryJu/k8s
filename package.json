@@ -12,12 +12,20 @@
     "url": "git+https://github.com/BeryJu/k8s.git"
   },
   "author": "Jens Langhammer <jens.langhammer@beryju.org>",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/BeryJu/k8s/issues"
   },
   "homepage": "https://github.com/BeryJu/k8s#readme",
   "dependencies": {
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "yaml": "^2.8.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
