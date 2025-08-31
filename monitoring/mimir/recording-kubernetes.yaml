@@ -46,9 +46,9 @@ groups:
           summary: An Alertmanager instance failed to send notifications.
         expr: >-
           (
-            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system"}[5m])
+            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system"}[15m])
           /
-            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system"}[5m])
+            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system"}[15m])
           )
 
           > 0.01
@@ -67,9 +67,9 @@ groups:
             a critical integration.
         expr: >-
           min by (namespace,service, integration) (
-            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration=~`.*`}[5m])
+            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration=~`.*`}[15m])
           /
-            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration=~`.*`}[5m])
+            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration=~`.*`}[15m])
           )
 
           > 0.01
@@ -88,9 +88,9 @@ groups:
             a non-critical integration.
         expr: >-
           min by (namespace,service, integration) (
-            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration!~`.*`}[5m])
+            rate(alertmanager_notifications_failed_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration!~`.*`}[15m])
           /
-            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration!~`.*`}[5m])
+            ignoring (reason) group_left rate(alertmanager_notifications_total{job="prom-kube-prometheus-stack-alertmanager",namespace="monitoring-system", integration!~`.*`}[15m])
           )
 
           > 0.01
@@ -196,9 +196,9 @@ groups:
           )
 
           > 0
-        for: 10m
+        for: 20m
         labels:
-          severity: critical
+          severity: warning
       - alert: etcdInsufficientMembers
         annotations:
           description:
@@ -458,6 +458,14 @@ groups:
     rules:
       - expr: >-
           sum by (cluster, namespace, pod, container) (
+            rate(container_cpu_usage_seconds_total{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}[5m])
+          ) * on (cluster, namespace, pod) group_left(node) topk by (cluster,
+          namespace, pod) (
+            1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+          )
+        record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m
+      - expr: >-
+          sum by (cluster, namespace, pod, container) (
             irate(container_cpu_usage_seconds_total{job="kubelet", metrics_path="/metrics/cadvisor", image!=""}[5m])
           ) * on (cluster, namespace, pod) group_left(node) topk by (cluster,
           namespace, pod) (
@@ -586,9 +594,26 @@ groups:
               label_replace(
                 kube_pod_owner{job="kube-state-metrics", owner_kind="ReplicaSet"},
                 "replicaset", "$1", "owner_name", "(.*)"
-              ) * on (replicaset, namespace) group_left(owner_name) topk by (replicaset, namespace) (
-                1, max by (replicaset, namespace, owner_name) (
-                  kube_replicaset_owner{job="kube-state-metrics"}
+              ) * on (cluster, replicaset, namespace) group_left(owner_name) topk by (cluster, replicaset, namespace) (
+                1, max by (cluster, replicaset, namespace, owner_name) (
+                  kube_replicaset_owner{job="kube-state-metrics", owner_kind=""}
+                )
+              ),
+              "workload", "$1", "replicaset", "(.*)"
+            )
+          )
+        labels:
+          workload_type: replicaset
+        record: namespace_workload_pod:kube_pod_owner:relabel
+      - expr: >-
+          max by (cluster, namespace, workload, pod) (
+            label_replace(
+              label_replace(
+                kube_pod_owner{job="kube-state-metrics", owner_kind="ReplicaSet"},
+                "replicaset", "$1", "owner_name", "(.*)"
+              ) * on (replicaset, namespace, cluster) group_left(owner_name) topk by (cluster, replicaset, namespace) (
+                1, max by (cluster, replicaset, namespace, owner_name) (
+                  kube_replicaset_owner{job="kube-state-metrics", owner_kind="Deployment"}
                 )
               ),
               "workload", "$1", "owner_name", "(.*)"
@@ -611,21 +636,84 @@ groups:
           max by (cluster, namespace, workload, pod) (
             label_replace(
               kube_pod_owner{job="kube-state-metrics", owner_kind="StatefulSet"},
-              "workload", "$1", "owner_name", "(.*)"
-            )
+            "workload", "$1", "owner_name", "(.*)")
           )
         labels:
           workload_type: statefulset
         record: namespace_workload_pod:kube_pod_owner:relabel
       - expr: |-
-          max by (cluster, namespace, workload, pod) (
-            label_replace(
-              kube_pod_owner{job="kube-state-metrics", owner_kind="Job"},
-              "workload", "$1", "owner_name", "(.*)"
-            )
+          group by (cluster, namespace, workload, pod) (
+            label_join(
+              group by (cluster, namespace, job_name, pod, owner_name) (
+                label_join(
+                  kube_pod_owner{job="kube-state-metrics", owner_kind="Job"}
+                , "job_name", "", "owner_name")
+              )
+              * on (cluster, namespace, job_name) group_left()
+              group by (cluster, namespace, job_name) (
+                kube_job_owner{job="kube-state-metrics", owner_kind=~"Pod|"}
+              )
+            , "workload", "", "owner_name")
           )
         labels:
           workload_type: job
+        record: namespace_workload_pod:kube_pod_owner:relabel
+      - expr: >-
+          max by (cluster, namespace, workload, pod) (
+            label_replace(
+              kube_pod_owner{job="kube-state-metrics", owner_kind="", owner_name=""},
+            "workload", "$1", "pod", "(.+)")
+          )
+        labels:
+          workload_type: barepod
+        record: namespace_workload_pod:kube_pod_owner:relabel
+      - expr: |-
+          max by (cluster, namespace, workload, pod) (
+            label_replace(
+              kube_pod_owner{job="kube-state-metrics", owner_kind="Node"},
+            "workload", "$1", "pod", "(.+)")
+          )
+        labels:
+          workload_type: staticpod
+        record: namespace_workload_pod:kube_pod_owner:relabel
+      - expr: >-
+          group by (cluster, namespace, workload, workload_type, pod) (
+            label_join(
+              label_join(
+                group by (cluster, namespace, job_name, pod) (
+                  label_join(
+                    kube_pod_owner{job="kube-state-metrics", owner_kind="Job"}
+                  , "job_name", "", "owner_name")
+                )
+                * on (cluster, namespace, job_name) group_left(owner_kind, owner_name)
+                group by (cluster, namespace, job_name, owner_kind, owner_name) (
+                  kube_job_owner{job="kube-state-metrics", owner_kind!="Pod", owner_kind!=""}
+                )
+              , "workload", "", "owner_name")
+            , "workload_type", "", "owner_kind")
+
+            OR
+
+            label_replace(
+              label_replace(
+                label_replace(
+                  kube_pod_owner{job="kube-state-metrics", owner_kind="ReplicaSet"}
+                  , "replicaset", "$1", "owner_name", "(.+)"
+                )
+                * on (cluster, namespace, replicaset) group_left(owner_kind, owner_name)
+                group by (cluster, namespace, replicaset, owner_kind, owner_name) (
+                  kube_replicaset_owner{job="kube-state-metrics", owner_kind!="Deployment", owner_kind!=""}
+                )
+              , "workload", "$1", "owner_name", "(.+)")
+              OR
+              label_replace(
+                group by (cluster, namespace, pod, owner_name, owner_kind) (
+                  kube_pod_owner{job="kube-state-metrics", owner_kind!="ReplicaSet", owner_kind!="DaemonSet", owner_kind!="StatefulSet", owner_kind!="Job", owner_kind!="Node", owner_kind!=""}
+                )
+                , "workload", "$1", "owner_name", "(.+)"
+              )
+            , "workload_type", "$1", "owner_kind", "(.+)")
+          )
         record: namespace_workload_pod:kube_pod_owner:relabel
   - interval: 3m
     name: kube-apiserver-availability.rules
@@ -642,13 +730,6 @@ groups:
         labels:
           verb: write
         record: code:apiserver_request_total:increase30d
-      - expr: sum by (cluster, verb, scope)
-          (increase(apiserver_request_sli_duration_seconds_count{job="apiserver"}[1h]))
-        record: cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase1h
-      - expr: sum by (cluster, verb, scope)
-          (avg_over_time(cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase1h[30d])
-          * 24 * 30)
-        record: cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d
       - expr: sum by (cluster, verb, scope, le)
           (increase(apiserver_request_sli_duration_seconds_bucket[1h]))
         record: cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase1h
@@ -656,28 +737,30 @@ groups:
           (avg_over_time(cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase1h[30d])
           * 24 * 30)
         record: cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d
+      - expr: sum by (cluster, verb, scope)
+          (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase1h{le="+Inf"})
+        record: cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase1h
+      - expr: sum by (cluster, verb, scope)
+          (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{le="+Inf"})
+        record: cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d
       - expr: >-
           1 - (
             (
               # write too slow
               sum by (cluster) (cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d{verb=~"POST|PUT|PATCH|DELETE"})
               -
-              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"POST|PUT|PATCH|DELETE",le="1"})
+              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"POST|PUT|PATCH|DELETE",le=~"1(\\.0)?"} or vector(0))
             ) +
             (
               # read too slow
               sum by (cluster) (cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d{verb=~"LIST|GET"})
               -
               (
-                (
-                  sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope=~"resource|",le="1"})
-                  or
-                  vector(0)
-                )
+                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope=~"resource|",le=~"1(\\.0)?"} or vector(0))
                 +
-                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="namespace",le="5"})
+                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="namespace",le=~"5(\\.0)?"} or vector(0))
                 +
-                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="cluster",le="30"})
+                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="cluster",le=~"30(\\.0)?"} or vector(0))
               )
             ) +
             # errors
@@ -696,15 +779,11 @@ groups:
             -
             (
               # too slow
-              (
-                sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope=~"resource|",le="1"})
-                or
-                vector(0)
-              )
+              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope=~"resource|",le=~"1(\\.0)?"} or vector(0))
               +
-              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="namespace",le="5"})
+              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="namespace",le=~"5(\\.0)?"} or vector(0))
               +
-              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="cluster",le="30"})
+              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"LIST|GET",scope="cluster",le=~"30(\\.0)?"} or vector(0))
             )
             +
             # errors
@@ -724,7 +803,7 @@ groups:
               # too slow
               sum by (cluster) (cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d{verb=~"POST|PUT|PATCH|DELETE"})
               -
-              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"POST|PUT|PATCH|DELETE",le="1"})
+              sum by (cluster) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{verb=~"POST|PUT|PATCH|DELETE",le=~"1(\\.0)?"} or vector(0))
             )
             +
             # errors
@@ -770,14 +849,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[1d]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[1d]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[1d]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[1d]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[1d]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[1d]))
               )
             )
             +
@@ -800,14 +879,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[1h]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[1h]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[1h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[1h]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[1h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[1h]))
               )
             )
             +
@@ -830,14 +909,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[2h]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[2h]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[2h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[2h]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[2h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[2h]))
               )
             )
             +
@@ -860,14 +939,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[30m]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[30m]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[30m]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[30m]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[30m]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[30m]))
               )
             )
             +
@@ -890,14 +969,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[3d]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[3d]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[3d]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[3d]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[3d]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[3d]))
               )
             )
             +
@@ -920,14 +999,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[5m]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[5m]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[5m]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[5m]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[5m]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[5m]))
               )
             )
             +
@@ -950,14 +1029,14 @@ groups:
               -
               (
                 (
-                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le="1"}[6h]))
+                  sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope=~"resource|",le=~"1(\\.0)?"}[6h]))
                   or
                   vector(0)
                 )
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le="5"}[6h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="namespace",le=~"5(\\.0)?"}[6h]))
                 +
-                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le="30"}[6h]))
+                sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"LIST|GET",subresource!~"proxy|attach|log|exec|portforward",scope="cluster",le=~"30(\\.0)?"}[6h]))
               )
             )
             +
@@ -978,7 +1057,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[1d]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[1d]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[1d]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[1d]))
@@ -994,7 +1073,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[1h]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[1h]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[1h]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[1h]))
@@ -1010,7 +1089,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[2h]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[2h]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[2h]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[2h]))
@@ -1026,7 +1105,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[30m]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[30m]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[30m]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[30m]))
@@ -1042,7 +1121,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[3d]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[3d]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[3d]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[3d]))
@@ -1058,7 +1137,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[5m]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[5m]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[5m]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[5m]))
@@ -1074,7 +1153,7 @@ groups:
               # too slow
               sum by (cluster) (rate(apiserver_request_sli_duration_seconds_count{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward"}[6h]))
               -
-              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le="1"}[6h]))
+              sum by (cluster) (rate(apiserver_request_sli_duration_seconds_bucket{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",subresource!~"proxy|attach|log|exec|portforward",le=~"1(\\.0)?"}[6h]))
             )
             +
             sum by (cluster) (rate(apiserver_request_total{job="apiserver",verb=~"POST|PUT|PATCH|DELETE",code=~"5.."}[6h]))
@@ -1104,7 +1183,9 @@ groups:
     rules:
       - alert: KubeAPIErrorBudgetBurn
         annotations:
-          description: The API server is burning too much error budget.
+          description:
+            The API server is burning too much error budget on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn
           summary: The API server is burning too much error budget.
         expr: |-
@@ -1118,7 +1199,9 @@ groups:
           short: 5m
       - alert: KubeAPIErrorBudgetBurn
         annotations:
-          description: The API server is burning too much error budget.
+          description:
+            The API server is burning too much error budget on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn
           summary: The API server is burning too much error budget.
         expr: |-
@@ -1132,7 +1215,9 @@ groups:
           short: 30m
       - alert: KubeAPIErrorBudgetBurn
         annotations:
-          description: The API server is burning too much error budget.
+          description:
+            The API server is burning too much error budget on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn
           summary: The API server is burning too much error budget.
         expr: |-
@@ -1146,7 +1231,9 @@ groups:
           short: 2h
       - alert: KubeAPIErrorBudgetBurn
         annotations:
-          description: The API server is burning too much error budget.
+          description:
+            The API server is burning too much error budget on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapierrorbudgetburn
           summary: The API server is burning too much error budget.
         expr: |-
@@ -1309,27 +1396,33 @@ groups:
           severity: critical
   - name: kubelet.rules
     rules:
-      - expr: histogram_quantile(0.99,
-          sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet",
-          metrics_path="/metrics"}[5m])) by (cluster, instance, le) * on
-          (cluster, instance) group_left(node) kubelet_node_name{job="kubelet",
-          metrics_path="/metrics"})
+      - expr: >-
+          histogram_quantile(
+            0.99,
+            sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m])) by (cluster, instance, le)
+            * on (cluster, instance) group_left (node)
+            max by (cluster, instance, node) (kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+          )
         labels:
           quantile: "0.99"
         record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
-      - expr: histogram_quantile(0.9,
-          sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet",
-          metrics_path="/metrics"}[5m])) by (cluster, instance, le) * on
-          (cluster, instance) group_left(node) kubelet_node_name{job="kubelet",
-          metrics_path="/metrics"})
+      - expr: >-
+          histogram_quantile(
+            0.9,
+            sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m])) by (cluster, instance, le)
+            * on (cluster, instance) group_left (node)
+            max by (cluster, instance, node) (kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+          )
         labels:
           quantile: "0.9"
         record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
-      - expr: histogram_quantile(0.5,
-          sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet",
-          metrics_path="/metrics"}[5m])) by (cluster, instance, le) * on
-          (cluster, instance) group_left(node) kubelet_node_name{job="kubelet",
-          metrics_path="/metrics"})
+      - expr: >-
+          histogram_quantile(
+            0.5,
+            sum(rate(kubelet_pleg_relist_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m])) by (cluster, instance, le)
+            * on (cluster, instance) group_left (node)
+            max by (cluster, instance, node) (kubelet_node_name{job="kubelet", metrics_path="/metrics"})
+          )
         labels:
           quantile: "0.5"
         record: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile
@@ -1339,7 +1432,7 @@ groups:
         annotations:
           description: 'Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{
             $labels.container }}) is in waiting state (reason:
-            "CrashLoopBackOff").'
+            "CrashLoopBackOff") on cluster {{ $labels.cluster }}.'
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodcrashlooping
           summary: Pod is crash looping.
         expr:
@@ -1352,7 +1445,8 @@ groups:
         annotations:
           description:
             Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a
-            non-ready state for longer than 15 minutes.
+            non-ready state for longer than 15 minutes on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodnotready
           summary: Pod has been in a non-ready state for more than 15 minutes.
         expr: >-
@@ -1370,7 +1464,8 @@ groups:
         annotations:
           description: Deployment generation for {{ $labels.namespace }}/{{
             $labels.deployment }} does not match, this indicates that the
-            Deployment has failed but has not been rolled back.
+            Deployment has failed but has not been rolled back on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentgenerationmismatch
           summary: Deployment generation mismatch due to possible roll-back
         expr: >-
@@ -1386,7 +1481,8 @@ groups:
         annotations:
           description:
             Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not
-            matched the expected number of replicas for longer than 15 minutes.
+            matched the expected number of replicas for longer than 15 minutes
+            on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentreplicasmismatch
           summary: Deployment has not matched the expected number of replicas.
         expr: >-
@@ -1406,7 +1502,8 @@ groups:
         annotations:
           description:
             Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment
-            }} is not progressing for longer than 15 minutes.
+            }} is not progressing for longer than 15 minutes on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentrolloutstuck
           summary: Deployment rollout is not progressing.
         expr: >-
@@ -1422,14 +1519,14 @@ groups:
           description:
             StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has
             not matched the expected number of replicas for longer than 15
-            minutes.
+            minutes on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetreplicasmismatch
           summary: StatefulSet has not matched the expected number of replicas.
         expr: >-
           (
             kube_statefulset_status_replicas_ready{job="kube-state-metrics", namespace=~".*"}
               !=
-            kube_statefulset_status_replicas{job="kube-state-metrics", namespace=~".*"}
+            kube_statefulset_replicas{job="kube-state-metrics", namespace=~".*"}
           ) and (
             changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics", namespace=~".*"}[10m])
               ==
@@ -1442,7 +1539,8 @@ groups:
         annotations:
           description: StatefulSet generation for {{ $labels.namespace }}/{{
             $labels.statefulset }} does not match, this indicates that the
-            StatefulSet has failed but has not been rolled back.
+            StatefulSet has failed but has not been rolled back on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetgenerationmismatch
           summary: StatefulSet generation mismatch due to possible roll-back
         expr: >-
@@ -1458,7 +1556,7 @@ groups:
         annotations:
           description:
             StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }}
-            update has not been rolled out.
+            update has not been rolled out on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubestatefulsetupdatenotrolledout
           summary: StatefulSet update has not been rolled out.
         expr: >-
@@ -1468,13 +1566,13 @@ groups:
                 unless
               kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"}
             )
-              *
+              * on (namespace, statefulset, job, cluster)
             (
               kube_statefulset_replicas{job="kube-state-metrics", namespace=~".*"}
                 !=
               kube_statefulset_status_replicas_updated{job="kube-state-metrics", namespace=~".*"}
             )
-          )  and (
+          )  and on (namespace, statefulset, job, cluster) (
             changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics", namespace=~".*"}[5m])
               ==
             0
@@ -1486,26 +1584,27 @@ groups:
         annotations:
           description:
             DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not
-            finished or progressed for at least 15 minutes.
+            finished or progressed for at least 15m on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetrolloutstuck
           summary: DaemonSet rollout is stuck.
         expr: >-
           (
             (
               kube_daemonset_status_current_number_scheduled{job="kube-state-metrics", namespace=~".*"}
-               !=
+                !=
               kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~".*"}
             ) or (
               kube_daemonset_status_number_misscheduled{job="kube-state-metrics", namespace=~".*"}
-               !=
+                !=
               0
             ) or (
               kube_daemonset_status_updated_number_scheduled{job="kube-state-metrics", namespace=~".*"}
-               !=
+                !=
               kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~".*"}
             ) or (
               kube_daemonset_status_number_available{job="kube-state-metrics", namespace=~".*"}
-               !=
+                !=
               kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~".*"}
             )
           ) and (
@@ -1519,14 +1618,15 @@ groups:
       - alert: KubeContainerWaiting
         annotations:
           description:
-            pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on
+            'pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on
             container {{ $labels.container}} has been in waiting state for
-            longer than 1 hour.
+            longer than 1 hour. (reason: "{{ $labels.reason }}") on cluster {{
+            $labels.cluster }}.'
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecontainerwaiting
           summary: Pod container waiting longer than 1 hour
-        expr: sum by (namespace, pod, container, cluster)
-          (kube_pod_container_status_waiting_reason{job="kube-state-metrics",
-          namespace=~".*"}) > 0
+        expr:
+          kube_pod_container_status_waiting_reason{reason!="CrashLoopBackOff",
+          job="kube-state-metrics", namespace=~".*"} > 0
         for: 1h
         labels:
           severity: warning
@@ -1534,7 +1634,8 @@ groups:
         annotations:
           description:
             "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{
-            $labels.daemonset }} are not scheduled."
+            $labels.daemonset }} are not scheduled on cluster {{ $labels.cluster
+            }}."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetnotscheduled
           summary: DaemonSet pods are not scheduled.
         expr: |-
@@ -1548,8 +1649,8 @@ groups:
         annotations:
           description:
             "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{
-            $labels.daemonset }} are running where they are not supposed to
-            run."
+            $labels.daemonset }} are running where they are not supposed to run
+            on cluster {{ $labels.cluster }}."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedaemonsetmisscheduled
           summary: DaemonSet pods are misscheduled.
         expr:
@@ -1562,7 +1663,8 @@ groups:
         annotations:
           description:
             Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more
-            than {{ "43200" | humanizeDuration }} to complete.
+            than {{ "43200" | humanizeDuration }} to complete on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobnotcompleted
           summary: Job did not complete in time
         expr: >-
@@ -1578,7 +1680,7 @@ groups:
           description:
             Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to
             complete. Removing failed job after investigation should clear this
-            alert.
+            alert on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubejobfailed
           summary: Job failed to complete.
         expr: kube_job_failed{job="kube-state-metrics", namespace=~".*"}  > 0
@@ -1590,7 +1692,7 @@ groups:
           description:
             HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }}
             has not matched the desired number of replicas for longer than 15
-            minutes.
+            minutes on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpareplicasmismatch
           summary: HPA has not matched desired number of replicas.
         expr: |-
@@ -1614,7 +1716,8 @@ groups:
         annotations:
           description:
             HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }}
-            has been running at max replicas for longer than 15 minutes.
+            has been running at max replicas for longer than 15 minutes on
+            cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubehpamaxedout
           summary: HPA is running at max replicas
         expr: |-
@@ -1624,20 +1727,64 @@ groups:
         for: 15m
         labels:
           severity: warning
+      - alert: KubePdbNotEnoughHealthyPods
+        annotations:
+          description: PDB {{ $labels.cluster }}/{{ $labels.namespace }}/{{
+            $labels.poddisruptionbudget }} expects {{ $value }} more healthy
+            pods. The desired number of healthy pods has not been met for at
+            least 15m.
+          runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepdbnotenoughhealthypods
+          summary: PDB does not have enough healthy pods.
+        expr: >-
+          (
+            kube_poddisruptionbudget_status_desired_healthy{job="kube-state-metrics", namespace=~".*"}
+            -
+            kube_poddisruptionbudget_status_current_healthy{job="kube-state-metrics", namespace=~".*"}
+          )
+
+          > 0
+        for: 15m
+        labels:
+          severity: warning
   - name: kubernetes-resources
     rules:
       - alert: KubeCPUOvercommit
         annotations:
           description:
             Cluster {{ $labels.cluster }} has overcommitted CPU resource
-            requests for Pods by {{ $value }} CPU shares and cannot tolerate
-            node failure.
+            requests for Pods by {{ printf "%.2f" $value }} CPU shares and
+            cannot tolerate node failure.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecpuovercommit
           summary: Cluster has overcommitted CPU resource requests.
-        expr: |-
-          sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
-          and
-          (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
+        expr: >-
+          # Non-HA clusters.
+
+          (
+            (
+              sum by (cluster) (namespace_cpu:kube_pod_container_resource_requests:sum{})
+              -
+              sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) > 0
+            )
+            and
+            count by (cluster) (max by (cluster, node) (kube_node_role{job="kube-state-metrics", role="control-plane"})) < 3
+          )
+
+          or
+
+          # HA clusters.
+
+          (
+            sum by (cluster) (namespace_cpu:kube_pod_container_resource_requests:sum{})
+            -
+            (
+              # Skip clusters with only one allocatable node.
+              (
+                sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"})
+                -
+                max by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"})
+              ) > 0
+            ) > 0
+          )
         for: 10m
         labels:
           severity: warning
@@ -1650,61 +1797,82 @@ groups:
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubememoryovercommit
           summary: Cluster has overcommitted memory resource requests.
         expr: >-
-          sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by
-          (cluster) - (sum(kube_node_status_allocatable{resource="memory",
-          job="kube-state-metrics"}) by (cluster) -
-          max(kube_node_status_allocatable{resource="memory",
-          job="kube-state-metrics"}) by (cluster)) > 0
+          # Non-HA clusters.
 
-          and
+          (
+            (
+              sum by (cluster) (namespace_memory:kube_pod_container_resource_requests:sum{})
+              -
+              sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="memory"}) > 0
+            )
+            and
+            count by (cluster) (max by (cluster, node) (kube_node_role{job="kube-state-metrics", role="control-plane"})) < 3
+          )
 
-          (sum(kube_node_status_allocatable{resource="memory",
-          job="kube-state-metrics"}) by (cluster) -
-          max(kube_node_status_allocatable{resource="memory",
-          job="kube-state-metrics"}) by (cluster)) > 0
+          or
+
+          # HA clusters.
+
+          (
+            sum by (cluster) (namespace_memory:kube_pod_container_resource_requests:sum{})
+            -
+            (
+              # Skip clusters with only one allocatable node.
+              (
+                sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="memory"})
+                -
+                max by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="memory"})
+              ) > 0
+            ) > 0
+          )
         for: 10m
         labels:
           severity: warning
       - alert: KubeCPUQuotaOvercommit
         annotations:
           description:
-            Cluster {{ $labels.cluster }}  has overcommitted CPU resource
+            Cluster {{ $labels.cluster }} has overcommitted CPU resource
             requests for Namespaces.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubecpuquotaovercommit
           summary: Cluster has overcommitted CPU resource requests.
         expr: >-
-          sum(min without(resource)
-          (kube_resourcequota{job="kube-state-metrics", type="hard",
-          resource=~"(cpu|requests.cpu)"})) by (cluster)
-            /
-          sum(kube_node_status_allocatable{resource="cpu",
-          job="kube-state-metrics"}) by (cluster)
-            > 1.5
+          sum by (cluster) (
+            min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(cpu|requests.cpu)"})
+          )
+
+          /
+
+          sum by (cluster) (
+            kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}
+          ) > 1.5
         for: 5m
         labels:
           severity: warning
       - alert: KubeMemoryQuotaOvercommit
         annotations:
           description:
-            Cluster {{ $labels.cluster }}  has overcommitted memory resource
+            Cluster {{ $labels.cluster }} has overcommitted memory resource
             requests for Namespaces.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubememoryquotaovercommit
           summary: Cluster has overcommitted memory resource requests.
         expr: >-
-          sum(min without(resource)
-          (kube_resourcequota{job="kube-state-metrics", type="hard",
-          resource=~"(memory|requests.memory)"})) by (cluster)
-            /
-          sum(kube_node_status_allocatable{resource="memory",
-          job="kube-state-metrics"}) by (cluster)
-            > 1.5
+          sum by (cluster) (
+            min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(memory|requests.memory)"})
+          )
+
+          /
+
+          sum by (cluster) (
+            kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}
+          ) > 1.5
         for: 5m
         labels:
           severity: warning
       - alert: KubeQuotaAlmostFull
         annotations:
           description: Namespace {{ $labels.namespace }} is using {{ $value |
-            humanizePercentage }} of its {{ $labels.resource }} quota.
+            humanizePercentage }} of its {{ $labels.resource }} quota on cluster
+            {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaalmostfull
           summary: Namespace quota is going to be full.
         expr: |-
@@ -1718,7 +1886,8 @@ groups:
       - alert: KubeQuotaFullyUsed
         annotations:
           description: Namespace {{ $labels.namespace }} is using {{ $value |
-            humanizePercentage }} of its {{ $labels.resource }} quota.
+            humanizePercentage }} of its {{ $labels.resource }} quota on cluster
+            {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotafullyused
           summary: Namespace quota is fully used.
         expr: |-
@@ -1732,7 +1901,8 @@ groups:
       - alert: KubeQuotaExceeded
         annotations:
           description: Namespace {{ $labels.namespace }} is using {{ $value |
-            humanizePercentage }} of its {{ $labels.resource }} quota.
+            humanizePercentage }} of its {{ $labels.resource }} quota on cluster
+            {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaexceeded
           summary: Namespace quota has exceeded the limits.
         expr: |-
@@ -1748,15 +1918,17 @@ groups:
           description:
             "{{ $value | humanizePercentage }} throttling of CPU in namespace
             {{ $labels.namespace }} for container {{ $labels.container }} in pod
-            {{ $labels.pod }}."
+            {{ $labels.pod }} on cluster {{ $labels.cluster }}."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/cputhrottlinghigh
           summary: Processes experience elevated CPU throttling.
         expr: >-
           sum(increase(container_cpu_cfs_throttled_periods_total{container!="",
-          }[5m])) by (cluster, container, pod, namespace)
-            /
-          sum(increase(container_cpu_cfs_periods_total{}[5m])) by (cluster,
-          container, pod, namespace)
+          job="kubelet", metrics_path="/metrics/cadvisor", }[5m])) without (id,
+          metrics_path, name, image, endpoint, job, node)
+            / on (cluster, namespace, pod, container, instance) group_left
+          sum(increase(container_cpu_cfs_periods_total{job="kubelet",
+          metrics_path="/metrics/cadvisor", }[5m])) without (id, metrics_path,
+          name, image, endpoint, job, node)
             > ( 25 / 100 )
         for: 15m
         labels:
@@ -1927,15 +2099,13 @@ groups:
         annotations:
           description:
             A client certificate used to authenticate to kubernetes apiserver
-            is expiring in less than 7.0 days.
+            is expiring in less than 7.0 days on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeclientcertificateexpiration
           summary: Client certificate is about to expire.
-        expr:
-          apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0
-          and on (cluster, job) histogram_quantile(0.01, sum by (cluster, job,
-          le)
-          (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m])))
-          < 604800
+        expr: |-
+          histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
+          and
+          on (job, cluster, instance) apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0
         for: 5m
         labels:
           severity: warning
@@ -1943,29 +2113,29 @@ groups:
         annotations:
           description:
             A client certificate used to authenticate to kubernetes apiserver
-            is expiring in less than 24.0 hours.
+            is expiring in less than 24.0 hours on cluster {{ $labels.cluster
+            }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeclientcertificateexpiration
           summary: Client certificate is about to expire.
-        expr:
-          apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0
-          and on (cluster, job) histogram_quantile(0.01, sum by (cluster, job,
-          le)
-          (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m])))
-          < 86400
+        expr: |-
+          histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
+          and
+          on (job, cluster, instance) apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0
         for: 5m
         labels:
           severity: critical
       - alert: KubeAggregatedAPIErrors
         annotations:
           description:
-            Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace
-            }} has reported errors. It has appeared unavailable {{ $value |
-            humanize }} times averaged over the past 10m.
+            Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }}
+            has reported {{ $labels.reason }} errors on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeaggregatedapierrors
           summary: Kubernetes aggregated API has reported errors.
-        expr: sum by (name, namespace,
-          cluster)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[10m]))
-          > 4
+        expr: sum by (cluster, instance, name,
+          reason)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[1m]))
+          > 0
+        for: 10m
         labels:
           severity: warning
       - alert: KubeAggregatedAPIDown
@@ -1973,7 +2143,7 @@ groups:
           description:
             Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace
             }} has been only {{ $value | humanize }}% available over the last
-            10m.
+            10m on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeaggregatedapidown
           summary: Kubernetes aggregated API is down.
         expr: (1 - max by (name, namespace,
@@ -1994,7 +2164,8 @@ groups:
       - alert: KubeAPITerminatedRequests
         annotations:
           description: The kubernetes apiserver has terminated {{ $value |
-            humanizePercentage }} of its incoming requests.
+            humanizePercentage }} of its incoming requests on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapiterminatedrequests
           summary:
             The kubernetes apiserver has terminated {{ $value | humanizePercentage
@@ -2036,20 +2207,38 @@ groups:
     rules:
       - alert: KubeNodeNotReady
         annotations:
-          description: "{{ $labels.node }} has been unready for more than 15 minutes."
+          description:
+            "{{ $labels.node }} has been unready for more than 15 minutes on
+            cluster {{ $labels.cluster }}."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodenotready
           summary: Node is not ready.
-        expr:
-          kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"}
-          == 0
+        expr: |-
+          kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
+          and on (cluster, node)
+          kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
         for: 15m
         labels:
           severity: warning
+      - alert: KubeNodePressure
+        annotations:
+          description:
+            "{{ $labels.node }} on cluster {{ $labels.cluster }} has active
+            Condition {{ $labels.condition }}. This is caused by resource usage
+            exceeding eviction thresholds."
+          runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodepressure
+          summary: Node has as active Condition.
+        expr: |-
+          kube_node_status_condition{job="kube-state-metrics",condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
+          and on (cluster, node)
+          kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+        for: 10m
+        labels:
+          severity: info
       - alert: KubeNodeUnreachable
         annotations:
           description:
             "{{ $labels.node }} is unreachable and some workloads may be
-            rescheduled."
+            rescheduled on cluster {{ $labels.cluster }}."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodeunreachable
           summary: Node is unreachable.
         expr:
@@ -2063,18 +2252,25 @@ groups:
       - alert: KubeletTooManyPods
         annotations:
           description: Kubelet '{{ $labels.node }}' is running at {{ $value |
-            humanizePercentage }} of its Pod capacity.
+            humanizePercentage }} of its Pod capacity on cluster {{
+            $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubelettoomanypods
           summary: Kubelet is running at capacity.
         expr: >-
-          count by (cluster, node) (
-            (kube_pod_status_phase{job="kube-state-metrics",phase="Running"} == 1) * on (instance,pod,namespace,cluster) group_left(node) topk by (instance,pod,namespace,cluster) (1, kube_pod_info{job="kube-state-metrics"})
+          (
+            max by (cluster, instance) (
+              kubelet_running_pods{job="kubelet", metrics_path="/metrics"} > 1
+            )
+            * on (cluster, instance) group_left(node)
+            max by (cluster, instance, node) (
+              kubelet_node_name{job="kubelet", metrics_path="/metrics"}
+            )
           )
 
-          /
+          / on (cluster, node) group_left()
 
           max by (cluster, node) (
-            kube_node_status_capacity{job="kube-state-metrics",resource="pods"} != 1
+            kube_node_status_capacity{job="kube-state-metrics", resource="pods"} != 1
           ) > 0.95
         for: 15m
         labels:
@@ -2083,20 +2279,47 @@ groups:
         annotations:
           description:
             The readiness status of node {{ $labels.node }} has changed {{
-            $value }} times in the last 15 minutes.
+            $value }} times in the last 15 minutes on cluster {{ $labels.cluster
+            }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodereadinessflapping
           summary: Node readiness status is flapping.
-        expr:
-          sum(changes(kube_node_status_condition{job="kube-state-metrics",status="true",condition="Ready"}[15m]))
-          by (cluster, node) > 2
+        expr: |-
+          sum(changes(kube_node_status_condition{job="kube-state-metrics",status="true",condition="Ready"}[15m])) by (cluster, node) > 2
+          and on (cluster, node)
+          kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
         for: 15m
         labels:
           severity: warning
+      - alert: KubeNodeEviction
+        annotations:
+          description:
+            Node {{ $labels.node }} on {{ $labels.cluster }} is evicting Pods
+            due to {{ $labels.eviction_signal }}.  Eviction occurs when eviction
+            thresholds are crossed, typically caused by Pods exceeding
+            RAM/ephemeral-storage limits.
+          runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubenodeeviction
+          summary: Node is evicting pods.
+        expr: >-
+          sum(rate(kubelet_evictions{job="kubelet",
+          metrics_path="/metrics"}[15m])) by (cluster, eviction_signal,
+          instance)
+
+          * on (cluster, instance) group_left(node)
+
+          max by (cluster, instance, node) (
+            kubelet_node_name{job="kubelet", metrics_path="/metrics"}
+          )
+
+          > 0
+        for: 0s
+        labels:
+          severity: info
       - alert: KubeletPlegDurationHigh
         annotations:
           description:
             The Kubelet Pod Lifecycle Event Generator has a 99th percentile
-            duration of {{ $value }} seconds on node {{ $labels.node }}.
+            duration of {{ $value }} seconds on node {{ $labels.node }} on
+            cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletplegdurationhigh
           summary: Kubelet Pod Lifecycle Event Generator is taking too long to relist.
         expr:
@@ -2109,14 +2332,25 @@ groups:
         annotations:
           description:
             Kubelet Pod startup 99th percentile latency is {{ $value }} seconds
-            on node {{ $labels.node }}.
+            on node {{ $labels.node }} on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletpodstartuplatencyhigh
           summary: Kubelet Pod startup latency is too high.
-        expr: histogram_quantile(0.99,
-          sum(rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet",
-          metrics_path="/metrics"}[5m])) by (cluster, instance, le)) * on
-          (cluster, instance) group_left(node) kubelet_node_name{job="kubelet",
-          metrics_path="/metrics"} > 60
+        expr: >-
+          histogram_quantile(0.99,
+            sum by (cluster, instance, le) (
+              topk by (cluster, instance, le, operation_type) (1,
+                rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m])
+              )
+            )
+          )
+
+          * on (cluster, instance) group_left(node)
+
+          topk by (cluster, instance, node) (1,
+            kubelet_node_name{job="kubelet", metrics_path="/metrics"}
+          )
+
+          > 60
         for: 15m
         labels:
           severity: warning
@@ -2124,7 +2358,7 @@ groups:
         annotations:
           description:
             Client certificate for Kubelet on node {{ $labels.node }} expires
-            in {{ $value | humanizeDuration }}.
+            in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletclientcertificateexpiration
           summary: Kubelet client certificate is about to expire.
         expr: kubelet_certificate_manager_client_ttl_seconds < 604800
@@ -2134,7 +2368,7 @@ groups:
         annotations:
           description:
             Client certificate for Kubelet on node {{ $labels.node }} expires
-            in {{ $value | humanizeDuration }}.
+            in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletclientcertificateexpiration
           summary: Kubelet client certificate is about to expire.
         expr: kubelet_certificate_manager_client_ttl_seconds < 86400
@@ -2144,7 +2378,7 @@ groups:
         annotations:
           description:
             Server certificate for Kubelet on node {{ $labels.node }} expires
-            in {{ $value | humanizeDuration }}.
+            in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletservercertificateexpiration
           summary: Kubelet server certificate is about to expire.
         expr: kubelet_certificate_manager_server_ttl_seconds < 604800
@@ -2154,7 +2388,7 @@ groups:
         annotations:
           description:
             Server certificate for Kubelet on node {{ $labels.node }} expires
-            in {{ $value | humanizeDuration }}.
+            in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletservercertificateexpiration
           summary: Kubelet server certificate is about to expire.
         expr: kubelet_certificate_manager_server_ttl_seconds < 86400
@@ -2164,7 +2398,8 @@ groups:
         annotations:
           description:
             Kubelet on node {{ $labels.node }} has failed to renew its client
-            certificate ({{ $value | humanize }} errors in the last 5 minutes).
+            certificate ({{ $value | humanize }} errors in the last 5 minutes)
+            on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletclientcertificaterenewalerrors
           summary: Kubelet has failed to renew its client certificate.
         expr:
@@ -2177,7 +2412,8 @@ groups:
         annotations:
           description:
             Kubelet on node {{ $labels.node }} has failed to renew its server
-            certificate ({{ $value | humanize }} errors in the last 5 minutes).
+            certificate ({{ $value | humanize }} errors in the last 5 minutes)
+            on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeletservercertificaterenewalerrors
           summary: Kubelet has failed to renew its server certificate.
         expr: increase(kubelet_server_expiration_renew_errors[5m]) > 0
@@ -2210,7 +2446,7 @@ groups:
         annotations:
           description:
             There are {{ $value }} different semantic versions of Kubernetes
-            components running.
+            components running on cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeversionmismatch
           summary: Different semantic versions of Kubernetes components running.
         expr: count by (cluster) (count by (git_version, cluster)
@@ -2223,7 +2459,8 @@ groups:
         annotations:
           description:
             Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance
-            }}' is experiencing {{ $value | humanizePercentage }} errors.'
+            }}' is experiencing {{ $value | humanizePercentage }} errors on
+            cluster {{ $labels.cluster }}.
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeclienterrors
           summary: Kubernetes API server client is experiencing errors.
         expr: |-
@@ -2468,7 +2705,9 @@ groups:
           severity: warning
       - alert: NodeHighNumberConntrackEntriesUsed
         annotations:
-          description: "{{ $value | humanizePercentage }} of conntrack entries are used."
+          description:
+            "{{ $labels.instance }} {{ $value | humanizePercentage }} of
+            conntrack entries are used."
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/node/nodehighnumberconntrackentriesused
           summary: Number of conntrack are getting close to the limit.
         expr: (node_nf_conntrack_entries{job="node-exporter"} /
@@ -2586,8 +2825,8 @@ groups:
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/node/nodecpuhighusage
           summary: High CPU usage.
         expr: sum without(mode) (avg without (cpu)
-          (rate(node_cpu_seconds_total{job="node-exporter", mode!="idle"}[2m])))
-          * 100 > 90
+          (rate(node_cpu_seconds_total{job="node-exporter",
+          mode!~"idle|iowait"}[2m]))) * 100 > 90
         for: 15m
         labels:
           severity: info
@@ -2661,6 +2900,18 @@ groups:
           summary: Systemd service has entered failed state.
         expr: node_systemd_unit_state{job="node-exporter", state="failed"} == 1
         for: 5m
+        labels:
+          severity: warning
+      - alert: NodeSystemdServiceCrashlooping
+        annotations:
+          description:
+            Systemd service {{ $labels.name }} has being restarted too many
+            times at {{ $labels.instance }} for the last 15 minutes. Please
+            check if service is crash looping.
+          runbook_url: https://runbooks.prometheus-operator.dev/runbooks/node/nodesystemdservicecrashlooping
+          summary: Systemd service keeps restaring, possibly crash looping.
+        expr: increase(node_systemd_service_restart_total{job="node-exporter"}[5m]) > 2
+        for: 15m
         labels:
           severity: warning
       - alert: NodeBondingDegraded
@@ -2908,14 +3159,13 @@ groups:
           severity: warning
       - alert: PrometheusErrorSendingAlertsToSomeAlertmanagers
         annotations:
-          description:
-            '{{ printf "%.1f" $value }}% errors while sending alerts from
-            Prometheus {{$labels.namespace}}/{{$labels.pod}} to Alertmanager
-            {{$labels.alertmanager}}.'
+          description: '{{ printf "%.1f" $value }}% of alerts sent by Prometheus
+            {{$labels.namespace}}/{{$labels.pod}} to Alertmanager
+            {{$labels.alertmanager}} were affected by errors.'
           runbook_url: https://runbooks.prometheus-operator.dev/runbooks/prometheus/prometheuserrorsendingalertstosomealertmanagers
           summary:
-            Prometheus has encountered more than 1% errors sending alerts to a
-            specific Alertmanager.
+            More than 1% of alerts sent by Prometheus to a specific Alertmanager
+            were affected by errors.
         expr: >-
           (
             rate(prometheus_notifications_errors_total{job="prom-kube-prometheus-stack-prometheus",namespace="monitoring-system"}[5m])

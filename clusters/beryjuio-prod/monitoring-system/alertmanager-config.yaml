@@ -48,24 +48,24 @@ spec:
         receiver: discord
     inhibitRules:
       - sourceMatch:
-          - 'severity = critical'
+          - "severity = critical"
         targetMatch:
-          - 'severity =~ warning|info'
+          - "severity =~ warning|info"
         equal:
-          - 'namespace'
-          - 'alertname'
+          - "namespace"
+          - "alertname"
       - sourceMatch:
-          - 'severity = warning'
+          - "severity = warning"
         targetMatch:
-          - 'severity = info'
+          - "severity = info"
         equal:
-          - 'namespace'
-          - 'alertname'
+          - "namespace"
+          - "alertname"
       - sourceMatch:
-          - 'alertname = InfoInhibitor'
+          - "alertname = InfoInhibitor"
         targetMatch:
-          - 'severity = info'
+          - "severity = info"
         equal:
-          - 'namespace'
+          - "namespace"
       - targetMatch:
-          - 'alertname = InfoInhibitor'
+          - "alertname = InfoInhibitor"

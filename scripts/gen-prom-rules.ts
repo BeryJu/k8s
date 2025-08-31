@@ -1,8 +1,10 @@
 import { parseAllDocuments, stringify } from "yaml";
 import { $ } from "bun";
 
+await $`helm repo update prometheus-community`;
+
 const template = parseAllDocuments(
-  await $`helm template prom prometheus-community/kube-prometheus-stack`.text()
+  await $`helm template prom prometheus-community/kube-prometheus-stack -n monitoring-system`.text()
 );
 
 const merged = {
