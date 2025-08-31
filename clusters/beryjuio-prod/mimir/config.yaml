@@ -93,6 +93,7 @@ spec:
             ruler_max_rules_per_rule_group: 500       # default 20
             compactor_blocks_retention_period: 1y     # default 0s
             out_of_order_time_window: 1h              # default 0s
+            ruler_max_rule_groups_per_tenant: 100     # default 70
   dataFrom:
     - extract:
         key: kv/linode/obj/mimir
