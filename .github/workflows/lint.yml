@@ -8,12 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "npm"
-          cache-dependency-path: package-lock.json
+      - uses: oven-sh/setup-bun@v2
       - name: prettier
         run: |
-          npm i
-          npm run prettier-check
+          bun i
+          bun run prettier-check

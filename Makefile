@@ -6,5 +6,4 @@ lint:
 		--config '.github/lint/.prettierrc.yaml' \
 		--list-different \
 		--ignore-unknown \
-		--parser=yaml \
-		--write '**/*.yml' '**/*.yaml'
+		--write .
