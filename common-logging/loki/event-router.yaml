@@ -71,7 +71,7 @@ spec:
     spec:
       containers:
         - name: kube-eventrouter
-          image: ghcr.io/beryju/eventrouter
+          image: ghcr.io/kube-logging/eventrouter:latest
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config-volume
