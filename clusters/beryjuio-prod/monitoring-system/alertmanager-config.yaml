@@ -47,24 +47,32 @@ spec:
         receiver: discord
   inhibitRules:
     - sourceMatch:
-        - "severity = critical"
+        - name: "severity"
+          value: "critical"
       targetMatch:
-        - "severity =~ warning|info"
+        - name: "severity"
+          matchType: =~
+          value: "warning|info"
       equal:
         - "namespace"
         - "alertname"
     - sourceMatch:
-        - "severity = warning"
+        - name: "severity"
+          value: "warning"
       targetMatch:
-        - "severity = info"
+        - name: "severity"
+          value: "info"
       equal:
         - "namespace"
         - "alertname"
     - sourceMatch:
-        - "alertname = InfoInhibitor"
+        - name: "alertname"
+          value: "InfoInhibitor"
       targetMatch:
-        - "severity = info"
+        - name: "severity"
+          value: "info"
       equal:
         - "namespace"
     - targetMatch:
-        - "alertname = InfoInhibitor"
+        - name: "alertname"
+          value: "InfoInhibitor"
