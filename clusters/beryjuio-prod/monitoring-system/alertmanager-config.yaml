@@ -45,26 +45,26 @@ spec:
             matchType: "=~"
             value: critical
         receiver: discord
-    inhibitRules:
-      - sourceMatch:
-          - "severity = critical"
-        targetMatch:
-          - "severity =~ warning|info"
-        equal:
-          - "namespace"
-          - "alertname"
-      - sourceMatch:
-          - "severity = warning"
-        targetMatch:
-          - "severity = info"
-        equal:
-          - "namespace"
-          - "alertname"
-      - sourceMatch:
-          - "alertname = InfoInhibitor"
-        targetMatch:
-          - "severity = info"
-        equal:
-          - "namespace"
-      - targetMatch:
-          - "alertname = InfoInhibitor"
+  inhibitRules:
+    - sourceMatch:
+        - "severity = critical"
+      targetMatch:
+        - "severity =~ warning|info"
+      equal:
+        - "namespace"
+        - "alertname"
+    - sourceMatch:
+        - "severity = warning"
+      targetMatch:
+        - "severity = info"
+      equal:
+        - "namespace"
+        - "alertname"
+    - sourceMatch:
+        - "alertname = InfoInhibitor"
+      targetMatch:
+        - "severity = info"
+      equal:
+        - "namespace"
+    - targetMatch:
+        - "alertname = InfoInhibitor"
