@@ -20,7 +20,7 @@ template.forEach((doc) => {
     return;
   }
   console.log(`Updating with ${name}`);
-  merged.groups = [...merged.groups, root.spec.groups];
+  merged.groups = [...merged.groups, ...root.spec.groups];
 });
 
 await Bun.write(
