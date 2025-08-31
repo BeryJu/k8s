@@ -1,4 +1,4 @@
-apiVersion: monitoring.coreos.com/v1
+apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: beryjuio-alertmanager
@@ -27,7 +27,6 @@ spec:
               {{ end }}
             {{ end }}
           username: Prometheus
-  logFormat: json
   route:
     groupBy:
       - alertname
