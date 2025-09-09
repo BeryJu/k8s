@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tautulli
-          image: ghcr.io/home-operations/tautulli:2.15.3
+          image: ghcr.io/home-operations/tautulli:2.16.0
           resources: {}
           ports:
             - containerPort: 8181
