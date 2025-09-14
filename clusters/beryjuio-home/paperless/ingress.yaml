@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-paperless
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-paperless
+  commonName: paperless.${CLUSTER_NAME}.k8s.beryju.io
+  dnsNames:
+    - paperless.${CLUSTER_NAME}.k8s.beryju.io
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  ingressClassName: istio
+  rules:
+    - host: paperless.${CLUSTER_NAME}.k8s.beryju.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: paperless
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - paperless.${CLUSTER_NAME}.k8s.beryju.io
+      secretName: beryjuio-paperless

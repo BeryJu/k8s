@@ -1,0 +1,110 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/controller: paperless
+      app.kubernetes.io/name: paperless
+      app.kubernetes.io/instance: paperless
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/controller: paperless
+        app.kubernetes.io/instance: paperless
+        app.kubernetes.io/name: paperless
+    spec:
+      containers:
+        - name: paperless
+          envFrom:
+            - secretRef:
+                name: beryju-io-paperless
+          env:
+            - name: PAPERLESS_APPS
+              value: allauth.socialaccount.providers.openid_connect
+            - name: PAPERLESS_REDIRECT_LOGIN_TO_SSO
+              value: "true"
+            - name: PAPERLESS_ACCOUNT_EMAIL_VERIFICATION
+              value: none
+            - name: PAPERLESS_SOCIAL_AUTO_SIGNUP
+              value: "true"
+            - name: PAPERLESS_CONSUMER_POLLING
+              value: "60"
+            - name: PAPERLESS_CONSUMER_RECURSIVE
+              value: "true"
+            - name: PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS
+              value: "true"
+            - name: PAPERLESS_CONSUMPTION_DIR
+              value: /data/nas/incoming
+            - name: PAPERLESS_DATA_DIR
+              value: /data/local/data
+            - name: PAPERLESS_EXPORT_DIR
+              value: /data/nas/export
+            - name: PAPERLESS_MEDIA_ROOT
+              value: /data/local/media
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: deu+eng
+            - name: PAPERLESS_OCR_LANGUAGES
+              value: deu+eng
+            - name: PAPERLESS_PORT
+              value: "8000"
+            - name: PAPERLESS_REDIS
+              value: redis://paperless-redis.paperless.svc.cluster.local:6379
+            - name: PAPERLESS_TASK_WORKERS
+              value: "2"
+            - name: PAPERLESS_TIME_ZONE
+              value: Europe/Berlin
+            - name: PAPERLESS_URL
+              value: https://paperless.${CLUSTER_NAME}.k8s.beryju.io
+            - name: PAPERLESS_WEBSERVER_WORKERS
+              value: "2"
+            - name: USERMAP_GID
+              value: "65542"
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.18.4
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 8000
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 8000
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 6Gi
+            requests:
+              cpu: 25m
+              memory: 2Gi
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            tcpSocket:
+              port: 8000
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /data/local
+              name: data
+          # - mountPath: /data/nas
+          #   name: nas
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-data
+        # - name: nas
+        #   nfs:
+        #     path: /mnt/tank/Apps/paperless
+        #     server: gladius.bjw-s.internal
