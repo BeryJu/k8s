@@ -1,0 +1,38 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryjuio-meshmon
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryjuio-meshmon
+  commonName: meshmon.${CLUSTER_NAME}.k8s.beryju.io
+  dnsNames:
+    - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meshmon
+  namespace: meshmon
+spec:
+  ingressClassName: istio
+  rules:
+    - host: meshmon.${CLUSTER_NAME}.k8s.beryju.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: meshmon
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+      secretName: beryjuio-meshmon

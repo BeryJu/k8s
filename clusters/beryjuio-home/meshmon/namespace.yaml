@@ -1,0 +1,7 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: meshmon
+  labels:
+    istio-injection: enabled

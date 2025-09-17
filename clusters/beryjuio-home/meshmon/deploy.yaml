@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meshmon
+  namespace: meshmon
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: meshmon
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: meshmon
+    spec:
+      containers:
+        - name: meshmon
+          image: ghcr.io/ripplefcl/meshmon
+          ports:
+            - containerPort: 8000
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+          volumeMounts:
+            - name: config
+              mountPath: /app/config/nodeconf.yml
+              subPath: nodeconf.yml
+            - name: data
+              mountPath: /app/config
+      volumes:
+        - name: config
+          configMap:
+            name: meshmon-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: meshmon
