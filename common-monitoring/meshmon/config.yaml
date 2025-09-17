@@ -8,6 +8,6 @@ data:
   nodeconf.yml: |
     networks:
       - directory: homelads
-        node_id: jens
+        node_id: jens-${CLUSTER_NAME}
         config_type: git
         git_repo: https://github.com/rippleFCL/distmon-test.git

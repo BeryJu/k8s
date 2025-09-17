@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: meshmon
-          image: ghcr.io/ripplefcl/meshmon
+          image: ghcr.io/ripplefcl/meshmon:v1.0.4
           ports:
             - containerPort: 8000
               name: http
@@ -33,12 +33,17 @@ spec:
             - name: config
               mountPath: /app/config/nodeconf.yml
               subPath: nodeconf.yml
+            - name: private-key
+              mountPath: /app/config/.private_keys/homelads/jens-${CLUSTER_NAME}.key
+              subPath: key
             - name: data
               mountPath: /app/config
       volumes:
         - name: config
           configMap:
             name: meshmon-config
+        - name: private-key
+          secret:
+            secretName: beryju-io-meshmon
         - name: data
-          persistentVolumeClaim:
-            claimName: meshmon
+          emptyDir: {}
