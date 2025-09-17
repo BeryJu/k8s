@@ -34,7 +34,7 @@ spec:
               mountPath: /app/config/nodeconf.yml
               subPath: nodeconf.yml
             - name: private-key
-              mountPath: /app/config/.private_keys/homelads/jens-${CLUSTER_NAME}.pub
+              mountPath: /app/config/.private_keys/homelads/jens-${CLUSTER_NAME}.key
               subPath: key
             - name: data
               mountPath: /app/config
