@@ -11,15 +11,13 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/controller: redis
-      app.kubernetes.io/name: paperless
+      app.kubernetes.io/name: redis
       app.kubernetes.io/instance: paperless
   template:
     metadata:
       labels:
-        app.kubernetes.io/controller: redis
         app.kubernetes.io/instance: paperless
-        app.kubernetes.io/name: paperless
+        app.kubernetes.io/name: redis
     spec:
       containers:
         - image: proxy.registry.beryju.io/library/redis:8

@@ -12,6 +12,5 @@ spec:
       protocol: TCP
       name: redis
   selector:
-    app.kubernetes.io/controller: redis
     app.kubernetes.io/instance: paperless
-    app.kubernetes.io/name: paperless
+    app.kubernetes.io/name: redis
