@@ -11,13 +11,11 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/controller: paperless
       app.kubernetes.io/name: paperless
       app.kubernetes.io/instance: paperless
   template:
     metadata:
       labels:
-        app.kubernetes.io/controller: paperless
         app.kubernetes.io/instance: paperless
         app.kubernetes.io/name: paperless
     spec:
@@ -98,13 +96,13 @@ spec:
           volumeMounts:
             - mountPath: /data/local
               name: data
-          # - mountPath: /data/nas
-          #   name: nas
+            - mountPath: /data/nas/incoming
+              name: nas-incoming
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: paperless-data
-        # - name: nas
-        #   nfs:
-        #     path: /mnt/tank/Apps/paperless
-        #     server: gladius.bjw-s.internal
+        - name: nas-incoming
+          nfs:
+            path: /volume1/print/scanner
+            server: nas1.prod.beryju.io

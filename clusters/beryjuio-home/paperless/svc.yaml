@@ -12,6 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/controller: paperless
     app.kubernetes.io/instance: paperless
     app.kubernetes.io/name: paperless
