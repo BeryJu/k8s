@@ -39,3 +39,10 @@ spec:
           target: switch-bed.net.beryju.io
           interval: 1m
           scrapeTimeout: 1m
+        - name: printer.lab.beryju.org
+          module:
+            - if_mib
+            - printer_mib
+          target: printer.lab.beryju.org
+          interval: 1m
+          scrapeTimeout: 1m
