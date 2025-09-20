@@ -20,6 +20,8 @@ spec:
     serviceMonitor:
       enabled: true
       namespace: monitoring-system
+      selfMonitor:
+        enabled: true
       params:
         - name: switch-tv.net.beryju.io
           module:
