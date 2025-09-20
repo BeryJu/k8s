@@ -1,0 +1,58 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: beryju-io-fleet
+  namespace: istio-system
+spec:
+  issuerRef:
+    name: letsencrypt-prod
+    group: cert-manager.io
+    kind: ClusterIssuer
+  secretName: beryju-io-fleet
+  commonName: fleet.${CLUSTER_NAME}.k8s.beryju.io
+  dnsNames:
+    - fleet.${CLUSTER_NAME}.k8s.beryju.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryju-io-gw-fleet
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryju-io-fleet
+      hosts:
+        - fleet.${CLUSTER_NAME}.k8s.beryju.io
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - fleet.${CLUSTER_NAME}.k8s.beryju.io
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryju-io-vs-fleet
+  namespace: istio-system
+spec:
+  gateways:
+    - beryju-io-gw-fleet
+  hosts:
+    - fleet.${CLUSTER_NAME}.k8s.beryju.io
+  http:
+    - route:
+        - destination:
+            port:
+              number: 8080
+            host: fleet-service.fleetdm.svc.cluster.local
