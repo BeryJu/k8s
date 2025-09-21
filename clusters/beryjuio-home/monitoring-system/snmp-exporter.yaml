@@ -20,8 +20,6 @@ spec:
     serviceMonitor:
       enabled: true
       namespace: monitoring-system
-      selfMonitor:
-        enabled: true
       params:
         - name: switch-tv.net.beryju.io
           module:
@@ -39,12 +37,5 @@ spec:
           module:
             - if_mib
           target: switch-bed.net.beryju.io
-          interval: 1m
-          scrapeTimeout: 1m
-        - name: printer.lab.beryju.org
-          module:
-            - if_mib
-            - printer_mib
-          target: printer.lab.beryju.org
           interval: 1m
           scrapeTimeout: 1m
