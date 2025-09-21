@@ -1,0 +1,10 @@
+namespace: mimir
+groups:
+  - name: beryjuorg-prometheus-mimir
+    rules:
+      - alert: MimirIngester429High
+        expr: rate(cortex_request_duration_seconds_count{status_code="429"}[5m]) > 0.25
+        for: 30m
+        annotations:
+          summary: "Mimir ingester is returning 429 for remote-write requests. Check limits."
+          runbook_url: https://grafana.lab.beryju.io/d/8280707b8f16e7b87b840fc1cc92d4c5/mimir-writes
