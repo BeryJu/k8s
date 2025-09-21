@@ -88,7 +88,7 @@ spec:
             max_label_names_per_series: 100           # default 30
             max_global_series_per_user: 1_500_000     # default 150_000
             max_global_series_per_metric: 200_000     # default 0
-            ingestion_rate: 30_000                    # default 10_000
+            ingestion_rate: 40_000                    # default 10_000
             ingestion_burst_size: 400_000             # default 200_000
             ruler_max_rules_per_rule_group: 500       # default 20
             compactor_blocks_retention_period: 1y     # default 0s
