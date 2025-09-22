@@ -2,8 +2,8 @@ namespace: mimir
 groups:
   - name: beryjuorg-prometheus-mimir
     rules:
-      - alert: MimirIngester429High
-        expr: rate(cortex_request_duration_seconds_count{status_code="429"}[5m]) > 0.25
+      - alert: MimirIngesterDiscardedSamplesHigh
+        expr: rate(cortex_discarded_samples_total{reason="rate_limited"}[5m]) > 0.25
         for: 30m
         annotations:
           summary: "Mimir ingester is returning 429 for remote-write requests. Check limits."
