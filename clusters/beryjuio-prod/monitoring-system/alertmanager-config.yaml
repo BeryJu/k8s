@@ -21,7 +21,7 @@ spec:
 
             **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
             **Description:** {{ if ne .Annotations.description ""}}{{ printf "%.400s" .Annotations.description }}{{ else }}N/A{{ end }}
-            **URL:** {{ if ne .Annotations.runbook_url ""}}{{ runbook_url }}{{ else }}N/A{{ end }}
+            **URL:** {{ if ne .Annotations.runbook_url ""}}{{ .Annotations.runbook_url }}{{ else }}N/A{{ end }}
 
             **Details:**
               {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
