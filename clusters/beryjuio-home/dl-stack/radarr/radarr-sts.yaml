@@ -17,7 +17,6 @@ spec:
       labels:
         app.kubernetes.io/name: radarr
         app.kubernetes.io/instance: main
-        io.jela.stack: dl
     spec:
       securityContext:
         runAsUser: 1024
@@ -58,11 +57,13 @@ spec:
               mountPath: /media-temp
       volumes:
         - name: media
-          persistentVolumeClaim:
-            claimName: media-pvc
+          nfs:
+            path: /volume1/media
+            server: nas1.prod.beryju.io
         - name: media-temp
-          persistentVolumeClaim:
-            claimName: media-temp-pvc
+          nfs:
+            path: /volume2/media-temp
+            server: nas1.prod.beryju.io
   volumeClaimTemplates:
     - metadata:
         name: config
