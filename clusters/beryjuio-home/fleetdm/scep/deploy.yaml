@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scep
+  namespace: fleetdm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: scep
+      app.kubernetes.io/instance: main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: scep
+        app.kubernetes.io/instance: main
+    spec:
+      containers:
+        - name: scep
+          image: ghcr.io/beryju/crtls:0.2.0
+          # command: [/bin/bash]
+          # args: ["-c", "sleep infinity"]
+          args:
+            - scep
+            - serve
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /root/.local/share/crtls
+              name: datadir
+      volumes:
+        - name: datadir
+          persistentVolumeClaim:
+            claimName: scep
