@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: fritzbox-exporter
-          image: proxy.registry.beryju.io/pdreker/fritz_exporter:2.5
+          image: proxy.registry.beryju.io/pdreker/fritz_exporter:2.6
           envFrom:
             - secretRef:
                 name: beryju-io-fritzbox-exporter
