@@ -19,9 +19,8 @@ spec:
         app.kubernetes.io/instance: pullthrough
     spec:
       containers:
-        - image: docker.io/library/registry:3
-          imagePullPolicy: Always
-          name: registry
+        - name: registry
+          image: docker.io/library/registry:3
           resources:
             requests:
               memory: 300M
