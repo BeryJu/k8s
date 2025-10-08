@@ -1,4 +1,3 @@
-# prettier-ignore
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -19,7 +18,7 @@ spec:
       hostname: gravity-defr1
       containers:
         - name: gravity
-          image: ghcr.io/beryju/gravity:v0.28.1 # {"$imagepolicy": "flux-system:gravity"}
+          image: ghcr.io/beryju/gravity:v0.28.1
           env:
             - name: LISTEN_ONLY
               value: "true"
