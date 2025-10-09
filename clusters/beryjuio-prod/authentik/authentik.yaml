@@ -91,15 +91,4 @@ spec:
         serviceMonitor:
           enabled: true
     redis:
-      global:
-        imageRegistry: proxy.registry.beryju.io
-      enabled: true
-      networkPolicy:
-        extraIngress:
-        - ports:
-          - port: 15020
-            protocol: TCP
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+      enabled: false
