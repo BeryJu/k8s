@@ -24,7 +24,7 @@ spec:
               command:
                 - /bin/registry
                 - garbage-collect
-                - /etc/docker/registry/config.yml
+                - /etc/distribution/config.yml
               envFrom:
                 - secretRef:
                     name: registry-general
