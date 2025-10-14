@@ -19,7 +19,7 @@ spec:
         - name: tempo
           args:
             - --config.file=/etc/tempo/config.yaml
-          image: proxy.registry.beryju.io/grafana/tempo:2.8.2
+          image: proxy.registry.beryju.io/grafana/tempo:2.9.0
           ports:
             - containerPort: 3200
               name: http
