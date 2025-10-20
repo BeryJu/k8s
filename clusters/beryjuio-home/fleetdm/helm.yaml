@@ -30,8 +30,6 @@ spec:
                 path: "/spec/template/spec/containers/0/args/-"
                 value: --dev_license
   values:
-    imageRepository: ghcr.io/beryju/fleet-test
-    imageTag: v4.73.4
     fullnameOverride: fleet
     replicas: 1
     hostName: fleet.beryjuio-home.k8s.beryju.io
