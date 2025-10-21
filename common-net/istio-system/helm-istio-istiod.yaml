@@ -22,7 +22,7 @@ spec:
         requests:
           cpu: 100m
           memory: 2048Mi
-      image: ghcr.io/beryju/pilot:1.27.2
+      image: ghcr.io/beryju/pilot:1.27.3
       env:
         # Enable automatic address allocation, optional
         # https://istio.io/v1.24/docs/ops/configuration/traffic-management/dns-proxy/#dns-auto-allocation-v2
