@@ -29,7 +29,7 @@ spec:
           resources:
             requests:
               memory: "2Gi"
-              cpu: "0.5"
+              cpu: 100m
             limits:
               memory: "2Gi"
           env:

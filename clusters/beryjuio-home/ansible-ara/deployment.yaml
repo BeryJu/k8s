@@ -15,10 +15,7 @@ spec:
       containers:
         - name: ara
           image: proxy.registry.beryju.io/recordsansible/ara-api:latest
-          resources:
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
+          resources: {}
           ports:
             - containerPort: 8000
               name: http

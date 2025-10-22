@@ -30,12 +30,7 @@ spec:
                 secretKeyRef:
                   name: sabnzbd-api-key
                   key: api-key
-          resources:
-            requests:
-              memory: "300Mi"
-              cpu: "0.5"
-            limits:
-              memory: "750Mi"
+          resources: {}
           ports:
             - containerPort: 9387
               name: metrics
