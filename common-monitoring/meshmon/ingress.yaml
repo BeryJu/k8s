@@ -32,6 +32,7 @@ spec:
                   name: http
             path: /
             pathType: Prefix
+      
   tls:
     - hosts:
         - meshmon.${CLUSTER_NAME}.k8s.beryju.io

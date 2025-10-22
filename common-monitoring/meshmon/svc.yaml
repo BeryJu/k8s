@@ -10,6 +10,10 @@ spec:
       port: 8000
       protocol: TCP
       targetPort: 8000
+    - name: meshmon-grpc
+      port: 42069
+      appProtocol: grpc
+      targetPort: 42069
   selector:
     app.kubernetes.io/name: meshmon
   type: ClusterIP
