@@ -13,6 +13,7 @@ spec:
   commonName: meshmon.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
     - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+    - meshmon-grpc.${CLUSTER_NAME}.k8s.beryju.io
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -32,8 +33,18 @@ spec:
                   name: http
             path: /
             pathType: Prefix
-      
+    - host: meshmon-grpc.${CLUSTER_NAME}.k8s.beryju.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: meshmon
+                port:
+                  name: meshmon-grpc
+            path: /
+            pathType: Prefix
   tls:
     - hosts:
         - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+        - meshmon-grpc.${CLUSTER_NAME}.k8s.beryju.io
       secretName: beryjuio-meshmon
