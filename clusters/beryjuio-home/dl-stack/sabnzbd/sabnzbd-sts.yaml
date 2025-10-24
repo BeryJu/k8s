@@ -25,7 +25,7 @@ spec:
         fsGroupChangePolicy: Always
       containers:
         - name: sabnzbd
-          image: ghcr.io/home-operations/sabnzbd:4.5.4
+          image: ghcr.io/home-operations/sabnzbd:4.5.5
           resources:
             requests:
               memory: "2Gi"
