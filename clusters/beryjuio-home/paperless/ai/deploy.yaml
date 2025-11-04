@@ -52,7 +52,7 @@ spec:
                 name: beryju-io-paperless
             - secretRef:
                 name: beryju-io-paperless-ai
-          image: clusterzx/paperless-ai:3.0.8@sha256:78fcb191f4e08a6e25cae7634aa4433199522f7d98a53a07b5a935d9ebd9a5f8
+          image: clusterzx/paperless-ai:3.0.9@sha256:2b65888163fd59716f1c8285b31c5bd0b30c9c3c192c42b516688e3887d4ba60
           name: app
           resources:
             limits:
