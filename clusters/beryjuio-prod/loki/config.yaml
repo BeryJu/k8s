@@ -33,6 +33,7 @@ spec:
             chunk_retain_period: 30s
             wal:
               dir: /loki/wal
+            shutdown_marker_path: /loki/shutdown-requested.txt
 
           memberlist:
             abort_if_cluster_join_fails: false
