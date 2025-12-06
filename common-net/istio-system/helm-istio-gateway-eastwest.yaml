@@ -17,6 +17,7 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    imagePullPolicy: IfNotPresent
     networkGateway: ${CLUSTER_NETWORK}
     service:
       annotations:

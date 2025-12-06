@@ -17,6 +17,7 @@ spec:
   dependsOn:
     - name: istio-istiod
   values:
+    imagePullPolicy: IfNotPresent
     resources:
       requests:
         cpu: 200m
