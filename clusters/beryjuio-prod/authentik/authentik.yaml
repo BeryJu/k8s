@@ -54,7 +54,6 @@ spec:
           - id.beryju.io
           secretName: beryju-io-authentik
     authentik:
-      session_storage: "db"
       postgresql:
         name: "authentik"
         user: "authentik"
