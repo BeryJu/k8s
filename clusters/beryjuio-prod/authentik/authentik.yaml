@@ -89,5 +89,8 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+        image:
+          repository: prometheuscommunity/postgres-exporter
+          tag: v0.18.1
     redis:
       enabled: false
