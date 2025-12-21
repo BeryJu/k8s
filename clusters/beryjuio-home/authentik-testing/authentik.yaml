@@ -74,16 +74,8 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+        image:
+          repository: prometheuscommunity/postgres-exporter
+          tag: v0.18.1
     redis:
-      global:
-        imageRegistry: proxy.registry.beryju.io
-      enabled: true
-      networkPolicy:
-        extraIngress:
-          - ports:
-              - port: 15020
-                protocol: TCP
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+      enabled: false
