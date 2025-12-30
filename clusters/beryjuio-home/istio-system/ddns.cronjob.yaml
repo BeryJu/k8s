@@ -16,7 +16,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: ddns
-              image: ghcr.io/crazy-max/ddns-route53:2.13.0
+              image: ghcr.io/crazy-max/ddns-route53:2.14.0
               env:
                 - name: DDNSR53_ROUTE53_HOSTEDZONEID
                   value: "Z05800451CB52FAM1B1ZQ"
