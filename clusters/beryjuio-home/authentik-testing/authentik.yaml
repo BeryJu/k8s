@@ -19,6 +19,10 @@ spec:
       name: authentik-secrets
   values:
     fullnameOverride: authentik
+    global:
+      image:
+        repository: ghcr.io/goauthentik/dev-server
+        tag: gh-version-2025.12
     worker:
       metrics:
         enabled: true
