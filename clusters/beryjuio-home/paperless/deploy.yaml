@@ -65,7 +65,7 @@ spec:
               value: "2"
             - name: USERMAP_GID
               value: "65542"
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.4
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 0
