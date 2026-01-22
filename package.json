@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/BeryJu/k8s#readme",
   "dependencies": {
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "yaml": "^2.8.2"
   },
   "private": true,
