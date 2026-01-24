@@ -1,0 +1,42 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: beryju-io-prom-incus
+  labels:
+    svc: beryju-io-prom-incus
+  namespace: monitoring-system
+spec:
+  type: ClusterIP
+  ports:
+    - name: metrics-incus
+      port: 8444
+      targetPort: 8444
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: beryju-io-prom-incus
+  namespace: monitoring-system
+subsets:
+  - addresses:
+      - ip: 10.120.20.32
+    ports:
+      - name: metrics-incus
+        port: 8444
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: beryju-io-prom-incus
+  namespace: monitoring-system
+spec:
+  endpoints:
+    - port: metrics-incus
+      path: /1.0/metrics
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      svc: beryju-io-prom-incus

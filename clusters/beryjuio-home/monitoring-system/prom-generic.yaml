@@ -21,12 +21,13 @@ subsets:
   - addresses:
       - ip: 10.120.20.30 # nas1
       - ip: 10.120.20.60 # hass1 (node)
+      - ip: 10.120.20.32 # kvm
     ports:
       - name: metrics
         port: 9100
   - addresses:
       - ip: 10.120.20.63 # kvm router
-      - ip: 10.120.20.79 # kvm esxi1
+      - ip: 10.120.20.79 # kvm kvm
     ports:
       - name: metrics
         port: 80
