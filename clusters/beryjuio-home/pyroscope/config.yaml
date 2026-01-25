@@ -1,0 +1,30 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: beryjuio-pyroscope
+  namespace: pyroscope
+spec:
+  secretStoreRef:
+    name: vault-kv
+    kind: ClusterSecretStore
+  target:
+    template:
+      data:
+        config.yaml: |
+          target: all
+
+          storage:
+            backend: s3
+            s3:
+              endpoint: eu-central-1.linodeobjects.com
+              bucket_name: beryjuio-pyroscope
+              access_key_id: "{{ .access_key }}"
+              secret_access_key: "{{ .secret_key }}"
+          server:
+            log_level: info
+            log_format: json
+          limits:
+            max_query_length: 90d
+  dataFrom:
+    - extract:
+        key: kv/linode/obj/pyroscope
