@@ -1,0 +1,39 @@
+namespace: coredns
+groups:
+  - name: beryjuio-prometheus-ups
+    rules:
+      - alert: UPSBatteryNeedsReplacement
+        annotations:
+          message: "UPS is indicating a need for a battery replacement."
+        expr: network_ups_tools_ups_status{flag="RB"} != 0
+        for: 60s
+        labels:
+          severity: high
+      - alert: UPSLowBattery
+        annotations:
+          message: "UPS has low battery and is running on backup. Expect shutdown soon"
+        expr: network_ups_tools_ups_status{flag="LB"} == 0 and network_ups_tools_ups_status{flag="OL"} == 0
+        for: 60s
+        labels:
+          severity: critical
+      - alert: UPSRuntimeShort
+        annotations:
+          message: "UPS has only {{ $value | humanizeDuration}} of battery autonomy"
+        expr: network_ups_tools_battery_runtime < 300
+        for: 30s
+        labels:
+          severity: high
+      - alert: UPSMainPowerOutage
+        annotations:
+          message: "UPS has no main power and is running on backup."
+        expr: network_ups_tools_ups_status{flag="OL"} == 0
+        for: 60s
+        labels:
+          severity: critical
+      - alert: UPSIndicatesWarningStatus
+        annotations:
+          message: "UPS is indicating a need for a battery replacement."
+        expr: network_ups_tools_ups_status{flag="HB"} != 0
+        for: 60s
+        labels:
+          severity: warning
