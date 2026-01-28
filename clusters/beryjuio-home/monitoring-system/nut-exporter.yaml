@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nut-exporter
+  namespace: monitoring-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nut-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nut-exporter
+    spec:
+      containers:
+        - name: nut-exporter
+          image: ghcr.io/druggeri/nut_exporter:3.2
+          env:
+            - name: NUT_EXPORTER_SERVER
+              value: 10.120.255.2
+            - name: NUT_EXPORTER_VARIABLES
+              value: ""
+          resources: {}
+          ports:
+            - containerPort: 9199
+              name: http-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: nut-exporter
+  namespace: monitoring-system
+spec:
+  namespaceSelector:
+    matchNames:
+      - monitoring-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nut-exporter
+  podMetricsEndpoints:
+    - port: http-metrics
+    - port: http-metrics
+      path: /ups_metrics
