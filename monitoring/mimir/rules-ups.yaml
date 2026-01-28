@@ -1,4 +1,4 @@
-namespace: coredns
+namespace: ups
 groups:
   - name: beryjuio-prometheus-ups
     rules:
