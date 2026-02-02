@@ -82,6 +82,7 @@
         'docker',
       ],
       versioning: 'loose',
+      allowedVersions: '!/-(armhf|arm64|armv7|amd64|linux)$/',
       matchPackageNames: [
         'plexinc/pms-docker',
         'proxy.registry.beryju.io/plexinc/pms-docker',
