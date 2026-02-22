@@ -26,8 +26,10 @@ spec:
           resources:
             requests:
               memory: "500Mi"
+              ephemeral-storage: "2Gi"
             limits:
               gpu.intel.com/i915: "1"
+              ephemeral-storage: "4Gi"
           env:
             - name: TZ
               value: Europe/Berlin
