@@ -27,12 +27,20 @@ spec:
     admissionController:
       serviceMonitor:
         enabled: true
+      resources:
+        requests: {}
     backgroundController:
       serviceMonitor:
         enabled: true
+      resources:
+        requests: {}
     cleanupController:
       serviceMonitor:
         enabled: true
+      resources:
+        requests: {}
     reportsController:
       serviceMonitor:
         enabled: true
+      resources:
+        requests: {}
