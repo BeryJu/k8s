@@ -85,6 +85,20 @@ spec:
           - ports:
             - port: 15020
               protocol: TCP
+        configuration: |
+          listen_addresses = '*'
+          port = '5432'
+          wal_level = 'replica'
+          fsync = 'on'
+          hot_standby = 'on'
+          log_connections = 'false'
+          log_disconnections = 'false'
+          log_hostname = 'false'
+          client_min_messages = 'error'
+          include_dir = 'conf.d'
+
+          log_destination = 'jsonlog'
+          log_min_duration_statement = 300
       metrics:
         enabled: true
         serviceMonitor:
