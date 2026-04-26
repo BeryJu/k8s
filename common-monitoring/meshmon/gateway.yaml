@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: beryju-io-gw-meshmon
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: beryjuio-meshmon
+      hosts:
+        - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+        - meshmon-grpc.${CLUSTER_NAME}.k8s.beryju.io
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryju-io-vs-meshmon-http
+  namespace: istio-system
+spec:
+  gateways:
+    - beryju-io-gw-meshmon
+  hosts:
+    - meshmon.${CLUSTER_NAME}.k8s.beryju.io
+  http:
+    - route:
+        - destination:
+            host: meshmon.meshmon.svc.cluster.local
+            port:
+              number: 80
+          weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: beryju-io-vs-meshmon-grpc
+  namespace: istio-system
+spec:
+  gateways:
+    - beryju-io-gw-meshmon
+  hosts:
+    - meshmon-grpc.${CLUSTER_NAME}.k8s.beryju.io
+  http:
+    - route:
+        - destination:
+            host: meshmon.meshmon.svc.cluster.local
+            port:
+              number: 42069
+          weight: 100
