@@ -10,7 +10,7 @@ spec:
   target:
     template:
       data:
-        UP_UNIFI_DEFAULT_URL: https://unifi-controller:8443
+        UP_UNIFI_DEFAULT_URL: https://unifi.prod.beryju.io:11443
         UP_LOKI_URL: http://loki.loki.svc.cluster.local
         UP_INFLUXDB_DISABLE: "true"
         UP_UNIFI_DEFAULT_SAVE_ALARMS: "true"
