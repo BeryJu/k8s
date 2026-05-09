@@ -18,7 +18,7 @@ spec:
       hostname: gravity-defr1
       containers:
         - name: gravity
-          image: ghcr.io/beryju/gravity:v0.32.2
+          image: ghcr.io/beryju/gravity:v0.33.0
           env:
             - name: LISTEN_ONLY
               value: "true"
