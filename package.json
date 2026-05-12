@@ -19,7 +19,7 @@
   "homepage": "https://github.com/BeryJu/k8s#readme",
   "dependencies": {
     "prettier": "^3.8.3",
-    "yaml": "^2.8.4"
+    "yaml": "^2.9.0"
   },
   "private": true,
   "devDependencies": {
