@@ -43,25 +43,15 @@ spec:
       auth:
         database: fleetdm
         username: fleetdm
-      global:
-        imageRegistry: proxy.registry.beryju.io
+      image:
+        repository: proxy.registry.beryju.io/library/mysql
+        tag: "8.4"
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
     cache:
-      address: fleetdm-redis-master:6379
-    redis:
-      enabled: true
-      auth:
-        enabled: false
-      global:
-        imageRegistry: proxy.registry.beryju.io
-      architecture: standalone
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+      address: fleetdm-valkey:6379
     ingress:
       enabled: true
       className: istio
