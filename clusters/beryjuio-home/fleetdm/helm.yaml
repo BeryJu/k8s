@@ -52,6 +52,16 @@ spec:
           enabled: true
     cache:
       address: fleetdm-valkey:6379
+    redis:
+      enabled: true
+      auth:
+        enabled: false
+      global:
+        imageRegistry: proxy.registry.beryju.io
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     ingress:
       enabled: true
       className: istio
