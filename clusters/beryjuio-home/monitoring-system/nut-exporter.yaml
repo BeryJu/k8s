@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nut-exporter
-          image: ghcr.io/druggeri/nut_exporter:3.2
+          image: ghcr.io/druggeri/nut_exporter:3.3
           env:
             - name: NUT_EXPORTER_SERVER
               value: 10.120.255.2
