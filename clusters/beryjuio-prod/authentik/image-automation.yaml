@@ -21,3 +21,16 @@ spec:
         email: admin@beryju.org
       messageTemplate: |
         clusters/beryjuio-prod/authentik: bump authentik prod
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  providerRef:
+    name: grafana
+  eventSeverity: info
+  eventSources:
+    - kind: ImageUpdateAutomation
+      name: authentik-update
