@@ -50,7 +50,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - sentry1.prod.beryju.org
+    - sentry1.prod.beryju.io
   location: MESH_EXTERNAL
   ports:
     - number: 9000
@@ -74,4 +74,4 @@ spec:
         - destination:
             port:
               number: 9000
-            host: sentry1.prod.beryju.org
+            host: sentry1.prod.beryju.io
