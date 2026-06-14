@@ -29,6 +29,14 @@ spec:
               - op: add
                 path: "/spec/template/spec/containers/0/args/-"
                 value: --dev_license
+          - target:
+              version: v1
+              kind: StatefulSet
+              name: fleetdm-mysql
+            patch: |
+              - op: add
+                path: "/spec/volumeClaimTemplates/0/metadata/labels/snapshot.home.arpa~1enabled"
+                value: "true"
   values:
     fullnameOverride: fleet
     replicas: 1
