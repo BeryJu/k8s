@@ -22,7 +22,7 @@ jobs:
         env:
           FLATE_OUTPUT: github
           FLATE_BASE: main
-          FLATE_PATH: ${{ matrix.cluster_path }}
+          FLATE_PATH: ./${{ matrix.cluster_path }}
         run: |
           diff=$(flate diff all)
           {
