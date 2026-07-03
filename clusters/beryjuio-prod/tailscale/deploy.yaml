@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale
+  namespace: tailscale
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tailscale
+      app.kubernetes.io/name: tailscale
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: tailscale
+        app.kubernetes.io/name: tailscale
+    spec:
+      hostname: "k8s-${CLUSTER_NAME}"
+      serviceAccount: tailscale
+      containers:
+        - name: tailscale
+          image: ghcr.io/tailscale/tailscale:unstable-v1.101.70
+          ports:
+            - name: http
+              containerPort: 9002
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          env:
+            # Store the state in a k8s secret
+            - name: TS_KUBE_SECRET
+              value: "tailscale-auth"
+            - name: TS_ENABLE_HEALTH_CHECK
+              value: "true"
+            - name: TS_ENABLE_METRICS
+              value: "true"
+            - name: TS_USERSPACE
+              value: "true"
+            - name: TS_EXTRA_ARGS
+              value: "--advertise-exit-node"
+            - name: TS_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-auth
+                  key: TS_AUTH_KEY
+                  optional: true
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
