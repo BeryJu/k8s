@@ -3,22 +3,22 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/gpu_plugin?ref=v0.36.0
-patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: DaemonSet
-    metadata:
-      name: intel-gpu-plugin
-      labels:
-        app: intel-gpu-plugin
-    spec:
-      template:
-        spec:
-          containers:
-          - name: intel-gpu-plugin
-            args:
-              - "-shared-dev-num"
-              - "2"
 images:
   - name: intel/intel-gpu-plugin
     newName: proxy.registry.beryju.io/intel/intel-gpu-plugin
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: intel-gpu-plugin
+        labels:
+          app: intel-gpu-plugin
+      spec:
+        template:
+          spec:
+            containers:
+            - name: intel-gpu-plugin
+              args:
+                - "-shared-dev-num"
+                - "2"
