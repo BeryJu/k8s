@@ -14,6 +14,9 @@ jobs:
           - clusters/beryjuio-oci
           - clusters/beryjuio-prod
     steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: "0"
       - uses: fluxcd/flux2/action@v2.9.0
       - uses: home-operations/flate/action@v0.4.10
         with:
@@ -22,14 +25,14 @@ jobs:
         env:
           FLATE_OUTPUT: github
           FLATE_BASE: main
-          FLATE_PATH: ${{ matrix.cluster_path }}
+          FLATE_PATH: ./${{ matrix.cluster_path }}
         run: |
           diff=$(flate diff all)
           {
             echo 'diff<<EOF'
             echo "${diff}"
             echo 'EOF'
-          } >> "${FORGEJO_OUTPUT}"
+          } >> "${GITHUB_OUTPUT}"
       - name: PR Comments
         uses: mshick/add-pr-comment@v3
         if: ${{ steps.diff.outputs.diff != '' }}

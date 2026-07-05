@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: tailscale
+  namespace: tailscale
+spec:
+  namespaceSelector:
+    matchNames:
+      - tailscale
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tailscale
+  podMetricsEndpoints:
+    - port: http
