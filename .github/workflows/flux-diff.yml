@@ -32,7 +32,7 @@ jobs:
             echo 'diff<<EOF'
             echo "${diff}"
             echo 'EOF'
-          } >> "${FORGEJO_OUTPUT}"
+          } >> "${GITHUB_OUTPUT}"
       - name: PR Comments
         uses: mshick/add-pr-comment@v3
         if: ${{ steps.diff.outputs.diff != '' }}
