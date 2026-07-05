@@ -30,9 +30,6 @@ spec:
           distributor:
             receivers:
               zipkin:
-          compactor:
-            compaction:
-              block_retention: 96h
   dataFrom:
     - extract:
         key: kv/linode/obj/tempo
