@@ -45,7 +45,7 @@ spec:
         username: fleetdm
       image:
         repository: proxy.registry.beryju.io/library/mysql
-        tag: "8.4"
+        tag: "9.7"
       metrics:
         enabled: true
         serviceMonitor:
