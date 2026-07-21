@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: "0"
       - uses: fluxcd/flux2/action@v2.9.2
-      - uses: home-operations/flate/action@v0.4.11
+      - uses: home-operations/flate/action@v0.4.12
         with:
           cache: true
       - id: diff
