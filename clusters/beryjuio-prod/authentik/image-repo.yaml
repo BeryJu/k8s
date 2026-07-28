@@ -5,4 +5,5 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/goauthentik/dev-server
-  interval: 1m0s
+  interval: 10m0s
+  timeout: 5m0s
