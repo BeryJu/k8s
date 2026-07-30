@@ -23,7 +23,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/dev-server
-        tag: gh-1785361373-16fcffc # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+        tag: gh-1785371245-dcfeb02 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
     worker:
       metrics:
         enabled: true
