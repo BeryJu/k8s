@@ -3,7 +3,7 @@ groups:
   - name: Roles.etcd
     rules:
       - alert: EtcdInsufficientMembers
-        expr: count(etcd_server_id) % 2 == 0
+        expr: count(etcd_server_id) by (job) % 2 == 0
         for: 0m
         labels:
           severity: critical
