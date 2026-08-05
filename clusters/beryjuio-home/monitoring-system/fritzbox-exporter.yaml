@@ -40,6 +40,8 @@ spec:
           env:
             - name: FRITZ_HOSTNAME
               value: 10.120.20.50
+            - name: FRITZ_LISTEN_ADDRESS
+              value: 0.0.0.0
           resources: {}
           ports:
             - containerPort: 9787
