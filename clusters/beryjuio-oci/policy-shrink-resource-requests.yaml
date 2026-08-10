@@ -18,10 +18,16 @@ spec:
                 - kube-node-lease
                 - kube-public
                 - kyverno
+                - istio-system
       mutate:
         patchStrategicMerge:
           spec:
             containers:
+              - (name): "*"
+                resources:
+                  requests:
+                    cpu: "1m"
+            initContainers:
               - (name): "*"
                 resources:
                   requests:
