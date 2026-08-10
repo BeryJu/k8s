@@ -14,3 +14,24 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+  patches:
+    - target:
+        kind: HelmRelease
+        name: istio-ingressgateway
+      patch: |-
+        - op: replace
+          path: /spec/values/autoscaling/minReplicas
+          value: 1
+        - op: replace
+          path: /spec/values/autoscaling/maxReplicas
+          value: 2
+    - target:
+        kind: HelmRelease
+        name: istio-eastwestgateway
+      patch: |-
+        - op: replace
+          path: /spec/values/autoscaling/minReplicas
+          value: 1
+        - op: replace
+          path: /spec/values/autoscaling/maxReplicas
+          value: 2

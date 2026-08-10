@@ -19,6 +19,9 @@ spec:
   values:
     imagePullPolicy: IfNotPresent
     networkGateway: ${CLUSTER_NETWORK}
+    autoscaling:
+      minReplicas: 1
+      maxReplicas: 5
     service:
       annotations:
         metallb.io/allow-shared-ip: main
