@@ -32,6 +32,11 @@ subsets:
     ports:
       - name: metrics
         port: 80
+  - addresses:
+      - ip: 10.120.20.77 # windows-dev
+    ports:
+      - name: metrics
+        port: 9182
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
