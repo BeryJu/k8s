@@ -34,6 +34,7 @@ subsets:
         port: 80
   - addresses:
       - ip: 10.120.20.77 # windows-dev
+      - ip: 10.120.20.76 # windows-server
     ports:
       - name: metrics
         port: 9182
