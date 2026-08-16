@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
   values:
     prometheus:
-      podMonitor:
+      serviceMonitor:
         enabled: true
       namespace: monitoring-system
       # Service account used by prometheus agent
