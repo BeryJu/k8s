@@ -13,7 +13,5 @@ spec:
   dnsNames:
     - lab.beryju.io
     - "*.lab.beryju.io"
-    - hass-ext.beryju.io
     - infra.beryju.org
     - "*.infra.beryju.org"
-    - hass-ext.beryju.org
