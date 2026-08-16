@@ -20,6 +20,8 @@ spec:
       podMonitor:
         enabled: true
       namespace: monitoring-system
+      # Service account used by prometheus agent
+      serviceAccount: beryjuio-prometheus-agent
     frr-k8s:
       prometheus:
         serviceMonitor:
