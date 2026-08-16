@@ -9,7 +9,7 @@ spec:
     group: cert-manager.io
     kind: ClusterIssuer
   secretName: beryju-io-incus
-  commonName: incus-ext.beryju.io
+  commonName: incus.${CLUSTER_NAME}.k8s.beryju.io
   dnsNames:
     - incus.${CLUSTER_NAME}.k8s.beryju.io
 ---
