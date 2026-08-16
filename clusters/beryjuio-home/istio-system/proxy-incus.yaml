@@ -27,6 +27,7 @@ spec:
               value: "https://optiplex-3090-g3h24n3.prod.beryju.io:8443"
             - name: EXTRA_CONFIG
               value: |
+                proxy_set_header Host incus.beryjuio-prod.k8s.beryju.io;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection "upgrade";
                 proxy_http_version 1.1;
