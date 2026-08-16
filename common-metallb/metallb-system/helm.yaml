@@ -19,5 +19,8 @@ spec:
     prometheus:
       podMonitor:
         enabled: true
-      serviceAccount: beryjuorg-metallb-prometheus-sa
       namespace: monitoring-system
+    frr-k8s:
+      prometheus:
+        serviceMonitor:
+          enabled: true
