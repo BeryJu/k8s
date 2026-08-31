@@ -30,6 +30,7 @@ spec:
           distributor:
             receivers:
               zipkin:
+                endpoint: 0.0.0.0:9411
   dataFrom:
     - extract:
         key: kv/linode/obj/tempo
