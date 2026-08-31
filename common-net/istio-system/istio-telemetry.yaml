@@ -7,3 +7,7 @@ spec:
   accessLogging:
     - providers:
         - name: envoy
+  tracing:
+    - providers:
+        - name: tempo
+      randomSamplingPercentage: 50.0

@@ -56,6 +56,10 @@ spec:
         interceptionMode: TPROXY
       enablePrometheusMerge: true
       extensionProviders:
+        - name: tempo
+          zipkin:
+            service: tempo.tempo.svc.cluster.local
+            port: 9411
         - envoyExtAuthzHttp:
             headersToDownstreamOnAllow:
               - cookie
