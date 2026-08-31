@@ -72,8 +72,16 @@ spec:
           retention_period: "1y"
           scrape_interval: "30s"
       tracing:
+        enabled: true
         provider: tempo
-        in_cluster_url: "http://tempo.tempo.svc.cluster.local"
+        internal_url: "http://tempo.tempo.svc.cluster.local:3200"
+        health_check_url: "http://tempo.tempo.svc.cluster.local:3200/ready"
+        use_grpc: true
+        grpc_port: 9095
+        external_url: "https://grafana.lab.beryju.io"
+        tempo_config:
+          datasource_uid: "d9bb3d9c-1009-46ec-9cc9-74d3bcb6d457"
+          url_format: "grafana"
       grafana:
         auth:
           type: bearer
