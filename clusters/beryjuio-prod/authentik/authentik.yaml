@@ -69,6 +69,7 @@ spec:
         container_image_base: ghcr.io/goauthentik/dev-%(type)s:gh-%(build_hash)s
       error_reporting:
         enabled: true
+        otel_endpoint: http://tempo.tempo.svc.cluster.local:4318
         environment: beryjuio-prod
         send_pii: true
         sentry_dsn: https://7f785644f04047ea8202df0320bb671d@sentry.beryju.io/3

@@ -31,6 +31,10 @@ spec:
             receivers:
               zipkin:
                 endpoint: 0.0.0.0:9411
+              otlp:
+                protocols:
+                  http:
+                    endpoint: 0.0.0.0:4318
   dataFrom:
     - extract:
         key: kv/linode/obj/tempo
