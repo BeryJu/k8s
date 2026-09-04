@@ -40,7 +40,7 @@ spec:
         cpu: "1"
     initContainers:
       waitForDatabase:
-        image: proxy.registry.beryju.io/library/busybox:1.37
+        image: proxy.registry.beryju.io/library/busybox:1.38
     ingress:
       enabled: true
       ingressClassName: istio
