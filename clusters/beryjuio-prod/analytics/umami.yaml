@@ -29,8 +29,6 @@ spec:
   - kind: Secret
     name: umami-secrets
   values:
-    image:
-      repository: proxy.registry.beryju.io/umami-software/umami
     umami:
       forceSSL: true
     resources:
