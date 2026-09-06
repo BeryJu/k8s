@@ -56,9 +56,11 @@ helm install postgresql bitnami/postgresql \
 | guacamole.image.pullPolicy | string | `"IfNotPresent"` |  |
 | guacamole.image.repository | string | `"guacamole/guacamole"` |  |
 | guacamole.image.tag | string | `"{{ .Chart.AppVersion }}"` |  |
+| guacamole.labels | object | `{}` |  |
 | guacd.image.pullPolicy | string | `"IfNotPresent"` |  |
 | guacd.image.repository | string | `"guacamole/guacd"` |  |
 | guacd.image.tag | string | `"{{ .Chart.AppVersion }}"` |  |
+| guacd.labels | object | `{}` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
