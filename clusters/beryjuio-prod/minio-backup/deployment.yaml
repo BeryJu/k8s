@@ -50,7 +50,7 @@ spec:
                 secretKeyRef:
                   name: minio
                   key: root_password
-          image: docker.io/pgsty/silo:RELEASE.2025-04-22T22-12-26Z
+          image: docker.io/pgsty/silo:RELEASE.2026-09-03T13-18-01Z
           livenessProbe:
             failureThreshold: 3
             httpGet:
