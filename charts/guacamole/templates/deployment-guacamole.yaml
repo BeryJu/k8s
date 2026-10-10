@@ -90,6 +90,9 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -104,4 +107,6 @@ spec:
     {{- end }}
       volumes:
         - name: initdb
+          emptyDir: {}
+        - name: tmp
           emptyDir: {}
