@@ -25,7 +25,7 @@ spec:
         fsGroupChangePolicy: Always
       containers:
         - name: sonarr
-          image: ghcr.io/home-operations/sonarr:4.0.20.3012
+          image: ghcr.io/home-operations/sonarr:5.0.0.2569
           resources:
             requests:
               memory: "250Mi"
