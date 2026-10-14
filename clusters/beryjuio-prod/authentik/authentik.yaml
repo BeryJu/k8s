@@ -23,7 +23,7 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/dev-server
-        tag: gh-next-1791906857-f24ba37 # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
+        tag: gh-next-1792001811-73d260e # {"$imagepolicy": "flux-system:authentik-gh-next:tag"}
       env:
       - name: AUTHENTIK_PYROSCOPE_HOST
         value: http://pyroscope.pyroscope.svc.cluster.local:4040
