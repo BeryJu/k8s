@@ -3,7 +3,7 @@ groups:
   - name: beryjuio-prometheus-snmp
     rules:
       - alert: SNMPLabeledPortDown
-        expr: ifOperStatus{ifName!~"Port\\d*", ifName!~"SFP\\d*"} > 1
+        expr: ifOperStatus{ifName!~"Port\\d*|SFP\\d*|Desk.*|PS4"} > 1
         for: 1m
         labels:
           severity: critical
