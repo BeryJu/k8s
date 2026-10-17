@@ -11,12 +11,14 @@ guacamole:
     pullPolicy: IfNotPresent
   # Key-value settings directly passed as environment variables
   settings: {}
+  labels: {}
 
 guacd:
   image:
     repository: guacamole/guacd
     tag: "{{ .Chart.AppVersion }}"
     pullPolicy: IfNotPresent
+  labels: {}
 
 dbcreation:
   image:
