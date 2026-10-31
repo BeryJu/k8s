@@ -14,6 +14,9 @@ spec:
   serviceName: "radarr"
   template:
     metadata:
+      annotations:
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
       labels:
         app.kubernetes.io/name: radarr
         app.kubernetes.io/instance: main
