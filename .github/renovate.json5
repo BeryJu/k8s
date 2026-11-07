@@ -88,5 +88,27 @@
         'proxy.registry.beryju.io/plexinc/pms-docker',
       ],
     },
+    // Update all istio components together
+    {
+      groupName: 'istio',
+      matchDatasources: [
+        'helm',
+      ],
+      matchPackageNames: [
+        'base',
+        'gateway',
+        'istiod',
+      ],
+    },
+    {
+      groupName: 'istio',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'docker.io/istio/**',
+        'ghcr.io/beryju/pilot',
+      ],
+    },
   ],
 }
