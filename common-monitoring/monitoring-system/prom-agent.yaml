@@ -51,4 +51,8 @@ spec:
     requests:
       memory: 1Gi
   serviceAccountName: beryjuio-prometheus-agent
+  scrapeClasses:
+    - name: service-account-token
+      authorization:
+        credentialsFile: /var/run/secrets/kubernetes.io/serviceaccount/token
   shards: 1
