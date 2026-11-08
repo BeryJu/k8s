@@ -23,14 +23,40 @@ spec:
     crds: CreateReplace
   values:
     fullnameOverride: "prometheus"
+    # Control-plane ServiceMonitors authenticate with the agent's projected token,
+    # see scrapeClasses in prom-agent.yaml
     kubeControllerManager:
       enabled: false
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
     kubeEtcd:
       enabled: false
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
     kubeProxy:
       enabled: false
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
     kubeScheduler:
       enabled: false
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
+    kubeApiServer:
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
+    kubelet:
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
+    coreDns:
+      serviceMonitor:
+        scrapeClass: service-account-token
+        authorization: null
     defaultRules:
       create: false
     prometheusOperator:
