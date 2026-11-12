@@ -1,7 +1,6 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kyverno.io/clusterpolicy_v1.json
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: GeneratingPolicy
 metadata:
   name: snapshot-cronjob-controller
   annotations:
@@ -18,180 +17,150 @@ metadata:
       An optional label of "snapshot.home.arpa/ignoreAffinity" may be set on the PVC
       if the pod is guaranteed to not run during the time of this jobs execution
 spec:
-  mutateExistingOnPolicyUpdate: true
-  rules:
-    - name: create-snapshot-cronjob-credential
-      match:
-        any:
-          - resources:
-              kinds:
-                - PersistentVolumeClaim
-              selector:
-                matchLabels:
-                  snapshot.home.arpa/enabled: "true"
-                matchExpressions:
-                  - { key: "app.kubernetes.io/name", operator: Exists }
-                  - { key: "app.kubernetes.io/instance", operator: Exists }
-      context:
-        - name: appName
-          variable:
-            jmesPath: 'request.object.metadata.labels."app.kubernetes.io/name"'
-        - name: claimName
-          variable:
-            jmesPath: "request.object.metadata.name"
-        - name: namespace
-          variable:
-            jmesPath: "request.object.metadata.namespace"
-      generate:
-        generateExisting: true
-        synchronize: true
-        apiVersion: external-secrets.io/v1
-        kind: ExternalSecret
-        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`50`) }}"
-        namespace: "{{ request.object.metadata.namespace }}"
-        data:
-          metadata:
-            ownerReferences:
-              - apiVersion: "{{ request.object.apiVersion }}"
-                kind: "{{ request.object.kind }}"
-                name: "{{ request.object.metadata.name }}"
-                uid: "{{ request.object.metadata.uid }}"
-          spec:
-            secretStoreRef:
-              name: vault-kv
-              kind: ClusterSecretStore
-            data:
-              - secretKey: AWS_ACCESS_KEY_ID
-                remoteRef:
-                  key: kv/wasabi/backup
-                  property: access_key
-              - secretKey: AWS_SECRET_ACCESS_KEY
-                remoteRef:
-                  key: kv/wasabi/backup
-                  property: secret_key
-              - secretKey: KOPIA_PASSWORD
-                remoteRef:
-                  key: kv/wasabi/backup
-                  property: kopia
-    - name: create-snapshot-cronjob
-      match:
-        any:
-          - resources:
-              kinds:
-                - PersistentVolumeClaim
-              selector:
-                matchLabels:
-                  snapshot.home.arpa/enabled: "true"
-                matchExpressions:
-                  - { key: "app.kubernetes.io/name", operator: Exists }
-                  - { key: "app.kubernetes.io/instance", operator: Exists }
-      context:
-        - name: appName
-          variable:
-            jmesPath: 'request.object.metadata.labels."app.kubernetes.io/name"'
-        - name: claimName
-          variable:
-            jmesPath: "request.object.metadata.name"
-        - name: namespace
-          variable:
-            jmesPath: "request.object.metadata.namespace"
-        - name: nodeAffinity
-          variable:
-            value:
-              ignored: '{{ (request.object.metadata.labels."snapshot.home.arpa/ignoreAffinity" || ''false'') == ''false'' }}'
-              labels:
-                - key: app.kubernetes.io/name
-                  operator: "In"
-                  values:
-                    - '{{ request.object.metadata.labels."app.kubernetes.io/name" }}'
-                - key: app.kubernetes.io/instance
-                  operator: "In"
-                  values:
-                    - '{{ request.object.metadata.labels."app.kubernetes.io/instance" }}'
-      generate:
-        generateExisting: true
-        synchronize: true
-        apiVersion: batch/v1
-        kind: CronJob
-        name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot',`50`) }}"
-        namespace: "{{ request.object.metadata.namespace }}"
-        data:
-          metadata:
-            labels:
-              app.kubernetes.io/name: '{{ request.object.metadata.labels."app.kubernetes.io/name" }}'
-              app.kubernetes.io/instance: '{{ request.object.metadata.labels."app.kubernetes.io/instance" }}'
-            ownerReferences:
-              - apiVersion: "{{ request.object.apiVersion }}"
-                kind: "{{ request.object.kind }}"
-                name: "{{ request.object.metadata.name }}"
-                uid: "{{ request.object.metadata.uid }}"
-          spec:
-            schedule: "0 3 * * *"
-            suspend: false
-            concurrencyPolicy: Forbid
-            successfulJobsHistoryLimit: 1
-            failedJobsHistoryLimit: 2
-            jobTemplate:
-              spec:
-                # Keep at least one job in completed state in accordance to the schedule
-                ttlSecondsAfterFinished: 86400
-                template:
-                  metadata:
-                    annotations:
-                      sidecar.istio.io/inject: "false"
-                      linkerd.io/inject: "disabled"
-                  spec:
-                    automountServiceAccountToken: false
-                    restartPolicy: OnFailure
-                    containers:
-                      - name: snapshot
-                        image: proxy.registry.beryju.io/kopia/kopia:0.23
-                        env:
-                          - name: BUCKET
-                            value: "beryjuio-k8s-backup"
-                          - name: ENDPOINT
-                            value: "s3.eu-central-2.wasabisys.com"
-                        envFrom:
-                          - secretRef:
-                              name: "{{ truncate('{{ appName }}-{{ claimName }}-snapshot-credentials',`50`) }}"
-                        command:
-                          - /bin/bash
-                          - -c
-                          - |-
-                            set -x
-                            BACKUP_PATH="/data/{{ namespace }}/{{ appName }}/{{ claimName }}"
-                            kopia repo connect s3 \
-                              --endpoint="$${ENDPOINT}" \
-                              --bucket="$${BUCKET}" \
-                              --override-hostname="${CLUSTER_NAME}" \
-                              --override-username="{{ request.object.metadata.namespace }}"
-                            kopia policy set $${BACKUP_PATH} \
-                              --compression=zstd \
-                              --keep-latest 28 \
-                              --keep-hourly 0 \
-                              --keep-daily 7 \
-                              --keep-weekly 2 \
-                              --keep-monthly 2 \
-                              --keep-annual 0
-                            # fsfreeze -f $${BACKUP_PATH}
-                            kopia snap create $${BACKUP_PATH}
-                            # fsfreeze -u $${BACKUP_PATH}
-                            kopia snap list $${BACKUP_PATH}
-                            kopia content stats
-                            kopia maintenance info
-                            kopia repo disconnect
-                        volumeMounts:
-                          - name: data
-                            mountPath: "/data/{{ namespace }}/{{ appName }}/{{ claimName }}"
-                        securityContext:
-                          privileged: true
-                    volumes:
-                      - name: data
-                        persistentVolumeClaim:
-                          claimName: "{{ claimName }}"
-                    affinity:
-                      podAffinity:
-                        requiredDuringSchedulingIgnoredDuringExecution:
-                          - topologyKey: kubernetes.io/hostname
-                            labelSelector:
-                              matchExpressions: "{{ nodeAffinity.ignored && [] || nodeAffinity.labels }}"
+  useServerSideApply: true
+  evaluation:
+    generateExisting:
+      enabled: true
+    synchronize:
+      enabled: true
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["persistentvolumeclaims"]
+    objectSelector:
+      matchLabels:
+        snapshot.home.arpa/enabled: "true"
+      matchExpressions:
+        - { key: "app.kubernetes.io/name", operator: Exists }
+        - { key: "app.kubernetes.io/instance", operator: Exists }
+  variables:
+    - name: appName
+      expression: 'object.metadata.labels["app.kubernetes.io/name"]'
+    - name: appInstance
+      expression: 'object.metadata.labels["app.kubernetes.io/instance"]'
+    - name: claimName
+      expression: "object.metadata.name"
+    - name: namespace
+      expression: "object.metadata.namespace"
+    - name: secretNameFull
+      expression: 'variables.appName + "-" + variables.claimName + "-snapshot-credentials"'
+    - name: secretName
+      expression: "variables.secretNameFull.size() > 50 ? variables.secretNameFull.substring(0, 50) : variables.secretNameFull"
+    - name: cronJobNameFull
+      expression: 'variables.appName + "-" + variables.claimName + "-snapshot"'
+    - name: cronJobName
+      expression: "variables.cronJobNameFull.size() > 50 ? variables.cronJobNameFull.substring(0, 50) : variables.cronJobNameFull"
+    - name: backupPath
+      expression: '"/data/" + variables.namespace + "/" + variables.appName + "/" + variables.claimName'
+    - name: ignoreAffinity
+      expression: '"snapshot.home.arpa/ignoreAffinity" in object.metadata.labels && object.metadata.labels["snapshot.home.arpa/ignoreAffinity"] == "true"'
+    - name: ownerReferences
+      expression: >-
+        [{
+          "apiVersion": object.apiVersion,
+          "kind": object.kind,
+          "name": object.metadata.name,
+          "uid": object.metadata.uid
+        }]
+    - name: secret
+      expression: >-
+        {
+          "apiVersion": dyn("external-secrets.io/v1"),
+          "kind": dyn("ExternalSecret"),
+          "metadata": dyn({
+            "name": dyn(variables.secretName),
+            "namespace": dyn(variables.namespace),
+            "ownerReferences": dyn(variables.ownerReferences)
+          }),
+          "spec": dyn({
+            "secretStoreRef": dyn({"name": "vault-kv", "kind": "ClusterSecretStore"}),
+            "data": dyn([
+              {"secretKey": dyn("AWS_ACCESS_KEY_ID"), "remoteRef": dyn({"key": "kv/wasabi/backup", "property": "access_key"})},
+              {"secretKey": dyn("AWS_SECRET_ACCESS_KEY"), "remoteRef": dyn({"key": "kv/wasabi/backup", "property": "secret_key"})},
+              {"secretKey": dyn("KOPIA_PASSWORD"), "remoteRef": dyn({"key": "kv/wasabi/backup", "property": "kopia"})}
+            ])
+          })
+        }
+    - name: script
+      expression: |-
+        'set -x\n' +
+        'kopia repo connect s3 --endpoint="$${ENDPOINT}" --bucket="$${BUCKET}" --override-hostname="${CLUSTER_NAME}" --override-username="$${KOPIA_USERNAME}"\n' +
+        'kopia policy set "$${BACKUP_PATH}" --compression=zstd --keep-latest 28 --keep-hourly 0 --keep-daily 7 --keep-weekly 2 --keep-monthly 2 --keep-annual 0\n' +
+        'kopia snap create "$${BACKUP_PATH}"\n' +
+        'kopia snap list "$${BACKUP_PATH}"\n' +
+        'kopia content stats\n' +
+        'kopia maintenance info\n' +
+        'kopia repo disconnect\n'
+    - name: affinity
+      expression: >-
+        variables.ignoreAffinity ? dyn({}) : dyn({
+          "podAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": [{
+              "topologyKey": dyn("kubernetes.io/hostname"),
+              "labelSelector": dyn({
+                "matchExpressions": [
+                  {"key": dyn("app.kubernetes.io/name"), "operator": dyn("In"), "values": dyn([variables.appName])},
+                  {"key": dyn("app.kubernetes.io/instance"), "operator": dyn("In"), "values": dyn([variables.appInstance])}
+                ]
+              })
+            }]
+          }
+        })
+    - name: cronJob
+      expression: >-
+        {
+          "apiVersion": dyn("batch/v1"),
+          "kind": dyn("CronJob"),
+          "metadata": dyn({
+            "name": dyn(variables.cronJobName),
+            "namespace": dyn(variables.namespace),
+            "labels": dyn({
+              "app.kubernetes.io/name": variables.appName,
+              "app.kubernetes.io/instance": variables.appInstance
+            }),
+            "ownerReferences": dyn(variables.ownerReferences)
+          }),
+          "spec": dyn({
+            "schedule": dyn("0 3 * * *"),
+            "suspend": dyn(false),
+            "concurrencyPolicy": dyn("Forbid"),
+            "successfulJobsHistoryLimit": dyn(1),
+            "failedJobsHistoryLimit": dyn(2),
+            "jobTemplate": dyn({"spec": {
+              "ttlSecondsAfterFinished": dyn(86400),
+              "template": dyn({
+                "metadata": dyn({"annotations": {
+                  "sidecar.istio.io/inject": "false",
+                  "linkerd.io/inject": "disabled"
+                }}),
+                "spec": dyn({
+                  "automountServiceAccountToken": dyn(false),
+                  "restartPolicy": dyn("OnFailure"),
+                  "containers": dyn([{
+                    "name": dyn("snapshot"),
+                    "image": dyn("proxy.registry.beryju.io/kopia/kopia:0.23"),
+                    "env": dyn([
+                      {"name": "BUCKET", "value": "beryjuio-k8s-backup"},
+                      {"name": "ENDPOINT", "value": "s3.eu-central-2.wasabisys.com"},
+                      {"name": "BACKUP_PATH", "value": variables.backupPath},
+                      {"name": "KOPIA_USERNAME", "value": variables.namespace}
+                    ]),
+                    "envFrom": dyn([{"secretRef": {"name": variables.secretName}}]),
+                    "command": dyn(["/bin/bash", "-c", variables.script]),
+                    "volumeMounts": dyn([{"name": "data", "mountPath": variables.backupPath}]),
+                    "securityContext": dyn({"privileged": true})
+                  }]),
+                  "volumes": dyn([{
+                    "name": dyn("data"),
+                    "persistentVolumeClaim": dyn({"claimName": variables.claimName})
+                  }]),
+                  "affinity": variables.affinity
+                })
+              })
+            }})
+          })
+        }
+  generate:
+    - expression: generator.Apply(variables.namespace, [variables.secret, variables.cronJob])

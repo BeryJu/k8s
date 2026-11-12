@@ -1,34 +1,38 @@
 ---
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
 metadata:
   name: shrink-cpu-requests
 spec:
-  rules:
-    - name: floor-cpu-requests
-      match:
-        any:
-          - resources:
-              kinds: [Pod]
-      exclude:
-        any:
-          - resources:
-              namespaces:
-                - kube-system
-                - kube-node-lease
-                - kube-public
-                - kyverno
-                - istio-system
-      mutate:
-        patchStrategicMerge:
-          spec:
-            containers:
-              - (name): "*"
-                resources:
-                  requests:
-                    cpu: "1m"
-            initContainers:
-              - (name): "*"
-                resources:
-                  requests:
-                    cpu: "1m"
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-system
+            - kube-node-lease
+            - kube-public
+            - kyverno
+            - istio-system
+  mutations:
+    - patchType: ApplyConfiguration
+      applyConfiguration:
+        expression: >-
+          Object{
+            spec: Object.spec{
+              containers: object.spec.containers.map(c, Object.spec.containers{
+                name: c.name,
+                resources: Object.spec.containers.resources{requests: {"cpu": "1m"}}
+              }),
+              initContainers: (has(object.spec.initContainers) ? object.spec.initContainers : []).map(c, Object.spec.initContainers{
+                name: c.name,
+                resources: Object.spec.initContainers.resources{requests: {"cpu": "1m"}}
+              })
+            }
+          }
