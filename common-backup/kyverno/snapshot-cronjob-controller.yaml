@@ -64,6 +64,8 @@ spec:
           "name": object.metadata.name,
           "uid": object.metadata.uid
         }]
+    # target.template stops ESO copying the kyverno generate labels onto the Secret,
+    # which kyverno's protect-generation-labels webhook rejects
     - name: secret
       expression: >-
         {
@@ -76,6 +78,7 @@ spec:
           }),
           "spec": dyn({
             "secretStoreRef": dyn({"name": "vault-kv", "kind": "ClusterSecretStore"}),
+            "target": dyn({"template": {"metadata": {"labels": {"app.kubernetes.io/name": variables.appName}}}}),
             "data": dyn([
               {"secretKey": dyn("AWS_ACCESS_KEY_ID"), "remoteRef": dyn({"key": "kv/wasabi/backup", "property": "access_key"})},
               {"secretKey": dyn("AWS_SECRET_ACCESS_KEY"), "remoteRef": dyn({"key": "kv/wasabi/backup", "property": "secret_key"})},
