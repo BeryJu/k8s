@@ -105,4 +105,4 @@ spec:
         - name: nas-incoming
           nfs:
             path: /volume1/print/scanner
-            server: nas1.prod.beryju.io
+            server: 192.168.8.30
