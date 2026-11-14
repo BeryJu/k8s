@@ -15,6 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "guacamole.name" . }}-guacamole
         app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- toYaml .Values.guacamole.labels | nindent 8 }}
     spec:
     {{- with .Values.guacamole.imagePullSecrets }}
       imagePullSecrets:
@@ -61,9 +62,9 @@ spec:
           args:
             - -c
             - |
-              export PGPASSWORD=$POSTGRES_PASSWORD
+              export PGPASSWORD=$POSTGRESQL_PASSWORD
               # most likely already created, so don't fail, just log and move on
-              psql -h $POSTGRES_HOSTNAME -d $POSTGRES_DATABASE -U $POSTGRES_USER -p $POSTGRES_PORT -a -w -f /data/initdb.sql || true
+              psql -h $POSTGRESQL_HOSTNAME -d $POSTGRESQL_DATABASE -U $POSTGRESQL_USER -p $POSTGRESQL_PORT -a -w -f /data/initdb.sql || true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       containers:
@@ -89,6 +90,9 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -103,4 +107,6 @@ spec:
     {{- end }}
       volumes:
         - name: initdb
+          emptyDir: {}
+        - name: tmp
           emptyDir: {}
