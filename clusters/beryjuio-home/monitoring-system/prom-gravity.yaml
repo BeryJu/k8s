@@ -19,7 +19,7 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.250
+      - ip: 192.168.8.1
     ports:
       - name: http
         port: 8009
