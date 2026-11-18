@@ -80,6 +80,6 @@ spec:
           enabled: true
         image:
           repository: prometheuscommunity/postgres-exporter
-          tag: v0.20.1
+          tag: v0.21.1
     redis:
       enabled: false
