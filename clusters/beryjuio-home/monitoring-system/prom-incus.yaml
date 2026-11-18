@@ -20,7 +20,9 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.32
+      - ip: 192.168.8.50
+      - ip: 192.168.8.51
+      - ip: 192.168.8.52
     ports:
       - name: metrics-incus
         port: 8444
