@@ -3,7 +3,7 @@ groups:
   - name: beryjuorg-prometheus-isito
     rules:
       - alert: IstioKubernetesGatewayAvailabilityDrop
-        expr: min(kube_deployment_status_replicas_available{deployment="istio-ingressgateway", namespace="istio-system"}) without (instance, pod) < 2
+        expr: min(kube_deployment_status_replicas_available{deployment="istio-ingressgateway", namespace="istio-system"}) without (instance, pod) < min(kube_deployment_spec_replicas{deployment="istio-ingressgateway", namespace="istio-system"}) without (instance, pod)
         for: 1m
         labels:
           severity: warning
