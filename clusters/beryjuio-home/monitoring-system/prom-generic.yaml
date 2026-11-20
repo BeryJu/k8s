@@ -19,7 +19,7 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.30 # nas1
+      - ip: 192.168.8.30 # nas1
       - ip: 10.120.20.60 # hass1 (node)
       - ip: 10.120.20.32 # kvm
       - ip: 10.120.20.75 # unifi
