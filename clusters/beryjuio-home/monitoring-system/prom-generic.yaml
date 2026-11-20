@@ -27,17 +27,10 @@ subsets:
       - name: metrics
         port: 9100
   - addresses:
-      - ip: 10.120.20.63 # kvm router
-      - ip: 10.120.20.79 # kvm kvm
+      - ip: 192.168.8.145 # kvm k8s
     ports:
       - name: metrics
         port: 80
-  - addresses:
-      - ip: 10.120.20.77 # windows-dev
-      - ip: 10.120.20.76 # windows-server
-    ports:
-      - name: metrics
-        port: 9182
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
