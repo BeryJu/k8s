@@ -14,3 +14,11 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
+  patches:
+    - target:
+        kind: HorizontalPodAutoscaler
+        namespace: registry
+      patch: |-
+        - op: replace
+          path: /spec/maxReplicas
+          value: 2

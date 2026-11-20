@@ -3,12 +3,12 @@ groups:
   - name: beryjuio-prometheus-snmp
     rules:
       - alert: SNMPLabeledPortDown
-        expr: ifOperStatus{ifName!~"Port\\d*|SFP\\d*|Desk.*|PS4"} > 1
+        expr: ifOperStatus{ifAlias!~"|defconf"} > 1
         for: 1m
         labels:
           severity: critical
         annotations:
-          summary: SNMP Labeled Port is down (port {{ $labels.ifName }} switch {{ $labels.instance }})
+          summary: SNMP Labeled Port is down (port {{ $labels.ifName }} ({{ $labels.ifAlias }}) switch {{ $labels.instance }})
           description: "Port has gone offline."
       - alert: SNMPUplinkPortSpeedDecrease
         expr: -1 * increase(ifHighSpeed{ifName=~".*Uplink.*"}[5m]) > 0

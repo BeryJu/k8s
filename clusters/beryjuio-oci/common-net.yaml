@@ -25,6 +25,13 @@ spec:
         - op: replace
           path: /spec/values/autoscaling/maxReplicas
           value: 2
+        # single node: no room to surge a second pod during rollouts
+        - op: add
+          path: /spec/values/strategy
+          value:
+            rollingUpdate:
+              maxSurge: 0
+              maxUnavailable: 1
     - target:
         kind: HelmRelease
         name: istio-eastwestgateway

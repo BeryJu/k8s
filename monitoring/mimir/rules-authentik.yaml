@@ -3,7 +3,7 @@ groups:
   - name: beryjuorg-prometheus-authentik
     rules:
       - alert: NoWorkersConnected
-        expr: max without (pid) (authentik_admin_workers) < 1
+        expr: max without (pid, version, version_matched) (authentik_admin_workers) < 1
         annotations:
           message: |
             authentik instance {{ $labels.instance }}'s worker are either not running or not connected.
