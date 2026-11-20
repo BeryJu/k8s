@@ -21,8 +21,7 @@ subsets:
   - addresses:
       - ip: 192.168.8.30 # nas1
       - ip: 10.120.20.60 # hass1 (node)
-      - ip: 10.120.20.32 # kvm
-      - ip: 10.120.20.75 # unifi
+      - ip: 192.168.8.50 # inucs (legacy)
     ports:
       - name: metrics
         port: 9100
