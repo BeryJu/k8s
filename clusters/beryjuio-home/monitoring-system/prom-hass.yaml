@@ -24,8 +24,8 @@ spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 8123
-      targetPort: 8123
+      port: 80
+      targetPort: 80
 ---
 kind: Endpoints
 apiVersion: v1
@@ -34,10 +34,10 @@ metadata:
   namespace: monitoring-system
 subsets:
   - addresses:
-      - ip: 10.120.20.60
+      - ip: 192.168.8.240
     ports:
       - name: http
-        port: 8123
+        port: 80
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
