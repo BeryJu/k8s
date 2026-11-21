@@ -22,3 +22,9 @@ spec:
         - op: replace
           path: /spec/maxReplicas
           value: 2
+        # shrink-cpu-requests sets requests to 1m, so Utilization targets are meaningless here
+        - op: replace
+          path: /spec/metrics/0/resource/target
+          value:
+            type: AverageValue
+            averageValue: 100m
