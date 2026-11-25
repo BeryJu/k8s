@@ -64,9 +64,8 @@ spec:
             path: /volume1/media
             server: 192.168.8.30
         - name: media-temp
-          nfs:
-            path: /volume2/media-temp
-            server: nas1.prod.beryju.io
+          hostPath:
+            path: /media
   volumeClaimTemplates:
     - metadata:
         name: config
