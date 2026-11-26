@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: poller
-          image: ghcr.io/unpoller/unpoller:v5.10.1
+          image: ghcr.io/unpoller/unpoller:v5.10.2
           resources:
             limits:
               memory: "128Mi"
